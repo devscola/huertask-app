@@ -16,9 +16,7 @@ interface Task {
 export class Tasks {
 
 public list: Task[];
-
-  constructor(public navCtrl: NavController) {
-    this.list = [
+tasks = [
 		{
 			title: "Regar parcela",
 			date: "2016/10/31",
@@ -56,6 +54,11 @@ public list: Task[];
 			people_left: 9
 		}
 	];
+
+  constructor(public navCtrl: NavController) {
+    this.list = this.tasks.sort(function(a,b){
+	  return parseInt(a.date.split('/').join('')) - parseInt(b.date.split('/').join(''));
+	});
   }
 
 }
