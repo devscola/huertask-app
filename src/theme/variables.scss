@@ -24,7 +24,7 @@ $toolbar-background: #f66e54;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    rgb(246, 110, 84),
+  primary:    $toolbar-background,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
