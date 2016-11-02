@@ -1,3 +1,14 @@
 tasks {
-
+	ion-card {
+		border-left: 8px solid rgba(0, 0, 0, 0);
+		&.cat-limpieza {
+			border-color: map-get($colors, danger)
+		}
+		&.cat-general {
+			border-color: map-get($colors, primary)
+		}
+		&.cat-cosecha {
+			border-color: map-get($colors, secondary)
+		}
+	}
 }
