@@ -16,6 +16,7 @@ GEM
     concurrent-ruby (1.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    diff-lcs (1.2.5)
     equalizer (0.0.11)
     grape (0.18.0)
       activesupport
@@ -40,6 +41,19 @@ GEM
     rack (2.0.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     thread_safe (0.3.5)
     tool (0.2.3)
     tzinfo (1.2.2)
@@ -55,6 +69,7 @@ PLATFORMS
 
 DEPENDENCIES
   grape
+  rspec
 
 BUNDLED WITH
    1.13.5
