@@ -1,4 +1,4 @@
-require 'rubygems' 
+require 'rubygems'
 require 'rack'
 require './main'
-run Twitter::API
+run Huertask::API
