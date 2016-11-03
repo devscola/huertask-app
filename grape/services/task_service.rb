@@ -45,5 +45,6 @@ class TaskService
     end
 
     future_tasks
+    FILTERED_JSON
   end
 end
