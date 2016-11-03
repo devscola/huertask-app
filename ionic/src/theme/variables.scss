@@ -11,7 +11,7 @@
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 $text-color:        #000;
-$background-color:  #fff;
+$background-color:  #f4f4f4;
 $toolbar-background: #f66e54;
 
 
@@ -29,6 +29,13 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
+);
+
+$category-colors: (
+  harvest: #87e8c0,
+  general: #e8cf87,
+  cleaning: #87d7e8,
+  irrigation: #87ade8
 );
 
 

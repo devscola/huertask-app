@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <ion-card *ngFor="let task of list" ngClass="cat-{{task.category}}">
     <ion-card-header>
       {{task.title}}
