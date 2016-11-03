@@ -18,10 +18,15 @@ describe Huertask::API do
       expect(last_response).to be_ok
     end
 
-    it "returns a list with future tasks" do
+    it "returns an array of tasks" do
       get "/api/tasks"
+      non_tasks = Array.new
 
-      expect(tasks.size).to eq(5)
+      tasks.each do |element|
+        non_tasks.push(element) if element.is_a?(Task)
+      end
+
+      expect(non_tasks.size).to eq(0)
     end
   end
 end

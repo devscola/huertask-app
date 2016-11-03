@@ -1,6 +1,6 @@
-require_relative '../models/task'
+require_relative '../../models/task'
 
-FILTERED_JSON = [
+filtered_json = [
   {
     title: "Recoger tomates",
     date: "2016/12/07",
@@ -33,13 +33,12 @@ FILTERED_JSON = [
   }
 ]
 
-class TaskService
-
+class TaskServiceStub
   def self.find_future
 
     future_tasks = Array.new
 
-    FILTERED_JSON.each do |dictionary|
+    filtered_json.each do |dictionary|
       task = Task.new(dictionary)
       future_tasks.push(task)
     end
