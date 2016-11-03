@@ -1,4 +1,5 @@
 require 'grape'
+require_relative './services/task_service'
 
 module Huertask
   class API < Grape::API
@@ -9,7 +10,7 @@ module Huertask
 
     resource :tasks do
       get "/" do
-        'Hello'
+        TaskService.find_future
       end
     end
 
