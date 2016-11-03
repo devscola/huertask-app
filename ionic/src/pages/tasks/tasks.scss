@@ -1,6 +1,7 @@
 tasks {
 	ion-card {
 		border-left: 8px solid rgba(0, 0, 0, 0);
+    color: #888888;
 		&.cat-limpieza {
 			border-color: map-get($category-colors, cleaning)
 		}
@@ -12,4 +13,8 @@ tasks {
 		}
     background-color: #fff !important;
 	}
+
+  .people-left-text{
+    color: map-get($colors, primary)
+  }
 }

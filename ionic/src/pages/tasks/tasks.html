@@ -14,7 +14,12 @@
     </ion-card-header>
 
     <ion-card-content>
-      {{task.date}} {{task.people_left}}
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{task.date}}</ion-col>
+          <ion-col>Faltan <span class="people-left-text">{{task.people_left}}</span> personas</ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>
