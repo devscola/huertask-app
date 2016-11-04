@@ -58,10 +58,11 @@ export class Tasks {
 
   public list: Task[];
 
-  tabActiveStatus = {
-    future: true,
-    past: false
-  }
+  tabs = [
+    {title: "Próximas", active: true},
+    {title: "Mias", active: false},
+    {title: "Pasadas", active: false}
+  ]
 
 	constructor(public navCtrl: NavController) {
     this.sortByDate();
@@ -79,16 +80,23 @@ export class Tasks {
 	showFutureTasks(){
     let fromDate = Date.now();
 		this.list = tasks.filter(function(task) { return Date.parse(task.date) >= fromDate });
-    this.tabActiveStatus.past = false;
-    this.tabActiveStatus.future = true;
 	}
 
   showPastTasks(){
     let fromDate = Date.now();
     this.list = tasks.filter(function(task) { return Date.parse(task.date) <= fromDate });
-    this.tabActiveStatus.future = false
-    this.tabActiveStatus.past = true
+  }
 
+  showTasks(tabTitle){
+    if(tabTitle === "Próximas"){ return this.showFutureTasks() }
+    if(tabTitle === "Pasadas"){ this.showPastTasks() }
+  }
 
+  selectTab(tabTitle) {
+    this.tabs.forEach((tab) => {
+      tab.active = false;
+      if(tabTitle === tab.title) { tab.active = true };
+    });
+    this.showTasks(tabTitle)
   }
 }

@@ -16,9 +16,7 @@
 <ion-content padding>
   <ion-grid class="tasks-tabs">
     <ion-row>
-      <ion-col (click)="showFutureTasks()" [class.active]="tabActiveStatus.future">Proximas</ion-col>
-      <ion-col>Mias</ion-col>
-      <ion-col (click)="showPastTasks()" [class.active]="tabActiveStatus.past">Pasadas</ion-col>
+      <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{tab.title}}</ion-col>
     </ion-row>
 
   </ion-grid>
