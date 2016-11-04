@@ -56,26 +56,42 @@ interface Task {
 })
 export class Tasks {
 
-	public list: Task[];
+  public list: Task[];
 
-  	constructor(public navCtrl: NavController) {
-	    this.sortByDate();
-	    this.showTasks();
-  	}
+  tabActiveStatus = {
+    future: true,
+    past: false
+  }
 
-  	sortByDate(){
-	    this.list = tasks.sort(function(a,b){
+  currentActiveTab = "future"
+
+	constructor(public navCtrl: NavController) {
+    this.sortByDate();
+    this.showFutureTasks();
+	}
+
+	sortByDate(){
+    this.list = tasks.sort(function(a,b){
 			let date = Date.parse(a.date);
 			let secondDate = Date.parse(b.date);
 			return date - secondDate;
-		});
-  	}
+	  });
+	}
 
-  	showTasks(fromDate = Date.now(), toDate = null){
-  		this.list = this.list.filter(function(task) { return Date.parse(task.date) >= fromDate});
-  		
-  		if(null !== toDate){
-	  		this.list = this.list.filter(function(task) { return Date.parse(task.date) <= fromDate});
-  		}
-  	}
+	showFutureTasks(){
+    let fromDate = Date.now();
+		this.list = tasks.filter(function(task) { return Date.parse(task.date) >= fromDate });
+    this.tabActiveStatus.past = false;
+    this.tabActiveStatus.future = true;
+    this.currentActiveTab = "future"
+	}
+
+  showPastTasks(){
+    let fromDate = Date.now();
+    this.list = tasks.filter(function(task) { return Date.parse(task.date) <= fromDate });
+    this.tabActiveStatus.future = false
+    this.tabActiveStatus.past = true
+    this.currentActiveTab = "past"
+
+  }
 }

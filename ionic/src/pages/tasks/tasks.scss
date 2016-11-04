@@ -22,4 +22,12 @@ tasks {
     font-size: 1.8em;
     padding: 10px
   }
+
+  .tasks-tabs{
+    text-align: center;
+    padding: 15px 0px;
+    .active{
+      color: red;
+    }
+  }
 }

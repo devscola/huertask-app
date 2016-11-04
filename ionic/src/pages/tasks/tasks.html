@@ -14,6 +14,14 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-grid class="tasks-tabs">
+    <ion-row>
+      <ion-col (click)="showFutureTasks()" [class.active]="tabActiveStatus.future">Proximas</ion-col>
+      <ion-col>Mias</ion-col>
+      <ion-col (click)="showPastTasks()" [class.active]="tabActiveStatus.past">Pasadas</ion-col>
+    </ion-row>
+
+  </ion-grid>
   <ion-card *ngFor="let task of list" ngClass="cat-{{task.category}}">
     <ion-card-header>
       {{task.title}}
