@@ -63,8 +63,6 @@ export class Tasks {
     past: false
   }
 
-  currentActiveTab = "future"
-
 	constructor(public navCtrl: NavController) {
     this.sortByDate();
     this.showFutureTasks();
@@ -83,7 +81,6 @@ export class Tasks {
 		this.list = tasks.filter(function(task) { return Date.parse(task.date) >= fromDate });
     this.tabActiveStatus.past = false;
     this.tabActiveStatus.future = true;
-    this.currentActiveTab = "future"
 	}
 
   showPastTasks(){
@@ -91,7 +88,7 @@ export class Tasks {
     this.list = tasks.filter(function(task) { return Date.parse(task.date) <= fromDate });
     this.tabActiveStatus.future = false
     this.tabActiveStatus.past = true
-    this.currentActiveTab = "past"
+
 
   }
 }
