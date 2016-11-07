@@ -11,7 +11,7 @@ import { NavController } from 'ionic-angular';
   selector: 'page-new-task',
   templateUrl: 'new-task.html'
 })
-export class NewTask {
+export class NewTaskPage {
 
   constructor(public navCtrl: NavController) {}
 
