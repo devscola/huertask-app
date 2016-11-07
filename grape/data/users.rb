@@ -1,17 +1,17 @@
 USERS = [
   {
-    name: "Pepe"
+    name: "Pepe Sánchez"
   },
   {
-    name: "Jaime"
+    name: "Jaime Revilla"
   },
   {
-    name: "Lucía"
+    name: "Lucía Manzanares"
   },
   {
-    name: "Celia"
+    name: "Celia Bonet"
   },
   {
-    name: "Amparo"
+    name: "Amparo Cisneros"
   }
 ]
