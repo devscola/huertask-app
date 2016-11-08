@@ -11,27 +11,19 @@ module Huertask
     resource :tasks do
       get "/" do
         to_json(Tasks.futures)
-        #Tasks.futures
       end
     end
 
     helpers do
       def to_json tasks
-        converted_tasks = Array.new
-
-        tasks.each do |task|
-
-          converted_data = {
+        tasks.map { |task|
+          {
             title: task.title,
             date: task.date,
             people_left: task.people_left,
             category: task.category
           }
-
-          converted_tasks.push(converted_data)
-        end
-
-        converted_tasks
+        }
       end
     end
   end
