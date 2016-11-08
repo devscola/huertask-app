@@ -1,6 +1,10 @@
+require_relative './task'
+
 class Tasks
   def self.all
-    [
+    tasks = Array.new
+
+    raw_data = [
       {
         title: "Recoger tomates",
         date: "2012-01-01 00:00:00",
@@ -32,15 +36,16 @@ class Tasks
         people_left: 9
       }
     ]
+
+    raw_data.each do |data_chunk|
+      new_task = Task.new(data_chunk)
+      tasks.push(new_task)
+    end
+
+    tasks
   end
 
   def self.futures
-    all.select {|task| future_task?(task)}
-  end
-
-  private
-
-  def self.future_task? task
-        task[:date] >= Time.now.utc
+    all.select {|task| task.future?}
   end
 end
