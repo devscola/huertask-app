@@ -36,9 +36,15 @@ describe Task  do
     expect(category).to eq(data[:category])
   end
 
-  it 'cannot has a nil member' do
-    data_without_people = {title: "recoger lechugas", date: Date.new(2016, 02, 10)}
+  it 'is valid if none of its members is nil' do
+    data_without_people = {title: "recoger lechugas", date: Date.new(2016, 02, 10), category: "harvest"}
+    invalid_task = Task.new(data_without_people)
 
-    expect {Task.new(data_without_people)}.to raise_error(ArgumentError)
+    expect(invalid_task.valid?).to eq(false)
+
+    data = {title: "pick lettuces", date: Date.new(2016, 02, 10), people_left: 5, category: "harvest"}
+    valid_task = Task.new(data)
+
+    expect(valid_task.valid?).to eq(true)
   end
 end

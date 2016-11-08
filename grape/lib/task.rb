@@ -6,11 +6,10 @@ class Task
     @date = dictionary[:date]
     @people_left = dictionary[:people_left]
     @category = dictionary[:category]
-
-    validate_properties
   end
 
-  def validate_properties
-    raise ArgumentError if [@title, @date, @people_left, @category].include?(nil)
+  def valid?
+    return false if [@title, @date, @people_left, @category].include?(nil)
+    true
   end
 end
