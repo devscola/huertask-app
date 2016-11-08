@@ -12,4 +12,8 @@ class Task
     return false if [@title, @date, @people_left, @category].include?(nil)
     true
   end
+
+  def future?
+    @date >= Time.now.utc
+  end
 end

@@ -47,4 +47,14 @@ describe Task  do
 
     expect(valid_task.valid?).to eq(true)
   end
+
+  it 'can be future or past' do
+    future_task = Task.new({date: Date.new(9999, 02, 10)})
+
+    expect(future_task.future?).to be(true)
+
+    past_task = Task.new({date: Date.new(0000, 02, 10)})
+
+    expect(past_task.future?).to be(false)
+  end
 end
