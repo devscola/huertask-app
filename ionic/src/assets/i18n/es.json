@@ -1,0 +1,17 @@
+{
+  "TASKS" : {
+    "TITLE"     : "Tareas",
+    "NEXT"      : "Próximas",
+    "OWN"       : "Mías",
+    "PREVIOUS"  : "Pasadas"
+  },
+  "TASK" : {
+    "PEOPLE_LEFT" : {
+      "MSG" : {
+        "ZERO" : "Completa",
+        "ONE" : "Falta <span class='people-left-text'>1</span> persona",
+        "PLURAL" : "Faltan <span class='people-left-text'>{{count}}</span> personas"
+      }
+    }
+  }
+}

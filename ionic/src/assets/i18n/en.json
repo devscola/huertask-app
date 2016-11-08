@@ -1,0 +1,18 @@
+{
+  "TASKS" : {
+    "TITLE"     : "Tasks",
+    "NEXT"      : "Next",
+    "OWN"       : "Own",
+    "PREVIOUS"  : "Previous"
+  },
+  "TASK" : {
+    "PEOPLE_LEFT" : {
+      "MSG" : {
+        "ZERO" : "Full",
+        "ONE" : "<span class='people-left-text'>1</span> person left",
+        "PLURAL" : "<span class='people-left-text'>{{count}}</span> people left"
+      }
+    }
+  }
+}
+

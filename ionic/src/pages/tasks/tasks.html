@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Tasks</ion-title>
+    <ion-title>{{ 'TASKS.TITLE' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button>
         <ion-icon name="add-circle"></ion-icon>
@@ -16,7 +16,7 @@
 <ion-content padding>
   <ion-grid class="tasks-tabs">
     <ion-row>
-      <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{tab.title}}</ion-col>
+      <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
 
   </ion-grid>
@@ -29,7 +29,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>{{task.date}}</ion-col>
-          <ion-col>Faltan <span class="people-left-text">{{task.people_left}}</span> personas</ion-col>
+          <ion-col [innerHTML]='"TASK.PEOPLE_LEFT.MSG." + (task.people_left | i18nPlural: messageMapping)  | translate:{count: task.people_left}'></ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
