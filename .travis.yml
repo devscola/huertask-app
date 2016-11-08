@@ -1,0 +1,10 @@
+language: ruby
+
+rvm:
+  - 2.3.0
+  - rspec
+
+env:
+  - TEST_DIR=grape
+
+script: cd $TEST_DIR && bundle exec rspec spec
