@@ -1,4 +1,4 @@
-require_relative '../models/task'
+require_relative '../lib/task'
 
 describe Task  do
 

@@ -1,4 +1,5 @@
 require 'grape'
+require_relative './lib/tasks'
 
 TASKS = [
           {
