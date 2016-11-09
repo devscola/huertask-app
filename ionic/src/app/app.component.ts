@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Tasks } from '../pages/tasks/tasks';
+import { CreateTask } from '../pages/create-task/create-task';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Tasks', component: Tasks }
+      { title: 'Tasks', component: Tasks },
+      { title: 'CreateTask', component: CreateTask }
     ];
 
   }
