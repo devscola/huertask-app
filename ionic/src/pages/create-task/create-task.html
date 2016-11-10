@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create</ion-title>
+    <ion-buttons end>
+      <button ion-button>
+        <ion-icon name="add-circle"></ion-icon>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" placeholder="Pepito"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo</ion-label>
+      <ion-select>
+        <ion-option value="option1">Opción 1</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Start Time</ion-label>
+      <ion-datetime min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>End Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nº Personas</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Nota</ion-label>
+      <ion-textarea rows="3" placeholder="Escribe"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button outline>Guardar</button>
+
+</ion-content>

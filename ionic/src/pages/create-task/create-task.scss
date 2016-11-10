@@ -1,0 +1,8 @@
+.list-md > .item-block:first-child,
+.list-md > .item-wrapper:first-child .item-block{
+  border-top: none;
+}
+.list-md > .item-block:last-child,
+.list-md > .item-wrapper:last-child .item-block{
+  border-bottom: none;
+}
