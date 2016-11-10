@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { TranslateService } from 'ng2-translate';
 
 import { Tasks } from '../pages/tasks/tasks';
 
@@ -14,14 +15,14 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, translate: TranslateService) {
     this.initializeApp();
-
+    translate.setDefaultLang('es');
+    translate.use('es');
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Tasks', component: Tasks }
     ];
-
   }
 
   initializeApp() {

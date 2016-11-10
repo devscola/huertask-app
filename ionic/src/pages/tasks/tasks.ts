@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-
-
 var tasks = [
 	{
 		title: "Regar parcela",
@@ -58,10 +56,16 @@ export class Tasks {
 
   public list: Task[];
 
+  messageMapping: {[k:string]: string} = {
+    '=0': 'ZERO',
+    '=1': 'ONE',
+    'other': 'PLURAL'
+  }
+
   tabs = [
-    {title: "Próximas", active: true},
-    {title: "Mias", active: false},
-    {title: "Pasadas", active: false}
+    {title: "TASKS.NEXT", active: true},
+    {title: "TASKS.OWN", active: false},
+    {title: "TASKS.PREVIOUS", active: false}
   ]
 
 	constructor(public navCtrl: NavController) {
