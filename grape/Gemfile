@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'grape'
+gem 'data_mapper'
 
 group :development, :test do
   gem 'rspec'
   gem 'rack-test'
+  gem 'sqlite3'
+  gem 'dm-sqlite-adapter'
 end

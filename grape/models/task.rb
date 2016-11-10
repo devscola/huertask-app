@@ -1,5 +1,11 @@
 class Task
-  attr_reader :title, :date, :people_left, :category
+  include DataMapper::Resource
+
+  property :id,          Serial
+  property :title,       String
+  property :date,        DateTime
+  property :people_left, Integer
+  property :category,    String
 
   def initialize(dictionary)
     @title = dictionary[:title]
