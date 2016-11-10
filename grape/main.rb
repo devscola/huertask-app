@@ -33,7 +33,7 @@ module Huertask
         task[:date] >= Time.now.utc
       end
 
-      DataMapper::setup(:default, ENV['HUERTASK_DB_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
+      DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
     end
   end
