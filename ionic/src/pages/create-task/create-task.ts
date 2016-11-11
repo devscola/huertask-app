@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NavController } from 'ionic-angular';
 
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
+import { Tasks } from '../tasks/tasks';
 
 import { Task }    from '../../models/task';
 
@@ -65,7 +68,7 @@ export class CreateTask {
     },
     err => console.log(err)
     )
-    this.navCtrl.popToRoot()
+    this.navCtrl.setRoot(Tasks);
   }
 
 
