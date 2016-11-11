@@ -26,7 +26,7 @@ module Huertask
 
     helpers do
       def future_tasks
-        Task.all.select {|task| future_task?(task)}
+        Task.all.sort{|x,y| y <=> x }.select {|task| future_task?(task)}
       end
 
       def future_task? task
