@@ -17,7 +17,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Nombre</ion-label>
-      <ion-input type="text" placeholder="Pepito"></ion-input>
+      <ion-input [(ngModel)]="task.title" type="text" placeholder="Pepito"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -39,7 +39,7 @@
 
     <ion-item>
       <ion-label>Nº Personas</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input [(ngModel)]="task.people" type="number"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -48,6 +48,6 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button outline>Guardar</button>
+  <button (click)="createTask(task)" type="submit" ion-button outline>Guardar</button>
 
 </ion-content>
