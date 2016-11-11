@@ -107,7 +107,6 @@ GEM
     rack (2.0.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rspec (3.5.0)
@@ -146,7 +145,6 @@ DEPENDENCIES
   grape
   grape-entity
   pg
-  rack-cors
   rack-test
   rspec
   sqlite3
