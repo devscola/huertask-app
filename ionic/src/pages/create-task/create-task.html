@@ -3,45 +3,45 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Create</ion-title>
+    <ion-title>{{ 'TASK.CREATE.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>Nombre</ion-label>
-      <ion-input [(ngModel)]="task.title" type="text" placeholder="Pepito"></ion-input>
+      <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
+      <ion-input [(ngModel)]="task.title" type="text" placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Tipo</ion-label>
+      <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
       <ion-select [(ngModel)]="task.category">
         <ion-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>Start Time</ion-label>
+      <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
       <ion-datetime [(ngModel)]="task.date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label>End Time</ion-label>
+      <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
       <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label>Nº Personas</ion-label>
+      <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
       <ion-input [(ngModel)]="task.people" type="number"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Nota</ion-label>
-      <ion-textarea rows="3" placeholder="Escribe"></ion-textarea>
+      <ion-label stacked>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
+      <ion-textarea rows="3" placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}"></ion-textarea>
     </ion-item>
   </ion-list>
 
-  <button (click)="createTask(task)" type="submit" ion-button outline>Guardar</button>
+  <button (click)="createTask(task)" type="submit" ion-button outline>{{ 'TASK.FORM.BUTTON.CREATE' | translate }}</button>
 
 </ion-content>
