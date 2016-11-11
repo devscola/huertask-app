@@ -1,16 +1,11 @@
-class Task
-  attr_reader :title, :date, :people_left, :category
+module Huertask
+  class Task
+    include DataMapper::Resource
 
-  def initialize(dictionary)
-    @title = dictionary[:title]
-    @date = dictionary[:date]
-    @people_left = dictionary[:people_left]
-    @category = dictionary[:category]
-
-    validate_properties
-  end
-
-  def validate_properties
-    raise ArgumentError if [@title, @date, @people_left, @category].include?(nil)
+    property :id,          Serial
+    property :title,       String
+    property :date,        DateTime
+    property :people,      Integer
+    property :category,    String
   end
 end

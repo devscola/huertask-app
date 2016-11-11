@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 
 import { CreateTask } from '../create-task/create-task';
 
-
 interface Task {
 	title: string,
 	date: string,
@@ -25,10 +24,16 @@ export class Tasks {
   public list: Task[];
   tasks;
 
+  messageMapping: {[k:string]: string} = {
+    '=0': 'ZERO',
+    '=1': 'ONE',
+    'other': 'PLURAL'
+  }
+
   tabs = [
-    {title: "Próximas", active: true},
-    {title: "Mias", active: false},
-    {title: "Pasadas", active: false}
+    {title: "TASKS.NEXT", active: true},
+    {title: "TASKS.OWN", active: false},
+    {title: "TASKS.PREVIOUS", active: false}
   ]
 
 	constructor(public navCtrl: NavController, public http: Http) {

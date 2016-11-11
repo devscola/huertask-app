@@ -1,37 +1,9 @@
 require 'grape'
+require 'data_mapper'
 
-TASKS = [
-          {
-            title: "Recoger tomates",
-            date: "2012-01-01 00:00:00",
-            category: "cosecha",
-            people_left: 1
-          },
-          {
-            title: "Barrer entrada",
-            date: "2016-12-09 00:00:00",
-            category: "limpieza",
-            people_left: 4
-          },
-          {
-            title: "Traer leña",
-            date: "2016-12-12 00:00:00",
-            category: "general",
-            people_left: 1
-          },
-          {
-            title: "Quitar malas hierbas",
-            date: "2016-12-02 00:00:00",
-            category: "limpieza",
-            people_left: 5
-          },
-          {
-            title: "Ampliar parcelas zona oeste",
-            date: "2016-12-13 00:00:00",
-            category: "general",
-            people_left: 9
-          }
-        ]
+require_relative './data/tasks'
+require_relative './data/users'
+require_relative'./models/task'
 
 module Huertask
   class API < Grape::API
@@ -44,16 +16,25 @@ module Huertask
       get "/" do
         future_tasks
       end
+
+      desc 'Create a new task'
+      post '/' do
+        created_task = Task.create params[:task]
+        created_task
+      end
     end
 
     helpers do
       def future_tasks
-        TASKS.select {|task| future_task?(task)}
+        Task.all.select {|task| future_task?(task)}
       end
 
       def future_task? task
         task[:date] >= Time.now.utc
       end
+
+      DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
+      DataMapper.auto_upgrade!
     end
   end
 end
