@@ -4,12 +4,6 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Create</ion-title>
-    <ion-buttons end>
-      <button ion-button>
-        <ion-icon name="add-circle"></ion-icon>
-        <ion-icon name="search"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -22,14 +16,14 @@
 
     <ion-item>
       <ion-label>Tipo</ion-label>
-      <ion-select>
-        <ion-option value="option1">Opción 1</ion-option>
+      <ion-select [(ngModel)]="task.category">
+        <ion-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Start Time</ion-label>
-      <ion-datetime min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
+      <ion-datetime [(ngModel)]="task.date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>

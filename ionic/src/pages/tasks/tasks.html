@@ -28,8 +28,8 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>{{task.date}}</ion-col>
-          <ion-col>Faltan <span class="people-left-text">{{task.people_left}}</span> personas</ion-col>
+          <ion-col>{{task.date | date:"dd-MM-yyyy"}}</ion-col>
+          <ion-col>Faltan <span class="people-left-text">{{task.people}}</span> personas</ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

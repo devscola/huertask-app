@@ -15,6 +15,32 @@ import { Task }    from '../../models/task';
 
 export class CreateTask {
   public today: any = new Date();
+  public categories = [
+    {
+      id: 1,
+      name: "mantenimiento"
+    },
+    {
+      id: 2,
+      name: "riego"
+    },
+    {
+      id: 3,
+      name: "carpinteria"
+    },
+    {
+      id: 4,
+      name: "jardineria"
+    },
+    {
+      id: 5,
+      name: "cultivo"
+    },
+    {
+      id: 6,
+      name: "cultura"
+    }
+  ];
   task = new Task();
   submited = false;
   constructor(public navCtrl: NavController, public http: Http) {}
@@ -24,7 +50,6 @@ export class CreateTask {
   }
 
   newTask(body: Object): Observable<Task[]> {
-    this.task.date = "2016-12-19 00:00:00"
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
 
@@ -35,8 +60,12 @@ export class CreateTask {
 
   createTask(task: Object){
     this.newTask(task).subscribe( data => {
-      return data;
-    })
+      console.log(data);
+      return data
+    },
+    err => console.log(err)
+    )
+    this.navCtrl.popToRoot()
   }
 
 
