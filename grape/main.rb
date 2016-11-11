@@ -14,6 +14,7 @@ module Huertask
 
     resource :tasks do
       get "/" do
+        return past_tasks if params[:filter] == 'past'
         future_tasks
       end
 
@@ -26,11 +27,19 @@ module Huertask
 
     helpers do
       def future_tasks
-        Task.all.select {|task| future_task?(task)}
+        Task.all.sort{|x,y| y <=> x }.select {|task| future_task?(task)}
+      end
+
+      def past_tasks
+        Task.all.sort{|x,y| y <=> x }.select {|task| past_task?(task)}
       end
 
       def future_task? task
         task[:date].strftime('%Q').to_f >= Time.now.to_f * 1000
+      end
+
+      def past_task? task
+        !(future_task? task)
       end
 
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")

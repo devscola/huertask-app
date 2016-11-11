@@ -21,8 +21,9 @@ interface Task {
 })
 export class Tasks {
 
-  public list: Task[];
-  tasks;
+  list: Task[];
+  pastTasks: Task[];
+  tasks: Task[];
 
   messageMapping: {[k:string]: string} = {
     '=0': 'ZERO',
@@ -37,12 +38,14 @@ export class Tasks {
   ]
 
 	constructor(public navCtrl: NavController, public http: Http) {
-    this.load().subscribe(tasks => {
+    this.getFutureTasks().subscribe(tasks => {
       this.tasks = tasks;
       this.list = tasks;
     });
-    // this.sortByDate();
-    // this.showFutureTasks();
+
+    this.getPastTasks().subscribe(tasks => {
+      this.pastTasks = tasks;
+    });
 	}
 
   goToCreateTask(){
@@ -50,32 +53,19 @@ export class Tasks {
     this.navCtrl.push(CreateTask);
   }
 
-  load(): Observable<Task[]> {
+  getFutureTasks(): Observable<Task[]> {
     return this.http.get("http://huertask-dev.herokuapp.com/api/tasks/")
       .map(res => <Task[]>res.json());
   }
 
-	sortByDate(){
-    this.list = this.tasks.sort(function(a,b){
-			let date = Date.parse(a.date);
-			let secondDate = Date.parse(b.date);
-			return date - secondDate;
-	  });
-	}
-
-	showFutureTasks(){
-    let fromDate = Date.now();
-		this.list = this.tasks.filter(function(task) { return Date.parse(task.date) >= fromDate });
-	}
-
-  showPastTasks(){
-    let fromDate = Date.now();
-    this.list = this.tasks.filter(function(task) { return Date.parse(task.date) <= fromDate });
+  getPastTasks(): Observable<Task[]> {
+    return this.http.get("http://huertask-dev.herokuapp.com/api/tasks/?filter=past")
+      .map(res => <Task[]>res.json());
   }
 
   showTasks(tabTitle){
-    if(tabTitle === "Próximas"){ return this.showFutureTasks() }
-    if(tabTitle === "Pasadas"){ this.showPastTasks() }
+    if(tabTitle === "TASKS.NEXT"){ this.list = this.tasks }
+    if(tabTitle === "TASKS.PREVIOUS"){ this.list = this.pastTasks }
   }
 
   selectTab(tabTitle) {
