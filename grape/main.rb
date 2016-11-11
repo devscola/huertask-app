@@ -19,7 +19,7 @@ module Huertask
 
       desc 'Create a new task'
       post '/' do
-        created_task = Task.create params[:task]
+        created_task = Task.create params
         created_task
       end
     end
@@ -30,7 +30,7 @@ module Huertask
       end
 
       def future_task? task
-        task[:date] >= Time.now.utc
+        task[:date].strftime('%Q').to_f >= Time.now.to_f * 1000
       end
 
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
