@@ -22,8 +22,8 @@ export class MyApp {
     translate.use('es');
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Tasks', component: Tasks },
-      { title: 'CreateTask', component: CreateTask }
+      { title: "TASKS.TITLE", component: Tasks },
+      { title: "TASK.CREATE.TITLE", component: CreateTask }
     ];
   }
 

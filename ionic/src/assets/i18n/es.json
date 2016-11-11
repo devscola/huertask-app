@@ -12,6 +12,34 @@
         "ONE" : "Falta <span class='people-left-text'>1</span> persona",
         "PLURAL" : "Faltan <span class='people-left-text'>{{count}}</span> personas"
       }
+    },
+    "CREATE" : {
+      "TITLE" : "Crear Tarea"
+    },
+    "FORM" : {
+      "TITLE" : {
+        "LABEL" : "Crear Tarea",
+        "PLACEHOLDER" : "Nombre de la tarea"
+      },
+      "CATEGORY" : {
+        "LABEL" : "Categoría"
+      },
+      "NOTE" : {
+        "LABEL" : "Nota",
+        "PLACEHOLDER" : "Escribe más información"
+      },
+      "FROM_DATE" : {
+        "LABEL" : "Fecha de inicio"
+      },
+      "TO_DATE" : {
+        "LABEL" : "Fecha de fin"
+      },
+      "PEOPLE" : {
+        "LABEL" : "Personas"
+      },
+      "BUTTON" : {
+        "CREATE" : "Guardar"
+      }
     }
   }
 }
