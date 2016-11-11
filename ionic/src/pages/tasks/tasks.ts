@@ -1,26 +1,14 @@
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
-
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-
+import { TaskService } from '../../providers/task.service';
+import { Task } from '../../models/task';
 import { CreateTask } from '../create-task/create-task';
-
-interface Task {
-	title: string,
-	date: string,
-	category: string,
-	people_left: number
-};
 
 @Component({
   selector: 'tasks',
   templateUrl: 'tasks.html'
 })
 export class Tasks {
-
   list: Task[];
   pastTasks: Task[];
   tasks: Task[];
@@ -37,30 +25,19 @@ export class Tasks {
     {title: "TASKS.PREVIOUS", active: false}
   ]
 
-	constructor(public navCtrl: NavController, public http: Http) {
-    this.getFutureTasks().subscribe(tasks => {
+	constructor(public navCtrl: NavController, private taskService: TaskService) {
+    taskService.getFutureTasks().subscribe(tasks => {
       this.tasks = tasks;
       this.list = tasks;
     });
 
-    this.getPastTasks().subscribe(tasks => {
+    taskService.getPastTasks().subscribe(tasks => {
       this.pastTasks = tasks;
     });
 	}
 
   goToCreateTask(){
-    console.log('he entrado');
     this.navCtrl.push(CreateTask);
-  }
-
-  getFutureTasks(): Observable<Task[]> {
-    return this.http.get("http://huertask-dev.herokuapp.com/api/tasks/")
-      .map(res => <Task[]>res.json());
-  }
-
-  getPastTasks(): Observable<Task[]> {
-    return this.http.get("http://huertask-dev.herokuapp.com/api/tasks/?filter=past")
-      .map(res => <Task[]>res.json());
   }
 
   showTasks(tabTitle){

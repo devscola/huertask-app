@@ -3,6 +3,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
+import { TaskService } from '../providers/task.service';
 
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
@@ -32,6 +33,6 @@ export function createTranslateLoader(http: Http) {
     Tasks,
     CreateTask
   ],
-  providers: []
+  providers: [TaskService]
 })
 export class AppModule {}
