@@ -6,6 +6,9 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+import { CreateTask } from '../create-task/create-task';
+
+
 interface Task {
 	title: string,
 	date: string,
@@ -36,6 +39,11 @@ export class Tasks {
     // this.sortByDate();
     // this.showFutureTasks();
 	}
+
+  goToCreateTask(){
+    console.log('he entrado');
+    this.navCtrl.push(CreateTask);
+  }
 
   load(): Observable<Task[]> {
     return this.http.get("http://huertask-dev.herokuapp.com/api/tasks/")
