@@ -6,3 +6,9 @@
 .list-md > .item-wrapper:last-child .item-block{
   border-bottom: none;
 }
+ion-toast.success .toast-container{
+  background-color: map-get($colors, success)
+}
+ion-toast.danger .toast-container{
+  background-color: map-get($colors, danger)
+}

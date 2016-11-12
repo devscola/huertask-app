@@ -11,19 +11,19 @@
   <ion-list>
     <ion-item>
       <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
-      <ion-input [(ngModel)]="task.title" type="text" placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}"></ion-input>
+      <ion-input required [(ngModel)]="task.title" type="text" placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
-      <ion-select [(ngModel)]="task.category">
+      <ion-select required [(ngModel)]="task.category">
         <ion-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
-      <ion-datetime [(ngModel)]="task.from_date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
+      <ion-datetime required [(ngModel)]="task.from_date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>
@@ -33,7 +33,7 @@
 
     <ion-item>
       <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
-      <ion-input [(ngModel)]="task.people" type="number"></ion-input>
+      <ion-input required [(ngModel)]="task.people" type="number"></ion-input>
     </ion-item>
 
     <ion-item>
