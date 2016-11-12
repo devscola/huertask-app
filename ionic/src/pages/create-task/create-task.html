@@ -23,7 +23,7 @@
 
     <ion-item>
       <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
-      <ion-datetime [(ngModel)]="task.date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
+      <ion-datetime [(ngModel)]="task.from_date" min='{{today | date:"yyyy-MM-dd"}}' displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>
