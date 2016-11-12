@@ -143,6 +143,7 @@ DEPENDENCIES
   data_mapper
   dm-postgres-adapter
   dm-sqlite-adapter
+  dm-timestamps
   grape
   grape-entity
   pg
