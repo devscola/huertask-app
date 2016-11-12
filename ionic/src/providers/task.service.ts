@@ -7,17 +7,17 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  taskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
   constructor(public http: Http) { }
 
   getFutureTasks(): Observable<Task[]> {
-    return this.http.get(`${this.taskApiUrl}/tasks/`)
+    return this.http.get(`${this.huertaskApiUrl}/tasks/`)
       .map(res => <Task[]>res.json());
   }
 
   getPastTasks(): Observable<Task[]> {
-    return this.http.get(`${this.taskApiUrl}/tasks/?filter=past`)
+    return this.http.get(`${this.huertaskApiUrl}/tasks/?filter=past`)
       .map(res => <Task[]>res.json());
   }
 
@@ -25,7 +25,7 @@ export class TaskService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
 
-    return this.http.post("http://huertask-dev.herokuapp.com/api/tasks/", body, options)
+    return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
                     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
