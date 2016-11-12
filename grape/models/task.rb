@@ -3,6 +3,7 @@ module Huertask
     include DataMapper::Resource
 
     property :id,          Serial
+    property :created_at,  DateTime
     property :title,       String, :length => 1..100
     property :from_date,   DateTime
     property :to_date,     DateTime

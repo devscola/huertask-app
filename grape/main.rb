@@ -1,5 +1,6 @@
 require 'grape'
 require 'data_mapper'
+require 'dm-timestamps'
 
 require_relative './data/tasks'
 require_relative './data/users'

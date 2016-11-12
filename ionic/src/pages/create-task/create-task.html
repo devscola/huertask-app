@@ -28,7 +28,7 @@
 
     <ion-item>
       <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+      <ion-datetime [(ngModel)]="task.to_date" displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
     </ion-item>
 
     <ion-item>
@@ -38,7 +38,7 @@
 
     <ion-item>
       <ion-label stacked>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
-      <ion-textarea rows="3" placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}"></ion-textarea>
+      <ion-textarea [(ngModel)]="task.note" rows="3" placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}"></ion-textarea>
     </ion-item>
   </ion-list>
 

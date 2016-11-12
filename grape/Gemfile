@@ -4,6 +4,7 @@ gem 'rack-cors'
 gem 'grape'
 gem 'grape-entity'
 gem 'data_mapper'
+gem 'dm-timestamps'
 
 group :development, :test do
   gem 'rspec'
