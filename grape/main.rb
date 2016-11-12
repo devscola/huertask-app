@@ -35,7 +35,7 @@ module Huertask
       end
 
       def future_task? task
-        task[:date].strftime('%Q').to_f >= Time.now.to_f * 1000
+        task[:from_date].strftime('%Q').to_f >= Time.now.to_f * 1000
       end
 
       def past_task? task
