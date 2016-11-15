@@ -1,9 +1,35 @@
+sudo: required
+
 language: ruby
 
 rvm:
   - 2.3.0
 
 env:
-  - TEST_DIR=grape
+  - API_TEST_DIR=grape
 
-script: cd $TEST_DIR && bundle install && bundle exec rspec spec
+addons:
+  postgresql: "9.5.5"
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+    - google-chrome-beta
+
+before_install:
+  - nvm install 7.1.0
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+before_script:
+  - sudo apt-get install postgresql-9.3 postgresql-server-dev-9.3 libpq-dev
+  - npm install -g angular-cli
+  - npm install -g karma
+  - cd ionic
+  - npm install && cd ..
+
+script:
+  - cd $API_TEST_DIR && bundle install && bundle exec rspec spec
+  - cd ../ionic && karma start karma.conf.js --single-run
