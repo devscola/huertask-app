@@ -5,10 +5,6 @@ language: ruby
 rvm:
   - 2.3.0
 
-env:
-  - API_DIR=grape
-  - APP_DIR=ionic
-
 addons:
   postgresql: "9.5.5"
 apt:
@@ -32,5 +28,5 @@ before_script:
   - npm install && cd ..
 
 script:
-  - cd $API_DIR && bundle install && bundle exec rspec spec
-  - cd .. && cd ionic && karma start karma.conf.js --single-run
+  - cd grape && bundle install && bundle exec rspec spec
+  - cd ../ionic && karma start karma.conf.js --single-run
