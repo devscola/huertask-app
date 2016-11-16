@@ -1,12 +1,13 @@
 module Huertask
-  class Tasks
-    def future_tasks
-      Task.all.sort{|x,y| y <=> x }.select {|task| future_task?(task)}
-    end
+  module Repository
+    class Tasks
+      def self.future_tasks
+        Task.all(:from_date.gte => Time.now)
+      end
 
-    def past_tasks
-      Task.all.sort{|x,y| y <=> x }.select {|task| past_task?(task)}
+      def self.past_tasks
+        Task.all(:from_date.lt => Time.now)
+      end
     end
   end
 end
-
