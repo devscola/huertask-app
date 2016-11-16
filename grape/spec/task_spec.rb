@@ -1,44 +1,29 @@
 require_relative '../models/task'
 
-describe Task  do
+describe Huertask::Task  do
+  it "should validates presence of: title, from_date, people and category" do
+    task = Huertask::Task.new
+    save_result = task.save
 
-  let(:data) {{title: "recoger lechugas", date: Date.new(2016, 10, 10), people_left: 5, category: "Cosecha"}}
-
-  it 'has a title' do
-    task = Task.new(data)
-
-    title = task.title
-
-    expect(title).to eq(data[:title])
+    expect(save_result).to be false
+    expect(task.errors.size).to eq 4
+    expect(task.errors[:title]).to eq ["Title must not be blank"]
+    expect(task.errors[:from_date]).to eq ["From date must not be blank"]
+    expect(task.errors[:category]).to eq ["Category must not be blank"]
+    expect(task.errors[:people]).to eq ["People must not be blank"]
   end
 
-  it 'has a date' do
-    task = Task.new(data)
+  it "should validates length of: title" do
+    task = Huertask::Task.new({
+      "title":"",
+      "from_date":"2020-01-10T13:00:00+00:00",
+      "people":1,
+      "category":"5"
+    })
+    save_result = task.save
 
-    date = task.date
-
-    expect(date).to eq(data[:date])
-  end
-
-  it 'has a number of people to fill' do
-    task = Task.new(data)
-
-    people = task.people_left
-
-    expect(people).to eq(data[:people_left])
-  end
-
-  it 'has a category' do
-    task = Task.new(data)
-
-    category = task.category
-
-    expect(category).to eq(data[:category])
-  end
-
-  it 'cannot has a nil member' do
-    data_without_people = {title: "recoger lechugas", date: Date.new(2016, 02, 10)}
-
-    expect {Task.new(data_without_people)}.to raise_error(ArgumentError)
+    expect(save_result).to be false
+    expect(task.errors[:title]).to eq ["Title must be between 1 and 100 characters long", "Title must not be blank"]
   end
 end
+
