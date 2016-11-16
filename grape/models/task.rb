@@ -1,3 +1,5 @@
+require 'dm-validations'
+
 module Huertask
   class Task
     include DataMapper::Resource
@@ -15,8 +17,11 @@ module Huertask
 
     if nil != @from_date
       validates_with_block @from_date do
-        return true if @from_date > Time.now
-        [false, "from_date must be bigger than now"]
+        if @from_date > Time.now
+          true
+        else
+          [false, "from_date must be bigger than now"]
+        end
       end
     end
 

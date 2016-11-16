@@ -20,7 +20,7 @@ describe Huertask::API do
     end
 
     it "returns future tasks" do
-      get "api/tasks?category=future"
+      get "api/tasks"
 
       expect(last_response).to be_ok
       expect(past_tasks).to be_empty
@@ -31,7 +31,7 @@ describe Huertask::API do
     end
 
     def past_task? task
-      task["date"] < request_time
+      task["from_date"] < request_time
     end
   end
 end
