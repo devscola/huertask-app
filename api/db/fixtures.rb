@@ -1,4 +1,4 @@
-class DbFixtures
+class Fixtures
   def self.seed
     Huertask::Task.all.destroy
 
