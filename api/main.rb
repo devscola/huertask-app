@@ -2,10 +2,8 @@ require 'grape'
 require 'data_mapper'
 require 'dm-timestamps'
 
-require_relative './data/tasks'
-require_relative './data/users'
 require_relative './models/task'
-require_relative './db_fixtures'
+require_relative './db/fixtures'
 
 module Huertask
   class API < Grape::API
