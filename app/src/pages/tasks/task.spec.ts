@@ -26,20 +26,22 @@ describe('Pages: Tasks', () => {
     instance.showTasks(tabName);
     fixture.detectChanges();
     let element = fixture.nativeElement;
-    let fromDates = element.querySelectorAll('.from-date');
+    let nodeList = element.querySelectorAll('.from-date');
+    let fromDates = Array.prototype.slice.call(nodeList);
 
-    for (var date in fromDates){
+    fromDates.forEach(function(date){
       expect(Date.parse(date.textContent)).toBeLessThan(Date.parse(new Date()));
-    }
+    });
 
     tabName = "TASKS.NEXT";
     instance.showTasks(tabName);
     fixture.detectChanges();
     element = fixture.nativeElement;
-    fromDates = element.querySelectorAll('.from-date');
+    nodeList = element.querySelectorAll('.from-date');
+    fromDates = Array.prototype.slice.call(nodeList);
 
-    for (var date in fromDates){
+    fromDates.forEach(function(date){
       expect(Date.parse(date.textContent)).not.toBeLessThan(Date.parse(new Date()));
-    }
+    });
   }));
 });
