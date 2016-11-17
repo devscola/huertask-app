@@ -30,7 +30,7 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>{{task.date | date:"dd-MM-yyyy"}}</ion-col>
+          <ion-col class="from-date">{{task.from_date}}</ion-col>
           <ion-col [innerHTML]='"TASK.PEOPLE_LEFT.MSG." + (task.people | i18nPlural: messageMapping)  | translate:{count: task.people}'></ion-col>
         </ion-row>
       </ion-grid>
