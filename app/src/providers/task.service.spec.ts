@@ -1,14 +1,27 @@
 import { async, inject, TestBed } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 import { TaskService } from './task.service';
 
-describe('TaskService', () => {
+let mockResponse = {
+  "id":0,
+  "title":"Fake title"
+};
 
+describe('TaskService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        TaskService
+        TaskService,
+
+        MockBackend,
+        BaseRequestOptions,
+        {
+          provide: Http,
+          useFactory: (backend, options) => new Http(backend, options),
+          deps: [MockBackend, BaseRequestOptions]
+        }
       ],
       imports: [
         HttpModule
@@ -16,29 +29,69 @@ describe('TaskService', () => {
     });
   });
 
-  it('should construct', async(inject([TaskService], (service) => {
+  it('should construct', async(inject(
+    [TaskService, MockBackend], (service, mockBackend) => {
+
     expect(service).toBeDefined();
   })));
 
-  it('should get a list of future tasks', async(inject([TaskService], (service) => {
-    service.getFutureTasks().subscribe(tasks => {
-      var pastTasks = tasks.filter(function(e){ return Date.parse(e.from_date) <= Date.now()});
-      expect(pastTasks.length).toEqual(0);
-    });
-  })));
+  describe('getFutureTasks', () => {
 
-  it('should get a list of past tasks', async(inject([TaskService], (service) => {
-    service.getPastTasks().subscribe(tasks => {
-      var futureTasks = tasks.filter(function(e){ return Date.parse(e.from_date) > Date.now()});
-      expect(futureTasks.length).toEqual(0);
-    });
-  })));
+    it('should get a list of future tasks', async(inject(
+      [TaskService, MockBackend], (service, mockBackend) => {
 
-  it('should create a new task', async(inject([TaskService], (service) => {
-    var newTask = {title: 'Tarea creada por test', from_date: '2020-01-10T13:00:00+00:00', people: 1, category: '5'};
-    service.createTask(newTask).subscribe(task => {
-      expect(task.id).not.toBe(null);
-    });
-  })));
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse) })));
+        expect(conn.request.url).toEqual(`${service.huertaskApiUrl}/tasks/`);
+        expect(conn.request.method).toEqual(RequestMethod.Get);
+      });
 
+      const result = service.getFutureTasks();
+
+      result.subscribe(res => {
+        expect(res).toEqual(mockResponse);
+      });
+    })));
+
+  });
+
+  describe('getPastTasks', () => {
+
+    it('should get a list of future tasks', async(inject(
+      [TaskService, MockBackend], (service, mockBackend) => {
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse) })));
+        expect(conn.request.url).toEqual(`${service.huertaskApiUrl}/tasks/?filter=past`);
+        expect(conn.request.method).toEqual(RequestMethod.Get);
+      });
+
+      const result = service.getPastTasks();
+
+      result.subscribe(res => {
+        expect(res).toEqual(mockResponse);
+      });
+    })));
+
+  });
+
+  describe('createTask', () => {
+
+    it('should get a list of future tasks', async(inject(
+      [TaskService, MockBackend], (service, mockBackend) => {
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse) })));
+        expect(conn.request.url).toEqual(`${service.huertaskApiUrl}/tasks/`);
+        expect(conn.request.method).toEqual(RequestMethod.Post);
+      });
+
+      const result = service.createTask();
+
+      result.subscribe(res => {
+        expect(res).toEqual(mockResponse);
+      });
+    })));
+
+  });
 });
