@@ -66,32 +66,6 @@ Si la cadena usa la propiedad [innerHTML] de Angular2 en el elemento que lo incl
 ```
 ```<ion-col [innerHTML]='"TASK.PEOPLE_LEFT.MSG" | translate:{count: task.people_left}'>```
 
-#### Plural ####
-Usando i18nPlural para generar la parte final de la cadena a mostrar. En este caso: "ZERO" / "ONE" / "PLURAL"
-
-```ts
-messageMapping: {[k:string]: string} = {
-  '=0': 'ZERO',
-  '=1': 'ONE',
-  'other': 'PLURAL'
-}
-```
-
-```json
-{
-  "TASK" : {
-    "PEOPLE_LEFT" : {
-      "MSG" : {
-        "ZERO" : "Completo"
-        "ONE" : "Falta 1 persona"
-        "PLURAL" : "Faltan {{count}} personas"
-      }
-    }
-  }
-}
-```
-```{{ "TASK.PEOPLE_LEFT.MSG." + (task.people_left | i18nPlural: messageMapping)  | translate:{count: task.people_left }}}```
-
 
 ## Coding Standards ##
 Este proyecto usa [editorconfig](http://editorconfig.org) para definir y mantener la consistencia del estilo de código.
