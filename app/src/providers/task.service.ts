@@ -7,7 +7,7 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   constructor(public http: Http) { }
 
@@ -27,7 +27,7 @@ export class TaskService {
 
     return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
-                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
   categories = [

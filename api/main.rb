@@ -21,8 +21,27 @@ module Huertask
 
       desc 'Create a new task'
       post '/' do
-        created_task = Task.create params
-        created_task
+        task = Task.new params
+        result = task.save
+        if result == true
+          task
+        else
+          error! task.errors.to_hash, 400
+        end
+      end
+
+      get '/create' do
+        data = {"title":"","people":1,"category":"5"}
+        task = Task.new(data)
+        result = task.save
+        p task.errors
+        error! task.errors.to_hash, 400
+        result
+        # begin
+        #   task.save
+        # rescue DataMapper::SaveFailureError => e
+        #   error! e.resource.errors.to_hash, 400
+        # end
       end
     end
 
