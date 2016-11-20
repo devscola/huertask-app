@@ -45,6 +45,9 @@ GEM
       dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
+    dm-postgres-adapter (1.2.0)
+      dm-do-adapter (~> 1.2.0)
+      do_postgres (~> 0.10.6)
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -68,6 +71,8 @@ GEM
       uuidtools (~> 2.1)
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
+    do_postgres (0.10.17)
+      data_objects (= 0.10.17)
     do_sqlite3 (0.10.17)
       data_objects (= 0.10.17)
     equalizer (0.0.11)
@@ -97,6 +102,7 @@ GEM
       tool (~> 0.2)
     mustermann-grape (0.4.0)
       mustermann (= 0.4.0)
+    pg (0.19.0)
     public_suffix (2.0.4)
     rack (2.0.1)
     rack-accept (0.4.5)
@@ -134,15 +140,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  data_mapper
-  dm-sqlite-adapter
-  dm-timestamps
-  grape
-  grape-entity
-  rack-cors
-  rack-test
-  rspec
-  sqlite3
+  data_mapper (~> 1.2.0)
+  dm-postgres-adapter (~> 1.2.0)
+  dm-sqlite-adapter (~> 1.2.0)
+  dm-timestamps (~> 1.2.0)
+  grape (~> 0.18.0)
+  grape-entity (~> 0.5.1)
+  pg (~> 0.19.0)
+  rack-cors (~> 0.4.0)
+  rack-test (~> 0.6.3)
+  rspec (~> 3.5.0)
+  sqlite3 (~> 1.3.12)
 
 BUNDLED WITH
-   1.11.2
+   1.12.3
