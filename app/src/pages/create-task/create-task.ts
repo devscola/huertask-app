@@ -10,7 +10,6 @@ import { Tasks } from '../tasks/tasks';
 })
 
 export class CreateTask {
-  today: any = new Date();
   task = new Task();
   categories;
   submited = false;
