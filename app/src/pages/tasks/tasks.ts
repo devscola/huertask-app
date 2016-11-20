@@ -30,6 +30,17 @@ export class Tasks {
     });
 	}
 
+  peopleMessage(task){
+    switch (task.people) {
+       case 0:
+         return "TASK.PEOPLE_LEFT.MSG.ZERO";
+       case 1:
+         return "TASK.PEOPLE_LEFT.MSG.ONE";
+       default:
+         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
+    }
+  }
+
   fromDateMessage(task){
     return task.from_date.substring(0, 10)
   }
