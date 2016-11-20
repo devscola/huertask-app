@@ -30,6 +30,11 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  getCategory(id){
+    console.log(this.categories.find(cat => cat.id == id));
+    return this.categories.find(cat => cat.id == id);
+  }
+
   categories = [
     {
       id: 1,
