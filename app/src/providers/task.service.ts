@@ -27,7 +27,7 @@ export class TaskService {
 
     return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
-                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
   categories = [
