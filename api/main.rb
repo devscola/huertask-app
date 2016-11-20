@@ -29,20 +29,6 @@ module Huertask
           error! task.errors.to_hash, 400
         end
       end
-
-      get '/create' do
-        data = {"title":"","people":1,"category":"5"}
-        task = Task.new(data)
-        result = task.save
-        p task.errors
-        error! task.errors.to_hash, 400
-        result
-        # begin
-        #   task.save
-        # rescue DataMapper::SaveFailureError => e
-        #   error! e.resource.errors.to_hash, 400
-        # end
-      end
     end
 
     helpers do
