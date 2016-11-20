@@ -10,7 +10,6 @@ import { Tasks } from '../tasks/tasks';
 })
 
 export class CreateTask {
-  today: any = new Date();
   task = new Task();
   categories;
   submited = false;
@@ -24,12 +23,6 @@ export class CreateTask {
 
   createTask(task: Object){
     this.taskService.createTask(task).subscribe( data => {
-      console.log(data);
-      if(data.id !== null){
-        this.presentToast('¡Tarea guardada!', 'success')
-      }else{
-        this.presentToast('No se pudo guardar la tarea', 'danger')
-      }
       return data
     },
     err => console.log(err)

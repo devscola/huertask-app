@@ -13,12 +13,6 @@ export class Tasks {
   pastTasks: Task[];
   tasks: Task[];
 
-  messageMapping: {[k:string]: string} = {
-    '=0': 'ZERO',
-    '=1': 'ONE',
-    'other': 'PLURAL'
-  }
-
   tabs = [
     {title: "TASKS.NEXT", active: true},
     {title: "TASKS.OWN", active: false},
@@ -35,6 +29,21 @@ export class Tasks {
       this.pastTasks = tasks;
     });
 	}
+
+  peopleMessage(task){
+    switch (task.people) {
+       case 0:
+         return "TASK.PEOPLE_LEFT.MSG.ZERO";
+       case 1:
+         return "TASK.PEOPLE_LEFT.MSG.ONE";
+       default:
+         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
+    }
+  }
+
+  fromDateMessage(task){
+    return task.from_date.substring(0, 10)
+  }
 
   goToCreateTask(){
     this.navCtrl.push(CreateTask);
