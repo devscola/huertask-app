@@ -23,15 +23,25 @@ describe('Pages: Tasks', () => {
 
   it('should filter tasks when select a tab', async(() => {
     tabName = "TASKS.PREVIOUS";
-
     instance.showTasks(tabName);
+    fixture.detectChanges();
+    let element = fixture.nativeElement;
+    let nodeList = element.querySelectorAll('.from-date');
+    let fromDates = Array.prototype.slice.call(nodeList);
 
-    expect(instance.list).toEqual(instance.pastTasks);
+    fromDates.forEach(function(date){
+      expect(Date.parse(date.textContent)).toBeLessThan(Date.parse(new Date()));
+    });
 
     tabName = "TASKS.NEXT";
-
     instance.showTasks(tabName);
+    fixture.detectChanges();
+    element = fixture.nativeElement;
+    nodeList = element.querySelectorAll('.from-date');
+    fromDates = Array.prototype.slice.call(nodeList);
 
-    expect(instance.list).toEqual(instance.tasks);
+    fromDates.forEach(function(date){
+      expect(Date.parse(date.textContent)).not.toBeLessThan(Date.parse(new Date()));
+    });
   }));
 });
