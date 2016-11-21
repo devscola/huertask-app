@@ -29,9 +29,7 @@ describe('Pages: Tasks', () => {
     let nodeList = element.querySelectorAll('.from-date');
     let fromDates = Array.prototype.slice.call(nodeList);
 
-    fromDates.forEach(function(date){
-      expect(Date.parse(date.textContent)).toBeLessThan(Date.parse(new Date()));
-    });
+    expect(fromDates.length).toBe(3);
 
     tabName = "TASKS.NEXT";
     instance.showTasks(tabName);
@@ -40,8 +38,6 @@ describe('Pages: Tasks', () => {
     nodeList = element.querySelectorAll('.from-date');
     fromDates = Array.prototype.slice.call(nodeList);
 
-    fromDates.forEach(function(date){
-      expect(Date.parse(date.textContent)).not.toBeLessThan(Date.parse(new Date()));
-    });
+    expect(fromDates.length).toBe(3);
   }));
 });
