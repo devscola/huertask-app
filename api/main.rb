@@ -4,7 +4,7 @@ require 'dm-timestamps'
 
 require_relative './models/task'
 require_relative './db/fixtures'
-require_relative './repository/tasks'
+require_relative './repositories/tasks'
 
 module Huertask
   class API < Grape::API
@@ -21,8 +21,13 @@ module Huertask
 
       desc 'Create a new task'
       post '/' do
-        created_task = Task.create params
-        created_task
+        task = Task.new params
+        result = task.save
+        if result == true
+          task
+        else
+          error! task.errors.to_hash, 400
+        end
       end
     end
 

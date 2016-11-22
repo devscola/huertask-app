@@ -34,4 +34,29 @@ describe Huertask::API do
       task["from_date"] < request_time
     end
   end
+
+  describe "POST /" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returs error when task is invalid" do
+      data = { title: "",
+               category: "limpieza" }
+
+      post "/api/tasks", data
+
+      expect(last_response).to be_bad_request
+      expect(response.size).to be 3
+    end
+
+    it "returns created task" do
+      data = {  title: "Limpiar lechugas",
+                people: 1,
+                category: "limpieza",
+                from_date: "2016-12-19 00:00:00" }
+
+      post "/api/tasks", data
+
+      expect(last_response).to be_created
+    end
+  end
 end
