@@ -1,8 +1,13 @@
 require 'grape'
+require 'grape-entity'
 require 'data_mapper'
 require 'dm-timestamps'
 
 require_relative './models/task'
+require_relative './entities/Task'
+require_relative './entities/Person'
+require_relative './models/participation'
+require_relative './models/person'
 require_relative './db/fixtures'
 require_relative './repository/tasks'
 
@@ -15,8 +20,10 @@ module Huertask
 
     resource :tasks do
       get "/" do
-        return Huertask::Repository::Tasks.past_tasks if params[:filter] == 'past'
-        Huertask::Repository::Tasks.future_tasks
+        # return Huertask::Repository::Tasks.past_tasks if params[:filter] == 'past'
+        # Huertask::Repository::Tasks.future_tasks
+
+        present Huertask::Repository::Tasks.future_tasks, with: Huertask::Entities::Task
       end
 
       desc 'Create a new task'
@@ -27,6 +34,22 @@ module Huertask
           task
         else
           error! task.errors.to_hash, 400
+        end
+      end
+
+      params do
+        requires :task_id, type: Integer
+      end
+
+      route_param :task_id do
+        resource :participate do
+          post '/' do
+            task = Task.get(params[:task_id])
+            person = Person.get(params[:person_id])
+            task.participants << person
+            task.save
+            present task, with: Huertask::Entities::Task
+          end
         end
       end
     end
