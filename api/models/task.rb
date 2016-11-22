@@ -13,6 +13,9 @@ module Huertask
     property :category,    String
     property :note,        Text
 
+    has n, :participations
+    has n, :participants, 'Person', :through => :participations, :via => :person
+
     validates_presence_of :title, :from_date, :people, :category
 
     if nil != @from_date
