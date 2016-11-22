@@ -105,6 +105,10 @@ export class TaskServiceMock {
     return Observable.of(this.tasks);
   }
 
+  getCategory(id){
+    return this.categories.find(cat => cat.id == id);
+  }
+
   createTask(body: Object): Observable<Task[]> {
     return Observable.of(this.tasks[0])
   }
