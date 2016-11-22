@@ -13,6 +13,7 @@ class Fixtures
 
     (1..6).each do |n|
       Huertask::Task.create({
+        id: n,
         title: "Tarea numero #{n}",
         from_date: "2020-11-12T13:00:00+00:00",
         people: n,

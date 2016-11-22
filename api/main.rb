@@ -43,7 +43,7 @@ module Huertask
 
       route_param :task_id do
         resource :participate do
-          post '/' do
+          put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
             task.participants << person

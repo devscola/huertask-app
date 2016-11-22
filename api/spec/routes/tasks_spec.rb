@@ -8,6 +8,8 @@ describe Huertask::API do
     Huertask::API
   end
 
+  Fixtures.seed
+
   let(:request_time) { Time.now.utc }
 
   describe "GET /api/tasks" do
@@ -35,7 +37,7 @@ describe Huertask::API do
     end
   end
 
-  describe "POST /" do
+  describe "POST /api/tasks" do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returs error when task is invalid" do
@@ -57,6 +59,22 @@ describe Huertask::API do
       post "/api/tasks", data
 
       expect(last_response).to be_created
+    end
+  end
+
+  describe "PUT /api/tasks/:id/participate" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returs edited task" do
+      data = { person_id: 1 }
+      task = Huertask::Task.get(1)
+      previous_participants = task.participants.size
+      expected_participants = previous_participants + 1
+
+      put "/api/tasks/1/participate", data
+
+      expect(last_response).to be_ok
+      expect(response['participants'].size).to be expected_participants
     end
   end
 end
