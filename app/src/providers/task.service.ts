@@ -31,7 +31,6 @@ export class TaskService {
   }
 
   getCategory(id){
-    console.log(this.categories.find(cat => cat.id == id));
     return this.categories.find(cat => cat.id == id);
   }
 
