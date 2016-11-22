@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
 import { Task } from '../../models/task';
 import { CreateTask } from '../create-task/create-task';
+import { TaskDetail } from '../task-detail/task-detail';
 
 @Component({
   selector: 'tasks',
@@ -47,6 +48,10 @@ export class Tasks {
 
   goToCreateTask(){
     this.navCtrl.push(CreateTask);
+  }
+
+  showTask(task){
+    this.navCtrl.push(TaskDetail, {task: task});
   }
 
   showTasks(tabTitle){

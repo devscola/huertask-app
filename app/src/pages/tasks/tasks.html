@@ -22,7 +22,7 @@
     </ion-row>
 
   </ion-grid>
-  <ion-card *ngFor="let task of list" ngClass="cat-{{task.category}}">
+  <ion-card *ngFor="let task of list" (click)="showTask(task)" ngClass="cat-{{task.category}}">
     <ion-card-header>
       {{task.title}}
     </ion-card-header>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col><h1>{{task.title}}</h1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h2>{{task.from_date | date:"EEEE dd MMMM"}}</h2></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h3>
+        {{task.from_date | date:"H:mm"}}h -
+        {{task.from_date | date:"H:mm"}}h
+      </h3></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Nota: {{task.note}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let person of task.participants">{{person.name}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button  color="danger" clear full>Unirme</button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button  color="danger" clear full>Añadir al calendario</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
