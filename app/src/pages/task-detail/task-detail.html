@@ -32,10 +32,16 @@
     </ion-row>
     <ion-row>
       <ion-col width-50>
-        <button ion-button  color="danger" clear full>Unirme</button>
+        <button ion-button color="danger" clear full
+          [disabled]="isParticipant()"
+          [click]="participate()">
+          Asistiré
+        </button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button  color="danger" clear full>Añadir al calendario</button>
+        <button ion-button color="danger" clear full>
+          No puedo
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

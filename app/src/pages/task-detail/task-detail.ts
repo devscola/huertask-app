@@ -17,7 +17,11 @@ export class TaskDetail {
   }
 
   getCategoryName(id){
-    console.log(this.taskService.getCategory(id));
     return this.taskService.getCategory(id).name;
+  }
+
+  isParticipant(){
+    console.log(this.task.participants);
+    return !!this.task.participants.find(person => person.id == 1)
   }
 }

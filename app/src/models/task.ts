@@ -6,6 +6,7 @@ export class Task {
     public from_date?: any,
     public to_date?: any,
     public created_at?: any,
-    public note?: string
+    public note?: string,
+    public participants?: any[]
   ) {  }
 }

@@ -30,6 +30,12 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  participate(task_id, person_id): Observable<Task[]> {
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/participate/`, body, options)
+      .map(res => <Task[]>res.json())
+      .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   getCategory(id){
     console.log(this.categories.find(cat => cat.id == id));
     return this.categories.find(cat => cat.id == id);
