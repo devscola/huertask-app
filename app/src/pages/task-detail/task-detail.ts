@@ -20,8 +20,15 @@ export class TaskDetail {
     return this.taskService.getCategory(id).name;
   }
 
-  isParticipant(){
-    console.log(this.task.participants);
-    return !!this.task.participants.find(person => person.id == 1)
+  participate(){
+    return this.taskService.participate(this.task.id, 1).subscribe( data => {
+      this.task = data
+    },
+    err => console.log(err)
+    )
+  }
+
+  isUserConfirmed(): boolean {
+    return !!this.task.positive_replies.find(person => person.id == 1)
   }
 }

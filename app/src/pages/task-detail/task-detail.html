@@ -28,13 +28,22 @@
       <ion-col>Nota: {{task.note}}</ion-col>
     </ion-row>
     <ion-row>
-      <ion-col *ngFor="let person of task.participants">{{person.name}}</ion-col>
+      <ion-col>
+        Asistirán:
+        <span *ngFor="let person of task.positive_replies">{{person.name}} ,</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        No asistirán:
+        <span *ngFor="let person of task.negative_replies">{{person.name}} ,</span>
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col width-50>
         <button ion-button color="danger" clear full
-          [disabled]="isParticipant()"
-          [click]="participate()">
+          [disabled]="isUserConfirmed()"
+          (click)="participate()">
           Asistiré
         </button>
       </ion-col>
