@@ -62,7 +62,8 @@ export class NavMock {
           "id":3,
           "name":"Persona 3"
         }
-      ]
+      ],
+      "negative_replies":[]
     };
   }
 }

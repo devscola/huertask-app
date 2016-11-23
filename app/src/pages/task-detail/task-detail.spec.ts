@@ -44,4 +44,17 @@ describe('Pages: Task Detail', () => {
     expect(button.getAttribute('ng-reflect-disabled')).toBe('true');
   }));
 
+  it('should let unparticipate if user is not an unparticipant', async(() => {
+    let template = fixture.nativeElement;
+    fixture.detectChanges();
+
+    let button = template.querySelectorAll('#unparticipate')[0];
+    expect(button.getAttribute('ng-reflect-disabled')).toBe('false');
+
+    button.click();
+    fixture.detectChanges();
+
+    expect(button.getAttribute('ng-reflect-disabled')).toBe('true');
+  }));
+
 });
