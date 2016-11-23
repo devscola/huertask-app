@@ -65,16 +65,16 @@ describe Huertask::API do
   describe "PUT /api/tasks/:id/participate" do
     subject(:response) { JSON.parse(last_response.body) }
 
-    it "returs edited task" do
+    it "returns edited task" do
       data = { person_id: 1 }
       task = Huertask::Task.get(1)
-      previous_participants = task.participants.size
-      expected_participants = previous_participants + 1
+      previous_positive_replies = task.positive_replies.size
+      expected_positive_replies = previous_positive_replies + 1
 
       put "/api/tasks/1/participate", data
 
       expect(last_response).to be_ok
-      expect(response['participants'].size).to be expected_participants
+      expect(response['positive_replies'].size).to be expected_positive_replies
     end
   end
 end

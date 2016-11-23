@@ -13,10 +13,18 @@ module Huertask
     property :category,    String
     property :note,        Text
 
-    has n, :participations
+    has n, :participations, 'Participation'
     has n, :participants, 'Person', :through => :participations, :via => :person
 
     validates_presence_of :title, :from_date, :people, :category
+
+    def positive_replies
+      participations.all(:status => 1)
+    end
+
+    def negative_replies
+      participations.all(:status => 0)
+    end
 
     if nil != @from_date
       validates_with_block @from_date do

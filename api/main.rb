@@ -6,6 +6,7 @@ require 'dm-timestamps'
 require_relative './models/task'
 require_relative './entities/Task'
 require_relative './entities/Person'
+require_relative './entities/Participation'
 require_relative './models/participation'
 require_relative './models/person'
 require_relative './db/fixtures'
@@ -46,8 +47,12 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            task.participants << person
-            task.save
+            participation = Huertask::Participation.new({
+              task: task,
+              person: person,
+              status: 1
+            })
+            participation.save
             present task, with: Huertask::Entities::Task
           end
         end

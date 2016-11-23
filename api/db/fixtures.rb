@@ -19,7 +19,6 @@ class Fixtures
         people: n,
         category: n,
         note: "Esta es la nota de la tarea número #{n}",
-        participants: [Huertask::Person[n%2], Huertask::Person[2]]
       })
     end
 
@@ -29,6 +28,19 @@ class Fixtures
         from_date: "2016-01-10T13:00:00+00:00",
         people: n,
         category: n
+      })
+    end
+
+    (1..6).each do |n|
+      Huertask::Participation.create({
+        task: Huertask::Task[n-1],
+        person: Huertask::Person[n%2],
+        status: 0
+      })
+      Huertask::Participation.create({
+        task: Huertask::Task[n-1],
+        person: Huertask::Person[2],
+        status: 1
       })
     end
   end
