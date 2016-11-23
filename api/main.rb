@@ -64,6 +64,28 @@ module Huertask
             end
           end
         end
+
+        resource :unparticipate do
+          put '/' do
+            task = Task.get(params[:task_id])
+            person = Person.get(params[:person_id])
+            participation = Huertask::Participation.first(:task => task, :person => person)
+            if participation
+              participation.status = 0
+            else
+              participation = Huertask::Participation.new({
+                task: task,
+                person: person,
+                status: 0
+              })
+            end
+            if participation.save
+              present task, with: Huertask::Entities::Task
+            else
+              error! participation.errors.to_hash, 400
+            end
+          end
+        end
       end
     end
 

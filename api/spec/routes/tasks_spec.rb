@@ -77,4 +77,25 @@ describe Huertask::API do
       expect(response['positive_replies'].size).to be expected_positive_replies
     end
   end
+
+  describe "PUT /api/tasks/:id/unparticipate" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returns edited task" do
+      data = { person_id: 3 }
+      task = Huertask::Task.get(1)
+
+      previous_negative_replies = task.negative_replies.size
+      expected_negative_replies = previous_negative_replies + 1
+
+      previous_positive_replies = task.positive_replies.size
+      expected_positive_replies = previous_positive_replies - 1
+
+      put "/api/tasks/1/unparticipate", data
+
+      expect(last_response).to be_ok
+      expect(response['negative_replies'].size).to be expected_negative_replies
+      expect(response['positive_replies'].size).to be expected_positive_replies
+    end
+  end
 end
