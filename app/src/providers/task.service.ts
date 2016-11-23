@@ -7,7 +7,7 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   constructor(public http: Http) { }
 
@@ -108,7 +108,7 @@ export class TaskServiceMock {
     return this.categories.find(cat => cat.id == id);
   }
 
-  createTask(body: Object): Observable<Task[]> {
+  createTask(body: Object): Observable<Task> {
     return Observable.of(this.tasks[0])
   }
 
