@@ -31,7 +31,6 @@ export class TaskService {
   }
 
   getCategory(id){
-    console.log(this.categories.find(cat => cat.id == id));
     return this.categories.find(cat => cat.id == id);
   }
 
@@ -103,6 +102,10 @@ export class TaskServiceMock {
 
   getPastTasks(): Observable<Task[]> {
     return Observable.of(this.tasks);
+  }
+
+  getCategory(id){
+    return this.categories.find(cat => cat.id == id);
   }
 
   createTask(body: Object): Observable<Task[]> {
