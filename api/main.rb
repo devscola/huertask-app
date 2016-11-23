@@ -47,12 +47,16 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            participation = Huertask::Participation.new({
-              task: task,
-              person: person,
-              status: 1
-            })
-            participation.save
+            participation = Huertask::Participation.first(:task => task, :person => person)
+            if participation
+              participation.status = 1
+            else
+              participation = Huertask::Participation.create({
+                task: task,
+                person: person,
+                status: 1
+              })
+            end
             present task, with: Huertask::Entities::Task
           end
         end
