@@ -9,10 +9,10 @@ import 'zone.js/dist/fake-async-test';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
-import { App, MenuController, NavController, Platform, Config, Keyboard, Form, IonicModule, ToastController, GestureController }  from 'ionic-angular';
+import { App, MenuController, NavController, NavParams, Platform, Config, Keyboard, Form, IonicModule, ToastController, GestureController }  from 'ionic-angular';
 import { ConfigMock, NavMock, PlatformMock } from './mocks';
 import { TranslateModule } from 'ng2-translate';
-import { TaskService } from './providers/task.service';
+import { TaskService, TaskServiceMock } from './providers/task.service';
 
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
@@ -65,8 +65,9 @@ export class TestUtils {
         {provide: Keyboard, useClass: ConfigMock},
         {provide: MenuController, useClass: ConfigMock},
         {provide: NavController, useClass: NavMock},
+        {provide: NavParams, useClass: NavMock},
         {provide: Platform, useClass: PlatformMock},
-        TaskService,
+        {provide: TaskService, useClass: TaskServiceMock},
         ToastController,
         GestureController
       ],

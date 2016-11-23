@@ -10,7 +10,7 @@ require_relative './entities/Participation'
 require_relative './models/participation'
 require_relative './models/person'
 require_relative './db/fixtures'
-require_relative './repository/tasks'
+require_relative './repositories/tasks'
 
 module Huertask
   class API < Grape::API

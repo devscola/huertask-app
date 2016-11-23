@@ -46,6 +46,19 @@ export class NavMock {
   public setRoot(): any {
     return true;
   }
+
+  public get(obj): any {
+    return {
+      "id":141,
+      "created_at":"2016-11-21T09:02:40+00:00",
+      "title":"Tarea numero 3",
+      "from_date":"2020-11-12T13:00:00+00:00",
+      "to_date":null,
+      "people":3,
+      "category":"3",
+      "note":null
+    };
+  }
 }
 
 export class PlatformMock {
