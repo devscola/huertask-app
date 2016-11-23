@@ -20,10 +20,11 @@ module Huertask
     prefix :api
 
     resource :tasks do
-      get "/" do
-        # return Huertask::Repository::Tasks.past_tasks if params[:filter] == 'past'
-        # Huertask::Repository::Tasks.future_tasks
 
+      UNPARTICIPATE_STATUS = 0
+      PARTICIPATE_STATUS = 1
+
+      get "/" do
         present Huertask::Repository::Tasks.future_tasks, with: Huertask::Entities::Task
       end
 
@@ -47,16 +48,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            participation = Huertask::Participation.first(:task => task, :person => person)
-            if participation
-              participation.status = 1
-            else
-              participation = Huertask::Participation.new({
-                task: task,
-                person: person,
-                status: 1
-              })
-            end
+            participation = create_or_update_participation(task, person, PARTICIPATE_STATUS)
             if participation.save
               present task, with: Huertask::Entities::Task
             else
@@ -69,16 +61,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            participation = Huertask::Participation.first(:task => task, :person => person)
-            if participation
-              participation.status = 0
-            else
-              participation = Huertask::Participation.new({
-                task: task,
-                person: person,
-                status: 0
-              })
-            end
+            participation = create_or_update_participation(task, person, UNPARTICIPATE_STATUS)
             if participation.save
               present task, with: Huertask::Entities::Task
             else
@@ -92,6 +75,20 @@ module Huertask
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
+
+      def create_or_update_participation(task, person, status)
+        participation = Huertask::Participation.first(:task => task, :person => person)
+        if participation
+          participation.status = status
+        else
+          participation = Huertask::Participation.new({
+            task: task,
+            person: person,
+            status: status
+          })
+        end
+        participation
+      end
     end
   end
 end
