@@ -51,13 +51,17 @@ module Huertask
             if participation
               participation.status = 1
             else
-              participation = Huertask::Participation.create({
+              participation = Huertask::Participation.new({
                 task: task,
                 person: person,
                 status: 1
               })
             end
-            present task, with: Huertask::Entities::Task
+            if participation.save
+              present task, with: Huertask::Entities::Task
+            else
+              error! participation.errors.to_hash, 400
+            end
           end
         end
       end
