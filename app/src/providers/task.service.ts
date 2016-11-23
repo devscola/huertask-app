@@ -74,15 +74,22 @@ export class TaskService {
 
 @Injectable()
 export class TaskServiceMock {
-  tasks = [{
-      "id":141,
-      "created_at":"2016-11-21T09:02:40+00:00",
-      "title":"Tarea numero 3",
+  tasks = [
+    {
+      "id":1,
+      "created_at":"2016-11-23T13:38:32+01:00",
+      "title":"Tarea numero 1",
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
-      "people":3,
-      "category":"3",
-      "note":null
+      "people":1,
+      "category":"1",
+      "note":"Esta es la nota de la tarea numero 1",
+      "positive_replies":[
+        {
+          "id":3,
+          "name":"Persona 3"
+        }
+      ]
     },
     {
       "id":140,
@@ -92,7 +99,13 @@ export class TaskServiceMock {
       "to_date":null,
       "people":2,
       "category":"2",
-      "note":null
+      "note":null,
+      "positive_replies":[
+        {
+          "id":3,
+          "name":"Persona 3"
+        }
+      ]
     },
     {
       "id":139,
@@ -102,7 +115,13 @@ export class TaskServiceMock {
       "to_date":null,
       "people":1,
       "category":"1",
-      "note":null
+      "note":null,
+      "positive_replies":[
+        {
+          "id":3,
+          "name":"Persona 3"
+        }
+      ]
     }
   ];
 
@@ -120,6 +139,15 @@ export class TaskServiceMock {
 
   createTask(body: Object): Observable<Task> {
     return Observable.of(this.tasks[0])
+  }
+
+  participate(task_id, person_id): Observable<Task> {
+    let task = this.tasks[0];
+    task.positive_replies.push({
+      "id":1,
+      "name":"Persona 1"
+    });
+    return Observable.of(task)
   }
 
   categories = [

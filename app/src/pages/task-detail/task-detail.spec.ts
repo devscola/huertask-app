@@ -30,4 +30,18 @@ describe('Pages: Task Detail', () => {
     expect(categories.length).toBe(1)
     expect(categories[0].innerText).toBe('carpinteria')
   }));
+
+  it('should let participate if user is not a participant', async(() => {
+    let template = fixture.nativeElement;
+    fixture.detectChanges();
+
+    let button = template.querySelectorAll('#participate')[0];
+    expect(button.getAttribute('ng-reflect-disabled')).toBe('false');
+
+    button.click();
+    fixture.detectChanges();
+
+    expect(button.getAttribute('ng-reflect-disabled')).toBe('true');
+  }));
+
 });

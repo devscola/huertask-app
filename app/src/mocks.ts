@@ -56,7 +56,13 @@ export class NavMock {
       "to_date":null,
       "people":3,
       "category":"3",
-      "note":null
+      "note":null,
+      "positive_replies":[
+        {
+          "id":3,
+          "name":"Persona 3"
+        }
+      ]
     };
   }
 }
