@@ -8,6 +8,7 @@ export class Task {
     public to_date?: any,
     public created_at?: any,
     public note?: string,
-    public positive_replies?: any[]
+    public positive_replies?: any[],
+    public negative_replies?: any[]
   ) {  }
 }

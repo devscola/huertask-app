@@ -28,7 +28,19 @@ export class TaskDetail {
     )
   }
 
-  isUserConfirmed(): boolean {
+  unparticipate(){
+    return this.taskService.unparticipate(this.task.id, 1).subscribe( data => {
+      this.task = data
+    },
+    err => console.log(err)
+    )
+  }
+
+  isUserConfirmedPositive(): boolean {
     return !!this.task.positive_replies.find(person => person.id == 1)
+  }
+
+  isUserConfirmedNegative(): boolean {
+    return !!this.task.negative_replies.find(person => person.id == 1)
   }
 }

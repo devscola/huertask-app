@@ -40,6 +40,16 @@ export class TaskService {
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  unparticipate(task_id, person_id): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    let body       = {'person_id': person_id};
+
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/unparticipate/`, body, options)
+      .map(res => <Task>res.json())
+      .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   getCategory(id){
     return this.categories.find(cat => cat.id == id);
   }
