@@ -25,8 +25,8 @@ module Huertask
       PARTICIPATE_STATUS = 1
 
       get "/" do
-        return present Huertask::Repository::Tasks.past_tasks, with: Huertask::Entities::Task if params[:filter] == 'past'
-        present Huertask::Repository::Tasks.future_tasks, with: Huertask::Entities::Task
+        return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
+        present Repository::Tasks.future_tasks, with: Entities::Task
       end
 
       desc 'Create a new task'
@@ -51,7 +51,7 @@ module Huertask
             person = Person.get(params[:person_id])
             participation = Repository::Tasks.create_or_update_participation(task, person, PARTICIPATE_STATUS)
             if participation.save
-              present task, with: Huertask::Entities::Task
+              present task, with: Entities::Task
             else
               error! participation.errors.to_hash, 400
             end
@@ -64,7 +64,7 @@ module Huertask
             person = Person.get(params[:person_id])
             participation = Repository::Tasks.create_or_update_participation(task, person, UNPARTICIPATE_STATUS)
             if participation.save
-              present task, with: Huertask::Entities::Task
+              present task, with: Entities::Task
             else
               error! participation.errors.to_hash, 400
             end
