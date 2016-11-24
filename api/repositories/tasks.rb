@@ -9,15 +9,15 @@ module Huertask
         Task.all(:from_date.lt => Time.now)
       end
 
-      def self.create_or_update_relation(task, person, status)
+      def self.create_or_update_relation(task, person, type)
         relation = Huertask::PersonTaskRelation.first(:task => task, :person => person)
         if relation
-          relation.status = status
+          relation.type = type
         else
           relation = Huertask::PersonTaskRelation.new({
             task: task,
             person: person,
-            status: status
+            type: type
           })
         end
         relation

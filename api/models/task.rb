@@ -18,11 +18,11 @@ module Huertask
     validates_presence_of :title, :from_date, :required_people, :category
 
     def people_going
-      people_relations.all(:status => 1)
+      people_relations.all(:type => 1)
     end
 
     def people_not_going
-      people_relations.all(:status => 0)
+      people_relations.all(:type => 0)
     end
 
     if nil != @from_date

@@ -36,12 +36,12 @@ class Fixtures
       Huertask::PersonTaskRelation.create({
         task: Huertask::Task[n-1],
         person: Huertask::Person[n%2],
-        status: 0
+        type: 0
       })
       Huertask::PersonTaskRelation.create({
         task: Huertask::Task[n-1],
         person: Huertask::Person[2],
-        status: 1
+        type: 1
       })
     end
   end
