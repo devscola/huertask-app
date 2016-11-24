@@ -17,7 +17,7 @@ module Huertask
 
     validates_presence_of :title, :from_date, :required_people, :category
 
-    def positive_replies
+    def people_going
       people_relations.all(:status => 1)
     end
 

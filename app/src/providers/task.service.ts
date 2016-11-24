@@ -95,7 +95,7 @@ export class TaskServiceMock {
       "required_people":1,
       "category":"1",
       "note":"Esta es la nota de la tarea numero 1",
-      "positive_replies":[
+      "people_going":[
         {
           "id":3,
           "name":"Persona 3"
@@ -112,7 +112,7 @@ export class TaskServiceMock {
       "required_people":2,
       "category":"2",
       "note":null,
-      "positive_replies":[
+      "people_going":[
         {
           "id":3,
           "name":"Persona 3"
@@ -129,7 +129,7 @@ export class TaskServiceMock {
       "required_people":1,
       "category":"1",
       "note":null,
-      "positive_replies":[
+      "people_going":[
         {
           "id":3,
           "name":"Persona 3"
@@ -157,7 +157,7 @@ export class TaskServiceMock {
 
   participate(task_id, person_id): Observable<Task> {
     let task = this.tasks[0];
-    task.positive_replies.push({
+    task.people_going.push({
       "id":1,
       "name":"Persona 1"
     });

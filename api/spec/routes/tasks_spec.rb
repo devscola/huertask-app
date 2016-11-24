@@ -68,13 +68,13 @@ describe Huertask::API do
     it "returns edited task" do
       data = { person_id: 1 }
       task = Huertask::Task.get(1)
-      previous_positive_replies = task.positive_replies.size
-      expected_positive_replies = previous_positive_replies + 1
+      previous_people_going = task.people_going.size
+      expected_people_going = previous_people_going + 1
 
       put "/api/tasks/1/participate", data
 
       expect(last_response).to be_ok
-      expect(response['positive_replies'].size).to be expected_positive_replies
+      expect(response['people_going'].size).to be expected_people_going
     end
   end
 
@@ -88,14 +88,14 @@ describe Huertask::API do
       previous_negative_replies = task.negative_replies.size
       expected_negative_replies = previous_negative_replies + 1
 
-      previous_positive_replies = task.positive_replies.size
-      expected_positive_replies = previous_positive_replies - 1
+      previous_people_going = task.people_going.size
+      expected_people_going = previous_people_going - 1
 
       put "/api/tasks/1/unparticipate", data
 
       expect(last_response).to be_ok
       expect(response['negative_replies'].size).to be expected_negative_replies
-      expect(response['positive_replies'].size).to be expected_positive_replies
+      expect(response['people_going'].size).to be expected_people_going
     end
   end
 end

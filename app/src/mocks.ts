@@ -57,7 +57,7 @@ export class NavMock {
       "required_people":3,
       "category":"3",
       "note":null,
-      "positive_replies":[
+      "people_going":[
         {
           "id":3,
           "name":"Persona 3"
