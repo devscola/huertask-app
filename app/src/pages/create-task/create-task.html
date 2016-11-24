@@ -42,6 +42,6 @@
     </ion-item>
   </ion-list>
 
-  <button (click)="createTask(task)" type="submit" ion-button outline>{{ 'TASK.FORM.BUTTON.CREATE' | translate }}</button>
+  <button (click)="edit ? editTask(task) : createTask(task)" type="submit" ion-button outline>{{ 'TASK.FORM.BUTTON.CREATE' | translate }}</button>
 
 </ion-content>

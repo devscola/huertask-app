@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavParams, NavController, ToastController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
@@ -10,11 +10,18 @@ import { Tasks } from '../tasks/tasks';
 })
 
 export class CreateTask {
-  task = new Task();
+  task;
   categories;
+  edit = false;
   submited = false;
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private taskService: TaskService) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, public toastCtrl: ToastController, private taskService: TaskService) {
     this.categories = taskService.categories
+    if(navParams.get('task')){
+      this.task = navParams.get('task')
+      this.edit = true
+    }else{
+      this.task = new Task()
+    }
   }
 
   onSubmit(){
@@ -28,6 +35,10 @@ export class CreateTask {
     err => console.log(err)
     )
     this.navCtrl.setRoot(Tasks);
+  }
+
+  editTask(task: Object){
+    console.log('Editando...');
   }
 
 
