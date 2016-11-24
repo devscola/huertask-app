@@ -16,7 +16,7 @@ class Fixtures
         id: n,
         title: "Tarea numero #{n}",
         from_date: "2020-11-12T13:00:00+00:00",
-        people: n,
+        required_people: n,
         category: n,
         note: "Esta es la nota de la tarea número #{n}",
       })
@@ -27,7 +27,7 @@ class Fixtures
         id: n,
         title: "Tarea numero #{n}",
         from_date: "2000-01-10T13:00:00+00:00",
-        people: n,
+        required_people: n,
         category: 2
       })
     end

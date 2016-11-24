@@ -52,7 +52,7 @@ describe Huertask::API do
 
     it "returns created task" do
       data = {  title: "Limpiar lechugas",
-                people: 1,
+                required_people: 1,
                 category: "limpieza",
                 from_date: "2016-12-19 00:00:00" }
 

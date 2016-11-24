@@ -32,7 +32,7 @@ export class Tasks {
 	}
 
   peopleMessage(task){
-    switch (task.people) {
+    switch (task.required_people) {
        case 0:
          return "TASK.PEOPLE_LEFT.MSG.ZERO";
        case 1:

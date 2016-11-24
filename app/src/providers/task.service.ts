@@ -92,7 +92,7 @@ export class TaskServiceMock {
       "title":"Tarea numero 1",
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
-      "people":1,
+      "required_people":1,
       "category":"1",
       "note":"Esta es la nota de la tarea numero 1",
       "positive_replies":[
@@ -109,7 +109,7 @@ export class TaskServiceMock {
       "title":"Tarea numero 2",
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
-      "people":2,
+      "required_people":2,
       "category":"2",
       "note":null,
       "positive_replies":[
@@ -126,7 +126,7 @@ export class TaskServiceMock {
       "title":"Tarea numero 1",
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
-      "people":1,
+      "required_people":1,
       "category":"1",
       "note":null,
       "positive_replies":[

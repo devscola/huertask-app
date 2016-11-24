@@ -54,7 +54,7 @@ export class NavMock {
       "title":"Tarea numero 3",
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
-      "people":3,
+      "required_people":3,
       "category":"3",
       "note":null,
       "positive_replies":[
