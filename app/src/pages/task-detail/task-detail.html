@@ -42,14 +42,14 @@
     <ion-row>
       <ion-col width-50>
         <button ion-button id="going" color="danger" clear full
-          [disabled]="isUserConfirmedPositive()"
+          [disabled]="isUserGoing()"
           (click)="going()">
           {{ 'TASK.BUTTONS.GOING' | translate}}
         </button>
       </ion-col>
       <ion-col width-50>
         <button ion-button id="not-going" color="danger" clear full
-          [disabled]="isUserConfirmedNegative()"
+          [disabled]="isUserNotGoing()"
           (click)="notGoing()">
           {{ 'TASK.BUTTONS.NOTGOING' | translate}}
         </button>
