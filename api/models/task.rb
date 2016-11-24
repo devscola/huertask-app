@@ -14,7 +14,6 @@ module Huertask
     property :note,              Text
 
     has n, :people_relations, 'PersonTaskRelation'
-    has n, :participants, 'Person', :through => :people_relations, :via => :person
 
     validates_presence_of :title, :from_date, :required_people, :category
 
