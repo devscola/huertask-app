@@ -10,17 +10,17 @@ module Huertask
       end
 
       def self.create_or_update_participation(task, person, status)
-        participation = Huertask::Participation.first(:task => task, :person => person)
-        if participation
-          participation.status = status
+        relation = Huertask::PersonTaskRelation.first(:task => task, :person => person)
+        if relation
+          relation.status = status
         else
-          participation = Huertask::Participation.new({
+          relation = Huertask::PersonTaskRelation.new({
             task: task,
             person: person,
             status: status
           })
         end
-        participation
+        relation
       end
     end
   end

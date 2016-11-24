@@ -1,6 +1,6 @@
 class Fixtures
   def self.seed
-    Huertask::Participation.all.destroy
+    Huertask::PersonTaskRelation.all.destroy
     Huertask::Task.all.destroy
     Huertask::Person.all.destroy
 
@@ -33,12 +33,12 @@ class Fixtures
     end
 
     (1..6).each do |n|
-      Huertask::Participation.create({
+      Huertask::PersonTaskRelation.create({
         task: Huertask::Task[n-1],
         person: Huertask::Person[n%2],
         status: 0
       })
-      Huertask::Participation.create({
+      Huertask::PersonTaskRelation.create({
         task: Huertask::Task[n-1],
         person: Huertask::Person[2],
         status: 1

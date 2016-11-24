@@ -2,7 +2,7 @@ require_relative './Person'
 
 module Huertask
   module Entities
-    class Participation < Grape::Entity
+    class PersonTaskRelation < Grape::Entity
       expose :person, merge: true, using: Huertask::Entities::Person
     end
   end

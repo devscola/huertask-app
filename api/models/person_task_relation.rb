@@ -1,5 +1,5 @@
 module Huertask
-  class Participation
+  class PersonTaskRelation
     include DataMapper::Resource
 
     property :status,      Integer

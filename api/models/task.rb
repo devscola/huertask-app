@@ -13,7 +13,7 @@ module Huertask
     property :category,          String
     property :note,              Text
 
-    has n, :participations, 'Participation'
+    has n, :participations, 'PersonTaskRelation'
     has n, :participants, 'Person', :through => :participations, :via => :person
 
     validates_presence_of :title, :from_date, :required_people, :category
