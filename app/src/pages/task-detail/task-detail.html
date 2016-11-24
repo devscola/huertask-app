@@ -25,7 +25,7 @@
       <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>Nota: {{task.note}}</ion-col>
+      <ion-col>{{ 'TASK.FORM.NOTE.LABEL' | translate}}: {{task.note}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
@@ -44,14 +44,14 @@
         <button ion-button id="going" color="danger" clear full
           [disabled]="isUserConfirmedPositive()"
           (click)="going()">
-          Asistiré
+          {{ 'TASK.BUTTONS.GOING' | translate}}
         </button>
       </ion-col>
       <ion-col width-50>
         <button ion-button id="not-going" color="danger" clear full
           [disabled]="isUserConfirmedNegative()"
           (click)="notGoing()">
-          No puedo
+          {{ 'TASK.BUTTONS.NOTGOING' | translate}}
         </button>
       </ion-col>
     </ion-row>
