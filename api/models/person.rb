@@ -5,7 +5,7 @@ module Huertask
     property :id, Serial
     property :name, String
 
-    has n, :participations, 'PersonTaskRelation'
-    has n, :tasks, 'Task', :through => :participations, :via => :task
+    has n, :people_relations, 'PersonTaskRelation'
+    has n, :tasks, 'Task', :through => :people_relations, :via => :task
   end
 end

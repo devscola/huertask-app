@@ -13,17 +13,17 @@ module Huertask
     property :category,          String
     property :note,              Text
 
-    has n, :participations, 'PersonTaskRelation'
-    has n, :participants, 'Person', :through => :participations, :via => :person
+    has n, :people_relations, 'PersonTaskRelation'
+    has n, :participants, 'Person', :through => :people_relations, :via => :person
 
     validates_presence_of :title, :from_date, :required_people, :category
 
     def positive_replies
-      participations.all(:status => 1)
+      people_relations.all(:status => 1)
     end
 
     def negative_replies
-      participations.all(:status => 0)
+      people_relations.all(:status => 0)
     end
 
     if nil != @from_date
