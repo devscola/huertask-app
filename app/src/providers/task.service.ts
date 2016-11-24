@@ -31,6 +31,16 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  editTask(body: Object): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    let id         = body['id']
+
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
+                    .map((res:Response) => <Task>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   going(task_id, person_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });

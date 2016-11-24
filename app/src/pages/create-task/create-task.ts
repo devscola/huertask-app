@@ -38,7 +38,12 @@ export class CreateTask {
   }
 
   editTask(task: Object){
-    console.log('Editando...');
+    this.taskService.editTask(task).subscribe( data => {
+      return data
+    },
+    err => console.log(err)
+    )
+    this.navCtrl.setRoot(Tasks);
   }
 
 

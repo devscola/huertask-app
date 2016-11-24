@@ -40,14 +40,32 @@ module Huertask
         end
       end
 
-      params do
-        requires :task_id, type: Integer
-      end
+      route_param :id do
+        params do
+          optional :title,           type: String
+          optional :category,        type: String
+          optional :from_date,       type: DateTime
+          optional :to_date,         type: DateTime
+          optional :required_people, type: Integer
+          optional :note,            type: String
+        end
+        put '/' do
+          task = Task.get(params[:id])
 
-      route_param :task_id do
+          declared(params, include_missing: false).each do |key, value|
+            task.update(key => value)
+          end
+
+          if task.save
+            present task, with: Entities::Task
+          else
+            error! task.errors.to_hash, 400
+          end
+        end
+
         resource :going do
           put '/' do
-            task = Task.get(params[:task_id])
+            task = Task.get(params[:id])
             person = Person.get(params[:person_id])
             relation = Repository::Tasks.create_or_update_relation(task, person, GOING_TYPE)
             if relation.save
@@ -60,7 +78,7 @@ module Huertask
 
         resource :notgoing do
           put '/' do
-            task = Task.get(params[:task_id])
+            task = Task.get(params[:id])
             person = Person.get(params[:person_id])
             relation = Repository::Tasks.create_or_update_relation(task, person, NOT_GOING_TYPE)
             if relation.save
