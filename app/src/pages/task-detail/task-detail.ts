@@ -17,7 +17,30 @@ export class TaskDetail {
   }
 
   getCategoryName(id){
-    console.log(this.taskService.getCategory(id));
     return this.taskService.getCategory(id).name;
+  }
+
+  going(){
+    return this.taskService.going(this.task.id, 1).subscribe( data => {
+      this.task = data
+    },
+    err => console.log(err)
+    )
+  }
+
+  notGoing(){
+    return this.taskService.notGoing(this.task.id, 1).subscribe( data => {
+      this.task = data
+    },
+    err => console.log(err)
+    )
+  }
+
+  isUserConfirmedPositive(): boolean {
+    return !!this.task.people_going.find(person => person.id == 1)
+  }
+
+  isUserConfirmedNegative(): boolean {
+    return !!this.task.people_not_going.find(person => person.id == 1)
   }
 }

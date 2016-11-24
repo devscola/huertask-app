@@ -13,29 +13,46 @@
       <ion-col><h1>{{task.title}}</h1></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col><h2>{{task.from_date | date:"EEEE dd MMMM"}}</h2></ion-col>
+      <ion-col><h2>{{task.from_date.substring(0,10)}}</h2></ion-col>
     </ion-row>
     <ion-row>
       <ion-col><h3>
-        {{task.from_date | date:"H:mm"}}h -
-        {{task.from_date | date:"H:mm"}}h
+        {{task.from_date.substring(11,5)}}h -
+        {{task.to_date}}h
       </h3></ion-col>
     </ion-row>
     <ion-row>
       <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>Nota: {{task.note}}</ion-col>
+      <ion-col>{{ 'TASK.FORM.NOTE.LABEL' | translate}}: {{task.note}}</ion-col>
     </ion-row>
     <ion-row>
-      <ion-col *ngFor="let person of task.participants">{{person.name}}</ion-col>
+      <ion-col>
+        Asistirán:
+        <span *ngFor="let person of task.people_going">{{person.name}} ,</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        No asistirán:
+        <span *ngFor="let person of task.people_not_going">{{person.name}} ,</span>
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col width-50>
-        <button ion-button  color="danger" clear full>Unirme</button>
+        <button ion-button id="going" color="danger" clear full
+          [disabled]="isUserConfirmedPositive()"
+          (click)="going()">
+          {{ 'TASK.BUTTONS.GOING' | translate}}
+        </button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button  color="danger" clear full>Añadir al calendario</button>
+        <button ion-button id="not-going" color="danger" clear full
+          [disabled]="isUserConfirmedNegative()"
+          (click)="notGoing()">
+          {{ 'TASK.BUTTONS.NOTGOING' | translate}}
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -8,6 +8,20 @@ module Huertask
       def self.past_tasks
         Task.all(:from_date.lt => Time.now)
       end
+
+      def self.create_or_update_relation(task, person, type)
+        relation = Huertask::PersonTaskRelation.first(:task => task, :person => person)
+        if relation
+          relation.type = type
+        else
+          relation = Huertask::PersonTaskRelation.new({
+            task: task,
+            person: person,
+            type: type
+          })
+        end
+        relation
+      end
     end
   end
 end

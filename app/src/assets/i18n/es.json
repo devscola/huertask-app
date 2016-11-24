@@ -40,6 +40,10 @@
       "BUTTON" : {
         "CREATE" : "Guardar"
       }
+    },
+    "BUTTONS" : {
+      "GOING" : "Asistiré",
+      "NOTGOING" : "No puedo"
     }
   }
 }

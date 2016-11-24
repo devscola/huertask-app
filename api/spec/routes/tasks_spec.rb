@@ -8,6 +8,8 @@ describe Huertask::API do
     Huertask::API
   end
 
+  Fixtures.seed
+
   let(:request_time) { Time.now.utc }
 
   describe "GET /api/tasks" do
@@ -35,7 +37,7 @@ describe Huertask::API do
     end
   end
 
-  describe "POST /" do
+  describe "POST /api/tasks" do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returs error when task is invalid" do
@@ -50,13 +52,50 @@ describe Huertask::API do
 
     it "returns created task" do
       data = {  title: "Limpiar lechugas",
-                people: 1,
+                required_people: 1,
                 category: "limpieza",
                 from_date: "2016-12-19 00:00:00" }
 
       post "/api/tasks", data
 
       expect(last_response).to be_created
+    end
+  end
+
+  describe "PUT /api/tasks/:id/going" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returns edited task" do
+      data = { person_id: 1 }
+      task = Huertask::Task.get(1)
+      previous_people_going = task.people_going.size
+      expected_people_going = previous_people_going + 1
+
+      put "/api/tasks/1/going", data
+
+      expect(last_response).to be_ok
+      expect(response['people_going'].size).to be expected_people_going
+    end
+  end
+
+  describe "PUT /api/tasks/:id/notgoing" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returns edited task" do
+      data = { person_id: 3 }
+      task = Huertask::Task.get(1)
+
+      previous_people_not_going = task.people_not_going.size
+      expected_people_not_going = previous_people_not_going + 1
+
+      previous_people_going = task.people_going.size
+      expected_people_going = previous_people_going - 1
+
+      put "/api/tasks/1/notgoing", data
+
+      expect(last_response).to be_ok
+      expect(response['people_not_going'].size).to be expected_people_not_going
+      expect(response['people_going'].size).to be expected_people_going
     end
   end
 end

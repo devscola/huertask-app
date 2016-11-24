@@ -4,16 +4,26 @@ module Huertask
   class Task
     include DataMapper::Resource
 
-    property :id,          Serial
-    property :created_at,  DateTime
-    property :title,       String, :length => 1..100
-    property :from_date,   DateTime
-    property :to_date,     DateTime
-    property :people,      Integer
-    property :category,    String
-    property :note,        Text
+    property :id,                Serial
+    property :created_at,        DateTime
+    property :title,             String, :length => 1..100
+    property :from_date,         DateTime
+    property :to_date,           DateTime
+    property :required_people,   Integer
+    property :category,          String
+    property :note,              Text
 
-    validates_presence_of :title, :from_date, :people, :category
+    has n, :people_relations, 'PersonTaskRelation'
+
+    validates_presence_of :title, :from_date, :required_people, :category
+
+    def people_going
+      people_relations.all(:type => 1)
+    end
+
+    def people_not_going
+      people_relations.all(:type => 0)
+    end
 
     if nil != @from_date
       validates_with_block @from_date do
