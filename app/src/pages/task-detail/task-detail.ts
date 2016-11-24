@@ -20,16 +20,16 @@ export class TaskDetail {
     return this.taskService.getCategory(id).name;
   }
 
-  participate(){
-    return this.taskService.participate(this.task.id, 1).subscribe( data => {
+  going(){
+    return this.taskService.going(this.task.id, 1).subscribe( data => {
       this.task = data
     },
     err => console.log(err)
     )
   }
 
-  unparticipate(){
-    return this.taskService.unparticipate(this.task.id, 1).subscribe( data => {
+  notGoing(){
+    return this.taskService.notGoing(this.task.id, 1).subscribe( data => {
       this.task = data
     },
     err => console.log(err)

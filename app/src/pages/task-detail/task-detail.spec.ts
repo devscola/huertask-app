@@ -31,11 +31,11 @@ describe('Pages: Task Detail', () => {
     expect(categories[0].innerText).toBe('carpinteria')
   }));
 
-  it('should let participate if user is not a participant', async(() => {
+  it('should let say "going" if user is not going yet', async(() => {
     let template = fixture.nativeElement;
     fixture.detectChanges();
 
-    let button = template.querySelectorAll('#participate')[0];
+    let button = template.querySelectorAll('#going')[0];
     expect(button.getAttribute('ng-reflect-disabled')).toBe('false');
 
     button.click();
@@ -44,11 +44,11 @@ describe('Pages: Task Detail', () => {
     expect(button.getAttribute('ng-reflect-disabled')).toBe('true');
   }));
 
-  it('should let unparticipate if user is not an unparticipant', async(() => {
+  it('should let say "not going" if user have not said it yet', async(() => {
     let template = fixture.nativeElement;
     fixture.detectChanges();
 
-    let button = template.querySelectorAll('#unparticipate')[0];
+    let button = template.querySelectorAll('#not-going')[0];
     expect(button.getAttribute('ng-reflect-disabled')).toBe('false');
 
     button.click();

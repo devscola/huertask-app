@@ -21,8 +21,8 @@ module Huertask
 
     resource :tasks do
 
-      UNPARTICIPATE_STATUS = 0
-      PARTICIPATE_STATUS = 1
+      NOT_GOING_TYPE = 0
+      GOING_TYPE = 1
 
       get "/" do
         return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
@@ -45,11 +45,11 @@ module Huertask
       end
 
       route_param :task_id do
-        resource :participate do
+        resource :going do
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            relation = Repository::Tasks.create_or_update_relation(task, person, PARTICIPATE_STATUS)
+            relation = Repository::Tasks.create_or_update_relation(task, person, GOING_TYPE)
             if relation.save
               present task, with: Entities::Task
             else
@@ -58,11 +58,11 @@ module Huertask
           end
         end
 
-        resource :unparticipate do
+        resource :notgoing do
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            relation = Repository::Tasks.create_or_update_relation(task, person, UNPARTICIPATE_STATUS)
+            relation = Repository::Tasks.create_or_update_relation(task, person, NOT_GOING_TYPE)
             if relation.save
               present task, with: Entities::Task
             else

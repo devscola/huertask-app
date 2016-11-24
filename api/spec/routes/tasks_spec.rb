@@ -62,7 +62,7 @@ describe Huertask::API do
     end
   end
 
-  describe "PUT /api/tasks/:id/participate" do
+  describe "PUT /api/tasks/:id/going" do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returns edited task" do
@@ -71,14 +71,14 @@ describe Huertask::API do
       previous_people_going = task.people_going.size
       expected_people_going = previous_people_going + 1
 
-      put "/api/tasks/1/participate", data
+      put "/api/tasks/1/going", data
 
       expect(last_response).to be_ok
       expect(response['people_going'].size).to be expected_people_going
     end
   end
 
-  describe "PUT /api/tasks/:id/unparticipate" do
+  describe "PUT /api/tasks/:id/notgoing" do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returns edited task" do
@@ -91,7 +91,7 @@ describe Huertask::API do
       previous_people_going = task.people_going.size
       expected_people_going = previous_people_going - 1
 
-      put "/api/tasks/1/unparticipate", data
+      put "/api/tasks/1/notgoing", data
 
       expect(last_response).to be_ok
       expect(response['people_not_going'].size).to be expected_people_not_going

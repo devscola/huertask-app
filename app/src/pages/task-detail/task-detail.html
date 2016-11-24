@@ -41,16 +41,16 @@
     </ion-row>
     <ion-row>
       <ion-col width-50>
-        <button ion-button id="participate" color="danger" clear full
+        <button ion-button id="going" color="danger" clear full
           [disabled]="isUserConfirmedPositive()"
-          (click)="participate()">
+          (click)="going()">
           Asistiré
         </button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button id="unparticipate" color="danger" clear full
+        <button ion-button id="not-going" color="danger" clear full
           [disabled]="isUserConfirmedNegative()"
-          (click)="unparticipate()">
+          (click)="notGoing()">
           No puedo
         </button>
       </ion-col>

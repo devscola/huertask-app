@@ -31,22 +31,22 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
-  participate(task_id, person_id): Observable<Task> {
+  going(task_id, person_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     let body       = {'person_id': person_id};
 
-    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/participate/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/going/`, body, options)
       .map(res => <Task>res.json())
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
-  unparticipate(task_id, person_id): Observable<Task> {
+  notGoing(task_id, person_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     let body       = {'person_id': person_id};
 
-    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/unparticipate/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/notgoing/`, body, options)
       .map(res => <Task>res.json())
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -155,7 +155,7 @@ export class TaskServiceMock {
     return Observable.of(this.tasks[0])
   }
 
-  participate(task_id, person_id): Observable<Task> {
+  going(task_id, person_id): Observable<Task> {
     let task = this.tasks[0];
     task.people_going.push({
       "id":1,
@@ -164,7 +164,7 @@ export class TaskServiceMock {
     return Observable.of(task)
   }
 
-  unparticipate(task_id, person_id): Observable<Task> {
+  notGoing(task_id, person_id): Observable<Task> {
     let task = this.tasks[1];
     task.people_not_going.push({
       "id":1,
