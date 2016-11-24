@@ -25,6 +25,7 @@ module Huertask
       PARTICIPATE_STATUS = 1
 
       get "/" do
+        return present Huertask::Repository::Tasks.past_tasks, with: Huertask::Entities::Task if params[:filter] == 'past'
         present Huertask::Repository::Tasks.future_tasks, with: Huertask::Entities::Task
       end
 
