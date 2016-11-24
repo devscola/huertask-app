@@ -49,7 +49,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            participation = create_or_update_participation(task, person, PARTICIPATE_STATUS)
+            participation = Repository::Tasks.create_or_update_participation(task, person, PARTICIPATE_STATUS)
             if participation.save
               present task, with: Huertask::Entities::Task
             else
@@ -62,7 +62,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            participation = create_or_update_participation(task, person, UNPARTICIPATE_STATUS)
+            participation = Repository::Tasks.create_or_update_participation(task, person, UNPARTICIPATE_STATUS)
             if participation.save
               present task, with: Huertask::Entities::Task
             else
@@ -76,20 +76,6 @@ module Huertask
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
-
-      def create_or_update_participation(task, person, status)
-        participation = Huertask::Participation.first(:task => task, :person => person)
-        if participation
-          participation.status = status
-        else
-          participation = Huertask::Participation.new({
-            task: task,
-            person: person,
-            status: status
-          })
-        end
-        participation
-      end
     end
   end
 end
