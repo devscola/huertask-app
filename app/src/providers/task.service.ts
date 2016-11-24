@@ -101,7 +101,7 @@ export class TaskServiceMock {
           "name":"Persona 3"
         }
       ],
-      "negative_replies":[]
+      "people_not_going":[]
     },
     {
       "id":140,
@@ -118,7 +118,7 @@ export class TaskServiceMock {
           "name":"Persona 3"
         }
       ],
-      "negative_replies":[]
+      "people_not_going":[]
     },
     {
       "id":139,
@@ -135,7 +135,7 @@ export class TaskServiceMock {
           "name":"Persona 3"
         }
       ],
-      "negative_replies":[]
+      "people_not_going":[]
     }
   ];
 
@@ -166,7 +166,7 @@ export class TaskServiceMock {
 
   unparticipate(task_id, person_id): Observable<Task> {
     let task = this.tasks[1];
-    task.negative_replies.push({
+    task.people_not_going.push({
       "id":1,
       "name":"Persona 1"
     });

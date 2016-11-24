@@ -85,8 +85,8 @@ describe Huertask::API do
       data = { person_id: 3 }
       task = Huertask::Task.get(1)
 
-      previous_negative_replies = task.negative_replies.size
-      expected_negative_replies = previous_negative_replies + 1
+      previous_people_not_going = task.people_not_going.size
+      expected_people_not_going = previous_people_not_going + 1
 
       previous_people_going = task.people_going.size
       expected_people_going = previous_people_going - 1
@@ -94,7 +94,7 @@ describe Huertask::API do
       put "/api/tasks/1/unparticipate", data
 
       expect(last_response).to be_ok
-      expect(response['negative_replies'].size).to be expected_negative_replies
+      expect(response['people_not_going'].size).to be expected_people_not_going
       expect(response['people_going'].size).to be expected_people_going
     end
   end

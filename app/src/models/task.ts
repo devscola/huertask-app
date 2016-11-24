@@ -9,6 +9,6 @@ export class Task {
     public created_at?: any,
     public note?: string,
     public people_going?: any[],
-    public negative_replies?: any[]
+    public people_not_going?: any[]
   ) {  }
 }

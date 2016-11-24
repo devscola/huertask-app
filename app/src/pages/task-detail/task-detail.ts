@@ -41,6 +41,6 @@ export class TaskDetail {
   }
 
   isUserConfirmedNegative(): boolean {
-    return !!this.task.negative_replies.find(person => person.id == 1)
+    return !!this.task.people_not_going.find(person => person.id == 1)
   }
 }

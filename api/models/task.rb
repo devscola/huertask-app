@@ -21,7 +21,7 @@ module Huertask
       people_relations.all(:status => 1)
     end
 
-    def negative_replies
+    def people_not_going
       people_relations.all(:status => 0)
     end
 
