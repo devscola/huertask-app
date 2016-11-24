@@ -13,12 +13,12 @@
       <ion-col><h1>{{task.title}}</h1></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col><h2>{{task.from_date | date:"EEEE dd MMMM"}}</h2></ion-col>
+      <ion-col><h2>{{task.from_date.substring(0,10)}}</h2></ion-col>
     </ion-row>
     <ion-row>
       <ion-col><h3>
-        {{task.from_date | date:"H:mm"}}h -
-        {{task.from_date | date:"H:mm"}}h
+        {{task.from_date.substring(11,5)}}h -
+        {{task.to_date}}h
       </h3></ion-col>
     </ion-row>
     <ion-row>
