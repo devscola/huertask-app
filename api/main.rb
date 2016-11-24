@@ -49,7 +49,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            relation = Repository::Tasks.create_or_update_participation(task, person, PARTICIPATE_STATUS)
+            relation = Repository::Tasks.create_or_update_relation(task, person, PARTICIPATE_STATUS)
             if relation.save
               present task, with: Entities::Task
             else
@@ -62,7 +62,7 @@ module Huertask
           put '/' do
             task = Task.get(params[:task_id])
             person = Person.get(params[:person_id])
-            relation = Repository::Tasks.create_or_update_participation(task, person, UNPARTICIPATE_STATUS)
+            relation = Repository::Tasks.create_or_update_relation(task, person, UNPARTICIPATE_STATUS)
             if relation.save
               present task, with: Entities::Task
             else

@@ -9,7 +9,7 @@ module Huertask
         Task.all(:from_date.lt => Time.now)
       end
 
-      def self.create_or_update_participation(task, person, status)
+      def self.create_or_update_relation(task, person, status)
         relation = Huertask::PersonTaskRelation.first(:task => task, :person => person)
         if relation
           relation.status = status
