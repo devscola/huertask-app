@@ -7,7 +7,7 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-miguel.herokuapp.com/api';
+  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
 
   constructor(public http: Http) { }
