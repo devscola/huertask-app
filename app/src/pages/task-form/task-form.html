@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>task-form</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
+      <ion-input required [(ngModel)]="task.title" type="text" placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
+      <ion-select required [(ngModel)]="task.category">
+        <ion-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
+      <ion-datetime required [(ngModel)]="task.from_date" displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
+      <ion-datetime [(ngModel)]="task.to_date" displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
+      <ion-input required [(ngModel)]="task.required_people" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
+      <ion-textarea [(ngModel)]="task.note" rows="3" placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <button (click)="editTask(task)" type="submit" ion-button outline>{{ 'TASK.FORM.BUTTON.CREATE' | translate }}</button>
+</ion-content>

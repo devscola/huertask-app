@@ -37,16 +37,6 @@ export class CreateTask {
     this.navCtrl.setRoot(Tasks);
   }
 
-  editTask(task: Object){
-    this.taskService.editTask(task).subscribe( data => {
-      return data
-    },
-    err => console.log(err)
-    )
-    this.navCtrl.setRoot(Tasks);
-  }
-
-
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
      message: message,

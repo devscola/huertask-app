@@ -4,6 +4,8 @@ import { MyApp } from './app.component';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { TaskDetail } from '../pages/task-detail/task-detail';
+import { EditTask } from '../pages/edit-task/edit-task';
+import { TaskForm } from '../pages/task-form/task-form';
 import { TaskService } from '../providers/task.service';
 
 import { HttpModule, Http } from '@angular/http';
@@ -18,7 +20,9 @@ export function createTranslateLoader(http: Http) {
     MyApp,
     Tasks,
     CreateTask,
-    TaskDetail
+    TaskDetail,
+    EditTask,
+    TaskForm
   ],
   imports: [
     HttpModule,
@@ -34,7 +38,9 @@ export function createTranslateLoader(http: Http) {
     MyApp,
     Tasks,
     CreateTask,
-    TaskDetail
+    TaskDetail,
+    EditTask,
+    TaskForm
   ],
   providers: [TaskService]
 })

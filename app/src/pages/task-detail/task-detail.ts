@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskService } from '../../providers/task.service';
-import { CreateTask } from '../create-task/create-task';
+import { EditTask } from '../edit-task/edit-task';
 
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
@@ -38,7 +38,7 @@ export class TaskDetail {
   }
 
   goToEditTask(){
-    this.navCtrl.push(CreateTask, {task: this.task});
+    this.navCtrl.push(EditTask, {task: this.task});
   }
 
   isUserConfirmedPositive(): boolean {
