@@ -94,4 +94,25 @@ describe('TaskService', () => {
     })));
 
   });
+
+  describe('editTask', () => {
+    let task_id = 1
+
+    it('call correct url with correct http method', async(inject(
+      [TaskService, MockBackend], (service, mockBackend) => {
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse) })));
+        expect(conn.request.url).toEqual(`${service.huertaskApiUrl}/tasks/${task_id}`);
+        expect(conn.request.method).toEqual(RequestMethod.Put);
+      });
+
+      const result = service.editTask({'id': task_id});
+
+      result.subscribe(res => {
+        expect(res).toEqual(mockResponse);
+      });
+    })));
+
+  });
 });
