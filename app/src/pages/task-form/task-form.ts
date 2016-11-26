@@ -24,6 +24,14 @@ export class TaskForm {
     }
   }
 
+  submitTask(task: Object){
+    if(this.action == 'edit'){
+      this.editTask(task);
+    }else{
+      this.createTask(task);
+    }
+  }
+
   editTask(task: Object){
     this.taskService.editTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
