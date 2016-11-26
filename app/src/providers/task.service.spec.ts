@@ -37,7 +37,7 @@ describe('TaskService', () => {
 
   describe('getFutureTasks', () => {
 
-    it('should get a list of future tasks', async(inject(
+    it('call correct url with correct http method', async(inject(
       [TaskService, MockBackend], (service, mockBackend) => {
 
       mockBackend.connections.subscribe(conn => {
@@ -57,7 +57,7 @@ describe('TaskService', () => {
 
   describe('getPastTasks', () => {
 
-    it('should get a list of future tasks', async(inject(
+    it('call correct url with correct http method', async(inject(
       [TaskService, MockBackend], (service, mockBackend) => {
 
       mockBackend.connections.subscribe(conn => {
@@ -77,7 +77,7 @@ describe('TaskService', () => {
 
   describe('createTask', () => {
 
-    it('should get a list of future tasks', async(inject(
+    it('call correct url with correct http method', async(inject(
       [TaskService, MockBackend], (service, mockBackend) => {
 
       mockBackend.connections.subscribe(conn => {

@@ -41,11 +41,11 @@ export class TaskDetail {
     this.navCtrl.push(EditTask, {task: this.task});
   }
 
-  isUserConfirmedPositive(): boolean {
+  isUserGoing(): boolean {
     return !!this.task.people_going.find(person => person.id == 1)
   }
 
-  isUserConfirmedNegative(): boolean {
+  isUserNotGoing(): boolean {
     return !!this.task.people_not_going.find(person => person.id == 1)
   }
 }
