@@ -7,6 +7,7 @@ import { TaskDetail } from '../pages/task-detail/task-detail';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { TaskService } from '../providers/task.service';
+import { FormAction } from '../components/form-action/form-action';
 
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
@@ -22,7 +23,8 @@ export function createTranslateLoader(http: Http) {
     CreateTask,
     TaskDetail,
     EditTask,
-    TaskForm
+    TaskForm,
+    FormAction
   ],
   imports: [
     HttpModule,

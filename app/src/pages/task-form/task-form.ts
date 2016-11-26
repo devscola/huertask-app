@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
@@ -11,17 +11,16 @@ import { TaskService } from '../../providers/task.service';
 export class TaskForm {
 
   task;
-  edit;
   categories;
+  action;
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
+  constructor(public el: ElementRef, public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
     this.categories = taskService.categories;
-    if(navParams.get('task')){
+    this.action = el.nativeElement.getAttribute('form-action');
+    if(this.action == 'edit'){
       this.task = navParams.get('task');
-      this.edit = true
     }else{
       this.task = new Task();
-      this.edit = false
     }
   }
 
