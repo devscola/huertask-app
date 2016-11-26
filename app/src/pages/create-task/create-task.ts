@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
-import { TaskService } from '../../providers/task.service';
-import { Task } from '../../models/task';
-import { Tasks } from '../tasks/tasks';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'create-task',
@@ -10,26 +7,8 @@ import { Tasks } from '../tasks/tasks';
 })
 
 export class CreateTask {
-  task = new Task();
-  categories;
-  submited = false;
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private taskService: TaskService) {
-    this.categories = taskService.categories
-  }
 
-  onSubmit(){
-    this.submited = true
-  }
-
-  createTask(task: Object){
-    this.taskService.createTask(task).subscribe( data => {
-      return data
-    },
-    err => console.log(err)
-    )
-    this.navCtrl.setRoot(Tasks);
-  }
-
+  constructor(public toastCtrl: ToastController) { }
 
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({

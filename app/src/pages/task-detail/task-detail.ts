@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskService } from '../../providers/task.service';
+import { EditTask } from '../edit-task/edit-task';
 
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
@@ -12,7 +13,7 @@ import { NavParams } from 'ionic-angular';
 
 export class TaskDetail {
   task = new Task();
-  constructor(private navParams: NavParams, public taskService: TaskService) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
     this.task = navParams.get('task');
   }
 
@@ -34,6 +35,10 @@ export class TaskDetail {
     },
     err => console.log(err)
     )
+  }
+
+  goToEditTask(){
+    this.navCtrl.push(EditTask, {task: this.task});
   }
 
   isUserGoing(): boolean {

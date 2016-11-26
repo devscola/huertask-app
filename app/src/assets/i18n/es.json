@@ -16,6 +16,9 @@
     "CREATE" : {
       "TITLE" : "Crear Tarea"
     },
+    "EDIT" : {
+      "TITLE" : "Editar Tarea"
+    },
     "FORM" : {
       "TITLE" : {
         "LABEL" : "Crear Tarea",

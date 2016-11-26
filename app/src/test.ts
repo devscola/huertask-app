@@ -13,6 +13,7 @@ import { App, MenuController, NavController, NavParams, Platform, Config, Keyboa
 import { ConfigMock, NavMock, PlatformMock } from './mocks';
 import { TranslateModule } from 'ng2-translate';
 import { TaskService, TaskServiceMock } from './providers/task.service';
+import { TaskForm } from './pages/task-form/task-form';
 
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
@@ -57,6 +58,7 @@ export class TestUtils {
     return TestBed.configureTestingModule({
       declarations: [
         ...components,
+        TaskForm
       ],
       providers: [
         {provide: App, useClass: ConfigMock},

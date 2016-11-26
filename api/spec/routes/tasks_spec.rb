@@ -62,6 +62,28 @@ describe Huertask::API do
     end
   end
 
+  describe "PUT /api/tasks/:id" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "returs error when task is invalid" do
+      body = { title: "" }
+
+      put "/api/tasks/1", body
+
+      expect(last_response).to be_bad_request
+      expect(response.size).to be 1
+    end
+
+    it "returns edited task" do
+      body = { title: "Limpiar lechugas",
+               ignored_param: "Este paremetro se ignorará" }
+
+      put "/api/tasks/1", body
+
+      expect(last_response).to be_ok
+    end
+  end
+
   describe "PUT /api/tasks/:id/going" do
     subject(:response) { JSON.parse(last_response.body) }
 
