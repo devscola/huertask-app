@@ -25,9 +25,12 @@ export class TaskForm {
       this.task = new Task();
     }
     else if (this.action == 'duplicate'){
-      delete navParams.get('task')['id'];
-      navParams.get('task')['from_date'] = '';
-      this.task = navParams.get('task');
+      var taskToCopy = navParams.get('task')
+
+      delete taskToCopy['id'];
+      taskToCopy['from_date'] = '';
+
+      this.task = taskToCopy;
     }
   }
 
