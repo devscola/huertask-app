@@ -17,7 +17,7 @@ describe('Pages: Edit Task', () => {
     expect(instance).toBeTruthy();
   }));
 
-  it('should has the task information', async(() => {
+  it('should has the task information if form-action is edit', async(() => {
     let template = fixture.nativeElement;
     fixture.detectChanges();
 
