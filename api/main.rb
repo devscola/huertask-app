@@ -63,6 +63,16 @@ module Huertask
           end
         end
 
+        delete '/' do
+          task = Task.get(params[:id])
+          task.active = false;
+          if task.save
+            {}
+          else
+            error! task.errors.to_hash, 400
+          end
+        end
+
         resource :going do
           put '/' do
             task = Task.get(params[:id])
