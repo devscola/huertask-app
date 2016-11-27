@@ -63,7 +63,17 @@ export class TaskForm {
   }
 
   duplicateTask(task: Object){
-    console.log('duplicando')
+    task = this.cleanTask(task);
+    this.taskService.createTask(task).subscribe( data => {
+      this.navCtrl.setRoot(Tasks);
+    },
+    err => console.log(err)
+    )
   }
 
+  cleanTask(task: Object){
+    delete task['people_going']
+    delete task['people_not_going']
+    return task
+  }
 }
