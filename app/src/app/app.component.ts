@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
+import 'moment/locale/es';
+import * as moment from 'moment';
 
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
@@ -20,6 +22,7 @@ export class MyApp {
     this.initializeApp();
     translate.setDefaultLang('es');
     translate.use('es');
+    moment().locale('es');
     // used for an example of ngFor and navigation
     this.pages = [
       { title: "TASKS.TITLE", component: Tasks },
