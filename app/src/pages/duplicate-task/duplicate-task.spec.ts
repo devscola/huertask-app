@@ -17,7 +17,7 @@ describe('Pages: Duplicate Task', () => {
     expect(instance).toBeTruthy();
   }));
 
-  fit('should not has the task information if form-action is duplicate', async(() => {
+  it('should not has the task information if form-action is duplicate', async(() => {
     let template = fixture.nativeElement;
     fixture.detectChanges();
 
