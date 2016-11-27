@@ -27,8 +27,8 @@ export class TaskForm {
     else if (this.action == 'duplicate'){
       var taskToCopy = navParams.get('task')
 
-      delete taskToCopy['id'];
       taskToCopy['from_date'] = '';
+      taskToCopy['to_date'] = '';
 
       this.task = taskToCopy;
     }
@@ -72,6 +72,7 @@ export class TaskForm {
   }
 
   cleanTask(task: Object){
+    delete task['id'];
     delete task['people_going']
     delete task['people_not_going']
     return task
