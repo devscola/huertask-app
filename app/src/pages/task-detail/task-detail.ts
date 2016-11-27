@@ -3,6 +3,7 @@ import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
 import { EditTask } from '../edit-task/edit-task';
+import { DuplicateTask } from '../duplicate-task/duplicate-task';
 
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
@@ -48,6 +49,10 @@ export class TaskDetail {
 
   goToEditTask(){
     this.navCtrl.push(EditTask, {task: this.task});
+  }
+
+  goToDuplicateTask(){
+    this.navCtrl.push(DuplicateTask, {task: this.task});
   }
 
   isUserGoing(): boolean {

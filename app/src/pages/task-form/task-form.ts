@@ -17,18 +17,32 @@ export class TaskForm {
   constructor(public el: ElementRef, public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
     this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
+
     if(this.action == 'edit'){
       this.task = navParams.get('task');
-    }else{
+    }
+    else if (this.action == 'create'){
       this.task = new Task();
+    }
+    else if (this.action == 'duplicate'){
+      var taskToCopy = navParams.get('task')
+
+      taskToCopy['from_date'] = '';
+      taskToCopy['to_date'] = '';
+
+      this.task = taskToCopy;
     }
   }
 
   submitTask(task: Object){
     if(this.action == 'edit'){
       this.editTask(task);
-    }else{
+    }
+    else if (this.action == 'create'){
       this.createTask(task);
+    }
+    else if (this.action == 'duplicate'){
+      this.duplicateTask(task);
     }
   }
 
@@ -48,4 +62,19 @@ export class TaskForm {
     )
   }
 
+  duplicateTask(task: Object){
+    task = this.cleanTask(task);
+    this.taskService.createTask(task).subscribe( data => {
+      this.navCtrl.setRoot(Tasks);
+    },
+    err => console.log(err)
+    )
+  }
+
+  cleanTask(task: Object){
+    delete task['id'];
+    delete task['people_going']
+    delete task['people_not_going']
+    return task
+  }
 }
