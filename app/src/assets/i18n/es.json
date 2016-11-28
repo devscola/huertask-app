@@ -22,23 +22,39 @@
     "FORM" : {
       "TITLE" : {
         "LABEL" : "Crear Tarea",
-        "PLACEHOLDER" : "Nombre de la tarea"
+        "PLACEHOLDER" : "Nombre de la tarea",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener un título",
+          "MAX_LENGTH" : "La título no puede tener más de 100 caracteres"
+        }
       },
       "CATEGORY" : {
-        "LABEL" : "Categoría"
+        "LABEL" : "Categoría",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener una categoría"
+        }
       },
       "NOTE" : {
         "LABEL" : "Nota",
         "PLACEHOLDER" : "Escribe más información"
       },
       "FROM_DATE" : {
-        "LABEL" : "Fecha de inicio"
+        "LABEL" : "Fecha de inicio",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener una fecha de inicio"
+        }
       },
       "TO_DATE" : {
-        "LABEL" : "Fecha de fin"
+        "LABEL" : "Fecha de fin",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener una fecha de fin"
+        }
       },
       "PEOPLE" : {
-        "LABEL" : "Personas"
+        "LABEL" : "Personas",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener el número de personas necesarias"
+        }
       },
       "BUTTON" : {
         "CREATE" : "Guardar"
