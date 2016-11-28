@@ -41,6 +41,12 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  deleteTask(task_id): Observable<Task> {
+    return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   going(task_id, person_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });

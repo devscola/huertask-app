@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Task } from '../../models/task';
+import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
 import { EditTask } from '../edit-task/edit-task';
+import { DuplicateTask } from '../duplicate-task/duplicate-task';
 
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
@@ -19,6 +21,14 @@ export class TaskDetail {
 
   getCategoryName(id){
     return this.taskService.getCategory(id).name;
+  }
+
+  deleteTask(){
+    return this.taskService.deleteTask(this.task.id).subscribe( data => {
+      this.navCtrl.setRoot(Tasks);
+    },
+    err => console.log(err)
+    )
   }
 
   going(){
@@ -39,6 +49,10 @@ export class TaskDetail {
 
   goToEditTask(){
     this.navCtrl.push(EditTask, {task: this.task});
+  }
+
+  goToDuplicateTask(){
+    this.navCtrl.push(DuplicateTask, {task: this.task});
   }
 
   isUserGoing(): boolean {

@@ -8,7 +8,9 @@ describe Huertask::API do
     Huertask::API
   end
 
-  Fixtures.seed
+  before(:each) do
+    Fixtures.seed
+  end
 
   let(:request_time) { Time.now.utc }
 
@@ -22,10 +24,15 @@ describe Huertask::API do
     end
 
     it "returns future tasks" do
+      task = Huertask::Task.get(1)
+      task.active = false
+      task.save
+
       get "api/tasks"
 
       expect(last_response).to be_ok
       expect(past_tasks).to be_empty
+      expect(tasks.include?(task)).to be false
     end
 
     def past_tasks
@@ -81,6 +88,25 @@ describe Huertask::API do
       put "/api/tasks/1", body
 
       expect(last_response).to be_ok
+    end
+  end
+
+  describe "DELETE /api/tasks/:id" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "change task active status and returs {}" do
+      task = Huertask::Task.get(1)
+      active_status = task.active
+      expect(active_status).to be true
+
+      delete "/api/tasks/1"
+
+      task = Huertask::Task.get(1)
+      active_status = task.active
+
+      expect(active_status).to be false
+      expect(last_response).to be_ok
+      expect(response.size).to be {}
     end
   end
 

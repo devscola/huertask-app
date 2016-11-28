@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { TaskDetail } from '../pages/task-detail/task-detail';
+import { DuplicateTask } from '../pages/duplicate-task/duplicate-task';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { TaskService } from '../providers/task.service';
@@ -24,6 +26,7 @@ export function createTranslateLoader(http: Http) {
     TaskDetail,
     EditTask,
     TaskForm,
+    DuplicateTask,
     FormAction
   ],
   imports: [
@@ -33,7 +36,8 @@ export function createTranslateLoader(http: Http) {
         useFactory: (createTranslateLoader),
         deps: [Http]
     }),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +46,8 @@ export function createTranslateLoader(http: Http) {
     CreateTask,
     TaskDetail,
     EditTask,
-    TaskForm
+    TaskForm,
+    DuplicateTask
   ],
   providers: [TaskService]
 })

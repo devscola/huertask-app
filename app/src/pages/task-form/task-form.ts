@@ -37,10 +37,20 @@ export class TaskForm {
       note: [null]
     });
     this.action = el.nativeElement.getAttribute('form-action');
+
     if(this.action == 'edit'){
       this.task = navParams.get('task');
-    }else{
+    }
+    else if (this.action == 'create'){
       this.task = new Task();
+    }
+    else if (this.action == 'duplicate'){
+      var taskToCopy = navParams.get('task')
+
+      taskToCopy['from_date'] = '';
+      taskToCopy['to_date'] = '';
+
+      this.task = taskToCopy;
     }
   }
 
@@ -50,6 +60,8 @@ export class TaskForm {
     if (this.form.valid){
       if(this.action == 'edit'){
         this.editTask(task);
+      }else if (this.action == 'duplicate'){
+        this.duplicateTask(task);
       }else{
         this.createTask(task);
       }
@@ -72,4 +84,19 @@ export class TaskForm {
     )
   }
 
+  duplicateTask(task: Object){
+    task = this.cleanTask(task);
+    this.taskService.createTask(task).subscribe( data => {
+      this.navCtrl.setRoot(Tasks);
+    },
+    err => console.log(err)
+    )
+  }
+
+  cleanTask(task: Object){
+    delete task['id'];
+    delete task['people_going']
+    delete task['people_not_going']
+    return task
+  }
 }

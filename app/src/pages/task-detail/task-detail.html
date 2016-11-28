@@ -5,8 +5,14 @@
     </button>
     <ion-title></ion-title>
     <ion-buttons end>
+      <button ion-button (click)="goToDuplicateTask()">
+        <ion-icon name="git-branch"></ion-icon>
+      </button>
       <button ion-button (click)="goToEditTask()">
         <ion-icon name="clipboard"></ion-icon>
+      </button>
+      <button ion-button (click)="deleteTask()">
+        <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,31 +23,32 @@
     <ion-row>
       <ion-col><h1>{{task.title}}</h1></ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col><h2>{{task.from_date.substring(0,10)}}</h2></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><h3>
-        {{task.from_date.substring(11,5)}}h -
-        {{task.to_date}}h
-      </h3></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>{{ 'TASK.FORM.NOTE.LABEL' | translate}}: {{task.note}}</ion-col>
-    </ion-row>
-    <ion-row>
+    <ion-row class="date">
       <ion-col>
-        Asistirán:
-        <span *ngFor="let person of task.people_going">{{person.name}} ,</span>
+        {{task.from_date | amDateFormat:'dddd D MMMM' }}
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="hours">
       <ion-col>
-        No asistirán:
-        <span *ngFor="let person of task.people_not_going">{{person.name}} ,</span>
+        {{task.from_date | amDateFormat:'H:mm[h]' }}
+        {{task.to_date | amDateFormat:'[ - ]H:mm[h]' || ''}}
+      </ion-col>
+    </ion-row>
+    <ion-row class="categories">
+      <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
+    </ion-row>
+    <ion-row class="note">
+      <ion-col>{{task.note}}</ion-col>
+    </ion-row>
+    <ion-row class="remaining people">
+      <ion-col>
+        {{ 'TASK.PEOPLE_LEFT.LABEL' | translate }}:
+        <span>{{ task.required_people - task.people_going.length}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="people_going">
+      <ion-col>
+        <img *ngFor="let person of task.people_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
       </ion-col>
     </ion-row>
     <ion-row>
