@@ -89,6 +89,15 @@ describe Huertask::API do
 
       expect(last_response).to be_ok
     end
+
+    it "returns 404 error if dont find task with invalid id" do
+      body = { title: "Limpiar lechugas" }
+
+      put "/api/tasks/0", body
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "task not found"
+    end
   end
 
   describe "DELETE /api/tasks/:id" do
@@ -107,6 +116,13 @@ describe Huertask::API do
       expect(active_status).to be false
       expect(last_response).to be_ok
       expect(response.size).to be {}
+    end
+
+    it "returns 404 error if dont find task with invalid id" do
+      delete "/api/tasks/0"
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "task not found"
     end
   end
 

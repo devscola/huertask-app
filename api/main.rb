@@ -51,25 +51,31 @@ module Huertask
         end
         put '/' do
           task = Task.get(params[:id])
-
-          declared(params, include_missing: false).each do |key, value|
-            task.update(key => value)
-          end
-
-          if task.save
-            present task, with: Entities::Task
+          if task
+            declared(params, include_missing: false).each do |key, value|
+              task.update(key => value)
+            end
+            if task.save
+              present task, with: Entities::Task
+            else
+              error! task.errors.to_hash, 400
+            end
           else
-            error! task.errors.to_hash, 400
+            error! 'task not found', 404
           end
         end
 
         delete '/' do
           task = Task.get(params[:id])
-          task.active = false;
-          if task.save
-            {}
+          if task
+            task.active = false;
+            if task.save
+              {}
+            else
+              error! task.errors.to_hash, 400
+            end
           else
-            error! task.errors.to_hash, 400
+            error! 'task not found', 404
           end
         end
 
