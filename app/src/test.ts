@@ -8,6 +8,7 @@ import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'angular2-moment';
 import { TestBed } from '@angular/core/testing';
 import { App, MenuController, NavController, NavParams, Platform, Config, Keyboard, Form, IonicModule, ToastController, GestureController }  from 'ionic-angular';
 import { ConfigMock, NavMock, PlatformMock } from './mocks';
@@ -78,6 +79,7 @@ export class TestUtils {
         IonicModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
+        MomentModule
       ],
     });
   }
