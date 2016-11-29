@@ -92,6 +92,15 @@ describe Huertask::API do
 
       expect(last_response).to be_ok
     end
+
+    it "returns 404 error if dont find task with invalid id" do
+      body = { title: "Limpiar lechugas" }
+
+      put "/api/tasks/0", body
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
+    end
   end
 
   describe "DELETE /api/tasks/:id" do
@@ -111,6 +120,13 @@ describe Huertask::API do
       expect(last_response).to be_ok
       expect(response.size).to be {}
     end
+
+    it "returns 404 error if dont find task with invalid id" do
+      delete "/api/tasks/0"
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
+    end
   end
 
   describe "PUT /api/tasks/:id/going" do
@@ -126,6 +142,24 @@ describe Huertask::API do
 
       expect(last_response).to be_ok
       expect(response['people_going'].size).to be expected_people_going
+    end
+
+    it "returns 404 error if dont find task with invalid id" do
+      data = { person_id: 1 }
+
+      put "/api/tasks/0/going", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
+    end
+
+    it "returns 404 error if dont find person with invalid id" do
+      data = { person_id: 0 }
+
+      put "/api/tasks/1/going", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
     end
   end
 
@@ -147,6 +181,24 @@ describe Huertask::API do
       expect(last_response).to be_ok
       expect(response['people_not_going'].size).to be expected_people_not_going
       expect(response['people_going'].size).to be expected_people_going
+    end
+
+    it "returns 404 error if dont find task with invalid id" do
+      data = { person_id: 1 }
+
+      put "/api/tasks/0/notgoing", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
+    end
+
+    it "returns 404 error if dont find person with invalid id" do
+      data = { person_id: 0 }
+
+      put "/api/tasks/1/notgoing", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "resource not found"
     end
   end
 end

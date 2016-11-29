@@ -49,10 +49,11 @@ module Huertask
         put '/' do
           task = Task.get(params[:id])
 
+          return error! 'resource not found', 404 if !task
+
           declared(params, include_missing: false).each do |key, value|
             task.update(key => value)
           end
-
           if task.save
             present task, with: Entities::Task
           else
@@ -62,7 +63,11 @@ module Huertask
 
         delete '/' do
           task = Task.get(params[:id])
+
+          return error! 'resource not found', 404 if !task
+
           task.active = false;
+
           if task.save
             {}
           else
@@ -74,6 +79,9 @@ module Huertask
           put '/' do
             task = Task.get(params[:id])
             person = Person.get(params[:person_id])
+
+            return error! 'resource not found', 404 if !task || !person
+
             relation = Repository::Tasks.enroll(task, person)
             if relation.save
               present task, with: Entities::Task
@@ -87,6 +95,9 @@ module Huertask
           put '/' do
             task = Task.get(params[:id])
             person = Person.get(params[:person_id])
+
+            return error! 'resource not found', 404 if !task || !person
+
             relation = Repository::Tasks.unroll(task, person)
             if relation.save
               present task, with: Entities::Task
