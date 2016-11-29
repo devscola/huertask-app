@@ -33,7 +33,7 @@ module Huertask
         if result == true
           task
         else
-          error! task.errors.to_hash, 400
+          error_400(task)
         end
       end
 
@@ -57,7 +57,7 @@ module Huertask
           if task.save
             present task, with: Entities::Task
           else
-            error! task.errors.to_hash, 400
+            error_400(task)
           end
         end
 
@@ -71,7 +71,7 @@ module Huertask
           if task.save
             {}
           else
-            error! task.errors.to_hash, 400
+            error_400(task)
           end
         end
 
@@ -86,7 +86,7 @@ module Huertask
             if relation.save
               present task, with: Entities::Task
             else
-              error! relation.errors.to_hash, 400
+              error_400(relation)
             end
           end
         end
@@ -102,7 +102,7 @@ module Huertask
             if relation.save
               present task, with: Entities::Task
             else
-              error! relation.errors.to_hash, 400
+              error_400(relation)
             end
           end
         end
@@ -112,6 +112,11 @@ module Huertask
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
+
+      def error_400(model)
+        error! model.errors.to_hash, 400
+      end
     end
   end
 end
+
