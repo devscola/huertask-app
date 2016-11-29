@@ -51,31 +51,30 @@ module Huertask
         end
         put '/' do
           task = Task.get(params[:id])
-          if task
-            declared(params, include_missing: false).each do |key, value|
-              task.update(key => value)
-            end
-            if task.save
-              present task, with: Entities::Task
-            else
-              error! task.errors.to_hash, 400
-            end
+
+          return error! 'resource not found', 404 if !task
+
+          declared(params, include_missing: false).each do |key, value|
+            task.update(key => value)
+          end
+          if task.save
+            present task, with: Entities::Task
           else
-            error! 'task not found', 404
+            error! task.errors.to_hash, 400
           end
         end
 
         delete '/' do
           task = Task.get(params[:id])
-          if task
-            task.active = false;
-            if task.save
-              {}
-            else
-              error! task.errors.to_hash, 400
-            end
+
+          return error! 'resource not found', 404 if !task
+
+          task.active = false;
+
+          if task.save
+            {}
           else
-            error! 'task not found', 404
+            error! task.errors.to_hash, 400
           end
         end
 
@@ -83,17 +82,14 @@ module Huertask
           put '/' do
             task = Task.get(params[:id])
             person = Person.get(params[:person_id])
-            if task && person
-              relation = Repository::Tasks.create_or_update_relation(task, person, GOING_TYPE)
-              if relation.save
-                present task, with: Entities::Task
-              else
-                error! relation.errors.to_hash, 400
-              end
+
+            return error! 'resource not found', 404 if !task || !person
+
+            relation = Repository::Tasks.create_or_update_relation(task, person, GOING_TYPE)
+            if relation.save
+              present task, with: Entities::Task
             else
-              return error! 'task not found', 404 if person
-              return error! 'person not found', 404 if task
-              error! 'task and person not found', 404 if task
+              error! relation.errors.to_hash, 400
             end
           end
         end
@@ -102,17 +98,14 @@ module Huertask
           put '/' do
             task = Task.get(params[:id])
             person = Person.get(params[:person_id])
-            if task && person
-              relation = Repository::Tasks.create_or_update_relation(task, person, NOT_GOING_TYPE)
-              if relation.save
-                present task, with: Entities::Task
-              else
-                error! relation.errors.to_hash, 400
-              end
+
+            return error! 'resource not found', 404 if !task || !person
+
+            relation = Repository::Tasks.create_or_update_relation(task, person, NOT_GOING_TYPE)
+            if relation.save
+              present task, with: Entities::Task
             else
-              return error! 'task not found', 404 if person
-              return error! 'person not found', 404 if task
-              error! 'task and person not found', 404 if task
+              error! relation.errors.to_hash, 400
             end
           end
         end
