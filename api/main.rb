@@ -47,31 +47,35 @@ module Huertask
           optional :note,            type: String
         end
         put '/' do
-          task = Task.get(params[:id])
+          begin
+            task = Repository::Tasks.find_by_id(params[:id])
 
-          return error! 'resource not found', 404 if !task
+            return error! 'resource not found', 404 if !task
 
-          declared(params, include_missing: false).each do |key, value|
-            task.update(key => value)
-          end
-          if task.save
-            present task, with: Entities::Task
-          else
-            error_400(task)
+            declared(params, include_missing: false).each do |key, value|
+              task.update(key => value)
+            end
+            if task.save
+              present task, with: Entities::Task
+            else
+              error_400(task)
+            end
+          rescue Repository::Tasks::TaskNotFound => e
+            error! e.message, 404
           end
         end
 
         delete '/' do
-          task = Task.get(params[:id])
-
-          return error! 'resource not found', 404 if !task
-
-          task.active = false;
-
-          if task.save
-            {}
-          else
-            error_400(task)
+          begin
+            task = Repository::Tasks.find_by_id(params[:id])
+            task.active = false
+            if task.save
+              {}
+            else
+              error! task.errors.to_hash, 400
+            end
+          rescue Repository::Tasks::TaskNotFound => e
+            error! e.message, 404
           end
         end
 
@@ -103,18 +107,22 @@ module Huertask
       end
 
       def going(is_going)
-        method = action(is_going)
+        begin
+          method = action(is_going)
 
-        task = Task.get(params[:id])
-        person = Person.get(params[:person_id])
+          task = Repository::Tasks.find_by_id(params[:id])
+          person = Person.get(params[:person_id])
 
-        return error! 'resource not found', 404 if !task || !person
+          return error! 'resource not found', 404 if !task || !person
 
-        relation = Repository::Tasks.send(method, task, person)
-        if relation.save
-          present task, with: Entities::Task
-        else
-          error_400(relation)
+          relation = Repository::Tasks.send(method, task, person)
+          if relation.save
+            present task, with: Entities::Task
+          else
+            error_400(relation)
+          end
+        rescue Repository::Tasks::TaskNotFound => e
+          error! e.message, 404
         end
       end
     end

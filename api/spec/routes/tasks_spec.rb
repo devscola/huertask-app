@@ -99,7 +99,7 @@ describe Huertask::API do
       put "/api/tasks/0", body
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The task 0 was not found"
     end
   end
 
@@ -125,7 +125,7 @@ describe Huertask::API do
       delete "/api/tasks/0"
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The task 0 was not found"
     end
   end
 
@@ -150,7 +150,7 @@ describe Huertask::API do
       put "/api/tasks/0/going", data
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The task 0 was not found"
     end
 
     it "returns 404 error if dont find person with invalid id" do
@@ -189,7 +189,7 @@ describe Huertask::API do
       put "/api/tasks/0/notgoing", data
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The task 0 was not found"
     end
 
     it "returns 404 error if dont find person with invalid id" do

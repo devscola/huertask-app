@@ -2,10 +2,22 @@ module Huertask
   module Repository
     class Tasks
 
+      class TaskNotFound < StandardError
+        def initialize(id)
+          super("The task #{id} was not found")
+        end
+      end
+
       NOT_GOING_TYPE = 0
       GOING_TYPE = 1
 
       class << self
+
+        def find_by_id(id)
+          task = find_active(id)
+          raise TaskNotFound.new(id) if task.nil?
+          task
+        end
 
         def future_tasks
           Task.all(:active => true, :from_date.gte => Time.now)
@@ -24,6 +36,10 @@ module Huertask
         end
 
         private
+
+        def find_active(id)
+          Task.first(id: id, active: true)
+        end
 
         def create_or_update_relation(task, person, type)
           relation = Huertask::PersonTaskRelation.first(:task => task, :person => person)
