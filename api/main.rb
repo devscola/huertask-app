@@ -21,9 +21,6 @@ module Huertask
 
     resource :tasks do
 
-      NOT_GOING_TYPE = 0
-      GOING_TYPE = 1
-
       get "/" do
         return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
         present Repository::Tasks.future_tasks, with: Entities::Task
