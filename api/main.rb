@@ -77,33 +77,13 @@ module Huertask
 
         resource :going do
           put '/' do
-            task = Task.get(params[:id])
-            person = Person.get(params[:person_id])
-
-            return error! 'resource not found', 404 if !task || !person
-
-            relation = Repository::Tasks.enroll(task, person)
-            if relation.save
-              present task, with: Entities::Task
-            else
-              error_400(relation)
-            end
+            going(:yes)
           end
         end
 
         resource :notgoing do
           put '/' do
-            task = Task.get(params[:id])
-            person = Person.get(params[:person_id])
-
-            return error! 'resource not found', 404 if !task || !person
-
-            relation = Repository::Tasks.unroll(task, person)
-            if relation.save
-              present task, with: Entities::Task
-            else
-              error_400(relation)
-            end
+            going(:no)
           end
         end
       end
@@ -115,6 +95,27 @@ module Huertask
 
       def error_400(model)
         error! model.errors.to_hash, 400
+      end
+
+      def action(is_going)
+        return :unroll if is_going == :no
+        :enroll if is_going == :yes
+      end
+
+      def going(is_going)
+        method = action(is_going)
+
+        task = Task.get(params[:id])
+        person = Person.get(params[:person_id])
+
+        return error! 'resource not found', 404 if !task || !person
+
+        relation = Repository::Tasks.send(method, task, person)
+        if relation.save
+          present task, with: Entities::Task
+        else
+          error_400(relation)
+        end
       end
     end
   end
