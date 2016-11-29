@@ -63,8 +63,7 @@ module Huertask
         delete '/' do
           begin
             task = Task.find_by_id(params[:id])
-            task.active = false
-            if task.save
+            if task.delete
               {}
             else
               error! task.errors.to_hash, 400

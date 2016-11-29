@@ -38,6 +38,11 @@ module Huertask
       end
     end
 
+    def delete
+      self.active = false
+      save
+    end
+
     validates_with_block :to_date do
       if @to_date && @from_date
         return true if @to_date > @from_date
