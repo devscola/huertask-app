@@ -25,17 +25,6 @@ export class TaskForm {
     public taskService: TaskService
   ) {
     this.categories = taskService.categories;
-    this.form = formBuilder.group({
-      title: [null, Validators.compose([
-        Validators.required,
-        Validators.maxLength(100)
-      ])],
-      category: [null, Validators.required],
-      from_date: [null, Validators.required],
-      to_date: [null, Validators.required],
-      required_people: [null, Validators.required],
-      note: [null]
-    });
     this.action = el.nativeElement.getAttribute('form-action');
 
     if(this.action == 'edit'){
@@ -52,13 +41,32 @@ export class TaskForm {
 
       this.task = taskToCopy;
     }
+
+    this.form = this.generateForm(this.task);
+
+  }
+
+  generateForm(task){
+    return this.formBuilder.group({
+      title: [task.title, Validators.compose([
+        Validators.required,
+        Validators.maxLength(100)
+      ])],
+      category: [task.category, Validators.required],
+      from_date: [task.from_date, Validators.required],
+      to_date: [task.to_date, Validators.required],
+      required_people: [task.required_people, Validators.required],
+      note: [task.note]
+    });
   }
 
   submitTask(){
     this.submited = true;
     let task = this.form.value;
+
     if (this.form.valid){
       if(this.action == 'edit'){
+        task['id'] = this.task.id;
         this.editTask(task);
       }else if (this.action == 'duplicate'){
         this.duplicateTask(task);
