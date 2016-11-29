@@ -32,6 +32,12 @@ module Huertask
       people_relations.all(:type => 0)
     end
 
+    def update_fields(params)
+      params.each do |key, value|
+        self.update(key => value)
+      end
+    end
+
     validates_with_block :to_date do
       if @to_date && @from_date
         return true if @to_date > @from_date

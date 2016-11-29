@@ -49,10 +49,7 @@ module Huertask
         put '/' do
           begin
             task = Task.find_by_id(params[:id])
-
-            declared(params, include_missing: false).each do |key, value|
-              task.update(key => value)
-            end
+            task.update_fields(declared(params, include_missing: false))
             if task.save
               present task, with: Entities::Task
             else
@@ -110,6 +107,8 @@ module Huertask
 
           task = Task.find_by_id(params[:id])
           person = Person.get(params[:person_id])
+
+          return error! 'resource not found', 404 if !person
 
           relation = Repository::Tasks.send(method, task, person)
           if relation.save
