@@ -22,8 +22,8 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
-        present Repository::Tasks.future_tasks, with: Entities::Task
+        return present Task.past_tasks, with: Entities::Task if params[:filter] == 'past'
+        present Task.future_tasks, with: Entities::Task
       end
 
       desc 'Create a new task'
@@ -48,9 +48,7 @@ module Huertask
         end
         put '/' do
           begin
-            task = Repository::Tasks.find_by_id(params[:id])
-
-            return error! 'resource not found', 404 if !task
+            task = Task.find_by_id(params[:id])
 
             declared(params, include_missing: false).each do |key, value|
               task.update(key => value)
@@ -60,21 +58,21 @@ module Huertask
             else
               error_400(task)
             end
-          rescue Repository::Tasks::TaskNotFound => e
+          rescue Task::TaskNotFound => e
             error! e.message, 404
           end
         end
 
         delete '/' do
           begin
-            task = Repository::Tasks.find_by_id(params[:id])
+            task = Task.find_by_id(params[:id])
             task.active = false
             if task.save
               {}
             else
               error! task.errors.to_hash, 400
             end
-          rescue Repository::Tasks::TaskNotFound => e
+          rescue Task::TaskNotFound => e
             error! e.message, 404
           end
         end
@@ -110,10 +108,8 @@ module Huertask
         begin
           method = action(is_going)
 
-          task = Repository::Tasks.find_by_id(params[:id])
+          task = Task.find_by_id(params[:id])
           person = Person.get(params[:person_id])
-
-          return error! 'resource not found', 404 if !task || !person
 
           relation = Repository::Tasks.send(method, task, person)
           if relation.save
@@ -121,7 +117,7 @@ module Huertask
           else
             error_400(relation)
           end
-        rescue Repository::Tasks::TaskNotFound => e
+        rescue Task::TaskNotFound => e
           error! e.message, 404
         end
       end
