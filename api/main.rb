@@ -21,9 +21,6 @@ module Huertask
 
     resource :tasks do
 
-      NOT_GOING_TYPE = 0
-      GOING_TYPE = 1
-
       get "/" do
         return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
         present Repository::Tasks.future_tasks, with: Entities::Task
@@ -85,7 +82,7 @@ module Huertask
 
             return error! 'resource not found', 404 if !task || !person
 
-            relation = Repository::Tasks.create_or_update_relation(task, person, GOING_TYPE)
+            relation = Repository::Tasks.enroll(task, person)
             if relation.save
               present task, with: Entities::Task
             else
@@ -101,7 +98,7 @@ module Huertask
 
             return error! 'resource not found', 404 if !task || !person
 
-            relation = Repository::Tasks.create_or_update_relation(task, person, NOT_GOING_TYPE)
+            relation = Repository::Tasks.unroll(task, person)
             if relation.save
               present task, with: Entities::Task
             else

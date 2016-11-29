@@ -15,7 +15,8 @@ class Fixtures
       Huertask::Task.create({
         id: n,
         title: "Tarea numero #{n}",
-        from_date: "2020-11-12T13:00:00+00:00",
+        from_date: (Time.now + 1*60*60),
+        to_date: (Time.now + 2*60*60),
         required_people: n,
         category: n,
         note: "Esta es la nota de la tarea número #{n}",
@@ -26,7 +27,8 @@ class Fixtures
       Huertask::Task.create({
         id: n,
         title: "Tarea numero #{n}",
-        from_date: "2000-01-10T13:00:00+00:00",
+        from_date: (Time.now - 2*60*60),
+        to_date: (Time.now - 1*60*60),
         required_people: n,
         category: 2
       })
