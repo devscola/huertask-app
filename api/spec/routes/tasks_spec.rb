@@ -140,6 +140,24 @@ describe Huertask::API do
       expect(last_response).to be_ok
       expect(response['people_going'].size).to be expected_people_going
     end
+
+    it "returns 404 error if dont find task with invalid id" do
+      data = { person_id: 1 }
+
+      put "/api/tasks/0/going", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "task not found"
+    end
+
+    it "returns 404 error if dont find person with invalid id" do
+      data = { person_id: 0 }
+
+      put "/api/tasks/1/going", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "person not found"
+    end
   end
 
   describe "PUT /api/tasks/:id/notgoing" do
@@ -160,6 +178,24 @@ describe Huertask::API do
       expect(last_response).to be_ok
       expect(response['people_not_going'].size).to be expected_people_not_going
       expect(response['people_going'].size).to be expected_people_going
+    end
+
+    it "returns 404 error if dont find task with invalid id" do
+      data = { person_id: 1 }
+
+      put "/api/tasks/0/notgoing", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "task not found"
+    end
+
+    it "returns 404 error if dont find person with invalid id" do
+      data = { person_id: 0 }
+
+      put "/api/tasks/1/notgoing", data
+
+      expect(last_response).to be_not_found
+      expect(response['error']).to eq "person not found"
     end
   end
 end
