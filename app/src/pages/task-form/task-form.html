@@ -1,37 +1,109 @@
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
-      <ion-input required [(ngModel)]="task.title" type="text" placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}"></ion-input>
-    </ion-item>
+<form [formGroup]="form" (submit)="submitTask()">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-input
+          type="text"
+          formControlName="title"
+          placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="!form.controls['title'].valid && submited" class="alert alert-danger">
+      <p *ngIf="form.controls['title'].hasError('required')">
+        {{ 'TASK.FORM.TITLE.ALERT.REQUIRED' | translate }}
+      </p>
+      <p *ngIf="form.controls['title'].hasError('maxlength')">
+        {{ 'TASK.FORM.TITLE.ALERT.MAX_LENGTH' | translate }}
+      </p>
+    </div>
 
-    <ion-item>
-      <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
-      <ion-select required [(ngModel)]="task.category">
-        <ion-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-option>
-      </ion-select>
-    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-select formControlName="category">
+          <ion-option *ngFor="let category of categories" value="{{category.id}}">
+            {{category.name}}
+          </ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <div class="alert alert-danger" *ngIf="!form.controls['category'].valid && submited">
+      <p *ngIf="form.controls['category'].hasError('required')">
+        {{ 'TASK.FORM.CATEGORY.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
 
-    <ion-item>
-      <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
-      <ion-datetime required [(ngModel)]="task.from_date" displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A"></ion-datetime>
-    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-datetime
+          formControlName="from_date"
+          displayFormat="DD/MM/YYYY h:mm A"
+          pickerFormat="DD MM YYYY h mm A">
+        </ion-datetime>
+      </ion-col>
+    </ion-row>
+    <div class="alert alert-danger" *ngIf="!form.controls['from_date'].valid && submited">
+      <p *ngIf="form.controls['from_date'].hasError('required')">
+        {{ 'TASK.FORM.FROM_DATE.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
 
-    <ion-item>
-      <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
-      <ion-datetime [(ngModel)]="task.to_date" displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
-    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-datetime
+          formControlName="to_date"
+          displayFormat="h:mm A"
+          pickerFormat="h mm A">
+        </ion-datetime>
+      </ion-col>
+    </ion-row>
+    <div class="alert alert-danger" *ngIf="!form.controls['to_date'].valid && submited">
+      <p *ngIf="form.controls['to_date'].hasError('required')">
+        {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
 
-    <ion-item>
-      <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
-      <ion-input required [(ngModel)]="task.required_people" type="number"></ion-input>
-    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-input
+          formControlName="required_people"
+          type="number" min="0">
+        </ion-input>
+      </ion-col>
+    </ion-row>
+    <div class="alert alert-danger" *ngIf="!form.controls['required_people'].valid && submited">
+      <p *ngIf="form.controls['required_people'].hasError('required')">
+        {{ 'TASK.FORM.PEOPLE.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
 
-    <ion-item>
-      <ion-label stacked>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
-      <ion-textarea [(ngModel)]="task.note" rows="3" placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}"></ion-textarea>
-    </ion-item>
-  </ion-list>
-
-  <button (click)="submitTask(task)" type="submit" ion-button outline>{{ 'TASK.FORM.BUTTON.CREATE' | translate }}</button>
-</ion-content>
+    <ion-row>
+      <ion-label>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
+    </ion-row>
+    <ion-row>
+      <ion-textarea
+        formControlName="note"
+        rows="3"
+        placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}">
+      </ion-textarea>
+    </ion-row>
+  </ion-grid>
+  <button type="submit" ion-button outline>
+    {{ 'TASK.FORM.BUTTON.CREATE' | translate }}
+  </button>
+</form>

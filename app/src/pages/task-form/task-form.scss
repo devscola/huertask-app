@@ -1,3 +1,6 @@
-page-task-form {
-
+ion-col {
+  position: relative;
+}
+ion-col ion-datetime, ion-col ion-select{
+  position: initial;
 }
