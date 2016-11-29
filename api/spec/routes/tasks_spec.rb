@@ -49,7 +49,9 @@ describe Huertask::API do
 
     it "returs error when task is invalid" do
       data = { title: "",
-               category: "limpieza" }
+               category: "limpieza",
+               from_date: Time.now,
+               to_date: (Time.now - 60*60) }
 
       post "/api/tasks", data
 
@@ -61,7 +63,8 @@ describe Huertask::API do
       data = {  title: "Limpiar lechugas",
                 required_people: 1,
                 category: "limpieza",
-                from_date: "2016-12-19 00:00:00" }
+                from_date: Time.now,
+                to_date: (Time.now + 60*60) }
 
       post "/api/tasks", data
 

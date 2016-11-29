@@ -16,7 +16,7 @@ module Huertask
 
     has n, :people_relations, 'PersonTaskRelation'
 
-    validates_presence_of :title, :from_date, :required_people, :category
+    validates_presence_of :title, :from_date, :required_people, :category, :to_date
 
     def people_going
       people_relations.all(:type => 1)
@@ -26,20 +26,10 @@ module Huertask
       people_relations.all(:type => 0)
     end
 
-    if nil != @from_date
-      validates_with_block @from_date do
-        if @from_date > Time.now
-          true
-        else
-          [false, "from_date must be bigger than now"]
-        end
-      end
-    end
-
-    if nil != @to_date && nil != @from_date
-      validates_with_block @to_date do
+    validates_with_block :to_date do
+      if @to_date && @from_date
         return true if @to_date > @from_date
-        [false, "to_date must be bigger than from_date"]
+        [false, "To date must be bigger than from date"]
       end
     end
   end
