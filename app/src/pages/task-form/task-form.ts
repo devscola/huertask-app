@@ -63,6 +63,7 @@ export class TaskForm {
   submitTask(){
     this.submited = true;
     let task = this.form.value;
+    task['to_date'] = this.buildToDate()
 
     if (this.form.valid){
       if(this.action == 'edit'){
@@ -106,5 +107,9 @@ export class TaskForm {
     delete task['people_going']
     delete task['people_not_going']
     return task
+  }
+
+  buildToDate(){
+    return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
   }
 }
