@@ -11,10 +11,8 @@
         {{p.title | translate}}
       </button>
       <ion-item>
-        <ion-toggle [(ngModel)]="isAdmin" checked="false"></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <span (click)="setAdmin()">Set Admin</span>
+        <ion-label>Admin: {{isAdmin}}</ion-label>
+        <ion-toggle [(ngModel)]="isAdmin" text="Admin?" (ionChange)="setAdmin()" checked="false"></ion-toggle>
       </ion-item>
     </ion-list>
   </ion-content>

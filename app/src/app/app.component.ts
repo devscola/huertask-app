@@ -50,6 +50,7 @@ export class MyApp {
   }
 
   setAdmin(){
+    console.log(this.isAdmin)
     this.taskService.isAdmin = this.isAdmin
   }
 }
