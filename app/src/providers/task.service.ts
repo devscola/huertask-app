@@ -9,6 +9,7 @@ import { Task } from '../models/task';
 export class TaskService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
+  isAdmin: boolean = false;
 
   constructor(public http: Http) { }
 
@@ -33,6 +34,8 @@ export class TaskService {
 
   editTask(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
     let options    = new RequestOptions({ headers: headers });
     let id         = body['id']
 

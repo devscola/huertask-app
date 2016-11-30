@@ -47,6 +47,8 @@ module Huertask
           optional :note,            type: String
         end
         put '/' do
+          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+
           task = Task.get(params[:id])
 
           return error! 'resource not found', 404 if !task

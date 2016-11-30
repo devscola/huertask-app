@@ -7,6 +7,8 @@ import * as moment from 'moment';
 
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
+import { TaskService } from '../providers/task.service';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +20,9 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, translate: TranslateService) {
+  isAdmin: boolean = false;
+
+  constructor(public platform: Platform, translate: TranslateService, public taskService: TaskService) {
     this.initializeApp();
     translate.setDefaultLang('es');
     translate.use('es');
@@ -43,5 +47,9 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  setAdmin(){
+    this.taskService.isAdmin = this.isAdmin
   }
 }
