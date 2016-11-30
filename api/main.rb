@@ -28,6 +28,8 @@ module Huertask
 
       desc 'Create a new task'
       post '/' do
+        return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+
         task = Task.new params
         result = task.save
         if result == true
@@ -47,7 +49,7 @@ module Huertask
           optional :note,            type: String
         end
         put '/' do
-          return error!('Unauthorized', 401) unless headers['Authorization'] == ('admin: true')
+          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
           task = Task.get(params[:id])
 
@@ -64,7 +66,7 @@ module Huertask
         end
 
         delete '/' do
-          return error!('Unauthorized', 401) unless headers['Authorization'] == ('admin: true')
+          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
           task = Task.get(params[:id])
 

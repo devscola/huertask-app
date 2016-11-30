@@ -53,6 +53,7 @@ describe Huertask::API do
                from_date: Time.now,
                to_date: (Time.now - 60*60) }
 
+      header('Authorization', 'admin: true')
       post "/api/tasks", data
 
       expect(last_response).to be_bad_request
@@ -66,9 +67,24 @@ describe Huertask::API do
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
+      header('Authorization', 'admin: true')
       post "/api/tasks", data
 
       expect(last_response).to be_created
+    end
+
+    it "returns 401 error if dont have valid Authorization header" do
+      data = {  title: "Limpiar lechugas",
+                required_people: 1,
+                category: "limpieza",
+                from_date: Time.now,
+                to_date: (Time.now + 60*60) }
+
+      header('Authorization', 'admin: false')
+      post "/api/tasks", data
+
+      expect(last_response).to be_unauthorized
+      expect(response['error']).to eq "Unauthorized"
     end
   end
 
