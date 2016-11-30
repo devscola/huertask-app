@@ -7,7 +7,7 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   isAdmin: boolean = false;
 
@@ -26,6 +26,7 @@ export class TaskService {
   createTask(body: Object): Observable<Task[]> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
 
     return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
@@ -45,6 +46,10 @@ export class TaskService {
   }
 
   deleteTask(task_id): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
     return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
