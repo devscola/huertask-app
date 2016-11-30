@@ -26,11 +26,18 @@ module Huertask
         present Task.future_tasks, with: Entities::Task
       end
 
-      desc 'Create a new task'
+      params do
+        optional :title,           type: String
+        optional :category,        type: String
+        optional :from_date,       type: DateTime
+        optional :to_date,         type: DateTime
+        optional :required_people, type: Integer
+        optional :note,            type: String
+      end
+
       post '/' do
-        task = Task.new params
-        result = task.save
-        if result == true
+        task = Task.new declared(params)
+        if task.save
           task
         else
           error_400(task)
@@ -38,6 +45,7 @@ module Huertask
       end
 
       route_param :id do
+
         params do
           optional :title,           type: String
           optional :category,        type: String
@@ -46,6 +54,7 @@ module Huertask
           optional :required_people, type: Integer
           optional :note,            type: String
         end
+
         put '/' do
           begin
             task = Task.find_by_id(params[:id])
