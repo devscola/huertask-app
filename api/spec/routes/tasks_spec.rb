@@ -109,7 +109,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas" }
 
       header('Authorization', 'admin: false')
-      put "/api/tasks/0", body
+      put "/api/tasks/1", body
 
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"
@@ -124,6 +124,7 @@ describe Huertask::API do
       active_status = task.active
       expect(active_status).to be true
 
+      header('Authorization', 'admin: true')
       delete "/api/tasks/1"
 
       task = Huertask::Task.get(1)
@@ -135,10 +136,21 @@ describe Huertask::API do
     end
 
     it "returns 404 error if dont find task with invalid id" do
+      header('Authorization', 'admin: true')
       delete "/api/tasks/0"
 
       expect(last_response).to be_not_found
       expect(response['error']).to eq "resource not found"
+    end
+
+    it "returns 401 error if dont have valid Authorization header" do
+      body = { title: "Limpiar lechugas" }
+
+      header('Authorization', 'admin: false')
+      delete "/api/tasks/1", body
+
+      expect(last_response).to be_unauthorized
+      expect(response['error']).to eq "Unauthorized"
     end
   end
 
