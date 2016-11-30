@@ -78,6 +78,7 @@ describe Huertask::API do
     it "returs error when task is invalid" do
       body = { title: "" }
 
+      header('Authorization', 'admin: true')
       put "/api/tasks/1", body
 
       expect(last_response).to be_bad_request
@@ -88,6 +89,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas",
                ignored_param: "Este paremetro se ignorará" }
 
+      header('Authorization', 'admin: true')
       put "/api/tasks/1", body
 
       expect(last_response).to be_ok
@@ -96,10 +98,21 @@ describe Huertask::API do
     it "returns 404 error if dont find task with invalid id" do
       body = { title: "Limpiar lechugas" }
 
+      header('Authorization', 'admin: true')
       put "/api/tasks/0", body
 
       expect(last_response).to be_not_found
       expect(response['error']).to eq "resource not found"
+    end
+
+    it "returns 401 error if dont have valid Authorization header" do
+      body = { title: "Limpiar lechugas" }
+
+      header('Authorization', 'admin: false')
+      put "/api/tasks/0", body
+
+      expect(last_response).to be_unauthorized
+      expect(response['error']).to eq "Unauthorized"
     end
   end
 

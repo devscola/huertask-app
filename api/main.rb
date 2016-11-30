@@ -47,7 +47,7 @@ module Huertask
           optional :note,            type: String
         end
         put '/' do
-          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+          return error!('Unauthorized', 401) unless headers['Authorization'] == ('admin: true' || nil)
 
           task = Task.get(params[:id])
 
