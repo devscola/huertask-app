@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title></ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="taskService.isAdmin" end>
       <button ion-button (click)="goToDuplicateTask()">
         <ion-icon name="git-branch"></ion-icon>
       </button>
