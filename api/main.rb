@@ -114,9 +114,7 @@ module Huertask
           method = action(is_going)
 
           task = Task.find_by_id(params[:id])
-          person = Person.get(params[:person_id])
-
-          return error! 'resource not found', 404 if !person
+          person = Person.find_by_id(params[:person_id])
 
           relation = Repository::Tasks.send(method, task, person)
           if relation.save
@@ -125,6 +123,8 @@ module Huertask
             error_400(relation)
           end
         rescue Task::TaskNotFound => e
+          error! e.message, 404
+        rescue Person::PersonNotFound => e
           error! e.message, 404
         end
       end

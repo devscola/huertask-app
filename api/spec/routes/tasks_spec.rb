@@ -159,7 +159,7 @@ describe Huertask::API do
       put "/api/tasks/1/going", data
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The person 0 was not found"
     end
   end
 
@@ -198,7 +198,7 @@ describe Huertask::API do
       put "/api/tasks/1/notgoing", data
 
       expect(last_response).to be_not_found
-      expect(response['error']).to eq "resource not found"
+      expect(response['error']).to eq "The person 0 was not found"
     end
   end
 end
