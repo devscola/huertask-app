@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
@@ -21,6 +21,7 @@ export class TaskForm {
     public el: ElementRef,
     public navCtrl: NavController,
     private navParams: NavParams,
+    public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     public taskService: TaskService
   ) {
@@ -65,6 +66,14 @@ export class TaskForm {
     let task = this.form.value;
     task['to_date'] = this.buildToDate()
 
+    if(Date.parse(task['from_date']) < Date.now()){
+      this.pastDateAlert(task)
+    }else{
+      this.callActionMethod(task)
+    }
+  }
+
+  callActionMethod(task){
     if (this.form.valid){
       if(this.action == 'edit'){
         task['id'] = this.task.id;
@@ -111,5 +120,19 @@ export class TaskForm {
 
   buildToDate(){
     return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
+  }
+
+  pastDateAlert(task) {
+    let alert = this.alertCtrl.create({
+      title: 'La fecha de esta tarea ha vencido',
+      subTitle: '¿Quieres guardarla de todas formas?',
+      buttons: [{
+          text: 'Guardar',
+          handler: () => {
+            this.callActionMethod(task)
+          }
+        }, 'Revisar']
+    });
+    alert.present();
   }
 }
