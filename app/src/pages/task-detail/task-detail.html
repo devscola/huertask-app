@@ -27,6 +27,14 @@
       <ion-col>
         {{task.from_date | amDateFormat:'dddd D MMMM' }}
       </ion-col>
+      <ion-col>
+        <ion-chip>
+          <ion-label color="{{finalizeColor}}">Finalizada</ion-label>
+          <button *ngIf="taskService.isAdmin" ion-button clear color="{{finalizeColor}}" (click)="markAsFinalized(task)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </button>
+        </ion-chip>
+      </ion-col>
     </ion-row>
     <ion-row class="hours">
       <ion-col>

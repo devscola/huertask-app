@@ -14,9 +14,15 @@ import { NavParams } from 'ionic-angular';
 })
 
 export class TaskDetail {
+
   task = new Task();
+  finalizeColor: string = 'dark'
+
   constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
     this.task = navParams.get('task');
+    if(this.task.status == 1){
+      this.finalizeColor = 'success'
+    }
   }
 
   getCategoryName(id){
@@ -42,6 +48,22 @@ export class TaskDetail {
   notGoing(){
     return this.taskService.notGoing(this.task.id, 1).subscribe( data => {
       this.task = data
+    },
+    err => console.log(err)
+    )
+  }
+
+  markAsFinalized(task: Object){
+    let status = 0
+    if(task['status'] == status){
+      status = 1;
+      this.finalizeColor = 'success'
+    }else{
+      this.finalizeColor = 'dark'
+    }
+    task['status'] = status;
+    return this.taskService.editTask(task).subscribe( data => {
+      console.log(data)
     },
     err => console.log(err)
     )
