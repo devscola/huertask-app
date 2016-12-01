@@ -59,6 +59,14 @@
       },
       "BUTTON" : {
         "CREATE" : "Guardar"
+      },
+      "PAST_ALERT" : {
+        "TITLE" : "La fecha de esta tarea ha vencido",
+        "SUBTITLE" : "¿Quieres guardarla de todas formas?",
+        "BUTTONS" : {
+          "SUBMIT" : "Guardar",
+          "CANCEL" : "Revisar"
+        }
       }
     },
     "BUTTONS" : {

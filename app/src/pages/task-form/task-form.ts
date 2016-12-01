@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from 'ng2-translate';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
@@ -21,8 +22,10 @@ export class TaskForm {
     public el: ElementRef,
     public navCtrl: NavController,
     private navParams: NavParams,
+    public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
-    public taskService: TaskService
+    public taskService: TaskService,
+    public translate: TranslateService
   ) {
     this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
@@ -65,6 +68,14 @@ export class TaskForm {
     let task = this.form.value;
     task['to_date'] = this.buildToDate()
 
+    if(Date.parse(task['from_date']) < Date.now()){
+      this.pastDateAlert(task)
+    }else{
+      this.callActionMethod(task)
+    }
+  }
+
+  callActionMethod(task){
     if (this.form.valid){
       if(this.action == 'edit'){
         task['id'] = this.task.id;
@@ -112,4 +123,27 @@ export class TaskForm {
   buildToDate(){
     return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
   }
+
+  pastDateAlert(task: Task) {
+    this.translate.get('TASK.FORM.PAST_ALERT').subscribe((res: Object) => {
+      this.presentAlert(res, task)
+    });
+  }
+
+  presentAlert(messages: Object, task: Task){
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'],
+      subTitle: messages['SUBTITLE'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['SUBMIT'],
+          handler: () => {
+            this.callActionMethod(task)
+          }
+        }, messages['BUTTONS']['CANCEL']
+      ]
+    });
+    alert.present()
+  }
+
 }
