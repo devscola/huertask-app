@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from 'ng2-translate';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
@@ -23,7 +24,8 @@ export class TaskForm {
     private navParams: NavParams,
     public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
-    public taskService: TaskService
+    public taskService: TaskService,
+    public translate: TranslateService
   ) {
     this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
@@ -122,17 +124,26 @@ export class TaskForm {
     return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
   }
 
-  pastDateAlert(task) {
+  pastDateAlert(task: Task) {
+    this.translate.get('TASK.FORM.PAST_ALERT').subscribe((res: Object) => {
+      this.presentAlert(res, task)
+    });
+  }
+
+  presentAlert(messages: Object, task: Task){
     let alert = this.alertCtrl.create({
-      title: 'La fecha de esta tarea ha vencido',
-      subTitle: '¿Quieres guardarla de todas formas?',
-      buttons: [{
-          text: 'Guardar',
+      title: messages['TITLE'],
+      subTitle: messages['SUBTITLE'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['SUBMIT'],
           handler: () => {
             this.callActionMethod(task)
           }
-        }, 'Revisar']
+        }, messages['BUTTONS']['CANCEL']
+      ]
     });
-    alert.present();
+    alert.present()
   }
+
 }
