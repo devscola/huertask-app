@@ -13,6 +13,7 @@ module Huertask
     property :category,          String
     property :note,              Text
     property :active,            Boolean, :default  => true
+    property :status,            Integer, :default  => 0
 
     has n, :people_relations, 'PersonTaskRelation'
 

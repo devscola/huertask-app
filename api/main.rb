@@ -47,6 +47,7 @@ module Huertask
           optional :to_date,         type: DateTime
           optional :required_people, type: Integer
           optional :note,            type: String
+          optional :status,          type: Integer
         end
         put '/' do
           return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
