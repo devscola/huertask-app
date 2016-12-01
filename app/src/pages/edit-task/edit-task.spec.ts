@@ -16,13 +16,4 @@ describe('Pages: Edit Task', () => {
   it('should create the edit task page', async(() => {
     expect(instance).toBeTruthy();
   }));
-
-  it('should has the task information if form-action is edit', async(() => {
-    let template = fixture.nativeElement;
-    fixture.detectChanges();
-
-    let title = template.getElementsByTagName('ion-input')[0];
-    let titleValue = title.getAttribute('ng-reflect-model');
-    expect(titleValue).toBe('Tarea numero 3');
-  }));
 });

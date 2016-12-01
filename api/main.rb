@@ -36,6 +36,8 @@ module Huertask
       end
 
       post '/' do
+        return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+
         task = Task.new declared(params)
         if task.save
           task
@@ -53,9 +55,12 @@ module Huertask
           optional :to_date,         type: DateTime
           optional :required_people, type: Integer
           optional :note,            type: String
+          optional :status,          type: Integer
         end
 
         put '/' do
+          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+
           begin
             task = Task.find_by_id(params[:id])
             task.update_fields(declared(params, include_missing: false))
@@ -70,6 +75,8 @@ module Huertask
         end
 
         delete '/' do
+          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+
           begin
             task = Task.find_by_id(params[:id])
             if task.delete

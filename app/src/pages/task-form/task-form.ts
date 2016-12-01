@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
@@ -12,9 +13,17 @@ export class TaskForm {
 
   task;
   categories;
+  form;
   action;
+  submited = false;
 
-  constructor(public el: ElementRef, public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
+  constructor(
+    public el: ElementRef,
+    public navCtrl: NavController,
+    private navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public taskService: TaskService
+  ) {
     this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
 
@@ -32,17 +41,39 @@ export class TaskForm {
 
       this.task = taskToCopy;
     }
+
+    this.form = this.generateForm(this.task);
+
   }
 
-  submitTask(task: Object){
-    if(this.action == 'edit'){
-      this.editTask(task);
-    }
-    else if (this.action == 'create'){
-      this.createTask(task);
-    }
-    else if (this.action == 'duplicate'){
-      this.duplicateTask(task);
+  generateForm(task){
+    return this.formBuilder.group({
+      title: [task.title, Validators.compose([
+        Validators.required,
+        Validators.maxLength(100)
+      ])],
+      category: [task.category, Validators.required],
+      from_date: [task.from_date, Validators.required],
+      to_date: [task.to_date, Validators.required],
+      required_people: [task.required_people, Validators.required],
+      note: [task.note]
+    });
+  }
+
+  submitTask(){
+    this.submited = true;
+    let task = this.form.value;
+    task['to_date'] = this.buildToDate()
+
+    if (this.form.valid){
+      if(this.action == 'edit'){
+        task['id'] = this.task.id;
+        this.editTask(task);
+      }else if (this.action == 'duplicate'){
+        this.duplicateTask(task);
+      }else{
+        this.createTask(task);
+      }
     }
   }
 
@@ -76,5 +107,9 @@ export class TaskForm {
     delete task['people_going']
     delete task['people_not_going']
     return task
+  }
+
+  buildToDate(){
+    return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
   }
 }

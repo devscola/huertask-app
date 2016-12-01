@@ -7,8 +7,9 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
+  isAdmin: boolean = false;
 
   constructor(public http: Http) { }
 
@@ -25,6 +26,7 @@ export class TaskService {
   createTask(body: Object): Observable<Task[]> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
 
     return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
@@ -33,6 +35,8 @@ export class TaskService {
 
   editTask(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
     let options    = new RequestOptions({ headers: headers });
     let id         = body['id']
 
@@ -42,6 +46,10 @@ export class TaskService {
   }
 
   deleteTask(task_id): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
     return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
@@ -106,6 +114,7 @@ export class TaskServiceMock {
       "id":1,
       "created_at":"2016-11-23T13:38:32+01:00",
       "title":"Tarea numero 1",
+      "status":0,
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
@@ -123,6 +132,7 @@ export class TaskServiceMock {
       "id":140,
       "created_at":"2016-11-21T09:02:40+00:00",
       "title":"Tarea numero 2",
+      "status":0,
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":2,
@@ -140,6 +150,7 @@ export class TaskServiceMock {
       "id":139,
       "created_at":"2016-11-21T09:02:40+00:00",
       "title":"Tarea numero 1",
+      "status":0,
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
