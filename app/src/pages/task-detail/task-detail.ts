@@ -25,6 +25,23 @@ export class TaskDetail {
     }
   }
 
+  peopleLeft(task){
+    let people_left = task.required_people - task.people_going.length;
+    if (people_left < 0){ people_left = 0; }
+    return people_left
+  }
+
+  peopleMessage(task){
+    switch (this.peopleLeft(task)) {
+       case 0:
+         return "TASK.PEOPLE_LEFT.MSG.ZERO";
+       case 1:
+         return "TASK.PEOPLE_LEFT.MSG.ONE";
+       default:
+         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
+    }
+  }
+
   getCategoryName(id){
     return this.taskService.getCategory(id).name;
   }
