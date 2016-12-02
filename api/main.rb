@@ -22,24 +22,32 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        return present Repository::Tasks.past_tasks, with: Entities::Task if params[:filter] == 'past'
-        present Repository::Tasks.future_tasks, with: Entities::Task
+        return present Task.past_tasks, with: Entities::Task if params[:filter] == 'past'
+        present Task.future_tasks, with: Entities::Task
       end
 
-      desc 'Create a new task'
+      params do
+        optional :title,           type: String
+        optional :category,        type: String
+        optional :from_date,       type: DateTime
+        optional :to_date,         type: DateTime
+        optional :required_people, type: Integer
+        optional :note,            type: String
+      end
+
       post '/' do
         return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
-        task = Task.new params
-        result = task.save
-        if result == true
+        task = Task.new declared(params)
+        if task.save
           task
         else
-          error! task.errors.to_hash, 400
+          error_400(task)
         end
       end
 
       route_param :id do
+
         params do
           optional :title,           type: String
           optional :category,        type: String
@@ -49,68 +57,47 @@ module Huertask
           optional :note,            type: String
           optional :status,          type: Integer
         end
+
         put '/' do
           return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
-          task = Task.get(params[:id])
-
-          return error! 'resource not found', 404 if !task
-
-          declared(params, include_missing: false).each do |key, value|
-            task.update(key => value)
-          end
-          if task.save
-            present task, with: Entities::Task
-          else
-            error! task.errors.to_hash, 400
+          begin
+            task = Task.find_by_id(params[:id])
+            task.update_fields(declared(params, include_missing: false))
+            if task.save
+              present task, with: Entities::Task
+            else
+              error_400(task)
+            end
+          rescue Task::TaskNotFound => e
+            error! e.message, 404
           end
         end
 
         delete '/' do
           return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
-          task = Task.get(params[:id])
-
-          return error! 'resource not found', 404 if !task
-
-          task.active = false;
-
-          if task.save
-            {}
-          else
-            error! task.errors.to_hash, 400
+          begin
+            task = Task.find_by_id(params[:id])
+            if task.delete
+              {}
+            else
+              error! task.errors.to_hash, 400
+            end
+          rescue Task::TaskNotFound => e
+            error! e.message, 404
           end
         end
 
         resource :going do
           put '/' do
-            task = Task.get(params[:id])
-            person = Person.get(params[:person_id])
-
-            return error! 'resource not found', 404 if !task || !person
-
-            relation = Repository::Tasks.enroll(task, person)
-            if relation.save
-              present task, with: Entities::Task
-            else
-              error! relation.errors.to_hash, 400
-            end
+            going(:yes)
           end
         end
 
         resource :notgoing do
           put '/' do
-            task = Task.get(params[:id])
-            person = Person.get(params[:person_id])
-
-            return error! 'resource not found', 404 if !task || !person
-
-            relation = Repository::Tasks.unroll(task, person)
-            if relation.save
-              present task, with: Entities::Task
-            else
-              error! relation.errors.to_hash, 400
-            end
+            going(:no)
           end
         end
       end
@@ -119,6 +106,36 @@ module Huertask
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
+
+      def error_400(model)
+        error! model.errors.to_hash, 400
+      end
+
+      def action(is_going)
+        return :unroll if is_going == :no
+        :enroll if is_going == :yes
+      end
+
+      def going(is_going)
+        begin
+          method = action(is_going)
+
+          task = Task.find_by_id(params[:id])
+          person = Person.find_by_id(params[:person_id])
+
+          relation = Repository::Tasks.send(method, task, person)
+          if relation.save
+            present task, with: Entities::Task
+          else
+            error_400(relation)
+          end
+        rescue Task::TaskNotFound => e
+          error! e.message, 404
+        rescue Person::PersonNotFound => e
+          error! e.message, 404
+        end
+      end
     end
   end
 end
+

@@ -2,6 +2,12 @@ require 'dm-validations'
 
 module Huertask
   class Task
+    class TaskNotFound < StandardError
+      def initialize(id)
+        super("The task #{id} was not found")
+      end
+    end
+
     include DataMapper::Resource
 
     property :id,                Serial
@@ -27,11 +33,45 @@ module Huertask
       people_relations.all(:type => 0)
     end
 
+    def update_fields(params)
+      params.each do |key, value|
+        self.update(key => value)
+      end
+    end
+
+    def delete
+      self.active = false
+      save
+    end
+
     validates_with_block :to_date do
       if @to_date && @from_date
         return true if @to_date > @from_date
         [false, "To date must be bigger than from date"]
       end
     end
+
+    class << self
+      def find_by_id(id)
+        task = find_active(id)
+        raise TaskNotFound.new(id) if task.nil?
+        task
+      end
+
+      def future_tasks
+        all(:active => true, :from_date.gte => Time.now)
+      end
+
+      def past_tasks
+        all(:active => true, :from_date.lt => Time.now)
+      end
+
+      private
+
+      def find_active(id)
+        first(id: id, active: true)
+      end
+    end
+
   end
 end

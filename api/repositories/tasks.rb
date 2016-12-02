@@ -7,14 +7,6 @@ module Huertask
 
       class << self
 
-        def future_tasks
-          Task.all(:active => true, :from_date.gte => Time.now)
-        end
-
-        def past_tasks
-          Task.all(:active => true, :from_date.lt => Time.now)
-        end
-
         def enroll(task, person)
           create_or_update_relation(task, person, GOING_TYPE)
         end
