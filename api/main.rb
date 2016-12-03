@@ -5,10 +5,12 @@ require 'dm-timestamps'
 
 require_relative './models/task'
 require_relative './entities/Task'
+require_relative './entities/Category'
 require_relative './entities/Person'
 require_relative './entities/person_task_relation'
-require_relative './models/person_task_relation'
+require_relative './models/category'
 require_relative './models/person'
+require_relative './models/person_task_relation'
 require_relative './db/fixtures'
 require_relative './repositories/tasks'
 
@@ -134,6 +136,12 @@ module Huertask
         rescue Person::PersonNotFound => e
           error! e.message, 404
         end
+      end
+    end
+
+    resource :categories do
+      get "/" do
+        present Category.all, with: Entities::Category
       end
     end
   end

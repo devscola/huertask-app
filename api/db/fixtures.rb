@@ -2,12 +2,27 @@ class Fixtures
   def self.seed
     Huertask::PersonTaskRelation.all.destroy
     Huertask::Task.all.destroy
+    Huertask::Category.all.destroy
     Huertask::Person.all.destroy
+
+    categories = ["mantenimiento",
+                  "riego",
+                  "carpinteria",
+                  "jardineria",
+                  "cultivo",
+                  "cultura"]
 
     (1..3).each do |n|
       Huertask::Person.create({
         id: n,
         name: "Persona #{n}"
+      })
+    end
+
+    (1..categories.size).each do |n|
+      Huertask::Category.create({
+        id: n,
+        name: categories[n-1]
       })
     end
 
