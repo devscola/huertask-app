@@ -16,14 +16,15 @@ module Huertask
     property :from_date,         DateTime
     property :to_date,           DateTime
     property :required_people,   Integer
-    property :category,          String
     property :note,              Text
     property :active,            Boolean, :default  => true
     property :status,            Integer, :default  => 0
 
     has n, :people_relations, 'PersonTaskRelation'
+    has n, :categories_relations, 'CategoryTaskRelation'
+    has n, :categories, :through => :categories_relations, :via => :category
 
-    validates_presence_of :title, :from_date, :required_people, :category, :to_date
+    validates_presence_of :title, :from_date, :required_people, :categories, :to_date
 
     def people_going
       people_relations.all(:type => 1)
@@ -64,6 +65,13 @@ module Huertask
 
       def past_tasks
         all(:active => true, :from_date.lt => Time.now)
+      end
+
+      def procesed(params)
+        if params.categories && (params.categories.first.is_a? Integer)
+          params.categories = Category.find_by_ids(params.categories)
+        end
+        params
       end
 
       private

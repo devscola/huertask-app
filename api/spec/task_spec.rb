@@ -9,7 +9,7 @@ describe Huertask::Task  do
     expect(task.errors.size).to eq 5
     expect(task.errors[:title]).to eq ["Title must not be blank"]
     expect(task.errors[:from_date]).to eq ["From date must not be blank"]
-    expect(task.errors[:category]).to eq ["Category must not be blank"]
+    expect(task.errors[:categories]).to eq ["Categories must not be blank"]
     expect(task.errors[:required_people]).to eq ["Required people must not be blank"]
     expect(task.errors[:to_date]).to eq ["To date must not be blank", nil]
   end
@@ -19,7 +19,7 @@ describe Huertask::Task  do
       "title":"",
       "from_date":"2020-01-10T13:00:00+00:00",
       "required_people":1,
-      "category":"5"
+      "categories": [{'id': 1, 'name': 'mantenimiento'}]
     })
     save_result = task.save
 
@@ -33,7 +33,7 @@ describe Huertask::Task  do
       "from_date": Time.now,
       "to_date": (Time.now - 1*60*60),
       "required_people":1,
-      "category":"5"
+      "categories": [{'id': 1, 'name': 'mantenimiento'}]
     })
     save_result = task.save
 

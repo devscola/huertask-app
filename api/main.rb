@@ -7,9 +7,11 @@ require_relative './models/task'
 require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
+require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
+require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
 require_relative './db/fixtures'
 require_relative './repositories/tasks'
@@ -30,7 +32,7 @@ module Huertask
 
       params do
         optional :title,           type: String
-        optional :category,        type: String
+        optional :categories,      type: Array
         optional :from_date,       type: DateTime
         optional :to_date,         type: DateTime
         optional :required_people, type: Integer
@@ -40,9 +42,9 @@ module Huertask
       post '/' do
         return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
-        task = Task.new declared(params)
+        task = Task.new declared(Task.procesed params)
         if task.save
-          task
+          present task, with: Entities::Task
         else
           error_400(task)
         end
@@ -52,7 +54,7 @@ module Huertask
 
         params do
           optional :title,           type: String
-          optional :category,        type: String
+          optional :categories,      type: Array
           optional :from_date,       type: DateTime
           optional :to_date,         type: DateTime
           optional :required_people, type: Integer
@@ -65,7 +67,7 @@ module Huertask
 
           begin
             task = Task.find_by_id(params[:id])
-            task.update_fields(declared(params, include_missing: false))
+            task.update_fields(declared(Task.procesed params, include_missing: false))
             if task.save
               present task, with: Entities::Task
             else

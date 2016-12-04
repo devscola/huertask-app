@@ -13,6 +13,21 @@ module Huertask
     property :id,    Serial
     property :name,  String
 
+    has n, :tasks_relations, 'CategoryTaskRelation'
+    has n, :tasks, :through => :tasks_relations, :via => :task
+
     validates_presence_of :name
+
+    class << self
+      def find_by_ids(ids)
+        ids.map{ |id| find_by_id(id) }
+      end
+
+      def find_by_id(id)
+        category = first(id: id)
+        raise CategoryNotFound.new(id) if category.nil?
+        category
+      end
+    end
   end
 end

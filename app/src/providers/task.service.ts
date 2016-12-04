@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Task } from '../models/task';
+import { Category } from '../models/category';
 
 @Injectable()
 export class TaskService {
@@ -76,39 +77,32 @@ export class TaskService {
   }
 
   getCategory(id){
-    return this.categories.find(cat => cat.id == id);
+    return this.getCategories().find(cat => cat['id'] == id);
   }
 
-  categories = [
-    {
-      id: 1,
-      name: "mantenimiento"
-    },
-    {
-      id: 2,
-      name: "riego"
-    },
-    {
-      id: 3,
-      name: "carpinteria"
-    },
-    {
-      id: 4,
-      name: "jardineria"
-    },
-    {
-      id: 5,
-      name: "cultivo"
-    },
-    {
-      id: 6,
-      name: "cultura"
-    }
-  ];
+  getCategories(): Observable<Category[]> {
+    return this.http.get(`${this.huertaskApiUrl}/categories/`)
+      .map(res => <Category[]>res.json());
+  }
 }
 
 @Injectable()
 export class TaskServiceMock {
+  categories = [
+    {
+      "id": 1,
+      "name": "mantenimiento"
+    },
+    {
+      "id": 2,
+      "name": "riego"
+    },
+    {
+      "id": 3,
+      "name": "carpinteria"
+    }
+  ];
+
   tasks = [
     {
       "id":1,
@@ -118,7 +112,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
-      "category":"1",
+      "categories":[this.categories[0]],
       "note":"Esta es la nota de la tarea numero 1",
       "people_going":[
         {
@@ -136,7 +130,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":2,
-      "category":"2",
+      "categories":[this.categories[0]],
       "note":null,
       "people_going":[
         {
@@ -154,7 +148,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
-      "category":"1",
+      "categories":[this.categories[0]],
       "note":null,
       "people_going":[
         {
@@ -178,6 +172,11 @@ export class TaskServiceMock {
     return this.categories.find(cat => cat.id == id);
   }
 
+  getCategories(): Observable<Category[]> {
+    return Observable.of(this.categories);
+  }
+
+
   createTask(body: Object): Observable<Task> {
     return Observable.of(this.tasks[0])
   }
@@ -199,19 +198,4 @@ export class TaskServiceMock {
     });
     return Observable.of(task)
   }
-
-  categories = [
-    {
-      id: 1,
-      name: "mantenimiento"
-    },
-    {
-      id: 2,
-      name: "riego"
-    },
-    {
-      id: 3,
-      name: "carpinteria"
-    }
-  ];
 }

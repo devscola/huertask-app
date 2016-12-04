@@ -27,8 +27,10 @@ export class TaskForm {
     public taskService: TaskService,
     public translate: TranslateService
   ) {
-    this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
+    taskService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
 
     if(this.action == 'edit'){
       this.task = navParams.get('task');
@@ -50,12 +52,16 @@ export class TaskForm {
   }
 
   generateForm(task){
+    let categories = []
+    if(task.categories){
+      categories = task.categories.map(function(cat) {return cat.id;});
+    }
     return this.formBuilder.group({
       title: [task.title, Validators.compose([
         Validators.required,
         Validators.maxLength(100)
       ])],
-      category: [task.category, Validators.required],
+      categories: [categories, Validators.required],
       from_date: [task.from_date, Validators.required],
       to_date: [task.to_date, Validators.required],
       required_people: [task.required_people, Validators.required],
@@ -118,6 +124,10 @@ export class TaskForm {
     delete task['people_going']
     delete task['people_not_going']
     return task
+  }
+
+  isSelected(category){
+    return !!this.task.categories.find(cat => cat.id === category.id)
   }
 
   buildToDate(){

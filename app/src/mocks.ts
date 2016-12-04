@@ -55,7 +55,12 @@ export class NavMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":3,
-      "category":"3",
+      "categories":[
+        {
+          "id": 1,
+          "name": "carpinteria"
+        }
+      ],
       "note":null,
       "people_going":[
         {
