@@ -22,7 +22,7 @@
     },
     "FORM" : {
       "TITLE" : {
-        "LABEL" : "Crear Tarea",
+        "LABEL" : "Nombre",
         "PLACEHOLDER" : "Nombre de la tarea",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener un título",
@@ -30,7 +30,7 @@
         }
       },
       "CATEGORY" : {
-        "LABEL" : "Categoría",
+        "LABEL" : "Tipo de tarea",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener una categoría"
         }
@@ -39,20 +39,26 @@
         "LABEL" : "Nota",
         "PLACEHOLDER" : "Escribe más información"
       },
-      "FROM_DATE" : {
-        "LABEL" : "Fecha de inicio",
+      "DATE" : {
+        "LABEL" : "Fecha",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener una fecha de inicio"
+          "REQUIRED" : "La tarea debe tener una fecha"
         }
       },
-      "TO_DATE" : {
-        "LABEL" : "Fecha de fin",
+      "START_TIME" : {
+        "LABEL" : "Inicio",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener una fecha de fin"
+          "REQUIRED" : "La tarea debe tener una hora de inicio"
+        }
+      },
+      "END_TIME" : {
+        "LABEL" : "Fin",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener una hora de fin"
         }
       },
       "PEOPLE" : {
-        "LABEL" : "Personas",
+        "LABEL" : "Nº de personas",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener el número de personas necesarias"
         }

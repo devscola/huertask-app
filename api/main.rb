@@ -51,8 +51,8 @@ module Huertask
         params do
           optional :title,           type: String
           optional :category,        type: String
-          optional :from_date,       type: DateTime
           optional :to_date,         type: DateTime
+          optional :from_date,       type: DateTime
           optional :required_people, type: Integer
           optional :note,            type: String
           optional :status,          type: Integer

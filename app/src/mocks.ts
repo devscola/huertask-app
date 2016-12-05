@@ -50,10 +50,10 @@ export class NavMock {
   public get(obj): any {
     return {
       "id":141,
-      "created_at":"2016-11-21T09:02:40+00:00",
+      "created_at":"2016-11-21T09:02:40+01:00",
       "title":"Tarea numero 3",
-      "from_date":"2020-11-12T13:00:00+00:00",
-      "to_date":null,
+      "from_date":"2020-11-12T13:00:00+01:00",
+      "to_date":"2020-11-12T13:00:00+01:00",
       "required_people":3,
       "category":"3",
       "note":null,
