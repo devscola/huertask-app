@@ -39,16 +39,22 @@
         "LABEL" : "Nota",
         "PLACEHOLDER" : "Escribe más información"
       },
-      "FROM_DATE" : {
-        "LABEL" : "Fecha de inicio",
+      "DATE" : {
+        "LABEL" : "Fecha",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener una fecha de inicio"
+          "REQUIRED" : "La tarea debe tener una fecha"
         }
       },
-      "TO_DATE" : {
-        "LABEL" : "Fecha de fin",
+      "START_TIME" : {
+        "LABEL" : "Inicio",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener una fecha de fin"
+          "REQUIRED" : "La tarea debe tener una hora de inicio"
+        }
+      },
+      "END_TIME" : {
+        "LABEL" : "Fin",
+        "ALERT" : {
+          "REQUIRED" : "La tarea debe tener una hora de fin"
         }
       },
       "PEOPLE" : {

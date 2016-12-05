@@ -1,6 +1,15 @@
-ion-col {
-  position: relative;
-}
-ion-col ion-datetime, ion-col ion-select{
-  position: initial;
+task-form {
+  ion-col {
+    position: relative;
+  }
+  ion-col ion-datetime, ion-col ion-select{
+    position: initial;
+  }
+  ion-row {
+    border-bottom: #d0d0d0 solid 1px;
+
+    &.date{
+      border-bottom: 0px;
+    }
+  }
 }
