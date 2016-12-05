@@ -54,6 +54,44 @@ task-detail {
         border-radius: 2rem;
       }
     }
+    &.people_not_going{
+      margin-left: -1rem;
+      img{
+        margin: 1rem 0 0 1rem;
+        width: 4rem;
+        border-radius: 2rem;
+      }
+      .toggle-not-going{
+        margin: 1rem 0 0 1rem;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 2rem;
+        background-color: map-get($colors, primary);
+        color: white;
+        line-height: 4rem;
+        text-align: center;
+        font-size: 1.5rem;
+        .less{
+          font-size: 2rem;
+          padding: 0;
+        }
+      }
+
+      &:not(.show_all){
+        img:nth-child(n+5){
+          display: none;
+        }
+        .less{
+          display: none;
+        }
+      }
+      &.show_all{
+        .more{
+          display: none;
+        }
+      }
+
+    }
   }
 }
 

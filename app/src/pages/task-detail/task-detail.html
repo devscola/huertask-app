@@ -57,6 +57,15 @@
         <img *ngFor="let person of task.people_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
       </ion-col>
     </ion-row>
+    <ion-row class="people_not_going">
+      <ion-col>
+        <img *ngFor="let person of task.people_not_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
+      </ion-col>
+      <span *ngIf="task.people_not_going.length > 4" class="toggle-not-going" (click)="toggleNotGoing($event)">
+         <span class="more">+{{task.people_not_going.length - 4}}</span>
+         <ion-icon class="less" name="arrow-up"></ion-icon>
+      </span>
+    </ion-row>
     <ion-row>
       <ion-col width-50>
         <button ion-button id="going" color="danger" clear full
