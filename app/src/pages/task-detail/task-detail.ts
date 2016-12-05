@@ -44,7 +44,6 @@ export class TaskDetail {
 
   toggleNotGoing(event){
     event.target.parentElement.parentElement.classList.toggle('show_all')
-    console.log(event)
   }
 
   getCategoryName(id){
