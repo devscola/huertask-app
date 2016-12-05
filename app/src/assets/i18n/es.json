@@ -22,7 +22,7 @@
     },
     "FORM" : {
       "TITLE" : {
-        "LABEL" : "Crear Tarea",
+        "LABEL" : "Nombre",
         "PLACEHOLDER" : "Nombre de la tarea",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener un título",
@@ -30,7 +30,7 @@
         }
       },
       "CATEGORY" : {
-        "LABEL" : "Categoría",
+        "LABEL" : "Tipo de tarea",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener una categoría"
         }
@@ -58,7 +58,7 @@
         }
       },
       "PEOPLE" : {
-        "LABEL" : "Personas",
+        "LABEL" : "Nº de personas",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener el número de personas necesarias"
         }
