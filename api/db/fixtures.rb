@@ -4,7 +4,7 @@ class Fixtures
     Huertask::Task.all.destroy
     Huertask::Person.all.destroy
 
-    (1..3).each do |n|
+    (1..20).each do |n|
       Huertask::Person.create({
         id: n,
         name: "Persona #{n}"
@@ -44,6 +44,19 @@ class Fixtures
         task: Huertask::Task[n-1],
         person: Huertask::Person[2],
         type: 1
+      })
+    end
+
+    (8..15).each do |n|
+      Huertask::PersonTaskRelation.create({
+        task: Huertask::Task[3],
+        person: Huertask::Person[n],
+        type: 1
+      })
+      Huertask::PersonTaskRelation.create({
+        task: Huertask::Task[1],
+        person: Huertask::Person[n],
+        type: 0
       })
     end
   end
