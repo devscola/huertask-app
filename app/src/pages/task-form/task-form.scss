@@ -4,3 +4,97 @@ ion-col {
 ion-col ion-datetime, ion-col ion-select{
   position: initial;
 }
+ion-alert.select-alert{
+  .alert-wrapper{
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    .alert-head{
+      background-color: map-get($colors, primary);
+      padding: 4px;
+      .platform-android &{
+        min-height: 56px;
+      }
+      .platform-windows &{
+        min-height: 46px;
+      }
+      .platform-ios &{
+        min-height: 44px;
+      }
+    }
+    div[ng-reflect-ng-switch="checkbox"]{
+      overflow-x: hidden;
+      padding-bottom: 50px;
+      .alert-checkbox-group{
+        padding: 10px 0 50px 0;
+        max-height: 100%;
+        border-bottom: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .alert-checkbox-button{
+          max-width: 90%;
+          margin: auto;
+          background-color: white;
+          margin: 8px auto;
+          .alert-checkbox-icon {
+            margin-right: 40px;
+            order: 2;
+            height: 2em;
+            width: 2em;
+            border-radius: 1em;
+            .alert-checkbox-inner{
+              width: 0.75em;
+              height: 1.25em;
+              left: 0.4em;
+            }
+          }
+          .alert-checkbox-label{
+            order: 1;
+          }
+        }
+      }
+    }
+    .alert-button-group{
+      border-top: 1px solid #dedede;
+      background-color: #f4f4f4;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      .alert-button:first-child{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+        color: white;
+        background-color: map-get($colors, primary);
+        border: 0;
+        text-align: left;
+        .platform-android &{
+          min-height: 56px;
+        }
+        .platform-windows &{
+          min-height: 46px;
+        }
+        .platform-ios &{
+          min-height: 44px;
+        }
+        .button-inner{
+          display: none
+        }
+        &:after {
+          content: "\f2c0";
+          font-family: "Ionicons";
+          font-size: 2.4rem;
+          padding: 0 17px;
+        }
+      }
+    }
+  }
+}
+
+.alert-ios [aria-checked=true] .alert-checkbox-inner{
+  top:0;
+}
