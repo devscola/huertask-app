@@ -37,6 +37,10 @@ export class Tasks {
     return people_left
   }
 
+  isFinalized(task){
+    return Date.parse(task['to_date']) < Date.now() && task['status'] == 0
+  }
+
   peopleMessage(task){
     switch (this.peopleLeft(task)) {
        case 0:

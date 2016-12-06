@@ -36,7 +36,7 @@ module Huertask
 
     def update_fields(params)
       params.each do |key, value|
-        self.update(key => value)
+        self.send("#{key}=", value)
       end
     end
 

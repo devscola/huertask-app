@@ -56,23 +56,37 @@ export class TaskForm {
     if(task.categories){
       categories = task.categories.map(function(cat) {return cat.id;});
     }
+    let date = ''
+    let start_time = ''
+    let end_time = ''
+
+    if(this.action == 'edit'){
+      date = task['from_date'].split('T')[0]
+      start_time = task['from_date'].split('T')[1].split(':').slice(0,2).join(':')
+      end_time = task['to_date'].split('T')[1].split(':').slice(0,2).join(':')
+    }
+
     return this.formBuilder.group({
       title: [task.title, Validators.compose([
         Validators.required,
         Validators.maxLength(100)
       ])],
       categories: [categories, Validators.required],
-      from_date: [task.from_date, Validators.required],
-      to_date: [task.to_date, Validators.required],
+      date: [date, Validators.required],
+      start_time: [start_time, Validators.required],
+      end_time: [end_time, Validators.required],
       required_people: [task.required_people, Validators.required],
-      note: [task.note]
+      note: [task.note],
+      from_date: [],
+      to_date: []
     });
   }
 
   submitTask(){
     this.submited = true;
     let task = this.form.value;
-    task['to_date'] = this.buildToDate()
+    task['from_date'] = this.buildDate('start_time');
+    task['to_date'] = this.buildDate('end_time');
 
     if(Date.parse(task['from_date']) < Date.now()){
       this.pastDateAlert(task)
@@ -130,8 +144,13 @@ export class TaskForm {
     return !!this.task.categories.find(cat => cat.id === category.id)
   }
 
-  buildToDate(){
-    return this.form.value['from_date'].split('T')[0] + 'T' + this.form.value['to_date'] + ':00Z'
+  buildDate(time: string){
+    let date = new Date(this.form.value['date'])
+    let hours = parseInt(this.form.value[time].split(':')[0])
+    let minutes = parseInt(this.form.value[time].split(':')[1])
+    date.setHours(hours)
+    date.setMinutes(minutes)
+    return date.toString()
   }
 
   pastDateAlert(task: Task) {

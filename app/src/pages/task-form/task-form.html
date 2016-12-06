@@ -46,38 +46,53 @@
       </p>
     </div>
 
-    <ion-row>
+    <ion-row class="date">
       <ion-col>
-        <ion-label>{{ 'TASK.FORM.FROM_DATE.LABEL' | translate }}</ion-label>
+        <ion-label>{{ 'TASK.FORM.DATE.LABEL' | translate }}</ion-label>
       </ion-col>
       <ion-col>
         <ion-datetime
-          formControlName="from_date"
-          displayFormat="DD/MM/YYYY h:mm A"
-          pickerFormat="DD MM YYYY h mm A">
+          formControlName="date"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD MM YYYY">
         </ion-datetime>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['from_date'].valid && submited">
-      <p *ngIf="form.controls['from_date'].hasError('required')">
-        {{ 'TASK.FORM.FROM_DATE.ALERT.REQUIRED' | translate }}
+    <div class="alert alert-danger" *ngIf="!form.controls['date'].valid && submited">
+      <p *ngIf="form.controls['date'].hasError('required')">
+        {{ 'TASK.FORM.DATE.ALERT.REQUIRED' | translate }}
       </p>
     </div>
 
     <ion-row>
       <ion-col>
-        <ion-label>{{ 'TASK.FORM.TO_DATE.LABEL' | translate }}</ion-label>
+        <ion-label>{{ 'TASK.FORM.START_TIME.LABEL' | translate }}</ion-label>
       </ion-col>
       <ion-col>
         <ion-datetime
-          formControlName="to_date"
+          formControlName="start_time"
+          displayFormat="h:mm A"
+          pickerFormat="h mm A">
+        </ion-datetime>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{ 'TASK.FORM.END_TIME.LABEL' | translate }}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-datetime
+          formControlName="end_time"
           displayFormat="h:mm A"
           pickerFormat="h mm A">
         </ion-datetime>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['to_date'].valid && submited">
-      <p *ngIf="form.controls['to_date'].hasError('required')">
+    <div class="alert alert-danger" *ngIf="!form.controls['start_time'].valid && submited">
+      <p *ngIf="form.controls['start_time'].hasError('required')">
+        {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
+    <div class="alert alert-danger" *ngIf="!form.controls['end_time'].valid && submited">
+      <p *ngIf="form.controls['end_time'].hasError('required')">
         {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
       </p>
     </div>
