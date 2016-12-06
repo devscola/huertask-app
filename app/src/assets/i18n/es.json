@@ -78,6 +78,10 @@
     "BUTTONS" : {
       "GOING" : "Asistiré",
       "NOTGOING" : "No puedo"
+    },
+    "PEOPLE" : {
+      "GOING" : "Se han unido",
+      "NOT_GOING" : "No pueden asistir"
     }
   }
 }

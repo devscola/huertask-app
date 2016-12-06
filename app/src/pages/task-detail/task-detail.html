@@ -52,6 +52,7 @@
       <ion-col [innerHTML]='peopleMessage(task) | translate:{count: peopleLeft(task)}'>
       </ion-col>
     </ion-row>
+    <span>{{'TASK.PEOPLE.GOING' | translate}}</span>
     <ion-row class="people-going">
       <ion-col>
         <img *ngFor="let person of task.people_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
@@ -61,6 +62,7 @@
          <ion-icon class="less" name="arrow-up"></ion-icon>
       </span>
     </ion-row>
+    <span>{{'TASK.PEOPLE.NOT_GOING' | translate}}</span>
     <ion-row class="people-going">
       <ion-col>
         <img *ngFor="let person of task.people_not_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
