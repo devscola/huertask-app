@@ -57,7 +57,7 @@
         <img *ngFor="let person of task.people_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row [hidden]="isCovered() && isUserNotGoing()">
       <ion-col width-50>
         <button ion-button id="going" color="danger" clear full
           [disabled]="isUserGoing()"
@@ -73,5 +73,6 @@
         </button>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="isCovered() && isUserNotGoing()">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
   </ion-grid>
 </ion-content>

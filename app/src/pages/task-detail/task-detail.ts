@@ -94,6 +94,10 @@ export class TaskDetail {
     this.navCtrl.push(DuplicateTask, {task: this.task});
   }
 
+  isCovered(): boolean {
+    return (this.task.required_people - this.task.people_going.length) == 0
+  }
+
   isUserGoing(): boolean {
     return !!this.task.people_going.find(person => person.id == 1)
   }

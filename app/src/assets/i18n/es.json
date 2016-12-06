@@ -75,6 +75,9 @@
         }
       }
     },
+    "MESSAGES" : {
+      "COVERED" : "Esta tarea esta cubierta, mira otras tareas..."
+    },
     "BUTTONS" : {
       "GOING" : "Asistiré",
       "NOTGOING" : "No puedo"
