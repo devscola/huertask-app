@@ -4,10 +4,25 @@ import { MockBackend } from '@angular/http/testing';
 
 import { TaskService } from './task.service';
 
-let mockResponse = {
-  "id":0,
-  "title":"Fake title"
-};
+let mockResponse = [{
+  "id":1,
+  "created_at":"2016-11-23T13:38:32+01:00",
+  "title":"Tarea numero 1",
+  "status":0,
+  "from_date":"2020-11-12T13:00:00+00:00",
+  "to_date":null,
+  "required_people":1,
+  "category":"1",
+  "note":"Esta es la nota de la tarea numero 1",
+  "people_going":[
+    {
+      "id":3,
+      "name":"Persona 3"
+    }
+  ],
+  "people_not_going":[]
+}];
+
 
 describe('TaskService', () => {
   beforeEach(() => {
@@ -49,7 +64,7 @@ describe('TaskService', () => {
       const result = service.getFutureTasks();
 
       result.subscribe(res => {
-        expect(res).toEqual(mockResponse);
+        expect(JSON.stringify(res)).toEqual(JSON.stringify(service.instanciatedTasks(mockResponse)));
       });
     })));
 
@@ -69,7 +84,7 @@ describe('TaskService', () => {
       const result = service.getPastTasks();
 
       result.subscribe(res => {
-        expect(res).toEqual(mockResponse);
+        expect(JSON.stringify(res)).toEqual(JSON.stringify(service.instanciatedTasks(mockResponse)));
       });
     })));
 

@@ -12,4 +12,10 @@ export class Task {
     public people_going?: any[],
     public people_not_going?: any[],
   ) {  }
+
+  peopleLeft = () => {
+    let people_left = this.required_people - this.people_going.length;
+    if (people_left < 0){ people_left = 0; }
+    return people_left
+  }
 }
