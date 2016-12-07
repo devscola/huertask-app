@@ -18,4 +18,15 @@ export class Task {
     if (people_left < 0){ people_left = 0; }
     return people_left
   }
+
+  peopleMessage = () => {
+    switch (this.peopleLeft()) {
+       case 0:
+         return "TASK.PEOPLE_LEFT.MSG.ZERO";
+       case 1:
+         return "TASK.PEOPLE_LEFT.MSG.ONE";
+       default:
+         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
+    }
+  }
 }

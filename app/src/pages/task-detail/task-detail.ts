@@ -25,17 +25,6 @@ export class TaskDetail {
     }
   }
 
-  peopleMessage(task){
-    switch (task.peopleLeft()) {
-       case 0:
-         return "TASK.PEOPLE_LEFT.MSG.ZERO";
-       case 1:
-         return "TASK.PEOPLE_LEFT.MSG.ONE";
-       default:
-         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
-    }
-  }
-
   getCategoryName(id){
     return this.taskService.getCategory(id).name;
   }
