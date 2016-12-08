@@ -5,6 +5,7 @@ import { TranslateService } from 'ng2-translate';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
+import moment from 'moment';
 
 @Component({
   selector: 'task-form',
@@ -55,9 +56,9 @@ export class TaskForm {
     let end_time = ''
 
     if(this.action == 'edit'){
-      date = task['from_date'].split('T')[0]
-      start_time = task['from_date'].split('T')[1].split(':').slice(0,2).join(':')
-      end_time = task['to_date'].split('T')[1].split(':').slice(0,2).join(':')
+      date = moment(task['from_date']).format('YYYY-MM-DD')
+      start_time = moment(task['from_date']).format('HH:mm')
+      end_time = moment(task['to_date']).format('HH:mm')
     }
 
     return this.formBuilder.group({
