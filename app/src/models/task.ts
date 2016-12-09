@@ -29,4 +29,11 @@ export class Task {
          return "TASK.PEOPLE_LEFT.MSG.PLURAL";
     }
   }
+
+  clean = () => {
+    delete this['id']
+    delete this['people_going']
+    delete this['people_not_going']
+    return this
+  }
 }
