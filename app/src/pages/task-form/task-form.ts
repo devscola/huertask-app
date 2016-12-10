@@ -8,7 +8,7 @@ import { TaskService } from '../../providers/task.service';
 
 @Component({
   selector: 'task-form',
-  templateUrl: 'task-form.html'
+  templateUrl: './task-form.html'
 })
 export class TaskForm {
 

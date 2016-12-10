@@ -10,7 +10,7 @@ import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'task-detail',
-  templateUrl: 'task-detail.html'
+  templateUrl: './task-detail.html'
 })
 
 export class TaskDetail {
