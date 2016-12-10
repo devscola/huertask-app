@@ -76,10 +76,6 @@ export class TaskService {
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
-  getCategory(id){
-    return this.getCategories().find(cat => cat['id'] == id);
-  }
-
   getCategories(): Observable<Category[]> {
     return this.http.get(`${this.huertaskApiUrl}/categories/`)
       .map(res => <Category[]>res.json());
@@ -166,10 +162,6 @@ export class TaskServiceMock {
 
   getPastTasks(): Observable<Task[]> {
     return Observable.of(this.tasks);
-  }
-
-  getCategory(id){
-    return this.categories.find(cat => cat.id == id);
   }
 
   getCategories(): Observable<Category[]> {
