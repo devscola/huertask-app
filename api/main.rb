@@ -42,7 +42,7 @@ module Huertask
       post '/' do
         return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
 
-        task = Task.new declared(Task.procesed params)
+        task = Task.new filter(params)
         if task.save
           present task, with: Entities::Task
         else
@@ -67,7 +67,7 @@ module Huertask
 
           begin
             task = Task.find_by_id(params[:id])
-            task.update_fields(declared(Task.procesed params, include_missing: false))
+            task.update_fields(filter(params, false))
             if task.save
               present task, with: Entities::Task
             else
@@ -138,6 +138,14 @@ module Huertask
         rescue Person::PersonNotFound => e
           error! e.message, 404
         end
+      end
+
+      def filter(params, missing = true)
+        params = declared(params, include_missing: missing)
+        if params.key?('categories')
+          params['categories'] = Category.find_by_ids(params['categories'])
+        end
+        params
       end
     end
 

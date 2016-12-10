@@ -67,19 +67,11 @@ module Huertask
         all(:active => true, :from_date.lt => Time.now)
       end
 
-      def procesed(params)
-        if params.categories && (params.categories.first.is_a? Integer)
-          params.categories = Category.find_by_ids(params.categories)
-        end
-        params
-      end
-
       private
 
       def find_active(id)
         first(id: id, active: true)
       end
     end
-
   end
 end
