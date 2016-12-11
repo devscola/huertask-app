@@ -1,13 +1,29 @@
 class Fixtures
   def self.seed
     Huertask::PersonTaskRelation.all.destroy
+    Huertask::CategoryTaskRelation.all.destroy
     Huertask::Task.all.destroy
+    Huertask::Category.all.destroy
     Huertask::Person.all.destroy
+
+    categories = ["mantenimiento",
+                  "riego",
+                  "carpinteria",
+                  "jardineria",
+                  "cultivo",
+                  "cultura"]
 
     (1..3).each do |n|
       Huertask::Person.create({
         id: n,
         name: "Persona #{n}"
+      })
+    end
+
+    (1..categories.size).each do |n|
+      Huertask::Category.create({
+        id: n,
+        name: categories[n-1]
       })
     end
 
@@ -18,7 +34,7 @@ class Fixtures
         from_date: (Time.now + 30*24*60*60),
         to_date: (Time.now + 30*24*60*60 + 3*60*60),
         required_people: n,
-        category: n,
+        categories: [Huertask::Category[(n%categories.size)-1]],
         note: "Esta es la nota de la tarea número #{n}",
       })
     end
@@ -30,7 +46,7 @@ class Fixtures
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        category: 2
+        categories: [Huertask::Category[(n%categories.size)-1]]
       })
     end
 

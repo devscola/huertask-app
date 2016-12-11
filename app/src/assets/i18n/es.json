@@ -80,5 +80,9 @@
       "GOING" : "Asistiré",
       "NOTGOING" : "No puedo"
     }
+  },
+  "BUTTONS" : {
+    "SAVE" : "Guardar",
+    "CANCEL" : "Cancelar"
   }
 }

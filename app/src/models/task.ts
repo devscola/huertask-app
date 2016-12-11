@@ -4,7 +4,7 @@ export class Task {
     public status?: number,
     public title: string = '',
     public required_people: number = 0,
-    public category: string ='',
+    public categories?: any[],
     public from_date?: any,
     public to_date?: any,
     public created_at?: any,
@@ -48,5 +48,9 @@ export class Task {
   toggleFinalized = () => {
     this['status'] = this.isFinalized() ? 0 : 1;
     return this
+  }
+
+  hasCategory = (category) => {
+    this.categories.find(cat => cat.id === category.id)
   }
 }

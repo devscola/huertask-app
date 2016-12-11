@@ -21,10 +21,6 @@ export class TaskDetail {
     this.task = navParams.get('task')
   }
 
-  getCategoryName(id){
-    return this.taskService.getCategory(id).name;
-  }
-
   deleteTask(){
     return this.taskService.deleteTask(this.task.id).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
