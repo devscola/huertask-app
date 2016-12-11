@@ -3,7 +3,7 @@ import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'create-task',
-  templateUrl: 'create-task.html'
+  templateUrl: './create-task.html'
 })
 
 export class CreateTask {

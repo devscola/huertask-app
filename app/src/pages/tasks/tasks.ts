@@ -7,7 +7,7 @@ import { TaskDetail } from '../task-detail/task-detail';
 
 @Component({
   selector: 'tasks',
-  templateUrl: 'tasks.html'
+  templateUrl: './tasks.html'
 })
 export class Tasks {
   list: Task[];
