@@ -88,6 +88,8 @@ export class TaskForm {
     task['from_date'] = this.buildDate('start_time');
     task['to_date'] = this.buildDate('end_time');
 
+    task = this.taskService.instanciatedTask(task)
+
     if(Date.parse(task['from_date']) < Date.now()){
       this.pastDateAlert(task)
     }else{
@@ -124,20 +126,13 @@ export class TaskForm {
     )
   }
 
-  duplicateTask(task: Object){
-    task = this.cleanTask(task);
+  duplicateTask(task: Task){
+    task = task.clean();
     this.taskService.createTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
     },
     err => console.log(err)
     )
-  }
-
-  cleanTask(task: Object){
-    delete task['id'];
-    delete task['people_going']
-    delete task['people_not_going']
-    return task
   }
 
   isSelected(category){
