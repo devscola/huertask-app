@@ -18,7 +18,7 @@ export class TaskDetail {
   task = new Task();
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
-    this.task = navParams.get('task')
+    this.task = navParams.get('task');
   }
 
   deleteTask(){
