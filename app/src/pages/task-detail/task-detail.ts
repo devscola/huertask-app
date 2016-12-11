@@ -21,6 +21,10 @@ export class TaskDetail {
     this.task = navParams.get('task');
   }
 
+  togglePeopleGoing(event){
+    event.target.parentElement.parentElement.classList.toggle('show_all')
+  }
+
   deleteTask(){
     return this.taskService.deleteTask(this.task.id).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
