@@ -34,7 +34,7 @@
           <ion-option
             *ngFor="let category of categories"
             value="{{category.id}}"
-            selected="isSelected(category)">
+            selected="{{task.hasCategory(category)}}">
             {{category.name}}
           </ion-option>
         </ion-select>

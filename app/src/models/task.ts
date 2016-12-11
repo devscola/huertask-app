@@ -49,4 +49,8 @@ export class Task {
     this['status'] = this.isFinalized() ? 0 : 1;
     return this
   }
+
+  hasCategory = (category) => {
+    this.categories.find(cat => cat.id === category.id)
+  }
 }

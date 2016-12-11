@@ -135,10 +135,6 @@ export class TaskForm {
     )
   }
 
-  isSelected(category){
-    return !!this.task.categories.find(cat => cat.id === category.id)
-  }
-
   buildDate(time: string){
     let date = new Date(this.form.value['date'])
     let hours = parseInt(this.form.value[time].split(':')[0])
