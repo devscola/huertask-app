@@ -64,6 +64,7 @@ export class Task {
 
   userNotAllowedToGo = ():boolean => {
     return this.isCovered() && !this.isUserGoing()
+  }
 
   hasCategory = (category) => {
     this.categories.find(cat => cat.id === category.id)
