@@ -6,6 +6,7 @@
     "PREVIOUS"  : "Pasadas"
   },
   "TASK" : {
+    "FINISHED" : "Finalizada",
     "PEOPLE_LEFT" : {
       "LABEL" : "Personas restantes",
       "MSG" : {

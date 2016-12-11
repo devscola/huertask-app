@@ -7,20 +7,36 @@ import { Task } from '../models/task';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   isAdmin: boolean = false;
 
   constructor(public http: Http) { }
 
+  instanciatedTasks(json): Task[]{
+    let tasks = []
+    for(let object in json){
+      tasks.push(this.instanciatedTask(json[object]))
+    }
+    return tasks
+  }
+
+  instanciatedTask(object): Task{
+    let task = new Task();
+    for(let param in object){
+      task[param] = object[param]
+    }
+    return task
+  }
+
   getFutureTasks(): Observable<Task[]> {
     return this.http.get(`${this.huertaskApiUrl}/tasks/`)
-      .map(res => <Task[]>res.json());
+      .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
   getPastTasks(): Observable<Task[]> {
     return this.http.get(`${this.huertaskApiUrl}/tasks/?filter=past`)
-      .map(res => <Task[]>res.json());
+      .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
   createTask(body: Object): Observable<Task[]> {
@@ -41,7 +57,7 @@ export class TaskService {
     let id         = body['id']
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
-                    .map((res:Response) => <Task>res.json())
+                    .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
@@ -61,7 +77,7 @@ export class TaskService {
     let body       = {'person_id': person_id};
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/going/`, body, options)
-      .map(res => <Task>res.json())
+      .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
@@ -71,7 +87,7 @@ export class TaskService {
     let body       = {'person_id': person_id};
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/notgoing/`, body, options)
-      .map(res => <Task>res.json())
+      .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
@@ -109,62 +125,85 @@ export class TaskService {
 
 @Injectable()
 export class TaskServiceMock {
-  tasks = [
-    {
-      "id":1,
-      "created_at":"2016-11-23T13:38:32+01:00",
-      "title":"Tarea numero 1",
-      "status":0,
-      "from_date":"2020-11-12T13:00:00+00:00",
-      "to_date":null,
-      "required_people":1,
-      "category":"1",
-      "note":"Esta es la nota de la tarea numero 1",
-      "people_going":[
-        {
-          "id":3,
-          "name":"Persona 3"
-        }
-      ],
-      "people_not_going":[]
-    },
-    {
-      "id":140,
-      "created_at":"2016-11-21T09:02:40+00:00",
-      "title":"Tarea numero 2",
-      "status":0,
-      "from_date":"2020-11-12T13:00:00+00:00",
-      "to_date":null,
-      "required_people":2,
-      "category":"2",
-      "note":null,
-      "people_going":[
-        {
-          "id":3,
-          "name":"Persona 3"
-        }
-      ],
-      "people_not_going":[]
-    },
-    {
-      "id":139,
-      "created_at":"2016-11-21T09:02:40+00:00",
-      "title":"Tarea numero 1",
-      "status":0,
-      "from_date":"2020-11-12T13:00:00+00:00",
-      "to_date":null,
-      "required_people":1,
-      "category":"1",
-      "note":null,
-      "people_going":[
-        {
-          "id":3,
-          "name":"Persona 3"
-        }
-      ],
-      "people_not_going":[]
+  json;
+  tasks;
+
+  constructor(){
+    this.json = [
+      {
+        "id":1,
+        "created_at":"2016-11-23T13:38:32+01:00",
+        "title":"Tarea numero 1",
+        "status":0,
+        "from_date":"2020-11-12T13:00:00+00:00",
+        "to_date":null,
+        "required_people":1,
+        "category":"1",
+        "note":"Esta es la nota de la tarea numero 1",
+        "people_going":[
+          {
+            "id":3,
+            "name":"Persona 3"
+          }
+        ],
+        "people_not_going":[]
+      },
+      {
+        "id":140,
+        "created_at":"2016-11-21T09:02:40+00:00",
+        "title":"Tarea numero 2",
+        "status":0,
+        "from_date":"2020-11-12T13:00:00+00:00",
+        "to_date":null,
+        "required_people":2,
+        "category":"2",
+        "note":null,
+        "people_going":[
+          {
+            "id":3,
+            "name":"Persona 3"
+          }
+        ],
+        "people_not_going":[]
+      },
+      {
+        "id":139,
+        "created_at":"2016-11-21T09:02:40+00:00",
+        "title":"Tarea numero 1",
+        "status":0,
+        "from_date":"2020-11-12T13:00:00+00:00",
+        "to_date":null,
+        "required_people":1,
+        "category":"1",
+        "note":null,
+        "people_going":[
+          {
+            "id":3,
+            "name":"Persona 3"
+          }
+        ],
+        "people_not_going":[]
+      }
+    ];
+
+    this.tasks = this.instanciatedTasks(this.json);
+  }
+
+  instanciatedTasks(json): Task[]{
+    let tasks = []
+    for(let object in json){
+      tasks.push(this.instanciatedTask(json[object]))
     }
-  ];
+    return tasks
+  }
+
+  instanciatedTask(object): Task{
+    let task = new Task();
+    for(let param in object){
+      task[param] = object[param]
+    }
+    return task
+  }
 
   getFutureTasks(): Observable<Task[]> {
     return Observable.of(this.tasks);
@@ -214,4 +253,4 @@ export class TaskServiceMock {
       name: "carpinteria"
     }
   ];
-}
+};
