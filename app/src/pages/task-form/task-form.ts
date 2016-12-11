@@ -9,7 +9,7 @@ import moment from 'moment';
 
 @Component({
   selector: 'task-form',
-  templateUrl: 'task-form.html'
+  templateUrl: './task-form.html'
 })
 export class TaskForm {
 
