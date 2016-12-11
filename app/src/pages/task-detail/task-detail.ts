@@ -61,12 +61,4 @@ export class TaskDetail {
   goToDuplicateTask(){
     this.navCtrl.push(DuplicateTask, {task: this.task});
   }
-
-  isUserGoing(): boolean {
-    return !!this.task.people_going.find(person => person.id == 1)
-  }
-
-  isUserNotGoing(): boolean {
-    return !!this.task.people_not_going.find(person => person.id == 1)
-  }
 }

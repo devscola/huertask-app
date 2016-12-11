@@ -50,6 +50,21 @@ export class Task {
     return this
   }
 
+  isUserGoing = (): boolean => {
+    return !!this.people_going.find(person => person.id == 1)
+  }
+
+  isUserNotGoing = (): boolean => {
+    return !!this.people_not_going.find(person => person.id == 1)
+  }
+
+  isCovered = (): boolean => {
+    return (this.required_people - this.people_going.length) == 0
+  }
+
+  userNotAllowedToGo = ():boolean => {
+    return this.isCovered() && !this.isUserGoing()
+
   hasCategory = (category) => {
     this.categories.find(cat => cat.id === category.id)
   }
