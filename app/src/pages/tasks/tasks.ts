@@ -7,7 +7,7 @@ import { TaskDetail } from '../task-detail/task-detail';
 
 @Component({
   selector: 'tasks',
-  templateUrl: 'tasks.html'
+  templateUrl: './tasks.html'
 })
 export class Tasks {
   list: Task[];
@@ -35,6 +35,10 @@ export class Tasks {
     let people_left = task.required_people - task.people_going.length;
     if (people_left < 0){ people_left = 0; }
     return people_left
+  }
+
+  isFinalized(task){
+    return Date.parse(task['to_date']) < Date.now() && task['status'] == 0
   }
 
   peopleMessage(task){
