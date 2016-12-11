@@ -6,10 +6,10 @@
     <ion-title></ion-title>
     <ion-buttons *ngIf="taskService.isAdmin" end>
       <button ion-button (click)="goToDuplicateTask()">
-        <ion-icon name="git-branch"></ion-icon>
+        <ion-icon name="copy"></ion-icon>
       </button>
       <button ion-button (click)="goToEditTask()">
-        <ion-icon name="clipboard"></ion-icon>
+        <ion-icon name="create"></ion-icon>
       </button>
       <button ion-button (click)="deleteTask()">
         <ion-icon name="trash"></ion-icon>
@@ -29,7 +29,7 @@
       </ion-col>
       <ion-col>
         <ion-chip>
-          <ion-label color="{{finalizeColor}}">Finalizada</ion-label>
+          <ion-label color="{{finalizeColor}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
           <button *ngIf="taskService.isAdmin" ion-button clear color="{{finalizeColor}}" (click)="markAsFinalized(task)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </button>

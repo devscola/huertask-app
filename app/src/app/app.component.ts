@@ -20,7 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
 
   constructor(public platform: Platform, translate: TranslateService, public taskService: TaskService) {
     this.initializeApp();
