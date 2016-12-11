@@ -29,8 +29,8 @@
       </ion-col>
       <ion-col>
         <ion-chip>
-          <ion-label color="{{finalizeColor}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
-          <button *ngIf="taskService.isAdmin" ion-button clear color="{{finalizeColor}}" (click)="markAsFinalized(task)">
+          <ion-label color="{{task.finalizeColor()}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
+          <button *ngIf="taskService.isAdmin" ion-button clear color="{{task.finalizeColor()}}" (click)="toggleFinalized(task)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </button>
         </ion-chip>

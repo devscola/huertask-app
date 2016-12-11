@@ -57,7 +57,7 @@ export class TaskService {
     let id         = body['id']
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
-                    .map((res:Response) => <Task>res.json())
+                    .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 

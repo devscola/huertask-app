@@ -81,6 +81,7 @@ export class TaskForm {
     let task = this.form.value;
     task['from_date'] = this.buildDate('start_time');
     task['to_date'] = this.buildDate('end_time');
+
     task = this.taskService.instanciatedTask(task)
 
     if(Date.parse(task['from_date']) < Date.now()){

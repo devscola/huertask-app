@@ -117,7 +117,7 @@ describe('TaskService', () => {
       [TaskService, MockBackend], (service, mockBackend) => {
 
       mockBackend.connections.subscribe(conn => {
-        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse) })));
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockResponse[0]) })));
         expect(conn.request.url).toEqual(`${service.huertaskApiUrl}/tasks/${task_id}`);
         expect(conn.request.method).toEqual(RequestMethod.Put);
       });
@@ -125,7 +125,7 @@ describe('TaskService', () => {
       const result = service.editTask({'id': task_id});
 
       result.subscribe(res => {
-        expect(res).toEqual(mockResponse);
+        expect(JSON.stringify(res)).toEqual(JSON.stringify(service.instanciatedTask(mockResponse[0])));
       });
     })));
 

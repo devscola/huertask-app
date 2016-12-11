@@ -36,4 +36,17 @@ export class Task {
     delete this['people_not_going']
     return this
   }
+
+  isFinalized = () => {
+    return this['status'] == 1
+  }
+
+  finalizeColor = () => {
+    return this.isFinalized() ? 'success' : 'dark'
+  }
+
+  toggleFinalized = () => {
+    this['status'] = this.isFinalized() ? 0 : 1;
+    return this
+  }
 }
