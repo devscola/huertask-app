@@ -4,23 +4,40 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Task } from '../models/task';
+import { Category } from '../models/category';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   isAdmin: boolean = false;
 
   constructor(public http: Http) { }
 
+  instanciatedTasks(json): Task[]{
+    let tasks = []
+    for(let object in json){
+      tasks.push(this.instanciatedTask(json[object]))
+    }
+    return tasks
+  }
+
+  instanciatedTask(object): Task{
+    let task = new Task();
+    for(let param in object){
+      task[param] = object[param]
+    }
+    return task
+  }
+
   getFutureTasks(): Observable<Task[]> {
     return this.http.get(`${this.huertaskApiUrl}/tasks/`)
-      .map(res => <Task[]>res.json());
+      .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
   getPastTasks(): Observable<Task[]> {
     return this.http.get(`${this.huertaskApiUrl}/tasks/?filter=past`)
-      .map(res => <Task[]>res.json());
+      .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
   createTask(body: Object): Observable<Task[]> {
@@ -41,7 +58,7 @@ export class TaskService {
     let id         = body['id']
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
-                    .map((res:Response) => <Task>res.json())
+                    .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
@@ -61,7 +78,7 @@ export class TaskService {
     let body       = {'person_id': person_id};
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/going/`, body, options)
-      .map(res => <Task>res.json())
+      .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
@@ -71,45 +88,35 @@ export class TaskService {
     let body       = {'person_id': person_id};
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/notgoing/`, body, options)
-      .map(res => <Task>res.json())
+      .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
-  getCategory(id){
-    return this.categories.find(cat => cat.id == id);
+  getCategories(): Observable<Category[]> {
+    return this.http.get(`${this.huertaskApiUrl}/categories/`)
+      .map(res => <Category[]>res.json());
   }
-
-  categories = [
-    {
-      id: 1,
-      name: "mantenimiento"
-    },
-    {
-      id: 2,
-      name: "riego"
-    },
-    {
-      id: 3,
-      name: "carpinteria"
-    },
-    {
-      id: 4,
-      name: "jardineria"
-    },
-    {
-      id: 5,
-      name: "cultivo"
-    },
-    {
-      id: 6,
-      name: "cultura"
-    }
-  ];
 }
 
 @Injectable()
 export class TaskServiceMock {
-  tasks = [
+  categories = [
+    {
+      "id": 1,
+      "name": "mantenimiento"
+    },
+    {
+      "id": 2,
+      "name": "riego"
+    },
+    {
+      "id": 3,
+      "name": "carpinteria"
+    }
+  ];
+
+  tasks;
+  json = [
     {
       "id":1,
       "created_at":"2016-11-23T13:38:32+01:00",
@@ -118,7 +125,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
-      "category":"1",
+      "categories":[this.categories[0]],
       "note":"Esta es la nota de la tarea numero 1",
       "people_going":[
         {
@@ -136,7 +143,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":2,
-      "category":"2",
+      "categories":[this.categories[0]],
       "note":null,
       "people_going":[
         {
@@ -154,7 +161,7 @@ export class TaskServiceMock {
       "from_date":"2020-11-12T13:00:00+00:00",
       "to_date":null,
       "required_people":1,
-      "category":"1",
+      "categories":[this.categories[0]],
       "note":null,
       "people_going":[
         {
@@ -166,6 +173,27 @@ export class TaskServiceMock {
     }
   ];
 
+
+  constructor(){
+    this.tasks = this.instanciatedTasks(this.json);
+  }
+
+  instanciatedTasks(json): Task[]{
+    let tasks = []
+    for(let object in json){
+      tasks.push(this.instanciatedTask(json[object]))
+    }
+    return tasks
+  }
+
+  instanciatedTask(object): Task{
+    let task = new Task();
+    for(let param in object){
+      task[param] = object[param]
+    }
+    return task
+  }
+
   getFutureTasks(): Observable<Task[]> {
     return Observable.of(this.tasks);
   }
@@ -174,9 +202,10 @@ export class TaskServiceMock {
     return Observable.of(this.tasks);
   }
 
-  getCategory(id){
-    return this.categories.find(cat => cat.id == id);
+  getCategories(): Observable<Category[]> {
+    return Observable.of(this.categories);
   }
+
 
   createTask(body: Object): Observable<Task> {
     return Observable.of(this.tasks[0])
@@ -199,19 +228,5 @@ export class TaskServiceMock {
     });
     return Observable.of(task)
   }
-
-  categories = [
-    {
-      id: 1,
-      name: "mantenimiento"
-    },
-    {
-      id: 2,
-      name: "riego"
-    },
-    {
-      id: 3,
-      name: "carpinteria"
-    }
-  ];
 }
+

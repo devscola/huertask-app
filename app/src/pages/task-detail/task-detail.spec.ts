@@ -27,8 +27,8 @@ describe('Pages: Task Detail', () => {
     let nodeList = template.querySelectorAll('span.category');
     let categories = Array.prototype.slice.call(nodeList);
 
-    expect(categories.length).toBe(1)
-    expect(categories[0].innerText).toBe('carpinteria')
+    expect(nodeList.length).toBe(1)
+    expect(nodeList[0].innerText).toBe('carpinteria')
   }));
 
   it('should let say "going" if user is not going yet', async(() => {

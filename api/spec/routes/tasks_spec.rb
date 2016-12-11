@@ -49,7 +49,7 @@ describe Huertask::API do
 
     it "returs error when task is invalid" do
       data = { title: "",
-               category: "limpieza",
+               categories: [1],
                from_date: Time.now,
                to_date: (Time.now - 60*60) }
 
@@ -63,7 +63,7 @@ describe Huertask::API do
     it "returns created task" do
       data = {  title: "Limpiar lechugas",
                 required_people: 1,
-                category: "limpieza",
+                categories: [1],
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
@@ -76,7 +76,7 @@ describe Huertask::API do
     it "returns 401 error if dont have valid Authorization header" do
       data = {  title: "Limpiar lechugas",
                 required_people: 1,
-                category: "limpieza",
+                categories: [1],
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 

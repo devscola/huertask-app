@@ -6,10 +6,10 @@
     <ion-title></ion-title>
     <ion-buttons *ngIf="taskService.isAdmin" end>
       <button ion-button (click)="goToDuplicateTask()">
-        <ion-icon name="git-branch"></ion-icon>
+        <ion-icon name="copy"></ion-icon>
       </button>
       <button ion-button (click)="goToEditTask()">
-        <ion-icon name="clipboard"></ion-icon>
+        <ion-icon name="create"></ion-icon>
       </button>
       <button ion-button (click)="deleteTask()">
         <ion-icon name="trash"></ion-icon>
@@ -29,8 +29,8 @@
       </ion-col>
       <ion-col>
         <ion-chip>
-          <ion-label color="{{finalizeColor}}">Finalizada</ion-label>
-          <button *ngIf="taskService.isAdmin" ion-button clear color="{{finalizeColor}}" (click)="markAsFinalized(task)">
+          <ion-label color="{{task.finalizeColor()}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
+          <button *ngIf="taskService.isAdmin" ion-button clear color="{{task.finalizeColor()}}" (click)="toggleFinalized(task)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </button>
         </ion-chip>
@@ -43,13 +43,13 @@
       </ion-col>
     </ion-row>
     <ion-row class="categories">
-      <ion-col><span class="category cat-{{task.category}}">{{getCategoryName(task.category)}}</span></ion-col>
+      <ion-col><span class="category cat-{{category.id}}" *ngFor="let category of task.categories">{{category.name}}</span></ion-col>
     </ion-row>
     <ion-row class="note">
       <ion-col>{{task.note}}</ion-col>
     </ion-row>
     <ion-row class="remaining people">
-      <ion-col [innerHTML]='peopleMessage(task) | translate:{count: peopleLeft(task)}'>
+      <ion-col [innerHTML]='task.peopleMessage() | translate:{count: task.peopleLeft()}'>
       </ion-col>
     </ion-row>
     <span>{{'TASK.PEOPLE.GOING' | translate}}</span>

@@ -27,8 +27,10 @@ export class TaskForm {
     public taskService: TaskService,
     public translate: TranslateService
   ) {
-    this.categories = taskService.categories;
     this.action = el.nativeElement.getAttribute('form-action');
+    taskService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
 
     if(this.action == 'edit'){
       this.task = navParams.get('task');
@@ -50,6 +52,10 @@ export class TaskForm {
   }
 
   generateForm(task){
+    let categories = []
+    if(task.categories){
+      categories = task.categories.map(function(cat) {return cat.id;});
+    }
     let date = ''
     let start_time = ''
     let end_time = ''
@@ -65,7 +71,7 @@ export class TaskForm {
         Validators.required,
         Validators.maxLength(100)
       ])],
-      category: [task.category, Validators.required],
+      categories: [categories, Validators.required],
       date: [date, Validators.required],
       start_time: [start_time, Validators.required],
       end_time: [end_time, Validators.required],
@@ -81,6 +87,8 @@ export class TaskForm {
     let task = this.form.value;
     task['from_date'] = this.buildDate('start_time');
     task['to_date'] = this.buildDate('end_time');
+
+    task = this.taskService.instanciatedTask(task)
 
     if(Date.parse(task['from_date']) < Date.now()){
       this.pastDateAlert(task)
@@ -118,20 +126,13 @@ export class TaskForm {
     )
   }
 
-  duplicateTask(task: Object){
-    task = this.cleanTask(task);
+  duplicateTask(task: Task){
+    task = task.clean();
     this.taskService.createTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
     },
     err => console.log(err)
     )
-  }
-
-  cleanTask(task: Object){
-    delete task['id'];
-    delete task['people_going']
-    delete task['people_not_going']
-    return task
   }
 
   buildDate(time: string){

@@ -1,4 +1,5 @@
 // IONIC:
+import {Task} from './models/task'
 
 export class ConfigMock {
 
@@ -48,14 +49,19 @@ export class NavMock {
   }
 
   public get(obj): any {
-    return {
-      "id":141,
+    let task = {
+      "id":1,
       "created_at":"2016-11-21T09:02:40+01:00",
       "title":"Tarea numero 3",
       "from_date":"2020-11-12T13:00:00+01:00",
       "to_date":"2020-11-12T13:00:00+01:00",
       "required_people":3,
-      "category":"3",
+      "categories":[
+        {
+          "id": 1,
+          "name": "carpinteria"
+        }
+      ],
       "note":null,
       "people_going":[
         {
@@ -65,6 +71,15 @@ export class NavMock {
       ],
       "people_not_going":[]
     };
+    return this.instanciatedTask(task)
+  }
+
+  private instanciatedTask(object){
+    let task = new Task();
+    for(let param in object){
+      task[param] = object[param]
+    }
+    return task
   }
 }
 
