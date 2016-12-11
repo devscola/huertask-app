@@ -29,8 +29,8 @@
       </ion-col>
       <ion-col>
         <ion-chip>
-          <ion-label color="{{finalizeColor}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
-          <button *ngIf="taskService.isAdmin" ion-button clear color="{{finalizeColor}}" (click)="markAsFinalized(task)">
+          <ion-label color="{{task.finalizeColor()}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
+          <button *ngIf="taskService.isAdmin" ion-button clear color="{{task.finalizeColor()}}" (click)="toggleFinalized(task)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </button>
         </ion-chip>
@@ -49,7 +49,7 @@
       <ion-col>{{task.note}}</ion-col>
     </ion-row>
     <ion-row class="remaining people">
-      <ion-col [innerHTML]='peopleMessage(task) | translate:{count: peopleLeft(task)}'>
+      <ion-col [innerHTML]='task.peopleMessage() | translate:{count: task.peopleLeft()}'>
       </ion-col>
     </ion-row>
     <ion-row class="people_going">

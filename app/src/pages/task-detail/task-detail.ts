@@ -16,30 +16,9 @@ import { NavParams } from 'ionic-angular';
 export class TaskDetail {
 
   task = new Task();
-  finalizeColor: string = 'dark'
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
-    this.task = navParams.get('task');
-    if(this.task.status == 1){
-      this.finalizeColor = 'success'
-    }
-  }
-
-  peopleLeft(task){
-    let people_left = task.required_people - task.people_going.length;
-    if (people_left < 0){ people_left = 0; }
-    return people_left
-  }
-
-  peopleMessage(task){
-    switch (this.peopleLeft(task)) {
-       case 0:
-         return "TASK.PEOPLE_LEFT.MSG.ZERO";
-       case 1:
-         return "TASK.PEOPLE_LEFT.MSG.ONE";
-       default:
-         return "TASK.PEOPLE_LEFT.MSG.PLURAL";
-    }
+    this.task = navParams.get('task')
   }
 
   getCategoryName(id){
@@ -70,17 +49,10 @@ export class TaskDetail {
     )
   }
 
-  markAsFinalized(task: Object){
-    let status = 0
-    if(task['status'] == status){
-      status = 1;
-      this.finalizeColor = 'success'
-    }else{
-      this.finalizeColor = 'dark'
-    }
-    task['status'] = status;
+  toggleFinalized(task: Task){
+    task.toggleFinalized()
     return this.taskService.editTask(task).subscribe( data => {
-      console.log(data)
+      this.task = data
     },
     err => console.log(err)
     )
