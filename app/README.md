@@ -92,6 +92,28 @@ messageMapping: {[k:string]: string} = {
 ```
 ```{{ "TASK.PEOPLE_LEFT.MSG." + (task.people_left | i18nPlural: messageMapping)  | translate:{count: task.people_left }}}```
 
+## Testing
+
+### Requisitos
+
+Los tests se lanzan con la libreria [karma](https://karma-runner.github.io/) y sobre el navegador phantomJS
+
+```bash
+$ sudo npm install -g karma
+$ sudo npm install
+```
+Es posible que phantomJS necesite el paquete libfontconfig, en ese caso es necesario ejecutar:
+
+```bash
+$ sudo apt-get install libfontconfig
+```
+
+### Ejecutando los tests
+Desde el directorio `app`
+```bash
+$ karma start
+```
+
 
 ## Coding Standards ##
 Este proyecto usa [editorconfig](http://editorconfig.org) para definir y mantener la consistencia del estilo de código.
