@@ -12,7 +12,7 @@
         </ion-input>
       </ion-col>
     </ion-row>
-    <div *ngIf="!form.controls['title'].valid && submited" class="alert alert-danger">
+    <div *ngIf="hasValidationError('title')" class="alert alert-danger">
       <p *ngIf="form.controls['title'].hasError('required')">
         {{ 'TASK.FORM.TITLE.ALERT.REQUIRED' | translate }}
       </p>
@@ -40,7 +40,7 @@
         </ion-select>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['categories'].valid && submited">
+    <div class="alert alert-danger" *ngIf="hasValidationError('categories')">
       <p *ngIf="form.controls['categories'].hasError('required')">
         {{ 'TASK.FORM.CATEGORY.ALERT.REQUIRED' | translate }}
       </p>
@@ -58,7 +58,7 @@
         </ion-datetime>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['date'].valid && submited">
+    <div class="alert alert-danger" *ngIf="hasValidationError('date')">
       <p *ngIf="form.controls['date'].hasError('required')">
         {{ 'TASK.FORM.DATE.ALERT.REQUIRED' | translate }}
       </p>
@@ -86,12 +86,12 @@
         </ion-datetime>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['start_time'].valid && submited">
+    <div class="alert alert-danger" *ngIf="hasValidationError('start_time')">
       <p *ngIf="form.controls['start_time'].hasError('required')">
         {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
       </p>
     </div>
-    <div class="alert alert-danger" *ngIf="!form.controls['end_time'].valid && submited">
+    <div class="alert alert-danger" *ngIf="hasValidationError('end_time')">
       <p *ngIf="form.controls['end_time'].hasError('required')">
         {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
       </p>
@@ -108,7 +108,7 @@
         </ion-input>
       </ion-col>
     </ion-row>
-    <div class="alert alert-danger" *ngIf="!form.controls['required_people'].valid && submited">
+    <div class="alert alert-danger" *ngIf="hasValidationError('required_people')">
       <p *ngIf="form.controls['required_people'].hasError('required')">
         {{ 'TASK.FORM.PEOPLE.ALERT.REQUIRED' | translate }}
       </p>

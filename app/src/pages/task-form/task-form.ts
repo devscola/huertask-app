@@ -82,6 +82,10 @@ export class TaskForm {
     });
   }
 
+  hasValidationError(property){
+    return !this.form.controls[property].valid && this.submited
+  }
+
   submitTask(){
     this.submited = true;
     let task = this.form.value;
