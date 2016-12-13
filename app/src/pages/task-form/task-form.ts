@@ -82,7 +82,10 @@ export class TaskForm {
     });
   }
 
-  hasValidationError(property){
+  hasValidationError(property, error = null){
+    if(error != null){
+      return this.form.controls[property].hasError(error)
+    }
     return !this.form.controls[property].valid && this.submited
   }
 
