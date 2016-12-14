@@ -4,7 +4,7 @@ export class Task {
     public status?: number,
     public title: string = '',
     public required_people: number = 0,
-    public categories?: any[],
+    public categories: any[] = [],
     public from_date?: any,
     public to_date?: any,
     public created_at?: any,
@@ -67,6 +67,6 @@ export class Task {
   }
 
   hasCategory = (category) => {
-    this.categories.find(cat => cat.id === category.id)
+    return !!this.categories.find(cat => cat.id === category.id)
   }
 }
