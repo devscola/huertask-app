@@ -51,6 +51,7 @@ export class TaskDetail {
 
   toggleFinalized(task: Task){
     task.toggleFinalized()
+    task['categories'] = task['categories'].map((cat) => {return cat['id']})
     return this.taskService.editTask(task).subscribe( data => {
       this.task = data
     },
