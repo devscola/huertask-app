@@ -40,7 +40,7 @@ module Huertask
       end
 
       post '/' do
-        return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+        admin_required
 
         task = Task.new filter(params)
         if task.save
@@ -63,7 +63,7 @@ module Huertask
         end
 
         put '/' do
-          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+          admin_required
 
           begin
             task = Task.find_by_id(params[:id])
@@ -79,7 +79,7 @@ module Huertask
         end
 
         delete '/' do
-          return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+          admin_required
 
           begin
             task = Task.find_by_id(params[:id])
@@ -113,6 +113,10 @@ module Huertask
 
       def error_400(model)
         error! model.errors.to_hash, 400
+      end
+
+      def admin_required
+        return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
       end
 
       def action(is_going)
