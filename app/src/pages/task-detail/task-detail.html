@@ -72,7 +72,10 @@
          <ion-icon class="less" name="arrow-up"></ion-icon>
       </span>
     </ion-row>
-    <ion-row [hidden]="task.userNotAllowedToGo()">
+  </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-row class="going-buttons" [hidden]="task.userNotAllowedToGo()">
       <ion-col width-50>
         <button ion-button id="going" color="danger" clear full
           [disabled]="task.isUserGoing()"
@@ -88,6 +91,5 @@
         </button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="task.userNotAllowedToGo()">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
-  </ion-grid>
-</ion-content>
+    <ion-row class="covered-message" *ngIf="task.userNotAllowedToGo()">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
+</ion-footer>

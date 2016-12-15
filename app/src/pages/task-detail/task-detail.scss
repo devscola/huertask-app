@@ -84,6 +84,20 @@ task-detail {
 
     }
   }
+  ion-footer ion-row{
+    margin: 0px;
+    &.going-buttons{
+      button {
+        margin: 0px;
+        padding: 20px;
+        height: 56px;
+      }
+    }
+    &.covered-message{
+      margin: 10px;
+      padding: 10px;
+    }
+  }
 }
 
 ion-icon {
