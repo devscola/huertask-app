@@ -98,7 +98,7 @@ export class TaskForm {
     task = this.taskService.instanciatedTask(task)
 
     if(Date.parse(task['from_date']) < Date.now()){
-      this.pastDateAlert(task)
+      this.pastDateConfirmation(task)
     }else{
       this.callActionMethod(task)
     }
@@ -151,7 +151,7 @@ export class TaskForm {
     return date.toString()
   }
 
-  pastDateAlert(task: Task) {
+  pastDateConfirmation(task: Task) {
     this.translate.get('TASK.FORM.PAST_ALERT').subscribe((res: Object) => {
       this.presentAlert(res, task)
     });
