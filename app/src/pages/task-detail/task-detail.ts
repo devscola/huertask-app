@@ -16,6 +16,7 @@ import { NavParams } from 'ionic-angular';
 export class TaskDetail {
 
   task = new Task();
+  waitingForResponse = false
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
     this.task = navParams.get('task');
@@ -51,9 +52,11 @@ export class TaskDetail {
 
   toggleFinalized(task: Task){
     task.toggleFinalized()
+    this.waitingForResponse = true
     task['categories'] = task['categories'].map((cat) => {return cat['id']})
     return this.taskService.editTask(task).subscribe( data => {
       this.task = data
+      this.waitingForResponse = false
     },
     err => console.log(err)
     )
