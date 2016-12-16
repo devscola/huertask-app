@@ -157,7 +157,7 @@ module Huertask
 
     resource :categories do
       get "/" do
-        present Category.all, with: Entities::Category
+        present Category.all(:order => [ :name.asc ]), with: Entities::Category
       end
     end
 
