@@ -8,7 +8,9 @@ import { TaskDetail } from '../pages/task-detail/task-detail';
 import { DuplicateTask } from '../pages/duplicate-task/duplicate-task';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
+import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { TaskService } from '../providers/task.service';
+import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
 
 import { HttpModule, Http } from '@angular/http';
@@ -26,6 +28,7 @@ export function createTranslateLoader(http: Http) {
     TaskDetail,
     EditTask,
     TaskForm,
+    FavCategories,
     DuplicateTask,
     FormAction
   ],
@@ -46,9 +49,10 @@ export function createTranslateLoader(http: Http) {
     CreateTask,
     TaskDetail,
     EditTask,
+    FavCategories,
     TaskForm,
     DuplicateTask
   ],
-  providers: [TaskService]
+  providers: [TaskService, PersonService]
 })
 export class AppModule {}

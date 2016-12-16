@@ -7,6 +7,7 @@ import * as moment from 'moment';
 
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
+import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { TaskService } from '../providers/task.service';
 
 
@@ -30,7 +31,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: "TASKS.TITLE", component: Tasks },
-      { title: "TASK.CREATE.TITLE", component: CreateTask }
+      { title: "TASK.CREATE.TITLE", component: CreateTask },
+      { title: "CATEGORIES.FAV.TITLE", component: FavCategories }
     ];
   }
 
