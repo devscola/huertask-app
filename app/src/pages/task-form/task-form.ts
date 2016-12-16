@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Task } from '../../models/task';
@@ -25,7 +25,8 @@ export class TaskForm {
     public alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     public taskService: TaskService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public toastCtrl: ToastController
   ) {
     this.action = el.nativeElement.getAttribute('form-action');
     taskService.getCategories().subscribe(categories => {
@@ -122,7 +123,7 @@ export class TaskForm {
     this.taskService.editTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
     },
-    err => console.log(err)
+    err => this.presentToast('Ha habido un error', 'danger')
     )
   }
 
@@ -130,7 +131,7 @@ export class TaskForm {
     this.taskService.createTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
     },
-    err => console.log(err)
+    err => this.presentToast('Ha habido un error', 'danger')
     )
   }
 
@@ -139,7 +140,7 @@ export class TaskForm {
     this.taskService.createTask(task).subscribe( data => {
       this.navCtrl.setRoot(Tasks);
     },
-    err => console.log(err)
+    err => this.presentToast('Ha habido un error', 'danger')
     )
   }
 
@@ -172,6 +173,17 @@ export class TaskForm {
       ]
     });
     alert.present()
+  }
+
+  presentToast(message: string, cssClass: string = '') {
+    let toast = this.toastCtrl.create({
+     message: message,
+     duration: 19000,
+     position: 'bottom',
+     cssClass: cssClass
+    });
+
+    toast.present();
   }
 
 }
