@@ -40,7 +40,7 @@ export class TaskService {
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
-  createTask(body: Object): Observable<Task[]> {
+  createTask(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     headers.append('Authorization', 'admin: ' + this.isAdmin);
