@@ -13,10 +13,10 @@
       </ion-col>
     </ion-row>
     <div *ngIf="hasValidationError('title')" class="alert alert-danger">
-      <p *ngIf="hasValidationError('title', 'required')">
+      <p *ngIf="hasThisError('title', 'required')">
         {{ 'TASK.FORM.TITLE.ALERT.REQUIRED' | translate }}
       </p>
-      <p *ngIf="hasValidationError('title', 'maxlength')">
+      <p *ngIf="hasThisError('title', 'maxlength')">
         {{ 'TASK.FORM.TITLE.ALERT.MAX_LENGTH' | translate }}
       </p>
     </div>
@@ -41,7 +41,7 @@
       </ion-col>
     </ion-row>
     <div class="alert alert-danger" *ngIf="hasValidationError('categories')">
-      <p *ngIf="hasValidationError('categories', 'required')">
+      <p *ngIf="hasThisError('categories', 'required')">
         {{ 'TASK.FORM.CATEGORY.ALERT.REQUIRED' | translate }}
       </p>
     </div>
@@ -59,7 +59,7 @@
       </ion-col>
     </ion-row>
     <div class="alert alert-danger" *ngIf="hasValidationError('date')">
-      <p *ngIf="hasValidationError('date', 'required')">
+      <p *ngIf="hasThisError('date', 'required')">
         {{ 'TASK.FORM.DATE.ALERT.REQUIRED' | translate }}
       </p>
     </div>
@@ -87,12 +87,12 @@
       </ion-col>
     </ion-row>
     <div class="alert alert-danger" *ngIf="hasValidationError('start_time')">
-      <p *ngIf="hasValidationError('start_time', 'required')">
+      <p *ngIf="hasThisError('start_time', 'required')">
         {{ 'TASK.FORM.START_TIME.ALERT.REQUIRED' | translate }}
       </p>
     </div>
     <div class="alert alert-danger" *ngIf="hasValidationError('end_time')">
-      <p *ngIf="hasValidationError('end_time', 'required')">
+      <p *ngIf="hasThisError('end_time', 'required')">
         {{ 'TASK.FORM.END_TIME.ALERT.REQUIRED' | translate }}
       </p>
     </div>
@@ -109,7 +109,7 @@
       </ion-col>
     </ion-row>
     <div class="alert alert-danger" *ngIf="hasValidationError('required_people')">
-      <p *ngIf="hasValidationError('required_people', 'required')">
+      <p *ngIf="hasThisError('required_people', 'required')">
         {{ 'TASK.FORM.PEOPLE.ALERT.REQUIRED' | translate }}
       </p>
     </div>
