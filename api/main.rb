@@ -166,6 +166,30 @@ module Huertask
         get "/" do
           present Person.find_by_id(params[:id]), with: Entities::Person
         end
+
+        resource :categories do
+          route_param :category_id do
+            post "/" do
+              person = Person.find_by_id(params[:id])
+              person.dislike_categories.delete_if { |cat| p cat.id; cat.id == params[:category_id].to_i }
+              if person.save
+                present person, with: Entities::Person
+              else
+                error_400(person)
+              end
+            end
+            delete "/" do
+              person = Person.find_by_id(params[:id])
+              category = Category.find_by_id(params[:category_id])
+              person.dislike_categories << category
+              if person.save
+                present person, with: Entities::Person
+              else
+                error_400(person)
+              end
+            end
+          end
+        end
       end
     end
   end
