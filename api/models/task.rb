@@ -60,11 +60,11 @@ module Huertask
       end
 
       def future_tasks
-        all(:active => true, :from_date.gte => Time.now)
+        all(:active => true, :from_date.gte => Time.now, :order => [ :from_date.asc ])
       end
 
       def past_tasks
-        all(:active => true, :from_date.lt => Time.now)
+        all(:active => true, :from_date.lt => Time.now, :order => [ :from_date.desc ])
       end
 
       private
