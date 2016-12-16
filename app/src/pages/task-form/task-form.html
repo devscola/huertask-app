@@ -88,12 +88,12 @@
     </ion-row>
     <div class="alert alert-danger" *ngIf="hasValidationError('start_time')">
       <p *ngIf="hasValidationError('start_time', 'required')">
-        {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
+        {{ 'TASK.FORM.START_TIME.ALERT.REQUIRED' | translate }}
       </p>
     </div>
     <div class="alert alert-danger" *ngIf="hasValidationError('end_time')">
       <p *ngIf="hasValidationError('end_time', 'required')">
-        {{ 'TASK.FORM.TO_DATE.ALERT.REQUIRED' | translate }}
+        {{ 'TASK.FORM.END_TIME.ALERT.REQUIRED' | translate }}
       </p>
     </div>
 
