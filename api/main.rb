@@ -4,6 +4,7 @@ require 'data_mapper'
 require 'dm-timestamps'
 
 require_relative './models/task'
+require_relative './models/person'
 require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
@@ -11,6 +12,7 @@ require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
+require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
 require_relative './db/fixtures'
@@ -156,6 +158,14 @@ module Huertask
     resource :categories do
       get "/" do
         present Category.all, with: Entities::Category
+      end
+    end
+
+    resource :people do
+      route_param :id do
+        get "/" do
+          present Person.find_by_id(params[:id]), with: Entities::Person
+        end
       end
     end
   end

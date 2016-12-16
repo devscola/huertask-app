@@ -1,0 +1,10 @@
+module Huertask
+  class CategoryPersonRelation
+    include DataMapper::Resource
+
+    property :type,      Integer
+
+    belongs_to :category, :key => true
+    belongs_to :person,   :key => true
+  end
+end

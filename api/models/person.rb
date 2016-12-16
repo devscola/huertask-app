@@ -13,6 +13,8 @@ module Huertask
     property :name, String
 
     has n, :people_relations, 'PersonTaskRelation'
+    has n, :categories_relations, 'CategoryPersonRelation'
+    has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
 
     class << self
       def find_by_id(id)

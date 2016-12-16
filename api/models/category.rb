@@ -15,8 +15,10 @@ module Huertask
 
     has n, :tasks_relations, 'CategoryTaskRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task
+    has n, :people_relations, 'CategoryPersonRelation'
 
     validates_presence_of :name
+
 
     class << self
       def find_by_ids(ids)
