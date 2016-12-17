@@ -22,6 +22,7 @@ export class FavCategories {
         let disliked_ids = this.person['dislike_categories'].map(cat => {return cat.id})
         this.categories = categories.map(cat => {
           cat['fav'] = disliked_ids.includes(cat.id) ? false : true;
+          cat['showDescription'] = false;
           return cat;
         })
       });
@@ -34,6 +35,11 @@ export class FavCategories {
     },
     err => console.log(err)
     )
+  }
+  toggleDescription(category){
+    if(category.description){
+      category.showDescription = !category.showDescription
+    }
   }
 
 }

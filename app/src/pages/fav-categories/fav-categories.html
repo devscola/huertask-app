@@ -9,9 +9,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let category of categories">
-      <ion-label>{{category.name}}</ion-label>
-      <ion-toggle checked="{{category.fav==true}}" (ionChange)="toggleFavorite(category)"></ion-toggle>
-    </ion-item>
+    <div *ngFor="let category of categories">
+      <ion-item class="category">
+        <ion-label (click)="toggleDescription(category)">
+          {{category.name}}
+        </ion-label>
+        <ion-toggle checked="{{category.fav==true}}" (ionChange)="toggleFavorite(category)"></ion-toggle>
+      </ion-item>
+      <div class="description" [ngClass]="category.showDescription ? 'shown' : 'hidden'">
+        {{category.description}}
+      </div>
+    </div>
   </ion-list>
 </ion-content>
