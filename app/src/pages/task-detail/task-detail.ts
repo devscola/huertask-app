@@ -56,6 +56,7 @@ export class TaskDetail {
     task['categories'] = task['categories'].map((cat) => {return cat['id']})
     return this.taskService.editTask(task).subscribe( data => {
       this.task = data
+      task['categories'] = data.categories
       this.waitingForResponse = false
     },
     err => console.log(err)
