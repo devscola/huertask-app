@@ -1,7 +1,7 @@
 module Huertask
   module Entities
     class Category < Grape::Entity
-      expose :id, :name
+      expose :id, :name, :description
     end
   end
 end
