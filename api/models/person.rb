@@ -22,6 +22,11 @@ module Huertask
         raise PersonNotFound.new(id) if person.nil?
         person
       end
+
+      def getSkippedCategories(user_id)
+        return [] if user_id.nil?
+        Person.find_by_id(user_id).dislike_categories.map { |cat| cat.id  }
+      end
     end
 
     def addFavoriteCategory(category_id)

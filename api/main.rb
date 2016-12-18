@@ -28,8 +28,10 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        return present Task.past_tasks, with: Entities::Task if params[:filter] == 'past'
-        present Task.future_tasks, with: Entities::Task
+        skip_categories = Person.getSkippedCategories(params[:user_id])
+
+        return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
+        present Task.future_tasks(skip_categories), with: Entities::Task
       end
 
       params do
