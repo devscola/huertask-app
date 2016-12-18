@@ -2,10 +2,10 @@ class Fixtures
   def self.seed
     Huertask::PersonTaskRelation.all.destroy
     Huertask::CategoryTaskRelation.all.destroy
+    Huertask::CategoryPersonRelation.all.destroy
     Huertask::Task.all.destroy
     Huertask::Category.all.destroy
     Huertask::Person.all.destroy
-
 
     categories = ["mantenimiento",
                   "riego",
@@ -14,17 +14,19 @@ class Fixtures
                   "cultivo",
                   "cultura"]
 
-    (1..20).each do |n|
-      Huertask::Person.create({
-        id: n,
-        name: "Persona #{n}"
-      })
-    end
-
     (1..categories.size).each do |n|
       Huertask::Category.create({
         id: n,
-        name: categories[n-1]
+        name: categories[n-1],
+        description: n%2==0 ? "Esta es la descripción correspondiente a la categoría #{categories[n-1]}" : nil
+      })
+    end
+
+    (1..20).each do |n|
+      Huertask::Person.create({
+        id: n,
+        name: "Persona #{n}",
+        dislike_categories: [Huertask::Category[n%categories.size]]
       })
     end
 

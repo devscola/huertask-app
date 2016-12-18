@@ -10,13 +10,16 @@ module Huertask
 
     include DataMapper::Resource
 
-    property :id,    Serial
-    property :name,  String
+    property :id,          Serial
+    property :name,        String
+    property :description, String, :default => "", :length => 0..100
 
     has n, :tasks_relations, 'CategoryTaskRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task
+    has n, :people_relations, 'CategoryPersonRelation'
 
     validates_presence_of :name
+
 
     class << self
       def find_by_ids(ids)

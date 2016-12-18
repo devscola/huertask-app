@@ -4,6 +4,7 @@ require 'data_mapper'
 require 'dm-timestamps'
 
 require_relative './models/task'
+require_relative './models/person'
 require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
@@ -11,6 +12,7 @@ require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
+require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
 require_relative './db/fixtures'
@@ -155,7 +157,39 @@ module Huertask
 
     resource :categories do
       get "/" do
-        present Category.all, with: Entities::Category
+        present Category.all(:order => [ :name.asc ]), with: Entities::Category
+      end
+    end
+
+    resource :people do
+      route_param :id do
+        get "/" do
+          present Person.find_by_id(params[:id]), with: Entities::Person
+        end
+
+        resource :categories do
+          route_param :category_id do
+            post "/" do
+              person = Person.find_by_id(params[:id])
+              person.dislike_categories.delete_if { |cat| p cat.id; cat.id == params[:category_id].to_i }
+              if person.save
+                present person, with: Entities::Person
+              else
+                error_400(person)
+              end
+            end
+            delete "/" do
+              person = Person.find_by_id(params[:id])
+              category = Category.find_by_id(params[:category_id])
+              person.dislike_categories << category
+              if person.save
+                present person, with: Entities::Person
+              else
+                error_400(person)
+              end
+            end
+          end
+        end
       end
     end
   end

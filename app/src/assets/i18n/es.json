@@ -91,5 +91,10 @@
   "BUTTONS" : {
     "SAVE" : "Guardar",
     "CANCEL" : "Cancelar"
+  },
+  "CATEGORIES" : {
+    "FAV" : {
+      "TITLE" : "Tipo de Tareas que más te interesan"
+    }
   }
 }

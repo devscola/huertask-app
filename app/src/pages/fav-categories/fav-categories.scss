@@ -1,0 +1,32 @@
+page-fav-categories {
+  ion-item.category.item-block .item-inner{
+    border-bottom: none;
+  }
+/*   .category.item-md.item-block .item-inner,
+  .category.item-ios.item-block .item-inner,
+  .category.item-wp.item-block .item-inner{
+    border-bottom: none;
+  } */
+  ion-list{
+    overflow-y: hidden;
+  }
+  .description{
+    border-bottom: 1px solid #dedede;
+    min-height: 0;
+    transition: 0.09s all linear;
+    height: auto;
+    font-size: 0.9em;
+    padding: 0px 16px 16px 16px;
+    &.shown{
+      height: auto;
+    }
+    &.hidden{
+      padding-top: 0px;
+      padding-bottom: 0px;
+      height: 0px;
+    }
+    .label-md, .label-ios, .label-wp{
+      margin: 0;
+    }
+  }
+}
