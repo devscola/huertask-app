@@ -38,13 +38,16 @@ export class FavCategories {
     )
   }
   toggleDescription(category){
-    if(category.description){
-      category.showDescription = !category.showDescription
-    }
+    category.showDescription = !category.showDescription
   }
 
   goToCreateCategory(){
     this.navCtrl.push(CategoryForm);
+  }
+
+  getDescription(category){
+    return null if category.description == ""
+    return category.description
   }
 
 }

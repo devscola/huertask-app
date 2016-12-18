@@ -101,6 +101,7 @@
     "CREATE" : {
       "TITLE" : "Crear categoría"
     },
+    "DEFAULT_DESCRIPTION" : "Sin descripción",
     "FORM" : {
       "NAME" : {
         "LABEL" : "Nombre",

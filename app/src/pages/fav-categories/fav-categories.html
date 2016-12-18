@@ -22,7 +22,7 @@
         <ion-toggle checked="{{category.fav==true}}" [hidden]="category.mandatory" (ionChange)="toggleFavorite(category)"></ion-toggle>
       </ion-item>
       <div class="description" [ngClass]="category.showDescription ? 'shown' : 'hidden'">
-        {{category.description}}
+        {{getDescription(category) || 'CATEGORY.DEFAULT_DESCRIPTION' | translate}}
       </div>
     </div>
   </ion-list>
