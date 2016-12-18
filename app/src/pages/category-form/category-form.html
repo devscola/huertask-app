@@ -41,6 +41,11 @@
           placeholder="{{ 'CATEGORY.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
         </ion-textarea>
       </ion-row>
+
+      <ion-row>
+        <ion-label>{{ 'CATEGORY.FORM.MANDATORY.LABEL' | translate }}</ion-label>
+        <ion-checkbox formControlName="mandatory"></ion-checkbox>
+      </ion-row>
     </ion-grid>
     <button type="submit" ion-button outline>
       {{ 'CATEGORY.FORM.BUTTON.CREATE' | translate }}

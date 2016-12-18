@@ -19,7 +19,7 @@
         <ion-label (click)="toggleDescription(category)">
           {{category.name}}
         </ion-label>
-        <ion-toggle checked="{{category.fav==true}}" (ionChange)="toggleFavorite(category)"></ion-toggle>
+        <ion-toggle checked="{{category.fav==true}}" [hidden]="category.mandatory" (ionChange)="toggleFavorite(category)"></ion-toggle>
       </ion-item>
       <div class="description" [ngClass]="category.showDescription ? 'shown' : 'hidden'">
         {{category.description}}

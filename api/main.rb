@@ -164,7 +164,8 @@ module Huertask
 
       params do
         requires :name,           type: String
-        optional :description,     type: String
+        optional :description,    type: String
+        optional :mandatory,      type: Boolean
       end
 
       post '/' do

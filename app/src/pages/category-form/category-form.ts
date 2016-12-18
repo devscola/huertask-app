@@ -38,7 +38,8 @@ export class CategoryForm {
         Validators.required,
         Validators.maxLength(35)
       ])],
-      description: [category.description]
+      description: [category.description],
+      mandatory: [category.mandatory]
     });
   }
 

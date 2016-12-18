@@ -13,6 +13,7 @@ module Huertask
     property :id,          Serial
     property :name,        String
     property :description, String, :default => "", :length => 0..35
+    property :mandatory,   Boolean, :default => false
 
     has n, :tasks_relations, 'CategoryTaskRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task

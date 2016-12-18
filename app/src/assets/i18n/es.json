@@ -113,6 +113,9 @@
         "LABEL" : "Descripción",
         "PLACEHOLDER" : "Si quieres puedes añadir una breve descripción del tipo de tareas que engloba la categoría"
       },
+      "MANDATORY" : {
+        "LABEL" : "Obligatoria"
+      },
       "BUTTON" : {
         "CREATE" : "Guardar"
       }
