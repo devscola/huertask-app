@@ -171,8 +171,7 @@ module Huertask
           route_param :category_id do
             post "/" do
               person = Person.find_by_id(params[:id])
-              person.dislike_categories.delete_if { |cat| p cat.id; cat.id == params[:category_id].to_i }
-              if person.save
+              if person.addFavoriteCategory(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)
@@ -180,9 +179,7 @@ module Huertask
             end
             delete "/" do
               person = Person.find_by_id(params[:id])
-              category = Category.find_by_id(params[:category_id])
-              person.dislike_categories << category
-              if person.save
+              if person.removeFavoriteCategory(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)

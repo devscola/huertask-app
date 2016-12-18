@@ -24,5 +24,18 @@ module Huertask
       end
     end
 
+    def addFavoriteCategory(category_id)
+      category = Category.find_by_id(category_id)
+      relation = categories_relations.first(:category => category)
+      raise Huertask::CategoryPersonRelation::CategoryPersonRelationNotFound.new if relation.nil?
+      relation.destroy
+    end
+
+    def removeFavoriteCategory(category_id)
+      category = Category.find_by_id(category_id)
+      dislike_categories << category
+      save
+    end
+
   end
 end
