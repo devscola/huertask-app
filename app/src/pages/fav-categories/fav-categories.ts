@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
 import { PersonService } from '../../providers/person.service';
+import { CategoryForm } from '../category-form/category-form';
 
 @Component({
   selector: 'page-fav-categories',
@@ -40,6 +41,10 @@ export class FavCategories {
     if(category.description){
       category.showDescription = !category.showDescription
     }
+  }
+
+  goToCreateCategory(){
+    this.navCtrl.push(CategoryForm);
   }
 
 }

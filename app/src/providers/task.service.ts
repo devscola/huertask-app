@@ -98,6 +98,24 @@ export class TaskService {
     return this.http.get(`${this.huertaskApiUrl}/categories/`)
       .map(res => <Category[]>res.json());
   }
+
+  instanciatedCategory(object): Category{
+    let category = new Category();
+    for(let param in object){
+      category[param] = object[param]
+    }
+    return category
+  }
+
+  createCategory(body: Object): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
+    return this.http.post(`${this.huertaskApiUrl}/categories/`, body, options)
+                    .map((res:Response) => <Category>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
 }
 
 @Injectable()
