@@ -28,7 +28,7 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        skip_categories = Person.getSkippedCategories(params[:user_id])
+        skip_categories = Person.get_skipped_categories(params[:user_id])
 
         return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
         present Task.future_tasks(skip_categories), with: Entities::Task
@@ -190,7 +190,7 @@ module Huertask
           route_param :category_id do
             post "/" do
               person = Person.find_by_id(params[:id])
-              if person.addFavoriteCategory(params[:category_id])
+              if person.add_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)
@@ -198,7 +198,7 @@ module Huertask
             end
             delete "/" do
               person = Person.find_by_id(params[:id])
-              if person.removeFavoriteCategory(params[:category_id])
+              if person.remove_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)
