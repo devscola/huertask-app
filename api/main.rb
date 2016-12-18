@@ -161,6 +161,22 @@ module Huertask
       get "/" do
         present Category.all(:order => [ :name.asc ]), with: Entities::Category
       end
+
+      params do
+        requires :name,           type: String
+        optional :description,     type: String
+      end
+
+      post '/' do
+        admin_required
+
+        category = Category.new declared(params)
+        if category.save
+          present category, with: Entities::Category
+        else
+          error_400(category)
+        end
+      end
     end
 
     resource :people do
