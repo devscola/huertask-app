@@ -46,7 +46,7 @@ export class FavCategories {
   }
 
   getDescription(category){
-    return null if category.description == ""
+    if(category.description == ""){ return null }
     return category.description
   }
 
