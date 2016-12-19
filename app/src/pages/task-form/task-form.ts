@@ -178,7 +178,7 @@ export class TaskForm {
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
      message: message,
-     duration: 19000,
+     duration: 2000,
      position: 'bottom',
      cssClass: cssClass
     });
