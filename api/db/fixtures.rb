@@ -23,11 +23,16 @@ class Fixtures
     end
 
     (1..20).each do |n|
-      Huertask::Person.create({
+      person = Huertask::Person.new({
         id: n,
         name: "Persona #{n}",
+        email: "person#{n}@gmail.com",
+        password: "123456789",
+        password_confirmation: "123456789",
         dislike_categories: [Huertask::Category[n%categories.size]]
       })
+      person.set_password('123456789')
+      person.save
     end
 
     (1..6).each do |n|
