@@ -36,6 +36,16 @@ module Huertask
       end
     end
 
+    resource :login do
+      post "/" do
+        if person = Person.authenticate(params[:name], params[:password])
+          session[:person] = person.id
+        else
+          error! "invalid username or password", 400
+        end
+      end
+    end
+
     resource :tasks do
 
       get "/" do

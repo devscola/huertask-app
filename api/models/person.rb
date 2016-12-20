@@ -37,6 +37,12 @@ module Huertask
         person
       end
 
+      def authenticate(username_or_email, pass)
+        current_user = first(:name => username_or_email) || first(:email => username_or_email)
+        return nil if current_user.nil? || encrypt(pass, current_user.salt) != current_user.hashed_password
+        current_user
+      end
+
       def find_by_id(id)
         person = get(id)
         raise PersonNotFound.new(id) if person.nil?
