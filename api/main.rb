@@ -46,6 +46,12 @@ module Huertask
       end
     end
 
+    resource :logout do
+      get "/" do
+        session[:person] = nil
+      end
+    end
+
     resource :tasks do
 
       get "/" do
