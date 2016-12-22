@@ -20,10 +20,37 @@ require_relative './repositories/tasks'
 
 module Huertask
   class API < Grape::API
-
+    use Rack::Session::Cookie
     version 'v1', using: :header, vendor: 'huertask'
     format :json
     prefix :api
+
+    resource :signup do
+      post "/" do
+        person = Person.signup(params)
+        if person.save
+          session[:person] = person.id
+        else
+          error_400(person)
+        end
+      end
+    end
+
+    resource :login do
+      post "/" do
+        if person = Person.authenticate(params[:name], params[:password])
+          session[:person] = person.id
+        else
+          error! "invalid username or password", 400
+        end
+      end
+    end
+
+    resource :logout do
+      get "/" do
+        session[:person] = nil
+      end
+    end
 
     resource :tasks do
 
@@ -113,8 +140,16 @@ module Huertask
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
 
+      def session
+        env['rack.session']
+      end
+
       def error_400(model)
         error! model.errors.to_hash, 400
+      end
+
+      def login_required
+        return error! "not logged", 400 if session[:person]
       end
 
       def admin_required
