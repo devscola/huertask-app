@@ -142,6 +142,10 @@ module Huertask
         error! model.errors.to_hash, 400
       end
 
+      def login_required
+        return error! "not logged", 400 if session[:person]
+      end
+
       def admin_required
         return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
       end
