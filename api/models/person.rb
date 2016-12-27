@@ -11,6 +11,7 @@ module Huertask
 
     property :id, Serial
     property :name, String
+    property :email, String
 
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
@@ -20,6 +21,17 @@ module Huertask
       def find_by_id(id)
         person = get(id)
         raise PersonNotFound.new(id) if person.nil?
+        person
+      end
+
+      def find_or_create_from_auth_hash(auth_hash)
+        person = Person.first('email' => auth_hash['info']['email'])
+        if person.nil?
+          puts 'a'
+          person = Person.new(name: auth_hash['info']['name'], email: auth_hash['info']['email'])
+          person.save
+          puts 'b'
+        end
         person
       end
     end

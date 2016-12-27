@@ -24,6 +24,11 @@ export class PersonService {
       .map(res => <Person>this.instanciatedPerson(res.json()));
   }
 
+  login(): Observable<Person> {
+    return this.http.get(`${this.huertaskApiUrl}/auth/facebook/`)
+      .map(res => <Person>this.instanciatedPerson(res.json()));
+  }
+
   toggleLikeCategory(user, category){
     if (category.fav){
       return this.dislikeCategory(user.id, category.id)

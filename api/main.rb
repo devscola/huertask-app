@@ -2,6 +2,7 @@ require 'grape'
 require 'grape-entity'
 require 'data_mapper'
 require 'dm-timestamps'
+require 'omniauth'
 
 require_relative './models/task'
 require_relative './models/person'
@@ -24,6 +25,70 @@ module Huertask
     version 'v1', using: :header, vendor: 'huertask'
     format :json
     prefix :api
+
+
+    resource :auth do
+      resource :developer do
+        resource :callback do
+          post "/" do
+            @user = Person.find_by_id(1)
+            # self.current_user = @user
+            return @user
+            # redirect_to '/'
+          end
+        end
+      end
+      resource :facebook do
+        resource :callback do
+          get "/" do
+            puts '---------'
+            puts request.env['omniauth.auth']
+            puts auth_hash
+            puts '__________'
+            @user = Person.find_or_create_from_auth_hash(auth_hash)
+            puts 'c'
+            puts @user
+            puts 'd'
+            present @user
+    # self.current_user = @user
+    # redirect_to '/'
+          end
+        end
+      end
+
+      route_param :provider do
+        get "/" do
+          JSON.pretty_generate(request.env['omniauth.auth'])
+        end
+
+        resource :deauthorized do
+          get "/" do
+            "#{params[:provider]} has deauthorized this app."
+          end
+        end
+      end
+
+      resource :failure do
+        get "/" do
+          "Authentication Failed: #{params}"
+        end
+      end
+    end
+
+    resource :protected do
+      get "/" do
+        throw(:halt, [401, "Not authorized\n"]) unless session[:authenticated]
+        "#{request.env['omniauth.auth'].to_json}"
+      end
+    end
+
+    resource :logout do
+      get '/' do
+        session[:authenticated] = false
+        return ""
+      end
+    end
+
 
     resource :tasks do
 
@@ -112,6 +177,10 @@ module Huertask
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
+
+      def auth_hash
+        request.env['omniauth.auth']
+      end
 
       def error_400(model)
         error! model.errors.to_hash, 400

@@ -16,6 +16,7 @@
 </ion-header>
 
 <ion-content padding>
+<a (click)="login()">LOGIN</a>
   <ion-grid class="tasks-tabs">
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>

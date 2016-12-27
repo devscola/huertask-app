@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
+import { PersonService } from '../../providers/person.service';
 import { Task } from '../../models/task';
 import { CreateTask } from '../create-task/create-task';
 import { TaskDetail } from '../task-detail/task-detail';
@@ -20,11 +21,12 @@ export class Tasks {
     {title: "TASKS.PREVIOUS", active: false}
   ]
 
-	constructor(public navCtrl: NavController, private taskService: TaskService) {
+	constructor(public navCtrl: NavController, private taskService: TaskService, public personService: PersonService) {
     taskService.getFutureTasks().subscribe(tasks => {
       this.tasks = tasks;
       this.list = tasks;
     });
+    personService.login();
 
     taskService.getPastTasks().subscribe(tasks => {
       this.pastTasks = tasks;
