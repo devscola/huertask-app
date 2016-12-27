@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { Register } from '../pages/register/register';
 import { TaskService } from '../providers/task.service';
 
 
@@ -32,7 +33,8 @@ export class MyApp {
     this.pages = [
       { title: "TASKS.TITLE", component: Tasks },
       { title: "TASK.CREATE.TITLE", component: CreateTask },
-      { title: "CATEGORIES.FAV.TITLE", component: FavCategories }
+      { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+      { title: "REGISTER.TITLE", component: Register }
     ];
   }
 
