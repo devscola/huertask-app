@@ -11,6 +11,7 @@ import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
+import { Terms } from '../pages/terms/terms';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -34,7 +35,8 @@ export function createTranslateLoader(http: Http) {
     FavCategories,
     DuplicateTask,
     FormAction,
-    Register
+    Register,
+    Terms
   ],
   imports: [
     HttpModule,
@@ -56,7 +58,8 @@ export function createTranslateLoader(http: Http) {
     FavCategories,
     TaskForm,
     DuplicateTask,
-    Register
+    Register,
+    Terms
   ],
   providers: [TaskService, PersonService]
 })

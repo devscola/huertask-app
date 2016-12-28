@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Terms } from '../terms/terms';
 
 @Component({
   selector: 'page-register',
@@ -13,6 +15,7 @@ export class Register {
 
   constructor(
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
     public formBuilder: FormBuilder
   ) {
     var emailRegex =  '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'
@@ -55,6 +58,11 @@ export class Register {
     {
         this.form.patchValue({ terms: null });
     }
+  }
+
+  presentModal() {
+    let modal = this.modalCtrl.create(Terms);
+    modal.present();
   }
 
 }
