@@ -146,9 +146,11 @@ module Huertask
           method = action(is_going)
 
           task = Task.find_by_id(params[:id])
+
           person = Person.find_by_id(params[:person_id])
 
           relation = Repository::Tasks.send(method, task, person)
+
           if relation.save
             present task, with: Entities::Task
           else

@@ -58,28 +58,39 @@ class Fixtures
       })
     end
 
-    (1..6).each do |n|
+    (10..15).each do |n|
+      Huertask::Task.create({
+        id: n,
+        title: "Tarea numero #{n}",
+        from_date: (Time.now - 2*60*60),
+        to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
+        required_people: n,
+        categories: [Huertask::Category[(n%categories.size)-1]]
+      })
+    end
+
+    (1..7).each do |n|
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[n-1],
-        person: Huertask::Person[n%2],
+        task_id: Huertask::Task[n-1].id,
+        person_id: Huertask::Person[n%2].id,
         type: 0
       })
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[n-1],
-        person: Huertask::Person[2],
+        task_id: Huertask::Task[n-1].id,
+        person_id: Huertask::Person[2].id,
         type: 1
       })
     end
 
     (8..15).each do |n|
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[3],
-        person: Huertask::Person[n],
+        task_id: Huertask::Task[3].id,
+        person_id: Huertask::Person[n].id,
         type: 1
       })
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[1],
-        person: Huertask::Person[n],
+        task_id: Huertask::Task[1].id,
+        person_id: Huertask::Person[n].id,
         type: 0
       })
     end
