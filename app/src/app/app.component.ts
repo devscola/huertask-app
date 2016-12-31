@@ -5,10 +5,12 @@ import { TranslateService } from 'ng2-translate';
 import 'moment/locale/es';
 import * as moment from 'moment';
 
+import { LogIn } from '../pages/log-in/log-in';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { TaskService } from '../providers/task.service';
+import { PersonService } from '../providers/person.service';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class MyApp {
 
   isAdmin: boolean = true;
 
-  constructor(public platform: Platform, translate: TranslateService, public taskService: TaskService) {
+  constructor(public platform: Platform, translate: TranslateService, public taskService: TaskService, public personService: PersonService) {
     this.initializeApp();
     translate.setDefaultLang('es');
     translate.use('es');
@@ -32,7 +34,8 @@ export class MyApp {
     this.pages = [
       { title: "TASKS.TITLE", component: Tasks },
       { title: "TASK.CREATE.TITLE", component: CreateTask },
-      { title: "CATEGORIES.FAV.TITLE", component: FavCategories }
+      { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+      { title: "log in", component: LogIn}
     ];
   }
 
@@ -54,5 +57,13 @@ export class MyApp {
   setAdmin(){
     console.log(this.isAdmin)
     this.taskService.isAdmin = this.isAdmin
+  }
+
+  logOut(){
+    this.personService.logOut().subscribe(data => {
+      console.log("logout con exito")
+    }, err => {
+      console.log("logout fallido")
+    })
   }
 }
