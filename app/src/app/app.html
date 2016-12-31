@@ -14,9 +14,7 @@
         <ion-label>Admin: {{isAdmin}}</ion-label>
         <ion-toggle [(ngModel)]="isAdmin" text="Admin?" (ionChange)="setAdmin()" checked="false"></ion-toggle>
       </ion-item>
-      <ion-item>
-        <button *ngIf="personService.logged" (click)="logOut()">Log out</button>
-      </ion-item>
+      <button ion-item *ngIf="personService.logged" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
 
