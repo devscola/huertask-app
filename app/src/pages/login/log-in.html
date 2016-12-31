@@ -1,0 +1,43 @@
+<form id="login" [formGroup]="form">
+  <ion-grid>
+    <ion-row>
+      <ion-input
+        type="email"
+        formControlName="email"
+        placeholder="Mail">
+      </ion-input>
+    </ion-row>
+
+    <ion-row>
+      <ion-input
+        type="password"
+        formControlName="password"
+        placeholder="Contraseña">
+      </ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-label>Recuerdame</ion-label>
+        <ion-checkbox color="success" checked="true"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <span>¿Has olvidado tu contraseña?</span>
+    </ion-row>
+    <ion-row>
+      <span>¿Aun no te has registrado?</span>
+    </ion-row>
+  </ion-grid>
+</form>
+
+<ion-footer>
+    <ion-row class="buttons">
+      <ion-col width-50>
+      </ion-col>
+      <ion-col width-50>
+        <button form="login" (click)="logIn()" ion-button id="log-in" clear full>
+          Entrar
+        </button>
+      </ion-col>
+    </ion-row>
+</ion-footer>
