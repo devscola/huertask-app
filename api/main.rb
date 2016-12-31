@@ -30,6 +30,7 @@ module Huertask
         person = Person.signup(params)
         if person.save
           session[:person] = person.id
+          present person, with: Entities::Person
         else
           error_400(person)
         end
@@ -41,6 +42,7 @@ module Huertask
         username_or_email = params[:name] || params[:email]
         if person = Person.authenticate(username_or_email, params[:password])
           session[:person] = person.id
+          present person, with: Entities::Person
         else
           error! "invalid username or password", 400
         end
