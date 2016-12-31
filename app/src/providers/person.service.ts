@@ -7,7 +7,7 @@ import { Person } from '../models/person';
 
 @Injectable()
 export class PersonService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   logged;
 
