@@ -36,7 +36,7 @@ export class MyApp {
       { title: "TASKS.TITLE", component: Tasks },
       { title: "TASK.CREATE.TITLE", component: CreateTask },
       { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
-      { title: "log in", component: LogIn},
+      { title: "LOGIN.TITLE", component: LogIn},
       { title: "REGISTER.TITLE", component: Register }
     ];
   }

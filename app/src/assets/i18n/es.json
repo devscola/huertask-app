@@ -89,6 +89,7 @@
     }
   },
   "LOGIN" : {
+    "TITLE" : "Entra",
     "FORM" : {
       "EMAIL" : {
         "LABEL" : "Mail",
