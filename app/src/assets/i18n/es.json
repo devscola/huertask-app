@@ -96,5 +96,13 @@
     "FAV" : {
       "TITLE" : "Tipo de Tareas que más te interesan"
     }
+  },
+  "WELCOME" : {
+    "TITLE" : "¡Bienvenido!",
+    "INTRO" : "Gánate ser un buen agrourbanita en tu comunidad",
+    "BUTTONS" : {
+      "LOGIN" : "Entra a tu cuenta",
+      "REGISTER" : "Regístrate"
+    }
   }
 }

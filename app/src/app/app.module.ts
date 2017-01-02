@@ -9,6 +9,7 @@ import { DuplicateTask } from '../pages/duplicate-task/duplicate-task';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { Welcome } from '../pages/welcome/welcome';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -30,6 +31,7 @@ export function createTranslateLoader(http: Http) {
     TaskForm,
     FavCategories,
     DuplicateTask,
+    Welcome,
     FormAction
   ],
   imports: [
@@ -51,6 +53,7 @@ export function createTranslateLoader(http: Http) {
     EditTask,
     FavCategories,
     TaskForm,
+    Welcome,
     DuplicateTask
   ],
   providers: [TaskService, PersonService]

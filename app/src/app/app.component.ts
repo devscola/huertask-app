@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { Welcome } from '../pages/welcome/welcome';
 import { TaskService } from '../providers/task.service';
 
 
@@ -17,7 +18,7 @@ import { TaskService } from '../providers/task.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Tasks;
+  rootPage: any = Welcome;
 
   pages: Array<{title: string, component: any}>;
 
@@ -32,7 +33,8 @@ export class MyApp {
     this.pages = [
       { title: "TASKS.TITLE", component: Tasks },
       { title: "TASK.CREATE.TITLE", component: CreateTask },
-      { title: "CATEGORIES.FAV.TITLE", component: FavCategories }
+      { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+      { title: "WELCOME.TITLE", component: Welcome }
     ];
   }
 
