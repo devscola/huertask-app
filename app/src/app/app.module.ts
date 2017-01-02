@@ -3,6 +3,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
 import { LogIn } from '../pages/log-in/log-in';
+import { EqualValidator } from './equal-validator.directive';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { TaskDetail } from '../pages/task-detail/task-detail';
@@ -10,6 +11,7 @@ import { DuplicateTask } from '../pages/duplicate-task/duplicate-task';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { Register } from '../pages/register/register';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -24,6 +26,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
   declarations: [
     MyApp,
+    EqualValidator,
     Tasks,
     LogIn,
     CreateTask,
@@ -32,7 +35,8 @@ export function createTranslateLoader(http: Http) {
     TaskForm,
     FavCategories,
     DuplicateTask,
-    FormAction
+    FormAction,
+    Register
   ],
   imports: [
     HttpModule,
@@ -54,7 +58,8 @@ export function createTranslateLoader(http: Http) {
     EditTask,
     FavCategories,
     TaskForm,
-    DuplicateTask
+    DuplicateTask,
+    Register
   ],
   providers: [TaskService, PersonService]
 })

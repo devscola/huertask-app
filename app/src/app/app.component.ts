@@ -9,6 +9,7 @@ import { LogIn } from '../pages/log-in/log-in';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { Register } from '../pages/register/register';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -35,7 +36,8 @@ export class MyApp {
       { title: "TASKS.TITLE", component: Tasks },
       { title: "TASK.CREATE.TITLE", component: CreateTask },
       { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
-      { title: "log in", component: LogIn}
+      { title: "log in", component: LogIn},
+      { title: "REGISTER.TITLE", component: Register }
     ];
   }
 
