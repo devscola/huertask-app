@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LogIn } from '../log-in/log-in';
 
 @Component({
   selector: 'page-register',
@@ -39,6 +40,10 @@ export class Register {
         return passwordConfirmationInput.setErrors({notEquivalent: true})
       }
     }
+  }
+
+  goToLogIn(){
+    this.navCtrl.setRoot(LogIn)
   }
 
   hasValidationError(property){
