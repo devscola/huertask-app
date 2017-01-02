@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
+import { Register } from '../register/register';
 
 @Component({
   selector: 'log-in',
@@ -38,7 +39,10 @@ export class LogIn {
       this.presentToast("incorrecto", "danger")
       console.log(err)
     })
+  }
 
+  goToRegister(){
+    this.navCtrl.setRoot(Register)
   }
 
   hasValidationError(property){

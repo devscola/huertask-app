@@ -38,7 +38,7 @@
       <span>{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
     </ion-row>
     <ion-row>
-      <span>{{ 'LOGIN.LINK.REGISTER' | translate }}</span>
+      <span (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</span>
     </ion-row>
   </ion-grid>
 </form>
