@@ -96,5 +96,53 @@
     "FAV" : {
       "TITLE" : "Tipo de Tareas que más te interesan"
     }
+  },
+  "REGISTER" : {
+    "TITLE" : "Registro",
+    "HEADING" : "Conviértete en un agrourbanita techie",
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "PLACEHOLDER" : "Nombre",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar un nombre"
+        }
+      },
+      "EMAIL" : {
+        "LABEL" : "Mail",
+        "PLACEHOLDER" : "Mail",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una dirección de email",
+          "PATTERN" : "Debe introducir un email válido"
+        }
+      },
+      "PASSWORD" : {
+        "LABEL" : "Contraseña",
+        "PLACEHOLDER" : "Contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una contraseña"
+        }
+      },
+      "PASSWORD2" : {
+        "LABEL" : "Repetir contraseña",
+        "PLACEHOLDER" : "Repetir contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe repetir la contraseña",
+          "NOT_EQUAL" : "Las contraseñas deben coincidir"
+        }
+      },
+      "TERMS" : {
+        "LABEL" : "Aceptar términos de uso",
+        "ALERT" : {
+          "REQUIRED" : "Debe leer y aceptar los términos para proceder al registro"
+        }
+      },
+      "BUTTON" : {
+        "CREATE" : "Seguir"
+      }
+    },
+    "LINK" : {
+      "LOGIN" : "¿Ya tienes cuenta?"
+    }
   }
 }
