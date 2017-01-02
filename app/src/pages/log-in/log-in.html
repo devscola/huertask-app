@@ -1,0 +1,56 @@
+<form id="login" [formGroup]="form">
+  <ion-grid>
+    <ion-row>
+      <ion-input
+        type="email"
+        formControlName="email"
+        placeholder="Mail">
+      </ion-input>
+    </ion-row>
+    <div *ngIf="hasValidationError('email')" class="alert alert-danger">
+      <p *ngIf="hasThisError('email', 'required')">
+        {{ 'LOGIN.FORM.EMAIL.ALERT.REQUIRED' | translate }}
+      </p>
+      <p *ngIf="hasThisError('email', 'pattern')">
+        {{ 'LOGIN.FORM.EMAIL.ALERT.PATTERN' | translate }}
+      </p>
+    </div>
+
+    <ion-row>
+      <ion-input
+        type="password"
+        formControlName="password"
+        placeholder="Contraseña">
+      </ion-input>
+    </ion-row>
+    <div *ngIf="hasValidationError('password')" class="alert alert-danger">
+      <p *ngIf="hasThisError('password', 'required')">
+        {{ 'LOGIN.FORM.PASSWORD.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
+    <ion-row>
+      <ion-item>
+        <ion-label>{{ 'LOGIN.FORM.BUTTON.REMEMBER' | translate }}</ion-label>
+        <ion-checkbox color="success" checked="true"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <span>{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
+    </ion-row>
+    <ion-row>
+      <span>{{ 'LOGIN.LINK.REGISTER' | translate }}</span>
+    </ion-row>
+  </ion-grid>
+</form>
+
+<ion-footer>
+    <ion-row class="buttons">
+      <ion-col width-50>
+      </ion-col>
+      <ion-col width-50>
+        <button form="login" (click)="logIn()" ion-button id="log-in" clear full>
+          Entrar
+        </button>
+      </ion-col>
+    </ion-row>
+</ion-footer>

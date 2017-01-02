@@ -23,8 +23,8 @@ module Huertask
             relation.type = type
           else
             relation = Huertask::PersonTaskRelation.new({
-              task: task,
-              person: person,
+              task_id: task.id,
+              person_id: person.id,
               type: type
             })
           end
