@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TermsAndConditions } from '../terms-and-conditions/terms-and-conditions';
+import { LogIn } from '../log-in/log-in';
 
 @Component({
   selector: 'page-register',
@@ -46,6 +47,10 @@ export class Register {
   goToTermsAndConditions(){
     let termsModal = this.modalCtrl.create(TermsAndConditions);
     termsModal.present();
+  }
+
+  goToLogIn(){
+    this.navCtrl.setRoot(LogIn)
   }
 
   hasValidationError(property){
