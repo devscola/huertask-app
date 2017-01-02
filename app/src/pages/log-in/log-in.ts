@@ -18,8 +18,11 @@ export class LogIn {
    public formBuilder: FormBuilder,
    public personService: PersonService
   ){
+    var emailRegex =  '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'
     this.form = this.formBuilder.group({
-      email: ["", Validators.required],
+      email: ["", Validators.compose([
+         Validators.required,
+         Validators.pattern(emailRegex)])],
       password: ["", Validators.required]
     });
   }
