@@ -71,7 +71,7 @@
 
       <ion-item>
         <ion-checkbox formControlName="terms">Checkbox Label</ion-checkbox>
-        <ion-label><a>{{ 'REGISTER.FORM.TERMS.LABEL' | translate }}</a></ion-label>
+        <ion-label><a (click)="goToTermsAndConditions()">{{ 'REGISTER.FORM.TERMS.LABEL' | translate }}</a></ion-label>
       </ion-item>
       <div *ngIf="hasValidationError('terms')" class="alert alert-danger">
         <p *ngIf="hasThisError('terms', 'required')">

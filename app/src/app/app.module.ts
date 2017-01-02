@@ -3,6 +3,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
 import { LogIn } from '../pages/log-in/log-in';
+import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
@@ -29,6 +30,7 @@ export function createTranslateLoader(http: Http) {
     EqualValidator,
     Tasks,
     LogIn,
+    TermsAndConditions,
     CreateTask,
     TaskDetail,
     EditTask,
@@ -53,6 +55,7 @@ export function createTranslateLoader(http: Http) {
     MyApp,
     Tasks,
     LogIn,
+    TermsAndConditions,
     CreateTask,
     TaskDetail,
     EditTask,
