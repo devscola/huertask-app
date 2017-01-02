@@ -38,6 +38,14 @@ export class LogIn {
 
   }
 
+  hasValidationError(property){
+    return !this.form.controls[property].valid && this.personService.logged
+  }
+
+  hasThisError(property, error){
+    return this.form.controls[property].hasError(error)
+  }
+
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
      message: message,

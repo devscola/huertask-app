@@ -88,6 +88,33 @@
       "NOT_GOING" : "No pueden asistir"
     }
   },
+  "LOGIN" : {
+    "FORM" : {
+      "EMAIL" : {
+        "LABEL" : "Mail",
+        "PLACEHOLDER" : "Mail",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una dirección de email",
+          "PATTERN" : "Debe introducir un email válido"
+        }
+      },
+      "PASSWORD" : {
+        "LABEL" : "Contraseña",
+        "PLACEHOLDER" : "Contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una contraseña"
+        }
+      },
+      "BUTTON" : {
+        "CREATE" : "Entrar",
+        "REMEMBER" : "Recuérdame"
+      }
+    },
+    "LINK" : {
+      "REGISTER" : "¿Aún no tienes cuenta?",
+      "PASSWORD_LOST": "¿Olvidaste tu contraseña?"
+    }
+  },
   "BUTTONS" : {
     "SAVE" : "Guardar",
     "CANCEL" : "Cancelar"

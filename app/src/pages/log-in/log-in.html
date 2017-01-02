@@ -7,6 +7,14 @@
         placeholder="Mail">
       </ion-input>
     </ion-row>
+    <div *ngIf="hasValidationError('email')" class="alert alert-danger">
+      <p *ngIf="hasThisError('email', 'required')">
+        {{ 'LOGIN.FORM.EMAIL.ALERT.REQUIRED' | translate }}
+      </p>
+      <p *ngIf="hasThisError('email', 'pattern')">
+        {{ 'LOGIN.FORM.EMAIL.ALERT.PATTERN' | translate }}
+      </p>
+    </div>
 
     <ion-row>
       <ion-input
@@ -15,17 +23,22 @@
         placeholder="Contraseña">
       </ion-input>
     </ion-row>
+    <div *ngIf="hasValidationError('password')" class="alert alert-danger">
+      <p *ngIf="hasThisError('password', 'required')">
+        {{ 'LOGIN.FORM.PASSWORD.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
     <ion-row>
       <ion-item>
-        <ion-label>Recuerdame</ion-label>
+        <ion-label>{{ 'LOGIN.FORM.BUTTON.REMEMBER' | translate }}</ion-label>
         <ion-checkbox color="success" checked="true"></ion-checkbox>
       </ion-item>
     </ion-row>
     <ion-row>
-      <span>¿Has olvidado tu contraseña?</span>
+      <span>{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
     </ion-row>
     <ion-row>
-      <span>¿Aun no te has registrado?</span>
+      <span>{{ 'LOGIN.LINK.REGISTER' | translate }}</span>
     </ion-row>
   </ion-grid>
 </form>
