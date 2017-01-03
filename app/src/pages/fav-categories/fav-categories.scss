@@ -1,6 +1,9 @@
 page-fav-categories {
   ion-item.category.item-block .item-inner{
     border-bottom: none;
+    button{
+      min-width: 42px;
+    }
   }
 /*   .category.item-md.item-block .item-inner,
   .category.item-ios.item-block .item-inner,
