@@ -41,7 +41,7 @@
         <ion-input
           type="password"
           formControlName="password"
-          validateEqual="password2" reverse="true"
+          validateEqual="password_confirmation" reverse="true"
           placeholder="{{ 'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate }}">
         </ion-input>
       </ion-item>
@@ -55,16 +55,16 @@
         <ion-label floating>{{ 'REGISTER.FORM.PASSWORD2.LABEL' | translate }}</ion-label>
         <ion-input
           type="password"
-          formControlName="password2"
+          formControlName="password_confirmation"
           validateEqual="password" reverse="false"
           placeholder="{{ 'REGISTER.FORM.PASSWORD2.PLACEHOLDER' | translate }}">
         </ion-input>
       </ion-item>
-      <div *ngIf="hasValidationError('password2')" class="alert alert-danger">
-        <p *ngIf="hasThisError('password2', 'required')">
+      <div *ngIf="hasValidationError('password_confirmation')" class="alert alert-danger">
+        <p *ngIf="hasThisError('password_confirmation', 'required')">
           {{ 'REGISTER.FORM.PASSWORD2.ALERT.REQUIRED' | translate }}
         </p>
-        <p *ngIf="hasThisError('password2', 'notEquivalent')">
+        <p *ngIf="hasThisError('password_confirmation', 'notEquivalent')">
           {{ 'REGISTER.FORM.PASSWORD2.ALERT.NOT_EQUAL' | translate }}
         </p>
       </div>

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TermsAndConditions } from '../terms-and-conditions/terms-and-conditions';
+import { PersonService } from '../../providers/person.service';
 import { LogIn } from '../log-in/log-in';
+import { Tasks } from '../tasks/tasks';
 
 @Component({
   selector: 'page-register',
@@ -14,8 +16,10 @@ export class Register {
   submited = false;
 
   constructor(
+    public toastCtrl: ToastController,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
+    public personService: PersonService,
     public formBuilder: FormBuilder
   ) {
     var emailRegex =  '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'
@@ -29,9 +33,9 @@ export class Register {
         Validators.pattern(emailRegex)
       ])],
       password: ['', Validators.required],
-      password2: ['', Validators.required],
+      password_confirmation: ['', Validators.required],
       terms: [null, Validators.required]
-    }, {validator: this.matchingPasswords('password', 'password2')});
+    }, {validator: this.matchingPasswords('password', 'password_confirmation')});
   }
 
   matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
@@ -63,10 +67,29 @@ export class Register {
 
   submit(){
     this.submited = true;
+    let person = this.form.value
     if ( !this.form.value.terms)
     {
         this.form.patchValue({ terms: null });
     }
+    this.personService.signUp(person).subscribe(person => {
+      console.log(person)
+      this.presentToast(("Hola " + person.name), "success")
+      this.navCtrl.setRoot(Tasks)
+    }, err => {
+      console.log(person)
+    })
+  }
+
+  presentToast(message: string, cssClass: string = '') {
+    let toast = this.toastCtrl.create({
+     message: message,
+     duration: 3000,
+     position: 'bottom',
+     cssClass: cssClass
+    });
+
+    toast.present();
   }
 
 }

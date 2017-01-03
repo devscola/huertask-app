@@ -37,6 +37,17 @@ export class PersonService {
       .map(res => <Person>res.json());
   }
 
+  signUp(person): Observable<Person>{
+    this.logged = true
+    delete person['terms']
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/signup`, person, options)
+                    .map((res:Response) => <Person>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
   getPerson(id): Observable<Person> {
     return this.http.get(`${this.huertaskApiUrl}/people/${id}`)
       .map(res => <Person>this.instanciatedPerson(res.json()));
