@@ -18,7 +18,7 @@ class Fixtures
       Huertask::Category.create({
         id: n,
         name: categories[n-1],
-        description: n%2==0 ? "Esta es la descripción correspondiente a la categoría #{categories[n-1]}" : nil
+        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil
       })
     end
 

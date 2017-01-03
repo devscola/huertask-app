@@ -49,9 +49,27 @@ module Huertask
         person
       end
 
+      def get_skipped_categories(user_id)
+        return [] if user_id.nil?
+        Person.find_by_id(user_id).dislike_categories.map { |cat| cat.id  }
+      end
+      
       def encrypt(pass, salt)
         Digest::SHA1.hexdigest(pass + salt)
       end
+    end
+
+    def add_favorite_category(category_id)
+      category = Category.find_by_id(category_id)
+      relation = categories_relations.first(:category => category)
+      raise Huertask::CategoryPersonRelation::CategoryPersonRelationNotFound.new if relation.nil?
+      relation.destroy
+    end
+
+    def remove_favorite_category(category_id)
+      category = Category.find_by_id(category_id)
+      dislike_categories << category
+      save
     end
 
     def set_password(pass)

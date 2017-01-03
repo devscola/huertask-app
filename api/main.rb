@@ -58,8 +58,10 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        return present Task.past_tasks, with: Entities::Task if params[:filter] == 'past'
-        present Task.future_tasks, with: Entities::Task
+        skip_categories = Person.get_skipped_categories(params[:user_id])
+
+        return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
+        present Task.future_tasks(skip_categories), with: Entities::Task
       end
 
       params do
@@ -195,6 +197,23 @@ module Huertask
       get "/" do
         present Category.all(:order => [ :name.asc ]), with: Entities::Category
       end
+
+      params do
+        requires :name,           type: String
+        optional :description,    type: String
+        optional :mandatory,      type: Boolean
+      end
+
+      post '/' do
+        admin_required
+
+        category = Category.new declared(params)
+        if category.save
+          present category, with: Entities::Category
+        else
+          error_400(category)
+        end
+      end
     end
 
     resource :people do
@@ -207,8 +226,7 @@ module Huertask
           route_param :category_id do
             post "/" do
               person = Person.find_by_id(params[:id])
-              person.dislike_categories.delete_if { |cat| p cat.id; cat.id == params[:category_id].to_i }
-              if person.save
+              if person.add_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)
@@ -216,9 +234,7 @@ module Huertask
             end
             delete "/" do
               person = Person.find_by_id(params[:id])
-              category = Category.find_by_id(params[:category_id])
-              person.dislike_categories << category
-              if person.save
+              if person.remove_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)

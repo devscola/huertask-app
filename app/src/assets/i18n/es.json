@@ -125,6 +125,30 @@
       "TITLE" : "Tipo de Tareas que más te interesan"
     }
   },
+  "CATEGORY" : {
+    "CREATE" : {
+      "TITLE" : "Crear categoría"
+    },
+    "DEFAULT_DESCRIPTION" : "Sin descripción",
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "PLACEHOLDER" : "Escribe aquí el título de la categoría",
+        "ALERT" : {
+          "REQUIRED" : "Debes introducir un nombre para la categoría"
+        }
+      },
+      "DESCRIPTION" : {
+        "LABEL" : "Descripción",
+        "PLACEHOLDER" : "Si quieres puedes añadir una breve descripción del tipo de tareas que engloba la categoría"
+      },
+      "MANDATORY" : {
+        "LABEL" : "Obligatoria"
+      },
+      "BUTTON" : {
+        "CREATE" : "Guardar"
+      }
+  },
   "REGISTER" : {
     "TITLE" : "Registro",
     "HEADING" : "Conviértete en un agrourbanita techie",
