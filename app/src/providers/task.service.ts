@@ -31,15 +31,26 @@ export class TaskService {
   }
 
   getFutureTasks(user_id = null): Observable<Task[]> {
-    let user = user_id ? `?user_id=${user_id}` : "";
-    return this.http.get(`${this.huertaskApiUrl}/tasks/${user}`)
-      .map(res => <Task[]>this.instanciatedTasks(res.json()));
+    return this.getTasks(user_id);
   }
 
   getPastTasks(user_id = null): Observable<Task[]> {
-    let user = user_id ? `&user_id=${user_id}` : "";
-    return this.http.get(`${this.huertaskApiUrl}/tasks/?filter=past${user}`)
+    return this.getTasks(user_id, 'past');
+  }
+
+  getTasks(user_id = null, filter = null): Observable<Task[]> {
+    let params = this.getTasksUrlParams(user_id, filter)
+    return this.http.get(`${this.huertaskApiUrl}/tasks/${params}`)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
+  }
+
+  getTasksUrlParams(user_id = null, filter = null): String {
+    let params = filter  ? `?filter=${filter}&`  : "?";
+    params += user_id ? `user_id=${user_id}&` : "";
+    params = params.substring(0,params.length - 1);
+    if (params == "?") params = "";
+
+    return params
   }
 
   createTask(body: Object): Observable<Task> {
