@@ -35,6 +35,13 @@ describe Huertask::API do
       expect(tasks.include?(task)).to be false
     end
 
+    it "return only tasks of fav categories if param user_id is present" do
+      get "api/tasks?user_id=1"
+
+      expect(last_response).to be_ok
+      expect(tasks.size).to be 5
+    end
+
     def past_tasks
       tasks.select {|task| past_task?(task)}
     end
