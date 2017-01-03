@@ -9,6 +9,8 @@ import { Person } from '../models/person';
 export class PersonService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
+  logged;
+
   constructor(public http: Http) { }
 
   instanciatedPerson(object): Person{
@@ -17,6 +19,22 @@ export class PersonService {
       person[param] = object[param]
     }
     return person
+  }
+
+  logIn(person): Observable<Person>{
+    this.logged = true
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/login`, person, options)
+                    .map((res:Response) => <Person>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
+  logOut(): Observable<Person>{
+    this.logged = false
+    return this.http.get(`${this.huertaskApiUrl}/logout`)
+      .map(res => <Person>res.json());
   }
 
   getPerson(id): Observable<Person> {
