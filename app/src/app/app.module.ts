@@ -9,6 +9,7 @@ import { DuplicateTask } from '../pages/duplicate-task/duplicate-task';
 import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -29,6 +30,7 @@ export function createTranslateLoader(http: Http) {
     EditTask,
     TaskForm,
     FavCategories,
+    FavCategoriesMenu,
     DuplicateTask,
     FormAction
   ],
@@ -50,6 +52,7 @@ export function createTranslateLoader(http: Http) {
     TaskDetail,
     EditTask,
     FavCategories,
+    FavCategoriesMenu,
     TaskForm,
     DuplicateTask
   ],

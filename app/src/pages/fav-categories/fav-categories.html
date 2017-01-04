@@ -16,7 +16,7 @@
         </ion-label>
         <ion-toggle item-right checked="{{category.fav==true}}" (ionChange)="toggleFavorite(category)"></ion-toggle>
 
-        <button item-right ion-button icon-only clear *ngIf="taskService.isAdmin">
+        <button item-right ion-button icon-only clear *ngIf="taskService.isAdmin" (click)="presentPopover($event)">
           <ion-icon name="more"></ion-icon>
         </button>
       </ion-item>

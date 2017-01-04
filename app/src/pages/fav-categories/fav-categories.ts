@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
 import { PersonService } from '../../providers/person.service';
+import { FavCategoriesMenu } from './fav-categories-menu';
 
 @Component({
   selector: 'page-fav-categories',
@@ -13,6 +14,7 @@ export class FavCategories {
 
   constructor(
     public navCtrl: NavController,
+    public popoverCtrl: PopoverController,
     public personService: PersonService,
     public taskService: TaskService,
     ) {
@@ -36,10 +38,18 @@ export class FavCategories {
     err => console.log(err)
     )
   }
+
   toggleDescription(category){
     if(category.description){
       category.showDescription = !category.showDescription
     }
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(FavCategoriesMenu);
+    popover.present({
+      ev: event
+    });
   }
 
 }

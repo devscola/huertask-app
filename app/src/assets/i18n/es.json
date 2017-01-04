@@ -90,11 +90,21 @@
   },
   "BUTTONS" : {
     "SAVE" : "Guardar",
-    "CANCEL" : "Cancelar"
+    "CANCEL" : "Cancelar",
+    "EDIT" : "Editar",
+    "DELETE" : "Eliminar"
   },
   "CATEGORIES" : {
     "FAV" : {
       "TITLE" : "Tipo de Tareas que más te interesan"
+    },
+    "DELETE_ALERT" : {
+      "TITLE" : "Eliminar categoría",
+      "SUBTITLE" : "¿Está seguro de que desea eliminar esta categoría? Dejará de estar disponible para todos los usuarios.",
+      "BUTTONS" : {
+          "DELETE" : "Borrar",
+          "CANCEL" : "Cancelar"
+      }
     }
   }
 }
