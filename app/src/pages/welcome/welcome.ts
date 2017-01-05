@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { LogIn } from '../log-in/log-in';
+import { Register } from '../register/register';
 
 /*
   Generated class for the Welcome page.
@@ -17,6 +19,14 @@ export class Welcome {
 
   ionViewDidLoad() {
     console.log('Hello Welcome Page');
+  }
+
+  goToRegister(){
+    this.navCtrl.setRoot(Register)
+  }
+
+  goToLogIn(){
+    this.navCtrl.setRoot(LogIn)
   }
 
 }
