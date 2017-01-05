@@ -143,7 +143,8 @@ module Huertask
 
     helpers do
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
-      DataMapper.auto_upgrade!
+      DataMapper.auto_migrate!
+      DataMapper.finalize!
 
       def session
         env['rack.session']
