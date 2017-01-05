@@ -16,7 +16,6 @@ class Fixtures
 
     (1..categories.size).each do |n|
       Huertask::Category.create({
-        id: n,
         name: categories[n-1],
         description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil
       })
@@ -24,7 +23,6 @@ class Fixtures
 
     (1..20).each do |n|
       person = Huertask::Person.new({
-        id: n,
         name: "Persona #{n}",
         email: "person#{n}@gmail.com",
         password: "123456789",
@@ -37,7 +35,6 @@ class Fixtures
 
     (1..6).each do |n|
       Huertask::Task.create({
-        id: n,
         title: "Tarea numero #{n}",
         from_date: (Time.now + 30*24*60*60),
         to_date: (Time.now + 30*24*60*60 + 3*60*60),
@@ -49,7 +46,6 @@ class Fixtures
 
     (7..9).each do |n|
       Huertask::Task.create({
-        id: n,
         title: "Tarea numero #{n}",
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
@@ -60,7 +56,6 @@ class Fixtures
 
     (10..15).each do |n|
       Huertask::Task.create({
-        id: n,
         title: "Tarea numero #{n}",
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
