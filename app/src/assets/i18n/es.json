@@ -148,6 +148,7 @@
       "BUTTON" : {
         "CREATE" : "Guardar"
       }
+    }
   },
   "REGISTER" : {
     "TITLE" : "Registro",
