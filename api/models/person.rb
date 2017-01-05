@@ -53,7 +53,7 @@ module Huertask
         return [] if user_id.nil?
         Person.find_by_id(user_id).dislike_categories.map { |cat| cat.id  }
       end
-      
+
       def encrypt(pass, salt)
         Digest::SHA1.hexdigest(pass + salt)
       end
@@ -68,8 +68,8 @@ module Huertask
 
     def remove_favorite_category(category_id)
       category = Category.find_by_id(category_id)
-      dislike_categories << category
-      save
+      self.dislike_categories << category
+      self.save
     end
 
     def set_password(pass)
