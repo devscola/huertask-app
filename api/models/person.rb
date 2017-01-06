@@ -20,11 +20,11 @@ module Huertask
         :is_unique => "El email ya existe.",
         :format    => "Formato de email incorrecto"
       }
-    property :hashed_password, String, :writer => :protected
-    property :salt, String, :writer => :protected, :unique => true
+    property :hashed_password, String
+    property :salt, String, :unique => true
 
-    validates_presence_of :password_confirmation
-    validates_confirmation_of :password
+    # validates_presence_of :password_confirmation
+    # validates_confirmation_of :password
 
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
