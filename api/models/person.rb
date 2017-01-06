@@ -1,6 +1,9 @@
 module Huertask
   class Person
 
+    DIGEST = OpenSSL::Digest.new('sha1')
+
+
     class PersonNotFound < StandardError
       def initialize(id)
         super("The person #{id} was not found")
@@ -9,7 +12,7 @@ module Huertask
 
     include DataMapper::Resource
 
-    attr_accessor :password, :password_confirmation
+    attr_accessor :password, :password_confirmation, :token
 
     property :id, Serial
     property :name, String
@@ -22,9 +25,6 @@ module Huertask
       }
     property :hashed_password, String
     property :salt, String, :unique => true
-
-    # validates_presence_of :password_confirmation
-    # validates_confirmation_of :password
 
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
@@ -57,6 +57,24 @@ module Huertask
       def encrypt(pass, salt)
         Digest::SHA1.hexdigest(pass + salt)
       end
+    end
+
+    def create_auth_token
+      key =  "lkasjdflaksdjflkjdsalkfjiqwerajosrnvogejrf"
+      timestamp = Time.now.to_i.to_s
+      data = (self.id.to_s + "-" + timestamp)
+      hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
+      self.token = hmac + ":#{timestamp}"
+    end
+
+    def validate_auth_token(token)
+      return false if !token
+      key =  "lkasjdflaksdjflkjdsalkfjiqwerajosrnvogejrf"
+      timestamp = token.split(":").last
+      token = token.split(":").first
+      data = (self.id.to_s + "-" + timestamp)
+      hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
+      return hmac == token
     end
 
     def add_favorite_category(category_id)

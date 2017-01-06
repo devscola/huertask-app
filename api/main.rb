@@ -20,7 +20,6 @@ require_relative './repositories/tasks'
 
 module Huertask
   class API < Grape::API
-    use Rack::Session::Cookie
     version 'v1', using: :header, vendor: 'huertask'
     format :json
     prefix :api
@@ -29,7 +28,7 @@ module Huertask
       post "/" do
         person = Person.signup(params)
         if person.save
-          session[:person] = person.id
+          person.create_auth_token
           present person, with: Entities::Person
         else
           error_400(person)
@@ -41,7 +40,7 @@ module Huertask
       post "/" do
         username_or_email = params[:name] || params[:email]
         if person = Person.authenticate(username_or_email, params[:password])
-          session[:person] = person.id
+          person.create_auth_token
           present person, with: Entities::Person
         else
           error! "invalid username or password", 400
@@ -49,15 +48,17 @@ module Huertask
       end
     end
 
-    resource :logout do
+    resource :token do
       get "/" do
-        session[:person] = nil
+        person = Person.find_by_id(params[:user_id])
+        person.create_auth_token
       end
     end
 
     resource :tasks do
 
       get "/" do
+        login_required(params)
         skip_categories = Person.get_skipped_categories(params[:user_id])
 
         return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
@@ -145,12 +146,13 @@ module Huertask
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
 
-      def session
-        env['rack.session']
-      end
-
       def error_400(model)
         error! model.errors.to_hash, 400
+      end
+
+      def login_required(params)
+        person = Person.find_by_id(params[:user_id]) if params[:user_id]
+        return error!('Unauthorized', 401) unless person && person.validate_auth_token(params[:auth_token])
       end
 
       def admin_required
@@ -219,7 +221,15 @@ module Huertask
     resource :people do
       route_param :id do
         get "/" do
-          present Person.find_by_id(params[:id]), with: Entities::Person
+          person = Person.find_by_id(params[:id])
+          if params[:auth_token]
+            return person.compare_auth_token(params[:auth_token])
+          else
+            return person.create_auth_token
+          end
+
+
+          # present Person.find_by_id(params[:id]), with: Entities::Person
         end
 
         resource :categories do
