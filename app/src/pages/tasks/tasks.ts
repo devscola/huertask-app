@@ -16,7 +16,6 @@ export class Tasks {
 
   tabs = [
     {title: "TASKS.NEXT", active: true},
-    {title: "TASKS.OWN", active: false},
     {title: "TASKS.PREVIOUS", active: false}
   ]
 
