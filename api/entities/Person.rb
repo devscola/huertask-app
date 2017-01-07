@@ -5,6 +5,7 @@ module Huertask
     class Person < Grape::Entity
       expose :id, :name
       expose :dislike_categories, using: Huertask::Entities::Category
+      expose :categories, using: Huertask::Entities::Category
     end
   end
 end

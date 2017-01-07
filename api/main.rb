@@ -195,7 +195,7 @@ module Huertask
 
     resource :categories do
       get "/" do
-        present Category.all(:order => [ :name.asc ]), with: Entities::Category
+        present Category.active, with: Entities::Category
       end
 
       params do
@@ -212,6 +212,23 @@ module Huertask
           present category, with: Entities::Category
         else
           error_400(category)
+        end
+      end
+
+      route_param :id do
+        delete '/' do
+          admin_required
+
+          begin
+            category = Category.find_by_id(params[:id])
+            if category.delete
+              {}
+            else
+              error! category.errors.to_hash, 400
+            end
+          rescue Category::CategoryNotFound => e
+            error! e.message, 404
+          end
         end
       end
     end

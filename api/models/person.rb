@@ -30,6 +30,10 @@ module Huertask
     has n, :categories_relations, 'CategoryPersonRelation'
     has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
 
+    def categories
+      Category.active.select{ |cat| !dislike_categories.include? cat }
+    end
+
     class << self
       def signup(params)
         person = Person.new(params)
@@ -53,7 +57,7 @@ module Huertask
         return [] if user_id.nil?
         Person.find_by_id(user_id).dislike_categories.map { |cat| cat.id  }
       end
-      
+
       def encrypt(pass, salt)
         Digest::SHA1.hexdigest(pass + salt)
       end
