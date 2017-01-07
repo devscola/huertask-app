@@ -136,6 +136,17 @@ export class TaskService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  editCategory(body: Object): Observable<Category> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    let options    = new RequestOptions({ headers: headers });
+    let id         = body['id']
+
+    return this.http.put(`${this.huertaskApiUrl}/categories/${id}`, body, options)
+                    .map((res:Response) => <Category>this.instanciatedCategory(res.json()))
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   deleteCategory(category_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', 'admin: ' + this.isAdmin);

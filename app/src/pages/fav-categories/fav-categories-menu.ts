@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { TaskService } from '../../providers/task.service';
+import { CategoryForm } from '../category-form/category-form';
+import { FavCategories } from '../fav-categories/fav-categories';
 
 @Component({
   selector: 'page-fav-categories-menu',
   template: `
     <ion-list>
-      <button ion-item (click)="close()">{{ 'BUTTONS.EDIT' | translate }}</button>
+      <button ion-item (click)="goToEditCategory()">{{ 'BUTTONS.EDIT' | translate }}</button>
       <button ion-item (click)="tryDelete(category)">{{ 'BUTTONS.DELETE' | translate }}</button>
     </ion-list>
   `
@@ -30,6 +32,11 @@ export class FavCategoriesMenu {
       let tasksCategories = tasks.map(task => {return {'id': task.id, 'categories': task.categories.map(cat => cat.id)}});
       this.futureCategoryTasks = tasksCategories.filter(task => task['categories'].indexOf(this.category.id)>=0);
     });
+  }
+
+  goToEditCategory(){
+    this.navCtrl.push(CategoryForm, {category: this.category});
+    this.close();
   }
 
   tryDelete(category){

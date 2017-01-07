@@ -14,8 +14,9 @@ export class CategoryForm {
 
   category;
   form;
-  action;
+  action = 'create';
   submited = false;
+  title = 'CATEGORY.CREATE.TITLE'
 
   constructor(
     public el: ElementRef,
@@ -26,8 +27,11 @@ export class CategoryForm {
     public translate: TranslateService,
     public toastCtrl: ToastController
   ) {
-    this.action = el.nativeElement.getAttribute('form-action');
-    this.category = new Category();
+    this.category = navParams.get('category') || new Category();
+    if(navParams.get('category')){
+      this.title = 'CATEGORY.EDIT.TITLE';
+      this.action = 'edit';
+    }
     this.form = this.generateForm(this.category);
 
   }
@@ -38,7 +42,7 @@ export class CategoryForm {
         Validators.required,
         Validators.maxLength(35)
       ])],
-      description: [category.description],
+      description: [category.description, Validators.maxLength(255)],
       mandatory: [category.mandatory]
     });
   }
@@ -51,12 +55,13 @@ export class CategoryForm {
     return this.form.controls[property].hasError(error)
   }
 
-  createCategory(){
+  submit(){
     this.submited = true;
     let category = this.form.value;
     category = this.taskService.instanciatedCategory(category)
+    category['id'] = this.category.id;
 
-    this.taskService.createCategory(category).subscribe( data => {
+    this.taskService.[this.action](category).subscribe( data => {
       this.navCtrl.setRoot(FavCategories);
     },
     err => this.presentToast('Ha habido un error', 'danger')
@@ -66,7 +71,7 @@ export class CategoryForm {
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
      message: message,
-     duration: 19000,
+     duration: 5000,
      position: 'bottom',
      cssClass: cssClass
     });

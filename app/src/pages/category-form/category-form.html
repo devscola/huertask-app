@@ -3,12 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'CATEGORY.CREATE.TITLE' | translate }}</ion-title>
+    <ion-title>{{ title | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="form" (submit)="createCategory()">
+  <form [formGroup]="form" (submit)="submit()">
     <ion-grid>
       <ion-row>
         <ion-col>
