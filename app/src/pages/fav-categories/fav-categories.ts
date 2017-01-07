@@ -53,8 +53,8 @@ export class FavCategories {
     return category.description
   }
 
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(FavCategoriesMenu);
+  presentPopover(event, category) {
+    let popover = this.popoverCtrl.create(FavCategoriesMenu, {category: category});
     popover.present({
       ev: event
     });

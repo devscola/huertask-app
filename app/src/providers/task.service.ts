@@ -135,6 +135,16 @@ export class TaskService {
                     .map((res:Response) => <Category>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
+
+  deleteCategory(category_id): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.delete(`${this.huertaskApiUrl}/categories/${category_id}`, options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
 }
 
 @Injectable()

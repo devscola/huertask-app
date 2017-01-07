@@ -126,13 +126,18 @@
     "FAV" : {
       "TITLE" : "Tipo de Tareas que más te interesan"
     },
-    "DELETE_ALERT" : {
+    "DELETE_CONFIRM" : {
       "TITLE" : "Eliminar categoría",
       "SUBTITLE" : "¿Está seguro de que desea eliminar esta categoría? Dejará de estar disponible para todos los usuarios.",
       "BUTTONS" : {
           "DELETE" : "Borrar",
           "CANCEL" : "Cancelar"
       }
+    },
+    "CATEGORY_WITH_TASKS_ALERT" : {
+      "TITLE" : "Categoría en uso",
+      "SUBTITLE" : "No es posible eliminarlo porque hay tareas asociadas.",
+      "BUTTON" : "OK"
     }
   },
   "CATEGORY" : {
