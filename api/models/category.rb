@@ -11,8 +11,8 @@ module Huertask
     include DataMapper::Resource
 
     property :id,          Serial
-    property :name,        String
-    property :description, String, :default => "", :length => 0..35
+    property :name,        String, :length => 1..35
+    property :description, String, :default => "", :length => 0..255
     property :mandatory,   Boolean, :default => false
     property :active,      Boolean, :default => true
 
@@ -21,6 +21,12 @@ module Huertask
     has n, :people_relations, 'CategoryPersonRelation'
 
     validates_presence_of :name
+
+    def update_fields(params)
+      params.each do |key, value|
+        self.send("#{key}=", value)
+      end
+    end
 
     def delete
       self.active = false
