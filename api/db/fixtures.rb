@@ -18,16 +18,21 @@ class Fixtures
       Huertask::Category.create({
         id: n,
         name: categories[n-1],
-        description: n%2==0 ? "Esta es la descripción correspondiente a la categoría #{categories[n-1]}" : nil
+        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil
       })
     end
 
     (1..20).each do |n|
-      Huertask::Person.create({
+      person = Huertask::Person.new({
         id: n,
         name: "Persona #{n}",
+        email: "person#{n}@gmail.com",
+        password: "123456789",
+        password_confirmation: "123456789",
         dislike_categories: [Huertask::Category[n%categories.size]]
       })
+      person.set_password('123456789')
+      person.save
     end
 
     (1..6).each do |n|
@@ -53,28 +58,39 @@ class Fixtures
       })
     end
 
-    (1..6).each do |n|
+    (10..15).each do |n|
+      Huertask::Task.create({
+        id: n,
+        title: "Tarea numero #{n}",
+        from_date: (Time.now - 2*60*60),
+        to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
+        required_people: n,
+        categories: [Huertask::Category[(n%categories.size)-1]]
+      })
+    end
+
+    (1..7).each do |n|
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[n-1],
-        person: Huertask::Person[n%2],
+        task_id: Huertask::Task[n-1].id,
+        person_id: Huertask::Person[n%2].id,
         type: 0
       })
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[n-1],
-        person: Huertask::Person[2],
+        task_id: Huertask::Task[n-1].id,
+        person_id: Huertask::Person[2].id,
         type: 1
       })
     end
 
     (8..15).each do |n|
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[3],
-        person: Huertask::Person[n],
+        task_id: Huertask::Task[3].id,
+        person_id: Huertask::Person[n].id,
         type: 1
       })
       Huertask::PersonTaskRelation.create({
-        task: Huertask::Task[1],
-        person: Huertask::Person[n],
+        task_id: Huertask::Task[1].id,
+        person_id: Huertask::Person[n].id,
         type: 0
       })
     end

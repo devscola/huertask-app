@@ -20,16 +20,48 @@ require_relative './repositories/tasks'
 
 module Huertask
   class API < Grape::API
-
+    use Rack::Session::Cookie
     version 'v1', using: :header, vendor: 'huertask'
     format :json
     prefix :api
 
+    resource :signup do
+      post "/" do
+        person = Person.signup(params)
+        if person.save
+          session[:person] = person.id
+          present person, with: Entities::Person
+        else
+          error_400(person)
+        end
+      end
+    end
+
+    resource :login do
+      post "/" do
+        username_or_email = params[:name] || params[:email]
+        if person = Person.authenticate(username_or_email, params[:password])
+          session[:person] = person.id
+          present person, with: Entities::Person
+        else
+          error! "invalid username or password", 400
+        end
+      end
+    end
+
+    resource :logout do
+      get "/" do
+        session[:person] = nil
+      end
+    end
+
     resource :tasks do
 
       get "/" do
-        return present Task.past_tasks, with: Entities::Task if params[:filter] == 'past'
-        present Task.future_tasks, with: Entities::Task
+        skip_categories = Person.get_skipped_categories(params[:user_id])
+
+        return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
+        present Task.future_tasks(skip_categories), with: Entities::Task
       end
 
       params do
@@ -113,6 +145,10 @@ module Huertask
       DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/tasks.db")
       DataMapper.auto_upgrade!
 
+      def session
+        env['rack.session']
+      end
+
       def error_400(model)
         error! model.errors.to_hash, 400
       end
@@ -131,9 +167,11 @@ module Huertask
           method = action(is_going)
 
           task = Task.find_by_id(params[:id])
+
           person = Person.find_by_id(params[:person_id])
 
           relation = Repository::Tasks.send(method, task, person)
+
           if relation.save
             present task, with: Entities::Task
           else
@@ -159,6 +197,23 @@ module Huertask
       get "/" do
         present Category.all(:order => [ :name.asc ]), with: Entities::Category
       end
+
+      params do
+        requires :name,           type: String
+        optional :description,    type: String
+        optional :mandatory,      type: Boolean
+      end
+
+      post '/' do
+        admin_required
+
+        category = Category.new declared(params)
+        if category.save
+          present category, with: Entities::Category
+        else
+          error_400(category)
+        end
+      end
     end
 
     resource :people do
@@ -171,8 +226,7 @@ module Huertask
           route_param :category_id do
             post "/" do
               person = Person.find_by_id(params[:id])
-              person.dislike_categories.delete_if { |cat| p cat.id; cat.id == params[:category_id].to_i }
-              if person.save
+              if person.add_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)
@@ -180,9 +234,7 @@ module Huertask
             end
             delete "/" do
               person = Person.find_by_id(params[:id])
-              category = Category.find_by_id(params[:category_id])
-              person.dislike_categories << category
-              if person.save
+              if person.remove_favorite_category(params[:category_id])
                 present person, with: Entities::Person
               else
                 error_400(person)

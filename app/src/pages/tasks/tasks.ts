@@ -21,12 +21,13 @@ export class Tasks {
   ]
 
 	constructor(public navCtrl: NavController, private taskService: TaskService) {
-    taskService.getFutureTasks().subscribe(tasks => {
+    let user_id = 1;
+    taskService.getFutureTasks(user_id).subscribe(tasks => {
       this.tasks = tasks;
       this.list = tasks;
     });
 
-    taskService.getPastTasks().subscribe(tasks => {
+    taskService.getPastTasks(user_id).subscribe(tasks => {
       this.pastTasks = tasks;
     });
 	}

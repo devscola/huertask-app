@@ -30,14 +30,27 @@ export class TaskService {
     return task
   }
 
-  getFutureTasks(): Observable<Task[]> {
-    return this.http.get(`${this.huertaskApiUrl}/tasks/`)
+  getFutureTasks(user_id = null): Observable<Task[]> {
+    return this.getTasks(user_id);
+  }
+
+  getPastTasks(user_id = null): Observable<Task[]> {
+    return this.getTasks(user_id, 'past');
+  }
+
+  getTasks(user_id = null, filter = null): Observable<Task[]> {
+    let params = this.getTasksUrlParams(user_id, filter)
+    return this.http.get(`${this.huertaskApiUrl}/tasks/${params}`)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
-  getPastTasks(): Observable<Task[]> {
-    return this.http.get(`${this.huertaskApiUrl}/tasks/?filter=past`)
-      .map(res => <Task[]>this.instanciatedTasks(res.json()));
+  getTasksUrlParams(user_id = null, filter = null): String {
+    let params = filter  ? `?filter=${filter}&`  : "?";
+    params += user_id ? `user_id=${user_id}&` : "";
+    params = params.substring(0,params.length - 1);
+    if (params == "?") params = "";
+
+    return params
   }
 
   createTask(body: Object): Observable<Task> {
@@ -94,7 +107,33 @@ export class TaskService {
 
   getCategories(): Observable<Category[]> {
     return this.http.get(`${this.huertaskApiUrl}/categories/`)
-      .map(res => <Category[]>res.json());
+      .map(res => <Category[]>this.instanciatedCategories(res.json()));
+  }
+
+  instanciatedCategories(json): Category[]{
+    let categories = []
+    for(let object in json){
+      categories.push(this.instanciatedCategory(json[object]))
+    }
+    return categories
+  }
+
+  instanciatedCategory(object): Category{
+    let category = new Category();
+    for(let param in object){
+      category[param] = object[param]
+    }
+    return category
+  }
+
+  createCategory(body: Object): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Authorization', 'admin: ' + this.isAdmin);
+
+    return this.http.post(`${this.huertaskApiUrl}/categories/`, body, options)
+                    .map((res:Response) => <Category>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 }
 
@@ -103,15 +142,21 @@ export class TaskServiceMock {
   categories = [
     {
       "id": 1,
-      "name": "mantenimiento"
+      "name": "mantenimiento",
+      "description": "",
+      "mandatory": false
     },
     {
       "id": 2,
-      "name": "riego"
+      "name": "riego",
+      "description": "Descripción...",
+      "mandatory": true
     },
     {
       "id": 3,
-      "name": "carpinteria"
+      "name": "carpinteria",
+      "description": "Descripción...",
+      "mandatory": false
     }
   ];
 

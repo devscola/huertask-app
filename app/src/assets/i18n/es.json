@@ -88,6 +88,34 @@
       "NOT_GOING" : "No pueden asistir"
     }
   },
+  "LOGIN" : {
+    "TITLE" : "Entra",
+    "FORM" : {
+      "EMAIL" : {
+        "LABEL" : "Mail",
+        "PLACEHOLDER" : "Mail",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una dirección de email",
+          "PATTERN" : "Debe introducir un email válido"
+        }
+      },
+      "PASSWORD" : {
+        "LABEL" : "Contraseña",
+        "PLACEHOLDER" : "Contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una contraseña"
+        }
+      },
+      "BUTTON" : {
+        "CREATE" : "Entrar",
+        "REMEMBER" : "Recuérdame"
+      }
+    },
+    "LINK" : {
+      "REGISTER" : "¿Aún no tienes cuenta?",
+      "PASSWORD_LOST": "¿Olvidaste tu contraseña?"
+    }
+  },
   "BUTTONS" : {
     "SAVE" : "Guardar",
     "CANCEL" : "Cancelar",
@@ -105,6 +133,79 @@
           "DELETE" : "Borrar",
           "CANCEL" : "Cancelar"
       }
+    }
+  },
+  "CATEGORY" : {
+    "CREATE" : {
+      "TITLE" : "Crear categoría"
+    },
+    "DEFAULT_DESCRIPTION" : "Sin descripción",
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "PLACEHOLDER" : "Escribe aquí el título de la categoría",
+        "ALERT" : {
+          "REQUIRED" : "Debes introducir un nombre para la categoría"
+        }
+      },
+      "DESCRIPTION" : {
+        "LABEL" : "Descripción",
+        "PLACEHOLDER" : "Si quieres puedes añadir una breve descripción del tipo de tareas que engloba la categoría"
+      },
+      "MANDATORY" : {
+        "LABEL" : "Obligatoria"
+      },
+      "BUTTON" : {
+        "CREATE" : "Guardar"
+      }
+    }
+  },
+  "REGISTER" : {
+    "TITLE" : "Registro",
+    "HEADING" : "Conviértete en un agrourbanita techie",
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "PLACEHOLDER" : "Nombre",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar un nombre"
+        }
+      },
+      "EMAIL" : {
+        "LABEL" : "Mail",
+        "PLACEHOLDER" : "Mail",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una dirección de email",
+          "PATTERN" : "Debe introducir un email válido"
+        }
+      },
+      "PASSWORD" : {
+        "LABEL" : "Contraseña",
+        "PLACEHOLDER" : "Contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una contraseña"
+        }
+      },
+      "PASSWORD2" : {
+        "LABEL" : "Repetir contraseña",
+        "PLACEHOLDER" : "Repetir contraseña",
+        "ALERT" : {
+          "REQUIRED" : "Debe repetir la contraseña",
+          "NOT_EQUAL" : "Las contraseñas deben coincidir"
+        }
+      },
+      "TERMS" : {
+        "LABEL" : "Aceptar términos de uso",
+        "ALERT" : {
+          "REQUIRED" : "Debe leer y aceptar los términos para proceder al registro"
+        }
+      },
+      "BUTTON" : {
+        "CREATE" : "Seguir"
+      }
+    },
+    "LINK" : {
+      "LOGIN" : "¿Ya tienes cuenta?"
     }
   }
 }

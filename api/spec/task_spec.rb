@@ -1,6 +1,11 @@
 require_relative '../models/task'
 
 describe Huertask::Task  do
+
+  before(:each) do
+    Fixtures.seed
+  end
+
   it "should validates presence of: title, from_date, required_people and category" do
     task = Huertask::Task.new
     save_result = task.save

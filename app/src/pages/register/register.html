@@ -1,0 +1,101 @@
+<ion-content padding>
+  <h1>{{ 'REGISTER.HEADING' | translate }}</h1>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-grid>
+      <ion-item>
+        <ion-label floating>{{ 'REGISTER.FORM.NAME.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="text"
+          formControlName="name"
+          placeholder="{{ 'REGISTER.FORM.NAME.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('name')" class="alert alert-danger">
+        <p *ngIf="hasThisError('name', 'required')">
+          {{ 'REGISTER.FORM.NAME.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('name', 'maxlength')">
+          {{ 'REGISTER.FORM.NAME.ALERT.MAX_LENGTH' | translate }}
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label floating>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="text"
+          formControlName="email"
+          placeholder="{{ 'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('email')" class="alert alert-danger">
+        <p *ngIf="hasThisError('email', 'required')">
+          {{ 'REGISTER.FORM.EMAIL.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('email', 'pattern')">
+          {{ 'REGISTER.FORM.EMAIL.ALERT.PATTERN' | translate }}
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label floating>{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="password"
+          formControlName="password"
+          validateEqual="password_confirmation" reverse="true"
+          placeholder="{{ 'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('password')" class="alert alert-danger">
+        <p *ngIf="hasThisError('password', 'required')">
+          {{ 'REGISTER.FORM.PASSWORD.ALERT.REQUIRED' | translate }}
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label floating>{{ 'REGISTER.FORM.PASSWORD2.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="password"
+          formControlName="password_confirmation"
+          validateEqual="password" reverse="false"
+          placeholder="{{ 'REGISTER.FORM.PASSWORD2.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('password_confirmation')" class="alert alert-danger">
+        <p *ngIf="hasThisError('password_confirmation', 'required')">
+          {{ 'REGISTER.FORM.PASSWORD2.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('password_confirmation', 'notEquivalent')">
+          {{ 'REGISTER.FORM.PASSWORD2.ALERT.NOT_EQUAL' | translate }}
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-checkbox formControlName="terms">Checkbox Label</ion-checkbox>
+        <ion-label><a (click)="goToTermsAndConditions()">{{ 'REGISTER.FORM.TERMS.LABEL' | translate }}</a></ion-label>
+      </ion-item>
+      <div *ngIf="hasValidationError('terms')" class="alert alert-danger">
+        <p *ngIf="hasThisError('terms', 'required')">
+          {{ 'REGISTER.FORM.TERMS.ALERT.REQUIRED' | translate }}
+        </p>
+      </div>
+
+      <ion-item>
+        <a (click)="goToLogIn()">{{ 'REGISTER.LINK.LOGIN' | translate }}</a>
+      </ion-item>
+    </ion-grid>
+
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50>
+          </ion-col>
+          <ion-col width-50>
+            <button ion-button type="submit" color="light" clear full>
+              {{ 'REGISTER.FORM.BUTTON.CREATE' | translate }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+  </form>
+</ion-content>

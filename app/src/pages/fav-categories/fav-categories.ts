@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 import { TaskService } from '../../providers/task.service';
 import { PersonService } from '../../providers/person.service';
+import { CategoryForm } from '../category-form/category-form';
 import { FavCategoriesMenu } from './fav-categories-menu';
 
 @Component({
@@ -40,9 +41,16 @@ export class FavCategories {
   }
 
   toggleDescription(category){
-    if(category.description){
-      category.showDescription = !category.showDescription
-    }
+    category.showDescription = !category.showDescription
+  }
+
+  goToCreateCategory(){
+    this.navCtrl.push(CategoryForm);
+  }
+
+  getDescription(category){
+    if(category.description == ""){ return null }
+    return category.description
   }
 
   presentPopover(event) {
