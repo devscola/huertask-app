@@ -2,24 +2,9 @@ tasks {
 	ion-card {
 		border-left: 8px solid rgba(0, 0, 0, 0);
     color: #888888;
-		&.cat-1 {
-			border-color: map-get($category-colors, cat-1)
-		}
-		&.cat-2 {
+		&.going {
 			border-color: map-get($category-colors, cat-2)
 		}
-		&.cat-3 {
-			border-color: map-get($category-colors, cat-3)
-		}
-    &.cat-4 {
-      border-color: map-get($category-colors, cat-4)
-    }
-    &.cat-5 {
-      border-color: map-get($category-colors, cat-5)
-    }
-    &.cat-6 {
-      border-color: map-get($category-colors, cat-6)
-    }
     background-color: #fff !important;
 	}
 
