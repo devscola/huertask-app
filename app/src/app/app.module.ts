@@ -13,6 +13,7 @@ import { EditTask } from '../pages/edit-task/edit-task';
 import { TaskForm } from '../pages/task-form/task-form';
 import { CategoryForm } from '../pages/category-form/category-form';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
+import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { Register } from '../pages/register/register';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
@@ -38,6 +39,7 @@ export function createTranslateLoader(http: Http) {
     TaskForm,
     CategoryForm,
     FavCategories,
+    FavCategoriesMenu,
     DuplicateTask,
     FormAction,
     Register
@@ -62,6 +64,7 @@ export function createTranslateLoader(http: Http) {
     TaskDetail,
     EditTask,
     FavCategories,
+    FavCategoriesMenu,
     TaskForm,
     CategoryForm,
     DuplicateTask,
