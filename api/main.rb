@@ -216,15 +216,7 @@ module Huertask
     resource :people do
       route_param :id do
         get "/" do
-          person = Person.find_by_id(params[:id])
-          if params[:auth_token]
-            return person.compare_auth_token(params[:auth_token])
-          else
-            return person.create_auth_token
-          end
-
-
-          # present Person.find_by_id(params[:id]), with: Entities::Person
+          present Person.find_by_id(params[:id]), with: Entities::Person
         end
 
         resource :categories do
