@@ -60,7 +60,7 @@ module Huertask
     end
 
     def create_auth_token
-      key =  "lkasjdflaksdjflkjdsalkfjiqwerajosrnvogejrf"
+      key =  ENV['AUTH_SECRET']
       timestamp = Time.now.to_i.to_s
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
@@ -69,7 +69,7 @@ module Huertask
 
     def validate_auth_token(token)
       return false if !token
-      key =  "lkasjdflaksdjflkjdsalkfjiqwerajosrnvogejrf"
+      key =  ENV['AUTH_SECRET']
       timestamp = token.split(":").last
       token = token.split(":").first
       data = (self.id.to_s + "-" + timestamp)

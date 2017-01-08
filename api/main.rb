@@ -2,6 +2,8 @@ require 'grape'
 require 'grape-entity'
 require 'data_mapper'
 require 'dm-timestamps'
+require 'dotenv'
+Dotenv.load
 
 require_relative './models/task'
 require_relative './models/person'
