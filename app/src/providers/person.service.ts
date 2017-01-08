@@ -10,6 +10,7 @@ export class PersonService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
   logged;
+  person;
 
   constructor(public http: Http) { }
 
@@ -26,9 +27,10 @@ export class PersonService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
 
-    return this.http.post(`${this.huertaskApiUrl}/login`, person, options)
+    person = this.http.post(`${this.huertaskApiUrl}/login`, person, options)
                     .map((res:Response) => <Person>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+    return person
   }
 
   logOut(): Observable<Person>{

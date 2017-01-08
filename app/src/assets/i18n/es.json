@@ -214,5 +214,13 @@
     "LINK" : {
       "LOGIN" : "¿Ya tienes cuenta?"
     }
+  },
+  "WELCOME" : {
+    "TITLE" : "¡Bienvenido!",
+    "INTRO" : "Gánate ser un buen agrourbanita en tu comunidad",
+    "BUTTONS" : {
+      "LOGIN" : "Entra a tu cuenta",
+      "REGISTER" : "Regístrate"
+    }
   }
 }

@@ -73,7 +73,7 @@ export class Register {
         this.form.patchValue({ terms: null });
     }
     this.personService.signUp(person).subscribe(person => {
-      console.log(person)
+      this.personService.person = person
       this.presentToast(("Hola " + person.name), "success")
       this.navCtrl.setRoot(Tasks)
     }, err => {

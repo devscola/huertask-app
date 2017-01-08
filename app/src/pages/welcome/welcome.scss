@@ -1,0 +1,32 @@
+page-welcome {
+  .content-ios, .content-md, .content-wp{
+    background-color: map-get($colors, primary);
+    text-align: center;
+    color: white;
+  }
+  .scroll-content{
+    min-height: 100%;
+    background-image: url('../../assets/img/welcome.png');
+    background-size: auto 40vh;
+    background-repeat: no-repeat;
+    background-position: center top;
+  }
+  div.content{
+    margin-top: 40vh;
+  }
+  h1{
+    font-size: 3em;
+  }
+  p{
+    font-size: 1.5em;
+  }
+  button{
+    min-width: 70%;
+    &.button-ios, &.button-md, &.button-wp{
+      font-size: 1.3em;
+      text-transform: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+  }
+}

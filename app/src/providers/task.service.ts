@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Task } from '../models/task';
 import { Category } from '../models/category';
+import { PersonService } from './person.service';
 
 @Injectable()
 export class TaskService {
@@ -12,7 +13,7 @@ export class TaskService {
 
   isAdmin: boolean = false;
 
-  constructor(public http: Http) { }
+  constructor(public http: Http, public personService: PersonService) { }
 
   instanciatedTasks(json): Task[]{
     let tasks = []
@@ -39,8 +40,13 @@ export class TaskService {
   }
 
   getTasks(user_id = null, filter = null): Observable<Task[]> {
+    let token = this.personService.person['token']
     let params = this.getTasksUrlParams(user_id, filter)
-    return this.http.get(`${this.huertaskApiUrl}/tasks/${params}`)
+
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
+    let options    = new RequestOptions({ headers: headers });
+    return this.http.get(`${this.huertaskApiUrl}/tasks/${params}`, options)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 

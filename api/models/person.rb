@@ -1,6 +1,9 @@
 module Huertask
   class Person
 
+    DIGEST = OpenSSL::Digest.new('sha1')
+
+
     class PersonNotFound < StandardError
       def initialize(id)
         super("The person #{id} was not found")
@@ -9,7 +12,7 @@ module Huertask
 
     include DataMapper::Resource
 
-    attr_accessor :password, :password_confirmation
+    attr_accessor :password, :password_confirmation, :token
 
     property :id, Serial
     property :name, String
@@ -20,11 +23,8 @@ module Huertask
         :is_unique => "El email ya existe.",
         :format    => "Formato de email incorrecto"
       }
-    property :hashed_password, String, :writer => :protected
-    property :salt, String, :writer => :protected, :unique => true
-
-    validates_presence_of :password_confirmation
-    validates_confirmation_of :password
+    property :hashed_password, String
+    property :salt, String, :unique => true
 
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
@@ -63,6 +63,24 @@ module Huertask
       end
     end
 
+    def create_auth_token
+      key =  ENV['AUTH_SECRET']
+      timestamp = Time.now.to_i.to_s
+      data = (self.id.to_s + "-" + timestamp)
+      hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
+      self.token = hmac + ":#{timestamp}"
+    end
+
+    def validate_auth_token(token)
+      return false if !token
+      key =  ENV['AUTH_SECRET']
+      timestamp = token.split(":").last
+      token = token.split(":").first
+      data = (self.id.to_s + "-" + timestamp)
+      hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
+      return hmac == token
+    end
+
     def add_favorite_category(category_id)
       category = Category.find_by_id(category_id)
       relation = categories_relations.first(:category => category)
@@ -72,8 +90,8 @@ module Huertask
 
     def remove_favorite_category(category_id)
       category = Category.find_by_id(category_id)
-      dislike_categories << category
-      save
+      self.dislike_categories << category
+      self.save
     end
 
     def set_password(pass)

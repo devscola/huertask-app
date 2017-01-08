@@ -5,6 +5,7 @@ gem 'grape', '~> 0.18.0'
 gem 'grape-entity', '~> 0.5.1'
 gem 'data_mapper', '~> 1.2.0'
 gem 'dm-timestamps', '~> 1.2.0'
+gem 'dotenv', '~> 2.1.1'
 
 group :development, :test do
   gem 'rspec', '~> 3.5.0'

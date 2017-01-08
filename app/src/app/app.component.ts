@@ -10,6 +10,7 @@ import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
+import { Welcome } from '../pages/welcome/welcome';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -20,7 +21,7 @@ import { PersonService } from '../providers/person.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Tasks;
+  rootPage: any = Welcome;
 
   pages: Array<{title: string, component: any}>;
 
@@ -37,7 +38,8 @@ export class MyApp {
       { title: "TASK.CREATE.TITLE", component: CreateTask },
       { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
       { title: "LOGIN.TITLE", component: LogIn},
-      { title: "REGISTER.TITLE", component: Register }
+      { title: "REGISTER.TITLE", component: Register },
+      { title: "WELCOME.TITLE", component: Welcome }
     ];
   }
 

@@ -1,0 +1,13 @@
+<ion-content padding>
+<div class="content">
+  <h1>{{ 'WELCOME.TITLE' | translate }}</h1>
+  <p>{{ 'WELCOME.INTRO' | translate }}</p>
+
+  <button (click)="goToLogIn()" ion-button id="login" color="danger">
+    {{ 'WELCOME.BUTTONS.LOGIN' | translate }}
+  </button>
+  <button (click)="goToRegister()" ion-button id="register" color="danger">
+    {{ 'WELCOME.BUTTONS.REGISTER' | translate }}
+  </button>
+</div>
+</ion-content>
