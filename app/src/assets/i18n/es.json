@@ -2,7 +2,6 @@
   "TASKS" : {
     "TITLE"     : "Tareas",
     "NEXT"      : "Próximas",
-    "OWN"       : "Mías",
     "PREVIOUS"  : "Pasadas"
   },
   "TASK" : {
