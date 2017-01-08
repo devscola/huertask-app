@@ -19,7 +19,9 @@ export class FavCategories {
     public personService: PersonService,
     public taskService: TaskService,
     ) {
-    personService.getPerson(1).subscribe(person => {
+    this.person = this.personService.person
+
+    personService.getPerson(this.person['id']).subscribe(person => {
       this.person = person;
       taskService.getCategories().subscribe(categories => {
         let disliked_ids = this.person['dislike_categories'].map(cat => {return cat.id})
