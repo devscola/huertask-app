@@ -48,13 +48,6 @@ module Huertask
       end
     end
 
-    resource :token do
-      get "/" do
-        person = Person.find_by_id(params[:user_id])
-        person.create_auth_token
-      end
-    end
-
     resource :tasks do
 
       get "/" do
@@ -152,7 +145,7 @@ module Huertask
 
       def login_required(params)
         person = Person.find_by_id(params[:user_id]) if params[:user_id]
-        return error!('Unauthorized', 401) unless person && person.validate_auth_token(params[:auth_token])
+        return error!('Unauthorized', 401) unless person && person.validate_auth_token(headers["Token"])
       end
 
       def admin_required
