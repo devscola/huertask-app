@@ -75,21 +75,21 @@
   </ion-grid>
 </ion-content>
 <ion-footer>
-    <ion-row class="going-buttons" [hidden]="task.userNotAllowedToGo()">
+    <ion-row class="going-buttons" [hidden]="task.userNotAllowedToGo(personService.person['id'])">
       <ion-col width-50>
         <button ion-button id="going" color="danger" clear full
-          [disabled]="task.isUserGoing()"
+          [disabled]="task.isUserGoing(personService.person['id'])"
           (click)="going()">
           {{ 'TASK.BUTTONS.GOING' | translate}}
         </button>
       </ion-col>
       <ion-col width-50>
         <button ion-button id="not-going" color="danger" clear full
-          [disabled]="task.isUserNotGoing()"
+          [disabled]="task.isUserNotGoing(personService.person['id'])"
           (click)="notGoing()">
           {{ 'TASK.BUTTONS.NOTGOING' | translate}}
         </button>
       </ion-col>
     </ion-row>
-    <ion-row class="covered-message" *ngIf="task.userNotAllowedToGo()">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
+    <ion-row class="covered-message" *ngIf="task.userNotAllowedToGo(personService.person['id'])">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
 </ion-footer>

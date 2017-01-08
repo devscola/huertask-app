@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Task } from '../../models/task';
 import { Tasks } from '../tasks/tasks';
 import { TaskService } from '../../providers/task.service';
+import { PersonService } from '../../providers/person.service';
 import { EditTask } from '../edit-task/edit-task';
 import { DuplicateTask } from '../duplicate-task/duplicate-task';
 
@@ -17,9 +18,11 @@ export class TaskDetail {
 
   task = new Task();
   waitingForResponse = false
+  person;
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService, public personService: PersonService) {
     this.task = navParams.get('task');
+    this.person = personService.person
   }
 
   togglePeopleGoing(event){
@@ -35,16 +38,18 @@ export class TaskDetail {
   }
 
   going(){
-    return this.taskService.going(this.task.id, 1).subscribe( data => {
+    return this.taskService.going(this.task.id, this.person['id']).subscribe( data => {
       this.task = data
+      console.log(data)
     },
     err => console.log(err)
     )
   }
 
   notGoing(){
-    return this.taskService.notGoing(this.task.id, 1).subscribe( data => {
+    return this.taskService.notGoing(this.task.id, this.person['id']).subscribe( data => {
       this.task = data
+      console.log(data)
     },
     err => console.log(err)
     )

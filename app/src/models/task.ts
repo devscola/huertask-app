@@ -50,20 +50,20 @@ export class Task {
     return this
   }
 
-  isUserGoing = (): boolean => {
-    return !!this.people_going.find(person => person.id == 1)
+  isUserGoing = (user_id): boolean => {
+    return !!this.people_going.find(person => person.id == user_id)
   }
 
-  isUserNotGoing = (): boolean => {
-    return !!this.people_not_going.find(person => person.id == 1)
+  isUserNotGoing = (user_id): boolean => {
+    return !!this.people_not_going.find(person => person.id == user_id)
   }
 
   isCovered = (): boolean => {
     return (this.required_people - this.people_going.length) == 0
   }
 
-  userNotAllowedToGo = ():boolean => {
-    return this.isCovered() && !this.isUserGoing()
+  userNotAllowedToGo = (user_id):boolean => {
+    return this.isCovered() && !this.isUserGoing(user_id)
   }
 
   hasCategory = (category) => {
