@@ -60,12 +60,20 @@ export class CategoryForm {
     let category = this.form.value;
     category = this.taskService.instanciatedCategory(category)
     category['id'] = this.category.id;
+    if(this.action == 'edit'){
+      this.taskService.editCategory(category).subscribe( data => {
+        this.navCtrl.setRoot(FavCategories);
+      },
+      err => this.presentToast('Ha habido un error', 'danger')
+      )
+    }else{
+      this.taskService.createCategory(category).subscribe( data => {
+        this.navCtrl.setRoot(FavCategories);
+      },
+      err => this.presentToast('Ha habido un error', 'danger')
+      )
+    }
 
-    this.taskService.[this.action](category).subscribe( data => {
-      this.navCtrl.setRoot(FavCategories);
-    },
-    err => this.presentToast('Ha habido un error', 'danger')
-    )
   }
 
   presentToast(message: string, cssClass: string = '') {
