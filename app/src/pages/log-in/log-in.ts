@@ -32,7 +32,7 @@ export class LogIn {
     let person = this.form.value
 
     this.personService.logIn(person).subscribe(person => {
-      console.log(person)
+      this.personService.person = person
       this.presentToast(("Hola " + person.name), "success")
       this.navCtrl.setRoot(Tasks)
     }, err => {
