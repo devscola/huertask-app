@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 import { Person } from '../models/person';
 
@@ -12,7 +13,18 @@ export class PersonService {
   logged;
   person;
 
-  constructor(public http: Http) { }
+  constructor(public http: Http, public storage: Storage) {
+    this.storage.get('person')
+      .then(
+        data => {
+          this.person = data
+          this.logged = true
+        },
+        error => {
+          console.log('error')
+        }
+      );
+  }
 
   instanciatedPerson(object): Person{
     let person = new Person();
@@ -20,6 +32,14 @@ export class PersonService {
       person[param] = object[param]
     }
     return person
+  }
+
+  savePerson(){
+    this.storage.set('person', this.person)
+      .then(
+        () => console.log('Stored !'),
+        error => console.error('Error storing ', error)
+      );
   }
 
   logIn(person): Observable<Person>{
@@ -33,10 +53,13 @@ export class PersonService {
     return person
   }
 
-  logOut(): Observable<Person>{
+  logOut(){
     this.logged = false
-    return this.http.get(`${this.huertaskApiUrl}/logout`)
-      .map(res => <Person>res.json());
+    this.storage.remove('person')
+     .then(
+       () => console.log('removed'),
+       error => console.error('Error storing ', error)
+     );
   }
 
   signUp(person): Observable<Person>{

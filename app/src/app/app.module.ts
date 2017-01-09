@@ -20,8 +20,10 @@ import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
 
+
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Storage } from '@ionic/storage';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -73,6 +75,6 @@ export function createTranslateLoader(http: Http) {
     Register,
     Welcome
   ],
-  providers: [TaskService, PersonService]
+  providers: [Storage, TaskService, PersonService]
 })
 export class AppModule {}
