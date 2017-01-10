@@ -59,8 +59,6 @@ module Huertask
       end
 
       post '/' do
-        admin_required
-
         community = Community.new filter(params)
         if community.save
           present community, with: Entities::Community

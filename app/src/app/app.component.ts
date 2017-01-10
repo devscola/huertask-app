@@ -11,6 +11,7 @@ import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
 import { Welcome } from '../pages/welcome/welcome';
+import { CommunityForm } from '../pages/community-form/community-form';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -39,6 +40,7 @@ export class MyApp {
       { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
       { title: "LOGIN.TITLE", component: LogIn},
       { title: "REGISTER.TITLE", component: Register },
+      { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
       { title: "WELCOME.TITLE", component: Welcome }
     ];
   }

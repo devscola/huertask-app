@@ -167,6 +167,19 @@
       }
     }
   },
+  "COMMUNITY" : {
+    "CREATE.TITLE" : "Nuevo huerto",
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "PLACEHOLDER" : "¿Cómo se llama el huerto?"
+      },
+      "DESCRIPTION" : {
+        "LABEL" : "Dirección o ubicación",
+        "PLACEHOLDER" : "¿Dónde está?"
+      }
+    }
+  },
   "REGISTER" : {
     "TITLE" : "Registro",
     "HEADING" : "Conviértete en un agrourbanita techie",
