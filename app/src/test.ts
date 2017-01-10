@@ -14,6 +14,7 @@ import { App, MenuController, NavController, NavParams, Platform, Config, Keyboa
 import { ConfigMock, NavMock, PlatformMock } from './mocks';
 import { TranslateModule } from 'ng2-translate';
 import { TaskService, TaskServiceMock } from './providers/task.service';
+import { PersonService, PersonServiceMock } from './providers/person.service';
 import { TaskForm } from './pages/task-form/task-form';
 
 
@@ -71,6 +72,7 @@ export class TestUtils {
         {provide: NavParams, useClass: NavMock},
         {provide: Platform, useClass: PlatformMock},
         {provide: TaskService, useClass: TaskServiceMock},
+        {provide: PersonService, useClass: PersonServiceMock},
         AlertController,
         ToastController,
         GestureController
