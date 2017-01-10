@@ -53,7 +53,6 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        login_required(params)
         skip_categories = Person.get_skipped_categories(params[:user_id])
 
         return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'

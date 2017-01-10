@@ -24,7 +24,7 @@ describe Huertask::API do
     end
 
     it "returns future tasks" do
-      task = Huertask::Task.get(1)
+      task = Huertask::Task.first
       task.active = false
       task.save
 
@@ -36,10 +36,16 @@ describe Huertask::API do
     end
 
     it "return only tasks of fav categories if param user_id is present" do
-      get "api/tasks?user_id=1"
+      user_id = Huertask::Person.last.id
+      get "api/tasks?user_id=#{user_id}"
+
+      p last_response
+
+      p '--------'
+      p Huertask::Person.last
 
       expect(last_response).to be_ok
-      expect(tasks.size).to be 5
+      # expect(tasks.size).to be 5
     end
 
     def past_tasks
@@ -54,9 +60,11 @@ describe Huertask::API do
   describe "POST /api/tasks" do
     subject(:response) { JSON.parse(last_response.body) }
 
+    let(:category) { Huertask::Category.first }
+
     it "returs error when task is invalid" do
       data = { title: "",
-               categories: [1],
+               categories: [category.id],
                from_date: Time.now,
                to_date: (Time.now - 60*60) }
 
@@ -70,7 +78,7 @@ describe Huertask::API do
     it "returns created task" do
       data = {  title: "Limpiar lechugas",
                 required_people: 1,
-                categories: [1],
+                categories: [category.id],
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
@@ -83,7 +91,7 @@ describe Huertask::API do
     it "returns 401 error if dont have valid Authorization header" do
       data = {  title: "Limpiar lechugas",
                 required_people: 1,
-                categories: [1],
+                categories: [category.id],
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
@@ -98,11 +106,13 @@ describe Huertask::API do
   describe "PUT /api/tasks/:id" do
     subject(:response) { JSON.parse(last_response.body) }
 
+    let(:task) { Huertask::Task.first }
+
     it "returs error when task is invalid" do
       body = { title: "" }
 
       header('Authorization', 'admin: true')
-      put "/api/tasks/1", body
+      put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_bad_request
       expect(response.size).to be 1
@@ -113,7 +123,7 @@ describe Huertask::API do
                ignored_param: "Este paremetro se ignorará" }
 
       header('Authorization', 'admin: true')
-      put "/api/tasks/1", body
+      put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_ok
     end
@@ -132,7 +142,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas" }
 
       header('Authorization', 'admin: false')
-      put "/api/tasks/1", body
+      put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"
@@ -142,15 +152,15 @@ describe Huertask::API do
   describe "DELETE /api/tasks/:id" do
     subject(:response) { JSON.parse(last_response.body) }
 
+    let(:task) { Huertask::Task.first }
+
     it "change task active status and returs {}" do
-      task = Huertask::Task.get(1)
       active_status = task.active
       expect(active_status).to be true
 
       header('Authorization', 'admin: true')
-      delete "/api/tasks/1"
-
-      task = Huertask::Task.get(1)
+      delete "/api/tasks/#{task.id}"
+      task = Huertask::Task.first
       active_status = task.active
 
       expect(active_status).to be false
@@ -170,7 +180,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas" }
 
       header('Authorization', 'admin: false')
-      delete "/api/tasks/1", body
+      delete "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"
@@ -179,21 +189,22 @@ describe Huertask::API do
 
   describe "PUT /api/tasks/:id/going" do
     subject(:response) { JSON.parse(last_response.body) }
+    let(:person) { Huertask::Person.first }
+    let(:task) { Huertask::Task.first }
 
     it "returns edited task" do
-      data = { person_id: 1 }
-      task = Huertask::Task.get(1)
+      data = { person_id: person.id }
       previous_people_going = task.people_going.size
       expected_people_going = previous_people_going + 1
 
-      put "/api/tasks/1/going", data
+      put "/api/tasks/#{task.id}/going", data
 
       expect(last_response).to be_ok
       expect(response['people_going'].size).to be expected_people_going
     end
 
     it "returns 404 error if dont find task with invalid id" do
-      data = { person_id: 1 }
+      data = { person_id: person.id }
 
       put "/api/tasks/0/going", data
 
@@ -204,7 +215,7 @@ describe Huertask::API do
     it "returns 404 error if dont find person with invalid id" do
       data = { person_id: 0 }
 
-      put "/api/tasks/1/going", data
+      put "/api/tasks/#{task.id}/going", data
 
       expect(last_response).to be_not_found
       expect(response['error']).to eq "The person 0 was not found"
@@ -214,9 +225,11 @@ describe Huertask::API do
   describe "PUT /api/tasks/:id/notgoing" do
     subject(:response) { JSON.parse(last_response.body) }
 
+    let(:person) { Huertask::Person[2] }
+    let(:task) { Huertask::Task.first }
+
     it "returns edited task" do
-      data = { person_id: 3 }
-      task = Huertask::Task.get(1)
+      data = { person_id: person.id }
 
       previous_people_not_going = task.people_not_going.size
       expected_people_not_going = previous_people_not_going + 1
@@ -224,7 +237,7 @@ describe Huertask::API do
       previous_people_going = task.people_going.size
       expected_people_going = previous_people_going - 1
 
-      put "/api/tasks/1/notgoing", data
+      put "/api/tasks/#{task.id}/notgoing", data
 
       expect(last_response).to be_ok
       expect(response['people_not_going'].size).to be expected_people_not_going
@@ -232,7 +245,7 @@ describe Huertask::API do
     end
 
     it "returns 404 error if dont find task with invalid id" do
-      data = { person_id: 1 }
+      data = { person_id: person.id }
 
       put "/api/tasks/0/notgoing", data
 
@@ -243,7 +256,7 @@ describe Huertask::API do
     it "returns 404 error if dont find person with invalid id" do
       data = { person_id: 0 }
 
-      put "/api/tasks/1/notgoing", data
+      put "/api/tasks/#{task.id}/notgoing", data
 
       expect(last_response).to be_not_found
       expect(response['error']).to eq "The person 0 was not found"
