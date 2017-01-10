@@ -10,10 +10,12 @@ require_relative './models/person'
 require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
+require_relative './entities/community'
 require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
+require_relative './models/community'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
@@ -46,6 +48,24 @@ module Huertask
           present person, with: Entities::Person
         else
           error! "invalid username or password", 400
+        end
+      end
+    end
+
+    resource :communities do
+      params do
+        requires :name,            type: String
+        optional :description,     type: String
+      end
+
+      post '/' do
+        admin_required
+
+        community = Community.new filter(params)
+        if community.save
+          present community, with: Entities::Community
+        else
+          error_400(community)
         end
       end
     end
