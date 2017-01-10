@@ -50,6 +50,14 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
+  resetPassword(email){
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/reset_password`, {email: email}, options)
+      .map(res => <Person>this.instanciatedPerson(res.json()));
+  }
+
   getPerson(id): Observable<Person> {
     return this.http.get(`${this.huertaskApiUrl}/people/${id}`)
       .map(res => <Person>this.instanciatedPerson(res.json()));
