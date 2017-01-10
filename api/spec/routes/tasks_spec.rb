@@ -39,13 +39,7 @@ describe Huertask::API do
       user_id = Huertask::Person.last.id
       get "api/tasks?user_id=#{user_id}"
 
-      p last_response
-
-      p '--------'
-      p Huertask::Person.last
-
       expect(last_response).to be_ok
-      # expect(tasks.size).to be 5
     end
 
     def past_tasks
