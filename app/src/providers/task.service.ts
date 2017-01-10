@@ -40,8 +40,9 @@ export class TaskService {
   }
 
   getTasks(user_id = null, filter = null): Observable<Task[]> {
-    let token = this.personService.person['token']
-    if(this.personService.person){
+    let token = ""
+    if(this.personService.person != null){
+      token = this.personService.person['token']
       user_id = this.personService.person['id']
     }
     let params = this.getTasksUrlParams(user_id, filter)

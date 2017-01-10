@@ -3,6 +3,7 @@ import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions, Reques
 import { MockBackend } from '@angular/http/testing';
 
 import { TaskService } from './task.service';
+import { PersonService } from './person.service';
 
 let mockResponse = [{
   "id":1,
@@ -29,7 +30,7 @@ describe('TaskService', () => {
     TestBed.configureTestingModule({
       providers: [
         TaskService,
-
+        PersonService,
         MockBackend,
         BaseRequestOptions,
         {
