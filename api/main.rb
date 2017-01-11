@@ -19,6 +19,7 @@ require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
 require_relative './db/fixtures'
 require_relative './repositories/tasks'
+require_relative './repositories/mailer'
 
 module Huertask
   class API < Grape::API
@@ -46,6 +47,20 @@ module Huertask
           present person, with: Entities::Person
         else
           error! "invalid username or password", 400
+        end
+      end
+    end
+
+    resource :reset_password do
+      post '/' do
+        person = Huertask::Person.first(:email => params[:email])
+        return error!('Unauthorized', 401) unless person
+        new_password = (1..6).map{(rand(26)+65).chr}.join
+        person.set_password(new_password)
+        if person.save
+          Mailer.reset_password(params[:email], new_password)
+        else
+          error_400(person)
         end
       end
     end
