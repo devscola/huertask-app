@@ -21,10 +21,30 @@ class Fixtures
       })
     end
 
+    person = Huertask.new({
+      name: "miguelonga",
+      email: "miguelmundiaragones@gmail.com",
+      password: "123456789",
+      password_confirmation: "123456789",
+      dislike_categories: [Huertask::Category[n%categories.size]]
+    })
+    person.set_password('123456789')
+    person.save
+
+    person = Huertask.new({
+      name: "davidpardiez",
+      email: "davidpardiez@gmail.com",
+      password: "123456789",
+      password_confirmation: "123456789",
+      dislike_categories: [Huertask::Category[n%categories.size]]
+    })
+    person.set_password('123456789')
+    person.save
+
     (1..20).each do |n|
       person = Huertask::Person.new({
         name: "Persona #{n}",
-        email: "person#{n}@gmail.com",
+        email: "person#{n}@devscola.org",
         password: "123456789",
         password_confirmation: "123456789",
         dislike_categories: [Huertask::Category[n%categories.size]]
