@@ -15,7 +15,7 @@ describe Huertask::API do
   describe "POST /api/communities" do
     subject(:response) { JSON.parse(last_response.body) }
 
-    it "returs error when task is invalid" do
+    it "returs error when community is invalid" do
       data = { name: "",
                description: "" }
 

@@ -11,5 +11,6 @@ module Huertask
 
     validates_presence_of :name
 
+    has n, :people_relations, 'PersonCommunityRelation'
   end
 end

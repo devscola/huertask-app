@@ -16,6 +16,7 @@ require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
+require_relative './models/person_community_relation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
@@ -59,7 +60,9 @@ module Huertask
       end
 
       post '/' do
+        login_required
         community = Community.new filter(params)
+        community.people_relations.new(type: 1, person_id: headers["User-Id"], community_id: community.id)
         if community.save
           present community, with: Entities::Community
         else
@@ -71,7 +74,6 @@ module Huertask
     resource :tasks do
 
       get "/" do
-        login_required(params)
         skip_categories = Person.get_skipped_categories(params[:user_id])
 
         return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
@@ -163,8 +165,8 @@ module Huertask
         error! model.errors.to_hash, 400
       end
 
-      def login_required(params)
-        person = Person.find_by_id(params[:user_id]) if params[:user_id]
+      def login_required
+        person = Person.find_by_id(headers["User-Id"]) if headers["User-Id"]
         return error!('Unauthorized', 401) unless person && person.validate_auth_token(headers["Token"])
       end
 
