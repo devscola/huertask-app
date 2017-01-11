@@ -65,7 +65,7 @@ module Huertask
     end
 
     def create_auth_token
-      key =  ENV['AUTH_SECRET']
+      key =  ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj"
       timestamp = Time.now.to_i.to_s
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
