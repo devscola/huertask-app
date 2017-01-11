@@ -19,7 +19,12 @@ describe Huertask::API do
       data = { name: "",
                description: "" }
 
+      person = Huertask::Person.first
+
       header('Authorization', 'admin: true')
+      header('User-Id', person.id)
+      header('Token', person.create_auth_token)
+
       post "/api/communities", data
 
       expect(last_response).to be_bad_request
@@ -30,7 +35,12 @@ describe Huertask::API do
       data = {  name: "Nuestro huerto",
                 description: "" }
 
+      person = Huertask::Person.first
+
       header('Authorization', 'admin: true')
+      header('User-Id', person.id)
+      header('Token', person.create_auth_token)
+
       post "/api/communities", data
 
       expect(last_response).to be_created
