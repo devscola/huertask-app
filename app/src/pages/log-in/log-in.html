@@ -35,7 +35,7 @@
       </ion-item>
     </ion-row>
     <ion-row>
-      <span>{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
+      <span (click)="goToResetPassword()" >{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
     </ion-row>
     <ion-row>
       <span (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</span>

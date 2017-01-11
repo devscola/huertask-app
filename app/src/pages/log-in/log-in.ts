@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
+import { ResetPassword } from '../reset-password/reset-password';
 import { Register } from '../register/register';
 
 @Component({
@@ -43,6 +44,10 @@ export class LogIn {
 
   goToRegister(){
     this.navCtrl.setRoot(Register)
+  }
+
+  goToResetPassword(){
+    this.navCtrl.push(ResetPassword)
   }
 
   hasValidationError(property){
