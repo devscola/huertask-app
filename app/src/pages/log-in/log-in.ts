@@ -13,6 +13,7 @@ import { Register } from '../register/register';
 
 export class LogIn {
   form;
+  remember: boolean = false;
 
   constructor(
    public toastCtrl: ToastController,
@@ -25,15 +26,33 @@ export class LogIn {
       email: ["", Validators.compose([
          Validators.required,
          Validators.pattern(emailRegex)])],
-      password: ["", Validators.required]
+      password: ["", Validators.required],
+      remember: [true]
     });
+  }
+
+  ionViewWillEnter(){
+    this.checkIfLogged()
+  }
+
+  checkIfLogged(){
+    this.personService.storage.get('person')
+      .then(
+        data => {
+          if(data != null){
+            this.navCtrl.setRoot(Tasks)
+          }
+        }
+      )
   }
 
   logIn(){
     let person = this.form.value
-
     this.personService.logIn(person).subscribe(person => {
       this.personService.person = person
+      if(this.form.value['remember']){
+        this.personService.savePerson()
+      }
       this.presentToast(("Hola " + person.name), "success")
       this.navCtrl.setRoot(Tasks)
     }, err => {

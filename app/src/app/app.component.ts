@@ -59,15 +59,10 @@ export class MyApp {
   }
 
   setAdmin(){
-    console.log(this.isAdmin)
     this.taskService.isAdmin = this.isAdmin
   }
 
   logOut(){
-    this.personService.logOut().subscribe(data => {
-      console.log("logout con exito")
-    }, err => {
-      console.log("logout fallido")
-    })
+    this.personService.logOut()
   }
 }
