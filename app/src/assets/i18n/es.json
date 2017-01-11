@@ -110,6 +110,10 @@
         "REMEMBER" : "Recuérdame"
       }
     },
+    "REMEMBER_PASSWORD" : {
+      "TITLE" : "Resetear contraseña",
+      "INFO" : "Te enviaremos un mail para verificar que eres quien dices ser"
+    },
     "LINK" : {
       "REGISTER" : "¿Aún no tienes cuenta?",
       "PASSWORD_LOST": "¿Olvidaste tu contraseña?"
