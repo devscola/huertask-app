@@ -89,12 +89,16 @@ module Huertask
 
         resource :invite do
           post '/' do
-            community = Community.first
-            community.invite_people(params)
-            if community.save
-              present community, with: Entities::Community
-            else
-              error_400(community)
+            begin
+              community = Community.find_by_id(params[:id])
+              community.invite_people(params)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
             end
           end
         end

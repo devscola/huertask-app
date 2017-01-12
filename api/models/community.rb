@@ -7,6 +7,12 @@ module Huertask
     SIMPLE_USER_TYPE = 1
     ADMIN_USER_TYPE = 2
 
+    class CommunityNotFound < StandardError
+      def initialize(id)
+        super("The community #{id} was not found")
+      end
+    end
+
     include DataMapper::Resource
 
     property :id,          Serial
@@ -16,6 +22,14 @@ module Huertask
     validates_presence_of :name
 
     has n, :people_relations, 'PersonCommunityRelation'
+
+    class << self
+      def find_by_id(id)
+        community = get(id)
+        raise CommunityNotFound.new(id) if community.nil?
+        community
+      end
+    end
 
     def invite_people(params)
       params[:simple_users].each do |email|
@@ -40,12 +54,16 @@ module Huertask
         relation.type = type
       else
         relation = PersonCommunityRelation.new({
-          community_id: community.id,
+          community_id: self.id,
           person_id: person.id,
           type: type
         })
       end
-      relation
+      if relation.save
+        relation
+      else
+        error_400(relation)
+      end
     end
   end
 end
