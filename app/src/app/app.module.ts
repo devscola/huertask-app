@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { LogIn } from '../pages/log-in/log-in';
 import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
+import { CommunityForm } from '../pages/community-form/community-form';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
 import { TaskDetail } from '../pages/task-detail/task-detail';
@@ -35,6 +36,7 @@ export function createTranslateLoader(http: Http) {
     Tasks,
     LogIn,
     TermsAndConditions,
+    CommunityForm,
     CreateTask,
     TaskDetail,
     EditTask,
@@ -64,6 +66,7 @@ export function createTranslateLoader(http: Http) {
     Tasks,
     LogIn,
     TermsAndConditions,
+    CommunityForm,
     CreateTask,
     TaskDetail,
     EditTask,

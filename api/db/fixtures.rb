@@ -109,5 +109,9 @@ class Fixtures
         type: 0
       })
     end
+
+    Huertask::Community.create({
+      name: "Huerto urbano"
+    })
   end
 end

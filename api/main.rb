@@ -10,10 +10,13 @@ require_relative './models/person'
 require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
+require_relative './entities/community'
 require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
+require_relative './models/community'
+require_relative './models/person_community_relation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
@@ -62,6 +65,44 @@ module Huertask
         else
           error_400(person)
         end
+      end
+    end
+
+    resource :communities do
+      params do
+        requires :name,            type: String
+        optional :description,     type: String
+      end
+
+      post '/' do
+        login_required
+        community = Community.new filter(params)
+        community.people_relations.new(type: 1, person_id: headers["User-Id"], community_id: community.id)
+        if community.save
+          present community, with: Entities::Community
+        else
+          error_400(community)
+        end
+      end
+
+      route_param :id do
+
+        resource :invite do
+          post '/' do
+            begin
+              community = Community.find_by_id(params[:id])
+              community.invite_people(params)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
+          end
+        end
+
       end
     end
 
@@ -159,8 +200,8 @@ module Huertask
         error! model.errors.to_hash, 400
       end
 
-      def login_required(params)
-        person = Person.find_by_id(params[:user_id]) if params[:user_id]
+      def login_required
+        person = Person.find_by_id(headers["User-Id"]) if headers["User-Id"]
         return error!('Unauthorized', 401) unless person && person.validate_auth_token(headers["Token"])
       end
 

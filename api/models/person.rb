@@ -29,6 +29,7 @@ module Huertask
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
     has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
+    has n, :community_relations, 'PersonCommunityRelation'
 
     def categories
       Category.active.select{ |cat| !dislike_categories.include? cat }
@@ -64,7 +65,7 @@ module Huertask
     end
 
     def create_auth_token
-      key =  ENV['AUTH_SECRET']
+      key =  (ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj")
       timestamp = Time.now.to_i.to_s
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
@@ -73,7 +74,7 @@ module Huertask
 
     def validate_auth_token(token)
       return false if !token
-      key =  ENV['AUTH_SECRET']
+      key =  ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj"
       timestamp = token.split(":").last
       token = token.split(":").first
       data = (self.id.to_s + "-" + timestamp)

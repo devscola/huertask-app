@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Person } from '../models/person';
+import { Community } from '../models/community';
 
 @Injectable()
 export class PersonService {
@@ -20,6 +21,23 @@ export class PersonService {
       person[param] = object[param]
     }
     return person
+  }
+
+  instanciatedCommunity(object): Community{
+    let community = new Community();
+    for(let param in object){
+      community[param] = object[param]
+    }
+    return community
+  }
+
+  createCommunity(community): Observable<Community>{
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/communities`, community, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
   logIn(person): Observable<Person>{

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'COMMUNITY.CREATE.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-grid>
+      <ion-row>
+        <ion-label>{{ 'COMMUNITY.FORM.NAME.LABEL' | translate }}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-input
+          type="text"
+          formControlName="name"
+          placeholder="{{ 'COMMUNITY.FORM.NAME.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-row>
+      <div *ngIf="hasValidationError('name')" class="alert alert-danger">
+        <p *ngIf="hasThisError('name', 'required')">
+          {{ 'COMMUNITY.FORM.NAME.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('name', 'maxlength')">
+          {{ 'COMMUNITY.FORM.NAME.ALERT.MAX_LENGTH' | translate }}
+        </p>
+      </div>
+
+      <ion-row>
+        <ion-label>{{ 'COMMUNITY.FORM.DESCRIPTION.LABEL' | translate }}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-input
+          type="text"
+          formControlName="description"
+          placeholder="{{ 'COMMUNITY.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-row>
+      <div *ngIf="hasValidationError('description')" class="alert alert-danger">
+        <p *ngIf="hasThisError('description', 'required')">
+          {{ 'COMMUNITY.FORM.DESCRIPTION.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('description', 'maxlength')">
+          {{ 'COMMUNITY.FORM.DESCRIPTION.ALERT.MAX_LENGTH' | translate }}
+        </p>
+      </div>
+    </ion-grid>
+
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50>
+          </ion-col>
+          <ion-col width-50>
+            <button ion-button type="submit" clear full>
+              {{ 'BUTTONS.SAVE' | translate }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+  </form>
+</ion-content>
