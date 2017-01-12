@@ -23,6 +23,11 @@ describe Huertask::API do
 
       header('Authorization', 'admin: true')
       header('User-Id', person.id)
+
+      p '---------------******************************'
+      p person.create_auth_token
+      p person.id
+
       header('Token', person.create_auth_token)
 
       post "/api/communities", data
