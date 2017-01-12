@@ -74,7 +74,7 @@ module Huertask
 
     def validate_auth_token(token)
       return false if !token
-      key =  ENV['AUTH_SECRET']
+      key =  ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj"
       timestamp = token.split(":").last
       token = token.split(":").first
       data = (self.id.to_s + "-" + timestamp)
