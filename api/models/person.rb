@@ -70,6 +70,7 @@ module Huertask
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
       self.token = hmac + ":#{timestamp}"
+      self.token
     end
 
     def validate_auth_token(token)
