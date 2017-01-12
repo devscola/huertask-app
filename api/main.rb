@@ -84,6 +84,22 @@ module Huertask
           error_400(community)
         end
       end
+
+      route_param :id do
+
+        resource :invite do
+          post '/' do
+            community = Community.first
+            community.invite_people(params)
+            if community.save
+              present community, with: Entities::Community
+            else
+              error_400(community)
+            end
+          end
+        end
+
+      end
     end
 
     resource :tasks do
