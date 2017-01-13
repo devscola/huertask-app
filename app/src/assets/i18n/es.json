@@ -121,6 +121,7 @@
   },
   "BUTTONS" : {
     "SAVE" : "Guardar",
+    "SEND" : "Enviar",
     "CANCEL" : "Cancelar",
     "EDIT" : "Editar",
     "DELETE" : "Eliminar"
@@ -181,6 +182,18 @@
       "DESCRIPTION" : {
         "LABEL" : "Dirección o ubicación",
         "PLACEHOLDER" : "¿Dónde está?"
+      }
+    }
+  },
+  "INVITATIONS" : {
+    "TITLE" : "Invitar hortelanos",
+    "FORM" : {
+      "SIMPLE_USERS" : {
+        "LABEL" : "Hortelanos",
+        "PLACEHOLDER" : "Introduce sus emails separados por comas"
+      },
+      "ADMIN_USERS" : {
+        "LABEL" : "Coordinadores"
       }
     }
   },
