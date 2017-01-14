@@ -17,6 +17,7 @@ require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
 require_relative './models/person_community_relation'
+require_relative './models/community_invitation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
@@ -92,6 +93,23 @@ module Huertask
             begin
               community = Community.find_by_id(params[:id])
               community.invite_people(params)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
+          end
+        end
+
+        resource :join do
+          post '/' do
+            begin
+              community = Community.find_by_id(params[:id])
+              person = Person.find_by_id(headers['User-Id'])
+              community.join(person)
               if community.save
                 present community, with: Entities::Community
               else
