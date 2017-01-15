@@ -3,7 +3,6 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 import { TranslateService } from 'ng2-translate';
 import { TaskService } from '../../providers/task.service';
 import { CategoryForm } from '../category-form/category-form';
-import { FavCategories } from '../fav-categories/fav-categories';
 
 @Component({
   selector: 'page-fav-categories-menu',

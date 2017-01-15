@@ -25,7 +25,6 @@ describe('Pages: Task Detail', () => {
     expect(title).toBe('Tarea numero 3');
 
     let nodeList = template.querySelectorAll('span.category');
-    let categories = Array.prototype.slice.call(nodeList);
 
     expect(nodeList.length).toBe(1)
     expect(nodeList[0].innerText).toBe('carpinteria')
