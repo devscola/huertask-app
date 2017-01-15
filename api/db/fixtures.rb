@@ -1,11 +1,13 @@
 class Fixtures
   def self.seed
     Huertask::PersonTaskRelation.all.destroy
+    Huertask::PersonCommunityRelation.all.destroy
     Huertask::CategoryTaskRelation.all.destroy
     Huertask::CategoryPersonRelation.all.destroy
     Huertask::Task.all.destroy
     Huertask::Category.all.destroy
     Huertask::Person.all.destroy
+    Huertask::Community.all.destroy
 
     categories = ["mantenimiento",
                   "riego",
@@ -18,6 +20,13 @@ class Fixtures
       Huertask::Category.create({
         name: categories[n-1],
         description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil
+      })
+    end
+
+    (1..2).each do |n|
+      person = Huertask::Community.create({
+        name: "Comunidad #{n}",
+        description: "Información sobre la comunidad #{n}"
       })
     end
 
@@ -51,6 +60,16 @@ class Fixtures
       })
       person.set_password('123456789')
       person.save
+    end
+
+    (1..20).each do |n|
+      Huertask::PersonCommunityRelation.create({
+        person_id: Huertask::Person[n-1].id,
+        community_id: Huertask::Community[n%2].id,
+        type: n<5 ?
+              Huertask::Community::ADMIN_USER_TYPE :
+              Huertask::Community::SIMPLE_USER_TYPE
+      })
     end
 
     (1..6).each do |n|

@@ -12,6 +12,7 @@ import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
 import { Welcome } from '../pages/welcome/welcome';
 import { CommunityForm } from '../pages/community-form/community-form';
+import { People } from '../pages/people/people';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -41,6 +42,7 @@ export class MyApp {
       { title: "LOGIN.TITLE", component: LogIn},
       { title: "REGISTER.TITLE", component: Register },
       { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+      { title: "PEOPLE.TITLE", component: People },
       { title: "WELCOME.TITLE", component: Welcome }
     ];
   }
