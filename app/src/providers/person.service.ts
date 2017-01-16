@@ -16,6 +16,14 @@ export class PersonService {
 
   constructor(public http: Http) { }
 
+  instanciatedPeople(json): Person[]{
+    let people = []
+    for(let object in json){
+      people.push(this.instanciatedPerson(json[object]))
+    }
+    return people
+  }
+
   instanciatedPerson(object): Person{
     let person = new Person();
     for(let param in object){
@@ -27,7 +35,11 @@ export class PersonService {
   instanciatedCommunity(object): Community{
     let community = new Community();
     for(let param in object){
-      community[param] = object[param]
+      if(param == 'joined'){
+        community[param] = this.instanciatedPeople(object[param])
+      }else{
+        community[param] = object[param]
+      }
     }
     return community
   }
