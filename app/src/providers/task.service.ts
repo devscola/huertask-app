@@ -90,7 +90,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Authorization', 'admin: ' + this.isAdmin);
 
-    return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`)
+    return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`, options)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
