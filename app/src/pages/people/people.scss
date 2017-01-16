@@ -1,0 +1,13 @@
+people {
+  ion-card {
+    color: #888888;
+    background-color: #fff !important;
+  }
+  .tabs{
+    text-align: center;
+    padding: 15px 0px;
+    .active{
+      color: red;
+    }
+  }
+}

@@ -87,6 +87,11 @@ module Huertask
 
       route_param :id do
 
+        get '/' do
+          community = Community.find_by_id(params[:id])
+          present community, with: Entities::Community
+        end
+
         resource :invite do
           post '/' do
             begin

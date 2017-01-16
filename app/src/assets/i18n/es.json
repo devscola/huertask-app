@@ -257,5 +257,13 @@
       "LOGIN" : "Entra a tu cuenta",
       "REGISTER" : "Regístrate"
     }
+  },
+  "PEOPLE" : {
+    "TITLE" : "Gente",
+    "JOINED" : "Unidos",
+    "INVITED" : "Invitados"
+  },
+  "PERSON" : {
+    "ADMIN" : "Coordinador"
   }
 }
