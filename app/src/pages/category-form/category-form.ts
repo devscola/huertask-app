@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Category } from '../../models/category';
 import { TaskService } from '../../providers/task.service';

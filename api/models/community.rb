@@ -31,6 +31,14 @@ module Huertask
       end
     end
 
+    def joined
+      people_relations.all(:order => [ :type.desc ])
+    end
+
+    def invited
+      []
+    end
+
     def invite_people(params)
       params[:simple_users].each do |email|
         invite_person(email, SIMPLE_USER_TYPE)

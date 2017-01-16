@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToInvitePerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-button>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid class="tabs">
+    <ion-row>
+      <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <ion-card *ngFor="let person of list">
+    <ion-card-header>
+      {{person.email}}
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <span *ngIf="person.type == 2">
+            {{ 'PERSON.ADMIN' | translate }}
+          </span>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

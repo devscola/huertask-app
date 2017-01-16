@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'INVITATION.FORM.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-grid>
+      <ion-item>
+        <ion-label>{{ 'INVITATION.FORM.EMAIL.LABEL' | translate }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          type="text"
+          formControlName="email"
+          placeholder="{{ 'INVITATION.FORM.EMAIL.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('email')" class="alert alert-danger">
+        <p *ngIf="hasThisError('email', 'required')">
+          {{ 'INVITATION.FORM.EMAIL.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('email', 'pattern')">
+          {{ 'INVITATION.FORM.EMAIL.ALERT.PATTERN' | translate }}
+        </p>
+      </div>
+
+      <ion-row>
+        <ion-item class="item-checkbox-right">
+          <ion-label>
+            {{ 'INVITATION.FORM.ADMIN.LABEL' | translate }}
+          </ion-label>
+          <ion-checkbox formControlName="admin"></ion-checkbox>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button type="submit" color="dark" clear fullç
+        (click)="submit()">
+          {{ 'BUTTONS.SUBMIT' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

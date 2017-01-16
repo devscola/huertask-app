@@ -124,7 +124,8 @@
     "SEND" : "Enviar",
     "CANCEL" : "Cancelar",
     "EDIT" : "Editar",
-    "DELETE" : "Eliminar"
+    "DELETE" : "Eliminar",
+    "SUBMIT" : "Enviar"
   },
   "CATEGORIES" : {
     "FAV" : {
@@ -197,6 +198,23 @@
       }
     }
   },
+  "INVITATION": {
+    "FORM" : {
+      "TITLE" : "Añadir Hortelano/Coordinador",
+      "EMAIL" : {
+        "LABEL" : "Email",
+        "PLACEHOLDER" : "",
+        "REQUIRED" : "Introduce un email",
+        "ALERT" : {
+          "REQUIRED" : "Debe indicar una dirección de email",
+          "PATTERN" : "Debe introducir un email válido"
+        }
+      },
+      "ADMIN" : {
+        "LABEL" : "Coordinador"
+      }
+    }
+  },
   "REGISTER" : {
     "TITLE" : "Registro",
     "HEADING" : "Conviértete en un agrourbanita techie",
@@ -252,5 +270,13 @@
       "LOGIN" : "Entra a tu cuenta",
       "REGISTER" : "Regístrate"
     }
+  },
+  "PEOPLE" : {
+    "TITLE" : "Gente",
+    "JOINED" : "Unidos",
+    "INVITED" : "Invitados"
+  },
+  "PERSON" : {
+    "ADMIN" : "Coordinador"
   }
 }

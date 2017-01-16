@@ -50,6 +50,11 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
+  getCommunity(community_id): Observable<Community> {
+    return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
+      .map(res => <Community>this.instanciatedCommunity(res.json()));
+  }
+
   logIn(person): Observable<Person>{
     this.logged = true
     let headers    = new Headers({ 'Content-Type': 'application/json' });
