@@ -17,6 +17,7 @@ require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
 require_relative './models/person_community_relation'
+require_relative './models/community_invitation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
@@ -105,6 +106,18 @@ module Huertask
             rescue Community::CommunityNotFound => e
               error! e.message, 404
             end
+          end
+        end
+
+        resource :join do
+          post '/' do
+            joining(:join)
+          end
+        end
+
+        resource :unjoin do
+          post '/' do
+            joining(:unjoin)
           end
         end
 
@@ -235,6 +248,23 @@ module Huertask
             error_400(relation)
           end
         rescue Task::TaskNotFound => e
+          error! e.message, 404
+        rescue Person::PersonNotFound => e
+          error! e.message, 404
+        end
+      end
+
+      def joining(method)
+        begin
+          community = Community.find_by_id(params[:id])
+          person = Person.find_by_id(headers['User-Id'])
+          community.send(method, person)
+          if community.save
+            present community, with: Entities::Community
+          else
+            error_400(community)
+          end
+        rescue Community::CommunityNotFound => e
           error! e.message, 404
         rescue Person::PersonNotFound => e
           error! e.message, 404

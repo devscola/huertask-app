@@ -3,6 +3,7 @@ require 'dm-validations'
 module Huertask
   class Community
 
+    UNJOINED_USER_TYPE = -1
     INVITATED_USER_TYPE = 0
     SIMPLE_USER_TYPE = 1
     ADMIN_USER_TYPE = 2
@@ -22,6 +23,7 @@ module Huertask
     validates_presence_of :name
 
     has n, :people_relations, 'PersonCommunityRelation'
+    has n, :people_invitations, 'CommunityInvitation'
 
     class << self
       def find_by_id(id)
@@ -49,11 +51,37 @@ module Huertask
     end
 
     def invite_person(email, type)
-      if person = Person.first(email: email)
-        self.create_or_update_relation(person, type)
+      self.create_or_update_invitation(email, type)
+      Mailer.send_invitation(email)
+    end
+
+    def create_or_update_invitation(email, type)
+      invitation = CommunityInvitation.first(:community_id => self.id, :email => email)
+      if invitation
+        invitation.type = type
       else
-        p "no existe esta persona #{email}"
+        invitation = CommunityInvitation.new({
+          community_id: self.id,
+          email: email,
+          type: type
+        })
       end
+      if invitation.save
+        invitation
+      else
+        error_400(invitation)
+      end
+    end
+
+    def join(person)
+      if invitation = CommunityInvitation.first(:email => person.email)
+        self.create_or_update_relation(person, invitation.type)
+        invitation.destroy
+      end
+    end
+
+    def unjoin(person)
+        self.create_or_update_relation(person, UNJOINED_USER_TYPE)
     end
 
     def create_or_update_relation(person, type)
@@ -73,5 +101,6 @@ module Huertask
         error_400(relation)
       end
     end
+
   end
 end
