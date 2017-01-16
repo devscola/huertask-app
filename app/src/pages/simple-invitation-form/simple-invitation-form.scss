@@ -1,0 +1,19 @@
+page-simple-invitation-form {
+  ion-row {
+    padding: 0 15px;
+  }
+  ion-input {
+    background-color: white;
+  }
+  ion-item.item.item-block {
+    padding-left: 0px;
+    .item-inner{
+      border-width: 0px;
+    }
+  }
+  ion-footer{
+    button{
+      width: 100%;
+    }
+  }
+}
