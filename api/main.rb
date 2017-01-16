@@ -121,6 +121,23 @@ module Huertask
           end
         end
 
+        resource :unjoin do
+          post '/' do
+            begin
+              community = Community.find_by_id(params[:id])
+              person = Person.find_by_id(headers['User-Id'])
+              community.unjoin(person)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
+          end
+        end
+
       end
     end
 

@@ -3,6 +3,7 @@ require 'dm-validations'
 module Huertask
   class Community
 
+    UNJOINED_USER_TYPE = -1
     INVITATED_USER_TYPE = 0
     SIMPLE_USER_TYPE = 1
     ADMIN_USER_TYPE = 2
@@ -69,6 +70,10 @@ module Huertask
         self.create_or_update_relation(person, invitation.type)
         invitation.destroy
       end
+    end
+
+    def unjoin(person)
+        self.create_or_update_relation(person, UNJOINED_USER_TYPE)
     end
 
     def create_or_update_relation(person, type)
