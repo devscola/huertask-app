@@ -64,18 +64,24 @@ module Huertask
       end
     end
 
+    def community_id
+      relation = self.community_relations.first(person_id: self.id)
+      return 0 unless relation
+      relation.community_id
+    end
+
     def create_auth_token
       key =  (ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj")
       timestamp = Time.now.to_i.to_s
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
-      self.token = hmac + ":#{timestamp}"
+      self.token = hmac + ":#{timestamp}:#{self.community_id}"
     end
 
     def validate_auth_token(token)
       return false if !token
       key =  ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj"
-      timestamp = token.split(":").last
+      timestamp = token.split(":")[1]
       token = token.split(":").first
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)

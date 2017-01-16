@@ -12,6 +12,7 @@ export class PersonService {
 
   logged;
   person;
+  communityId;
 
   constructor(public http: Http) { }
 
@@ -40,11 +41,19 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
+  invitePeople(invitations){
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/invite`, invitations, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
   getCommunity(community_id): Observable<Community> {
     return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
       .map(res => <Community>this.instanciatedCommunity(res.json()));
   }
-
 
   logIn(person): Observable<Person>{
     this.logged = true

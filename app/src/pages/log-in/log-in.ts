@@ -34,6 +34,7 @@ export class LogIn {
 
     this.personService.logIn(person).subscribe(person => {
       this.personService.person = person
+      this.personService.communityId = person['token'].split(':')[2]
       this.presentToast(("Hola " + person.name), "success")
       this.navCtrl.setRoot(Tasks)
     }, err => {

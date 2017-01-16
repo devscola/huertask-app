@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'INVITATIONS.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-grid>
+      <ion-row>
+        <ion-label>{{ 'INVITATIONS.FORM.SIMPLE_USERS.LABEL' | translate }}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-input
+          type="text"
+          formControlName="simple_users"
+          placeholder="{{ 'INVITATIONS.FORM.SIMPLE_USERS.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label>{{ 'INVITATIONS.FORM.ADMIN_USERS.LABEL' | translate }}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-input
+          type="text"
+          formControlName="admin_users"
+          placeholder="{{ 'INVITATIONS.FORM.SIMPLE_USERS.PLACEHOLDER' | translate }}">
+        </ion-input>
+      </ion-row>
+    </ion-grid>
+
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50>
+          </ion-col>
+          <ion-col width-50>
+            <button ion-button type="submit" clear full>
+              {{ 'BUTTONS.SEND' | translate }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+  </form>
+</ion-content>

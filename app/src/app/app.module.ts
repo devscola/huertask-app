@@ -6,6 +6,7 @@ import { LogIn } from '../pages/log-in/log-in';
 import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
 import { CommunityForm } from '../pages/community-form/community-form';
+import { InvitationForm } from '../pages/invitation-form/invitation-form';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { Tasks } from '../pages/tasks/tasks';
@@ -39,6 +40,7 @@ export function createTranslateLoader(http: Http) {
     LogIn,
     TermsAndConditions,
     CommunityForm,
+    InvitationForm,
     People,
     SimpleInvitationForm,
     CreateTask,
@@ -71,6 +73,7 @@ export function createTranslateLoader(http: Http) {
     LogIn,
     TermsAndConditions,
     CommunityForm,
+    InvitationForm,
     People,
     SimpleInvitationForm,
     CreateTask,
