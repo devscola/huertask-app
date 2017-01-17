@@ -2,7 +2,7 @@ module Huertask
   class Person
 
     DIGEST = OpenSSL::Digest.new('sha1')
-
+    ADMIN_USER_TYPE = 2
 
     class PersonNotFound < StandardError
       def initialize(id)
@@ -62,6 +62,12 @@ module Huertask
       def encrypt(pass, salt)
         Digest::SHA1.hexdigest(pass + salt)
       end
+    end
+
+    def is_admin?
+      relation = self.community_relations.first(person_id: self.id)
+      return true if relation.type == ADMIN_USER_TYPE
+      false
     end
 
     def community_id
