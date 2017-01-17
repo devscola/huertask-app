@@ -117,7 +117,7 @@ module Huertask
             joining(:join)
           end
 
-          post '/' do
+          delete '/' do
             joining(:unjoin)
           end
         end

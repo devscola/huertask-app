@@ -44,7 +44,7 @@ export class MyApp {
       { title: "LOGIN.TITLE", component: LogIn},
       { title: "REGISTER.TITLE", component: Register },
       { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
-      { title: "COMMUNITY.INVITATIONS.TITLE", component: InvitationForm },
+      { title: "INVITATIONS.TITLE", component: InvitationForm },
       { title: "PEOPLE.TITLE", component: People },
       { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
       { title: "WELCOME.TITLE", component: Welcome }

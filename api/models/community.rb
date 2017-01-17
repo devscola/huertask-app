@@ -38,7 +38,7 @@ module Huertask
     end
 
     def invited
-      []
+      people_invitations.all
     end
 
     def invite_people(params)
