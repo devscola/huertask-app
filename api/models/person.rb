@@ -54,6 +54,12 @@ module Huertask
         person
       end
 
+      def find_by_token(token)
+        return false if !token
+        id = token.split(":").last
+        find_by_id(id)
+      end
+
       def get_skipped_categories(user_id)
         return [] if user_id.nil?
         Person.find_by_id(user_id).dislike_categories.map { |cat| cat.id  }
@@ -81,7 +87,7 @@ module Huertask
       timestamp = Time.now.to_i.to_s
       data = (self.id.to_s + "-" + timestamp)
       hmac = OpenSSL::HMAC.hexdigest(DIGEST, key, data)
-      self.token = hmac + ":#{timestamp}:#{self.community_id}"
+      self.token = hmac + ":#{timestamp}:#{self.community_id}:#{self.id}"
     end
 
     def validate_auth_token(token)
