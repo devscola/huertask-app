@@ -62,14 +62,6 @@ module Huertask
         task
       end
 
-      def future_tasks(skip_categories)
-        all(:active => true, :from_date.gte => Time.now, :categories => {:id.not => skip_categories }, :order => [ :from_date.asc ])
-      end
-
-      def past_tasks(skip_categories)
-        all(:active => true, :from_date.lt => Time.now, :categories => {:id.not => skip_categories }, :order => [ :from_date.desc ])
-      end
-
       private
 
       def find_active(id)
