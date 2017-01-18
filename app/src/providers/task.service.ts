@@ -26,7 +26,11 @@ export class TaskService {
   instanciatedTask(object): Task{
     let task = new Task();
     for(let param in object){
-      task[param] = object[param]
+      if(param == 'people_going' || param == 'people_not_going' ){
+        task[param] = this.personService.instanciatedPeople(object[param])
+      }else{
+        task[param] = object[param]
+      }
     }
     return task
   }

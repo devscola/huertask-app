@@ -23,18 +23,25 @@
 
   </ion-grid>
   <ion-card *ngFor="let person of list">
-    <ion-card-header>
-      {{person.email}}
-    </ion-card-header>
+  <ion-row>
+    <ion-col>
+      <img src="{{person.getGravatar()}}" alt="{{person.email}}">
+    </ion-col>
+    <ion-col>
+      <ion-card-header>
+        {{person.email}}
+      </ion-card-header>
 
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <span *ngIf="person.type == 2">
-            {{ 'PERSON.ADMIN' | translate }}
-          </span>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <span *ngIf="person.type == 2">
+              {{ 'PERSON.ADMIN' | translate }}
+            </span>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-col>
+    </ion-row>
   </ion-card>
 </ion-content>

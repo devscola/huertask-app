@@ -55,7 +55,7 @@
     <span>{{'TASK.PEOPLE.GOING' | translate}}</span>
     <ion-row class="people-going">
       <ion-col>
-        <img *ngFor="let person of task.people_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
+        <img *ngFor="let person of task.people_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
       </ion-col>
       <span *ngIf="task.people_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
          <span class="more">+{{task.people_going.length - 4}}</span>
@@ -65,7 +65,7 @@
     <span>{{'TASK.PEOPLE.NOT_GOING' | translate}}</span>
     <ion-row class="people-going">
       <ion-col>
-        <img *ngFor="let person of task.people_not_going" src="http://lorempixel.com/100/100/sports/{{person.id}}" alt="{{person.name}}">
+        <img *ngFor="let person of task.people_not_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
       </ion-col>
       <span *ngIf="task.people_not_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
          <span class="more">+{{task.people_not_going.length - 4}}</span>
