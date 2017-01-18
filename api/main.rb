@@ -96,6 +96,7 @@ module Huertask
         resource :invite do
           post '/' do
             begin
+              admin_required
               community = Community.find_by_id(params[:id])
               community.invite_people(params)
               if community.save
@@ -103,6 +104,8 @@ module Huertask
               else
                 error_400(community)
               end
+            rescue Person::PersonNotFound => e
+              error! e.message, 404
             rescue Community::CommunityNotFound => e
               error! e.message, 404
             end
@@ -113,10 +116,8 @@ module Huertask
           post '/' do
             joining(:join)
           end
-        end
 
-        resource :unjoin do
-          post '/' do
+          delete '/' do
             joining(:unjoin)
           end
         end
@@ -218,13 +219,16 @@ module Huertask
         error! model.errors.to_hash, 400
       end
 
+      def current_user
+        Person.find_by_id(headers["User-Id"]) if headers["User-Id"]
+      end
+
       def login_required
-        person = Person.find_by_id(headers["User-Id"]) if headers["User-Id"]
-        return error!('Unauthorized', 401) unless person && person.validate_auth_token(headers["Token"])
+        return error!('Unauthorized', 401) unless current_user && current_user.validate_auth_token(headers["Token"])
       end
 
       def admin_required
-        return error!('Unauthorized', 401) unless headers['Authorization'] == 'admin: true'
+        return error!('Unauthorized', 401) unless current_user && current_user.is_admin?
       end
 
       def action(is_going)

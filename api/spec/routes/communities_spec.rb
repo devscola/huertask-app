@@ -12,6 +12,8 @@ describe Huertask::API do
     Fixtures.seed
   end
 
+  let(:current_user){ Huertask::Person.first }
+
   describe "POST /api/communities" do
     subject(:response) { JSON.parse(last_response.body) }
 
@@ -19,11 +21,8 @@ describe Huertask::API do
       data = { name: "",
                description: "" }
 
-      person = Huertask::Person.first
-
-      header('Authorization', 'admin: true')
-      header('User-Id', person.id)
-      header('Token', person.create_auth_token)
+      header('User-Id', current_user.id)
+      header('Token', current_user.create_auth_token)
 
       post "/api/communities", data
 
@@ -35,11 +34,8 @@ describe Huertask::API do
       data = {  name: "Nuestro huerto",
                 description: "" }
 
-      person = Huertask::Person.first
-
-      header('Authorization', 'admin: true')
-      header('User-Id', person.id)
-      header('Token', person.create_auth_token)
+      header('User-Id', current_user.id)
+      header('Token', current_user.create_auth_token)
 
       post "/api/communities", data
 
@@ -50,7 +46,6 @@ describe Huertask::API do
       data = {  name: "Nuestro huerto",
                 description: "" }
 
-      header('Authorization', 'admin: false')
       post "/api/communities", data
 
       expect(last_response).to be_unauthorized
@@ -62,16 +57,10 @@ describe Huertask::API do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returs error when community is invalid" do
-      data = {
-        "simple_users" => ["person1@devscola.org", "person2@devscola.org"],
-        "admin_users" => ["person3@devscola.org"]
-      }
+      data = { }
 
-      person = Huertask::Person.first
-
-      header('Authorization', 'admin: true')
-      header('User-Id', person.id)
-      header('Token', person.create_auth_token)
+      header('User-Id', current_user.id)
+      header('Token', current_user.create_auth_token)
 
       post "/api/communities/0/invite", data
 
@@ -79,46 +68,23 @@ describe Huertask::API do
       expect(response['error']).to eq "The community 0 was not found"
     end
 
-    it "returs community when is valid" do
+    it "invite persons in community when both are valid", :focus => true do
       data = {
         "simple_users" => ["person1@devscola.org", "person2@devscola.org"],
         "admin_users" => ["person3@devscola.org"]
       }
 
-      person = Huertask::Person.first
       community = Huertask::Community.first
 
-      header('Authorization', 'admin: true')
-      header('User-Id', person.id)
-      header('Token', person.create_auth_token)
+      header('User-Id', current_user.id)
+      header('Token', current_user.create_auth_token)
 
       post "/api/communities/#{community.id}/invite", data
 
       community = Huertask::Community.first
 
       expect(last_response).to be_created
-      expect(community.people_relations.size).to be 3
-    end
-
-    it "join person in community when both are valid", :focus => true do
-      data = {
-        "simple_users" => ["person1@devscola.org", "person2@devscola.org", "fake@mail.fake"],
-        "admin_users" => ["person3@devscola.org"]
-      }
-
-      person = Huertask::Person.first
-      community = Huertask::Community.first
-
-      header('Authorization', 'admin: true')
-      header('User-Id', person.id)
-      header('Token', person.create_auth_token)
-
-      post "/api/communities/#{community.id}/invite", data
-
-      community = Huertask::Community.first
-
-      expect(last_response).to be_created
-      expect(community.people_relations.size).to be 3
+      expect(community.people_invitations.size).to be 3
     end
   end
 end
