@@ -1,4 +1,5 @@
 require 'dm-validations'
+require_relative './task'
 
 module Huertask
   class Community
@@ -24,6 +25,8 @@ module Huertask
 
     has n, :people_relations, 'PersonCommunityRelation'
     has n, :people_invitations, 'CommunityInvitation'
+    has n, :tasks_relations, 'TaskCommunityRelation'
+    has n, :tasks, :through => :tasks_relations, :via => :task
 
     class << self
       def find_by_id(id)
