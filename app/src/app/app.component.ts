@@ -12,6 +12,7 @@ import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
 import { Welcome } from '../pages/welcome/welcome';
 import { CommunityForm } from '../pages/community-form/community-form';
+import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';

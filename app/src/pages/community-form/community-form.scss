@@ -1,3 +1,9 @@
 page-community-form {
 
 }
+
+ion-popover.full {
+  ion-backdrop {
+    opacity: .8;
+  }
+}
