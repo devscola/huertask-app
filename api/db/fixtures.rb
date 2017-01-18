@@ -2,6 +2,7 @@ class Fixtures
   def self.seed
     Huertask::PersonTaskRelation.all.destroy
     Huertask::PersonCommunityRelation.all.destroy
+    Huertask::CommunityInvitation.all.destroy
     Huertask::CategoryTaskRelation.all.destroy
     Huertask::CategoryPersonRelation.all.destroy
     Huertask::Task.all.destroy

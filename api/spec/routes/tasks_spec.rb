@@ -12,6 +12,7 @@ describe Huertask::API do
     Fixtures.seed
   end
 
+  let(:current_user) { Huertask::Person.first }
   let(:request_time) { Time.now.utc }
 
   describe "GET /api/tasks" do
@@ -62,7 +63,7 @@ describe Huertask::API do
                from_date: Time.now,
                to_date: (Time.now - 60*60) }
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       post "/api/tasks", data
 
       expect(last_response).to be_bad_request
@@ -76,7 +77,7 @@ describe Huertask::API do
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       post "/api/tasks", data
 
       expect(last_response).to be_created
@@ -105,7 +106,7 @@ describe Huertask::API do
     it "returs error when task is invalid" do
       body = { title: "" }
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_bad_request
@@ -116,7 +117,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas",
                ignored_param: "Este paremetro se ignorará" }
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_ok
@@ -125,7 +126,7 @@ describe Huertask::API do
     it "returns 404 error if dont find task with invalid id" do
       body = { title: "Limpiar lechugas" }
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       put "/api/tasks/0", body
 
       expect(last_response).to be_not_found
@@ -152,7 +153,7 @@ describe Huertask::API do
       active_status = task.active
       expect(active_status).to be true
 
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       delete "/api/tasks/#{task.id}"
       task = Huertask::Task.first
       active_status = task.active
@@ -163,7 +164,7 @@ describe Huertask::API do
     end
 
     it "returns 404 error if dont find task with invalid id" do
-      header('Authorization', 'admin: true')
+      header('User-Id', current_user.id)
       delete "/api/tasks/0"
 
       expect(last_response).to be_not_found
