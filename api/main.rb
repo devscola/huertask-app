@@ -124,93 +124,96 @@ module Huertask
           end
         end
 
-      end
-    end
+        resource :tasks do
 
-    resource :tasks do
+          get "/" do
+            community = Community.find_by_id(params[:id])
+            skip_categories = Person.get_skipped_categories(params[:user_id])
 
-      get "/" do
-        skip_categories = Person.get_skipped_categories(params[:user_id])
+            return present community.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
+            present community.future_tasks(skip_categories), with: Entities::Task
+          end
 
-        return present Task.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
-        present Task.future_tasks(skip_categories), with: Entities::Task
-      end
+          params do
+            optional :title,           type: String
+            optional :categories,      type: Array
+            optional :from_date,       type: DateTime
+            optional :to_date,         type: DateTime
+            optional :required_people, type: Integer
+            optional :note,            type: String
+          end
 
-      params do
-        optional :title,           type: String
-        optional :categories,      type: Array
-        optional :from_date,       type: DateTime
-        optional :to_date,         type: DateTime
-        optional :required_people, type: Integer
-        optional :note,            type: String
-      end
+          post '/' do
+            admin_required
 
-      post '/' do
-        admin_required
-
-        task = Task.new filter(params)
-        if task.save
-          present task, with: Entities::Task
-        else
-          error_400(task)
-        end
-      end
-
-      route_param :id do
-
-        params do
-          optional :title,           type: String
-          optional :categories,      type: Array
-          optional :from_date,       type: DateTime
-          optional :to_date,         type: DateTime
-          optional :required_people, type: Integer
-          optional :note,            type: String
-          optional :status,          type: Integer
-        end
-
-        put '/' do
-          admin_required
-
-          begin
-            task = Task.find_by_id(params[:id])
-            task.update_fields(filter(params, false))
+            task = Task.new filter(params)
             if task.save
               present task, with: Entities::Task
             else
               error_400(task)
             end
-          rescue Task::TaskNotFound => e
-            error! e.message, 404
           end
-        end
 
-        delete '/' do
-          admin_required
+          route_param :task_id do
 
-          begin
-            task = Task.find_by_id(params[:id])
-            if task.delete
-              {}
-            else
-              error! task.errors.to_hash, 400
+            params do
+              optional :title,           type: String
+              optional :categories,      type: Array
+              optional :from_date,       type: DateTime
+              optional :to_date,         type: DateTime
+              optional :required_people, type: Integer
+              optional :note,            type: String
+              optional :status,          type: Integer
             end
-          rescue Task::TaskNotFound => e
-            error! e.message, 404
-          end
-        end
 
-        resource :going do
-          put '/' do
-            going(:yes)
-          end
-        end
+            put '/' do
+              admin_required
 
-        resource :notgoing do
-          put '/' do
-            going(:no)
+              begin
+                task = Task.find_by_id(params[:task_id])
+                task.update_fields(filter(params, false))
+                if task.save
+                  present task, with: Entities::Task
+                else
+                  error_400(task)
+                end
+              rescue Task::TaskNotFound => e
+                error! e.message, 404
+              end
+            end
+
+            delete '/' do
+              admin_required
+
+              begin
+                task = Task.find_by_id(params[:task_id])
+                if task.delete
+                  {}
+                else
+                  error! task.errors.to_hash, 400
+                end
+              rescue Task::TaskNotFound => e
+                error! e.message, 404
+              end
+            end
+
+            resource :going do
+              put '/' do
+                going(:yes)
+              end
+            end
+
+            resource :notgoing do
+              put '/' do
+                going(:no)
+              end
+            end
           end
         end
       end
+
+
+
     end
 
     helpers do

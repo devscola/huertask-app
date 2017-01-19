@@ -115,6 +115,48 @@ class Fixtures
       community.save
     end
 
+    community = Huertask::Community.last
+
+    (1..6).each do |n|
+      task = Huertask::Task.create({
+        title: "Tarea numero #{n}",
+        from_date: (Time.now + 30*24*60*60),
+        to_date: (Time.now + 30*24*60*60 + 3*60*60),
+        required_people: n,
+        categories: [Huertask::Category[(n%categories.size)-1]],
+        note: "Esta es la nota de la tarea número #{n}",
+        community_id: community.id
+      })
+      community.tasks << task
+      community.save
+    end
+
+    (7..9).each do |n|
+      task = Huertask::Task.create({
+        title: "Tarea numero #{n}",
+        from_date: (Time.now - 2*60*60),
+        to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
+        required_people: n,
+        categories: [Huertask::Category[(n%categories.size)-1]],
+        community_id: community.id
+      })
+      community.tasks << task
+      community.save
+    end
+
+    (10..15).each do |n|
+      task = Huertask::Task.create({
+        title: "Tarea numero #{n}",
+        from_date: (Time.now - 2*60*60),
+        to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
+        required_people: n,
+        categories: [Huertask::Category[(n%categories.size)-1]],
+        community_id: community.id
+      })
+      community.tasks << task
+      community.save
+    end
+
     (1..7).each do |n|
       Huertask::PersonTaskRelation.create({
         task_id: Huertask::Task[n-1].id,
