@@ -77,7 +77,6 @@ module Huertask
       end
 
       post '/' do
-        p current_user
         login_required
         community = Community.new filter(params)
         community.people_relations.new(type: 1, person_id: current_user.id, community_id: community.id)
@@ -245,7 +244,7 @@ module Huertask
         begin
           method = action(is_going)
 
-          task = Task.find_by_id(params[:id])
+          task = Task.find_by_id(params[:task_id])
 
           person = Person.find_by_id(params[:person_id])
 
