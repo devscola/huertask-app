@@ -31,6 +31,8 @@ class Fixtures
       })
     end
 
+    community = Huertask::Community.first
+
     person = Huertask::Person.new({
       name: "miguelonga",
       email: "miguelmundiaragones@gmail.com",
@@ -74,34 +76,43 @@ class Fixtures
     end
 
     (1..6).each do |n|
-      Huertask::Task.create({
+      task = Huertask::Task.create({
         title: "Tarea numero #{n}",
         from_date: (Time.now + 30*24*60*60),
         to_date: (Time.now + 30*24*60*60 + 3*60*60),
         required_people: n,
         categories: [Huertask::Category[(n%categories.size)-1]],
         note: "Esta es la nota de la tarea número #{n}",
+        community_id: community.id
       })
+      community.tasks << task
+      community.save
     end
 
     (7..9).each do |n|
-      Huertask::Task.create({
+      task = Huertask::Task.create({
         title: "Tarea numero #{n}",
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]]
+        categories: [Huertask::Category[(n%categories.size)-1]],
+        community_id: community.id
       })
+      community.tasks << task
+      community.save
     end
 
     (10..15).each do |n|
-      Huertask::Task.create({
+      task = Huertask::Task.create({
         title: "Tarea numero #{n}",
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]]
+        categories: [Huertask::Category[(n%categories.size)-1]],
+        community_id: community.id
       })
+      community.tasks << task
+      community.save
     end
 
     (1..7).each do |n|
@@ -129,9 +140,5 @@ class Fixtures
         type: 0
       })
     end
-
-    Huertask::Community.create({
-      name: "Huerto urbano"
-    })
   end
 end

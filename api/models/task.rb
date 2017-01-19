@@ -1,4 +1,5 @@
 require 'dm-validations'
+require_relative './community'
 
 module Huertask
   class Task
@@ -19,6 +20,8 @@ module Huertask
     property :note,              Text
     property :active,            Boolean, :default  => true
     property :status,            Integer, :default  => 0
+
+    belongs_to :community
 
     has n, :people_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryTaskRelation'
