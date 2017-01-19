@@ -184,7 +184,9 @@
         "LABEL" : "Dirección o ubicación",
         "PLACEHOLDER" : "¿Dónde está?"
       }
-    }
+    },
+    "CREATED" : "Enhorabuena, eres coordinador del huerto. Ahora añade a otros coordinadores y hortelanos",
+    "INVITE" : "Invitar hortelanos"
   },
   "INVITATIONS" : {
     "TITLE" : "Invitar hortelanos",

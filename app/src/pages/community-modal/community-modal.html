@@ -1,0 +1,11 @@
+<button (click)="goToTasks()" ion-button color="light" clear>
+  <ion-icon name="close"></ion-icon>
+</button>
+
+<ion-content padding>
+  <p>{{ 'COMMUNITY.CREATED' | translate }}</p>
+
+  <button (click)="goToInvitationForm()" ion-button color="light" round outline>
+    {{ 'COMMUNITY.INVITE' | translate }}
+  </button>
+</ion-content>

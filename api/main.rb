@@ -76,9 +76,10 @@ module Huertask
       end
 
       post '/' do
+        p current_user
         login_required
         community = Community.new filter(params)
-        community.people_relations.new(type: 1, person_id: headers["User-Id"], community_id: community.id)
+        community.people_relations.new(type: 1, person_id: current_user.id, community_id: community.id)
         if community.save
           present community, with: Entities::Community
         else
@@ -220,7 +221,7 @@ module Huertask
       end
 
       def current_user
-        Person.find_by_id(headers["User-Id"]) if headers["User-Id"]
+        Person.find_by_token(headers["Token"]) if headers["Token"]
       end
 
       def login_required

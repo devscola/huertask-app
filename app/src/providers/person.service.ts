@@ -45,7 +45,10 @@ export class PersonService {
   }
 
   createCommunity(community): Observable<Community>{
+    let token = this.getToken();
+
     let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.post(`${this.huertaskApiUrl}/communities`, community, options)
@@ -130,6 +133,11 @@ export class PersonService {
                     .map((res:Response) => <Person>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
+
+  getToken(){
+    return this.person ? this.person['token'] : "";
+  }
+
 }
 
 @Injectable()

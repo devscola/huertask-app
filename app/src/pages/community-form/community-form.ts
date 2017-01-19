@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, PopoverController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Community } from '../../models/community';
 import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
+import { CommunityModal } from '../community-modal/community-modal';
 
 @Component({
   selector: 'page-community-form',
@@ -17,6 +18,7 @@ export class CommunityForm {
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     public personService: PersonService,
+    public popoverCtrl: PopoverController,
     public toastCtrl: ToastController
   ) {
     this.form = this.generateForm(new Community());
@@ -45,10 +47,15 @@ export class CommunityForm {
     let community = this.form.value;
     community = this.personService.instanciatedCommunity(community)
       this.personService.createCommunity(community).subscribe( data => {
-        this.navCtrl.setRoot(Tasks);
+        this.presentPopover();
       },
       err => this.presentToast('Ha habido un error', 'danger')
     )
+  }
+
+  presentPopover() {
+    let popover = this.popoverCtrl.create(CommunityModal, {}, {cssClass: 'full', enableBackdropDismiss: false});
+    popover.present();
   }
 
   presentToast(message: string, cssClass: string = '') {

@@ -1,0 +1,21 @@
+community-modal {
+}
+
+ion-popover.full {
+  .popover-content {
+    background-color: #304B8B;
+    color: white;
+    width: 90%;
+    ion-content{
+      text-align: center;
+      background-color: inherit;
+      color: inherit;
+      ion-navbar{
+        text-align: left;
+      }
+      .scroll-content{
+        overflow: auto;
+      }
+    }
+  }
+}
