@@ -44,13 +44,19 @@ export class TaskService {
   }
 
   getTasks(user_id = null, filter = null): Observable<Task[]> {
-    let token = this.personService.getToken();
+    let token = ""
+    let communityId = 0
+    if(this.personService.person != null){
+      token = this.personService.person['token']
+      user_id = this.personService.person['id']
+      communityId = this.personService.communityId
+    }
     let params = this.getTasksUrlParams(user_id, filter)
 
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Token', token);
     let options    = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.huertaskApiUrl}/tasks/${params}`, options)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${communityId}/tasks/${params}`, options)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
@@ -66,21 +72,21 @@ export class TaskService {
   createTask(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    headers.append('Token', this.personService.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/tasks/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
   editTask(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
-    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    headers.append('Token', this.personService.person['token']);
 
     let options    = new RequestOptions({ headers: headers });
     let id         = body['id']
 
-    return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${id}`, body, options)
                     .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -88,9 +94,9 @@ export class TaskService {
   deleteTask(task_id): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    headers.append('Token', this.personService.person['token']);
 
-    return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`, options)
+    return this.http.delete(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}`, options)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -99,8 +105,9 @@ export class TaskService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     let body       = {'person_id': person_id};
+    headers.append('Token', this.personService.person['token']);
 
-    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/going/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}/going/`, body, options)
       .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -109,8 +116,9 @@ export class TaskService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     let body       = {'person_id': person_id};
+    headers.append('Token', this.personService.person['token']);
 
-    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/notgoing/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}/notgoing/`, body, options)
       .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -139,7 +147,7 @@ export class TaskService {
   createCategory(body: Object): Observable<Task> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
-    headers.append('Authorization', 'admin: ' + this.isAdmin);
+    headers.append('Token', this.personService.person['token']);
 
     return this.http.post(`${this.huertaskApiUrl}/categories/`, body, options)
                     .map((res:Response) => <Category>res.json())
@@ -151,6 +159,7 @@ export class TaskService {
     headers.append('Authorization', 'admin: ' + this.isAdmin);
     let options    = new RequestOptions({ headers: headers });
     let id         = body['id']
+    headers.append('Token', this.personService.person['token']);
 
     return this.http.put(`${this.huertaskApiUrl}/categories/${id}`, body, options)
                     .map((res:Response) => <Category>this.instanciatedCategory(res.json()))
@@ -161,6 +170,7 @@ export class TaskService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', 'admin: ' + this.isAdmin);
     let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.personService.person['token']);
 
     return this.http.delete(`${this.huertaskApiUrl}/categories/${category_id}`, options)
                     .map((res:Response) => res.json())

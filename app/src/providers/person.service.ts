@@ -59,6 +59,7 @@ export class PersonService {
   invitePeople(invitations){
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.personService.person['token']);
 
     return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/invite`, invitations, options)
                     .map((res:Response) => <Community>res.json())
