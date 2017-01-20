@@ -82,6 +82,14 @@ module Huertask
       relation.community_id
     end
 
+    def communities
+      PersonCommunityRelation.all(person_id: self.id)
+    end
+
+    def invitations
+      CommunityInvitation.all(email: self.email)
+    end
+
     def create_auth_token
       key =  (ENV['AUTH_SECRET'] || "asnjlfkdlskfjlksdfjlkasdjflñaksdjfklñadjsfklñajglñkjfdlñkjlkjlñkj")
       timestamp = Time.now.to_i.to_s
