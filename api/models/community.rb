@@ -55,7 +55,7 @@ module Huertask
 
     def invite_person(email, type)
       self.create_or_update_invitation(email, type)
-      Mailer.send_invitation(email)
+      # Mailer.send_invitation(email)
     end
 
     def create_or_update_invitation(email, type)
