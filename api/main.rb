@@ -87,10 +87,10 @@ module Huertask
         end
       end
 
-      route_param :id do
+      route_param :community_id do
 
         get '/' do
-          community = Community.find_by_id(params[:id])
+          community = Community.find_by_id(params[:community_id])
           present community, with: Entities::Community
         end
 
@@ -98,7 +98,7 @@ module Huertask
           post '/' do
             begin
               admin_required
-              community = Community.find_by_id(params[:id])
+              community = Community.find_by_id(params[:community_id])
               community.invite_people(params)
               if community.save
                 present community, with: Entities::Community
@@ -126,7 +126,7 @@ module Huertask
         resource :tasks do
 
           get "/" do
-            community = Community.find_by_id(params[:id])
+            community = Community.find_by_id(params[:community_id])
             skip_categories = Person.get_skipped_categories(params[:user_id])
 
             return present community.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
@@ -140,13 +140,15 @@ module Huertask
             optional :to_date,         type: DateTime
             optional :required_people, type: Integer
             optional :note,            type: String
+            requires :community_id,    type: Integer
           end
 
           post '/' do
             admin_required
-
+            community = Community.find_by_id(params[:community_id])
             task = Task.new filter(params)
-            if task.save
+            community.tasks << task
+            if task.save && community.save
               present task, with: Entities::Task
             else
               error_400(task)
@@ -264,7 +266,7 @@ module Huertask
 
       def joining(method)
         begin
-          community = Community.find_by_id(params[:id])
+          community = Community.find_by_id(params[:community_id])
           person = Person.find_by_id(headers['User-Id'])
           community.send(method, person)
           if community.save
