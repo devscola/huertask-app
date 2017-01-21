@@ -5,6 +5,7 @@ import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
 import { ResetPassword } from '../reset-password/reset-password';
 import { Register } from '../register/register';
+import { JoinCommunity } from '../join-community/join-community';
 
 @Component({
   selector: 'log-in',
@@ -36,7 +37,7 @@ export class LogIn {
       this.personService.person = person
       this.personService.communityId = person['token'].split(':')[2]
       this.presentToast(("Hola " + person.name), "success")
-      this.navCtrl.setRoot(Tasks)
+      this.navCtrl.setRoot(JoinCommunity)
     }, err => {
       this.presentToast("incorrecto", "danger")
       console.log(err)
