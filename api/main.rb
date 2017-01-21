@@ -70,6 +70,65 @@ module Huertask
       end
     end
 
+    resource :tasks do
+      route_param :task_id do
+
+        resource :going do
+          put '/' do
+            going(:yes)
+          end
+        end
+
+        resource :notgoing do
+          put '/' do
+            going(:no)
+          end
+        end
+
+        params do
+          optional :title,           type: String
+          optional :categories,      type: Array
+          optional :from_date,       type: DateTime
+          optional :to_date,         type: DateTime
+          optional :required_people, type: Integer
+          optional :note,            type: String
+          optional :status,          type: Integer
+        end
+
+        put '/' do
+          admin_required
+
+          begin
+            task = Task.find_by_id(params[:task_id])
+            task.update_fields(filter(params, false))
+            if task.save
+              present task, with: Entities::Task
+            else
+              error_400(task)
+            end
+          rescue Task::TaskNotFound => e
+            error! e.message, 404
+          end
+        end
+
+        delete '/' do
+          admin_required
+
+          begin
+            task = Task.find_by_id(params[:task_id])
+            if task.delete
+              {}
+            else
+              error! task.errors.to_hash, 400
+            end
+          rescue Task::TaskNotFound => e
+            error! e.message, 404
+          end
+        end
+
+      end
+    end
+
     resource :communities do
       params do
         requires :name,            type: String
@@ -123,90 +182,38 @@ module Huertask
           end
         end
 
-        resource :tasks do
+        resource :people do
+          route_param :person_id do
+            resource :tasks do
 
-          get "/" do
-            community = Community.find_by_id(params[:community_id])
-            skip_categories = Person.get_skipped_categories(params[:user_id])
+              get "/" do
+                community = Community.find_by_id(params[:community_id])
+                skip_categories = Person.get_skipped_categories(params[:person_id])
 
-            return present community.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
-            present community.future_tasks(skip_categories), with: Entities::Task
-          end
+                return present community.past_tasks(skip_categories), with: Entities::Task if params[:filter] == 'past'
+                present community.future_tasks(skip_categories), with: Entities::Task
+              end
 
-          params do
-            optional :title,           type: String
-            optional :categories,      type: Array
-            optional :from_date,       type: DateTime
-            optional :to_date,         type: DateTime
-            optional :required_people, type: Integer
-            optional :note,            type: String
-            requires :community_id,    type: Integer
-          end
+              params do
+                optional :title,           type: String
+                optional :categories,      type: Array
+                optional :from_date,       type: DateTime
+                optional :to_date,         type: DateTime
+                optional :required_people, type: Integer
+                optional :note,            type: String
+                optional :community_id,    type: Integer
+              end
 
-          post '/' do
-            admin_required
-            community = Community.find_by_id(params[:community_id])
-            task = Task.new filter(params)
-            community.tasks << task
-            if task.save && community.save
-              present task, with: Entities::Task
-            else
-              error_400(task)
-            end
-          end
-
-          route_param :task_id do
-
-            params do
-              optional :title,           type: String
-              optional :categories,      type: Array
-              optional :from_date,       type: DateTime
-              optional :to_date,         type: DateTime
-              optional :required_people, type: Integer
-              optional :note,            type: String
-              optional :status,          type: Integer
-            end
-
-            put '/' do
-              admin_required
-
-              begin
-                task = Task.find_by_id(params[:task_id])
-                task.update_fields(filter(params, false))
-                if task.save
+              post '/' do
+                admin_required
+                community = Community.find_by_id(params[:community_id])
+                task = Task.new filter(params)
+                community.tasks << task
+                if task.save && community.save
                   present task, with: Entities::Task
                 else
                   error_400(task)
                 end
-              rescue Task::TaskNotFound => e
-                error! e.message, 404
-              end
-            end
-
-            delete '/' do
-              admin_required
-
-              begin
-                task = Task.find_by_id(params[:task_id])
-                if task.delete
-                  {}
-                else
-                  error! task.errors.to_hash, 400
-                end
-              rescue Task::TaskNotFound => e
-                error! e.message, 404
-              end
-            end
-
-            resource :going do
-              put '/' do
-                going(:yes)
-              end
-            end
-
-            resource :notgoing do
-              put '/' do
-                going(:no)
               end
             end
           end
