@@ -1,3 +1,4 @@
+require_relative '../main'
 require_relative '../models/task'
 
 describe Huertask::Task  do
@@ -11,12 +12,13 @@ describe Huertask::Task  do
     save_result = task.save
 
     expect(save_result).to be false
-    expect(task.errors.size).to eq 5
+    expect(task.errors.size).to eq 6
     expect(task.errors[:title]).to eq ["Title must not be blank"]
     expect(task.errors[:from_date]).to eq ["From date must not be blank"]
     expect(task.errors[:categories]).to eq ["Categories must not be blank"]
     expect(task.errors[:required_people]).to eq ["Required people must not be blank"]
     expect(task.errors[:to_date]).to eq ["To date must not be blank", nil]
+    expect(task.errors[:community_id]).to eq ["Community must not be blank"]
   end
 
   it "should validates length of: title" do
