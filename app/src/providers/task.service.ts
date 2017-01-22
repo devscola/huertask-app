@@ -57,7 +57,7 @@ export class TaskService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Token', token);
     let options    = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.huertaskApiUrl}/communities/${communityId}/person/${userId}/tasks/${params}`, options)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${communityId}/people/${userId}/tasks/${params}`, options)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
