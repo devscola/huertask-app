@@ -17,9 +17,11 @@ export class People {
     {title: "PEOPLE.INVITED", active: false}
   ]
 
-  constructor(public navCtrl: NavController, private personService: PersonService) {
-    let community_id = 1; //TODO replace "1"
-    personService.getCommunity(community_id).subscribe(community => {
+  constructor(
+    public navCtrl: NavController,
+    private personService: PersonService
+  ) {
+    personService.getCommunity(personService.communityId).subscribe(community => {
       this.joined = community.joined;
       this.invited = community.invited;
       this.list = this.joined;
