@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
 import 'moment/locale/es';
@@ -19,6 +19,10 @@ import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-inv
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
+export interface PageInterface {
+  title: string;
+  component: any;
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -26,30 +30,52 @@ import { PersonService } from '../providers/person.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Welcome;
+  rootPage: any;
 
-  pages: Array<{title: string, component: any}>;
+  loggedInPages: PageInterface[] = [
+    { title: "TASKS.TITLE", component: Tasks },
+    { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+    { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+  ];
 
-  isAdmin: boolean = true;
+  loggedOutPages: PageInterface[] = [
+    { title: "LOGIN.TITLE", component: LogIn},
+    { title: "REGISTER.TITLE", component: Register },
+    { title: "WELCOME.TITLE", component: Welcome }
+  ];
+  adminPages: PageInterface[] = [
+    { title: "TASK.CREATE.TITLE", component: CreateTask },
+    { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+    { title: "INVITATIONS.TITLE", component: InvitationForm },
+    { title: "PEOPLE.TITLE", component: People },
+    { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
+  ];
 
-  constructor(public platform: Platform, translate: TranslateService, public taskService: TaskService, public personService: PersonService) {
-    this.initializeApp();
+  isAdmin: boolean = false;
+
+  constructor(
+    public events: Events,
+    public menu: MenuController,
+    public platform: Platform,
+    translate: TranslateService,
+    public taskService: TaskService,
+    public personService: PersonService
+  ) {
     translate.setDefaultLang('es');
     translate.use('es');
     moment().locale('es');
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: "TASKS.TITLE", component: Tasks },
-      { title: "TASK.CREATE.TITLE", component: CreateTask },
-      { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
-      { title: "LOGIN.TITLE", component: LogIn},
-      { title: "REGISTER.TITLE", component: Register },
-      { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
-      { title: "INVITATIONS.TITLE", component: InvitationForm },
-      { title: "PEOPLE.TITLE", component: People },
-      { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
-      { title: "WELCOME.TITLE", component: Welcome }
-    ];
+    this.listenToLoginEvents();
+
+    personService.getUser().then(user =>{
+      personService.person = user;
+      personService.setCommunities().then((res)=>{
+        this.isAdmin = personService.isAdmin;
+        this.enableMenu(null != user);
+        this.rootPage =  user ? Tasks : Welcome;
+        this.initializeApp();
+      })
+    })
+
   }
 
   initializeApp() {
@@ -67,16 +93,38 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  setAdmin(){
-    console.log(this.isAdmin)
-    this.taskService.isAdmin = this.isAdmin
+  logOut(){
+    this.nav.setRoot(Welcome).then(() => {
+      this.personService.logOut();
+    })
   }
 
-  logOut(){
-    this.personService.logOut().subscribe(data => {
-      console.log("logout con exito")
-    }, err => {
-      console.log("logout fallido")
-    })
+  listenToLoginEvents() {
+    this.personService.events.subscribe('user:login', () => {
+      console.log('user:login');
+      this.enableMenu(true);
+    });
+
+    this.personService.events.subscribe('user:signup', () => {
+      console.log('user:signup');
+      this.enableMenu(true);
+    });
+
+    this.personService.events.subscribe('user:logout', () => {
+      console.log('user:logout');
+      this.enableMenu(false);
+    });
+  }
+
+  enableMenu(loggedIn: boolean) {
+    if(this.personService.isAdmin){
+      this.menu.enable(true, 'adminMenu');
+      this.menu.enable(false, 'loggedInMenu');
+      this.menu.enable(false, 'loggedOutMenu');
+    }else{
+      this.menu.enable(false, 'adminMenu');
+      this.menu.enable(loggedIn, 'loggedInMenu');
+      this.menu.enable(!loggedIn, 'loggedOutMenu');
+    }
   }
 }

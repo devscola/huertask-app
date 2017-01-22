@@ -13,7 +13,7 @@ module Huertask
     end
     class PersonAfterLogin < Person
       expose :email, :invitations
-      expose :community_relations, using: Huertask::Entities::CommunityFromPerson
+      expose :community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities
     end
   end
 end

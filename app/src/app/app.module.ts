@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
 import { LogIn } from '../pages/log-in/log-in';
@@ -91,6 +92,6 @@ export function createTranslateLoader(http: Http) {
     ResetPassword,
     Welcome
   ],
-  providers: [TaskService, PersonService]
+  providers: [TaskService, PersonService, Storage]
 })
 export class AppModule {}
