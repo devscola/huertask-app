@@ -49,7 +49,7 @@ module Huertask
         username_or_email = params[:name] || params[:email]
         if person = Person.authenticate(username_or_email, params[:password])
           person.create_auth_token
-          present person, with: Entities::Person
+          present person, with: Entities::PersonAfterLogin
         else
           error! "invalid username or password", 400
         end
