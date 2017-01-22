@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title></ion-title>
-    <ion-buttons *ngIf="taskService.isAdmin" end>
+    <ion-buttons *ngIf="personService.isAdmin" end>
       <button ion-button (click)="goToDuplicateTask()">
         <ion-icon name="copy"></ion-icon>
       </button>
@@ -30,7 +30,7 @@
       <ion-col>
         <ion-chip>
           <ion-label color="{{task.finalizeColor()}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
-          <button id="finalize" [disabled]="waitingForResponse" *ngIf="taskService.isAdmin" ion-button clear color="{{task.finalizeColor()}}" (click)="toggleFinalized(task)">
+          <button id="finalize" [disabled]="waitingForResponse" *ngIf="personService.isAdmin" ion-button clear color="{{task.finalizeColor()}}" (click)="toggleFinalized(task)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </button>
         </ion-chip>

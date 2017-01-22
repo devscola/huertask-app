@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Category } from '../../models/category';
@@ -21,6 +21,7 @@ export class CategoryForm {
   constructor(
     public el: ElementRef,
     public navCtrl: NavController,
+    public viewCtrl: ViewController,
     private navParams: NavParams,
     public formBuilder: FormBuilder,
     public taskService: TaskService,
@@ -62,13 +63,13 @@ export class CategoryForm {
     category['id'] = this.category.id;
     if(this.action == 'edit'){
       this.taskService.editCategory(category).subscribe( data => {
-        this.navCtrl.setRoot(FavCategories);
+        this.viewCtrl.dismiss();
       },
       err => this.presentToast('Ha habido un error', 'danger')
       )
     }else{
       this.taskService.createCategory(category).subscribe( data => {
-        this.navCtrl.setRoot(FavCategories);
+        this.viewCtrl.dismiss();
       },
       err => this.presentToast('Ha habido un error', 'danger')
       )
