@@ -37,6 +37,7 @@ export class MyApp {
     { title: "TASKS.TITLE", component: Tasks },
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
     { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+    { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
 
   loggedOutPages: PageInterface[] = [

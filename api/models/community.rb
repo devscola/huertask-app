@@ -78,6 +78,7 @@ module Huertask
 
     def join(person)
       if invitation = CommunityInvitation.first(:email => person.email)
+        person.community_relations.all.destroy
         self.create_or_update_relation(person, invitation.type)
         invitation.destroy
       end

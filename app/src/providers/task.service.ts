@@ -9,7 +9,7 @@ import { PersonService } from './person.service';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   isAdmin: boolean = false;
 
@@ -61,7 +61,7 @@ export class TaskService {
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
-  getTasksUrlParams(user_id = null, filter = null): String {
+  getTasksUrlParams(filter = null): String {
     return filter  ? `?filter=${filter}`  : "";
   }
 
@@ -70,7 +70,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/people/${this.personService.person['id']}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }

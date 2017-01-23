@@ -274,8 +274,8 @@ module Huertask
       def joining(method)
         begin
           community = Community.find_by_id(params[:community_id])
-          person = Person.find_by_id(headers['User-Id'])
-          community.send(method, person)
+          person = Person.find_by_token(headers["Token"])
+          community.send(method, current_user)
           if community.save
             present community, with: Entities::Community
           else

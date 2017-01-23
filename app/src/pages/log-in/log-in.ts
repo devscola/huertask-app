@@ -5,6 +5,7 @@ import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
 import { ResetPassword } from '../reset-password/reset-password';
 import { Register } from '../register/register';
+import { JoinCommunity } from '../join-community/join-community';
 
 @Component({
   selector: 'log-in',
@@ -35,9 +36,8 @@ export class LogIn {
     this.personService.logIn(person).subscribe(person => {
       this.personService.loadUserData(person).then(data => {
         this.presentToast(("Hola " + person.name), "success")
-        this.navCtrl.setRoot(Tasks)
+        this.navCtrl.setRoot(JoinCommunity)
       });
-      console.log(person)
     }, err => {
       this.presentToast("incorrecto", "danger")
       console.log(err)

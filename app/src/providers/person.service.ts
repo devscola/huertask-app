@@ -10,7 +10,7 @@ import { Community } from '../models/community';
 
 @Injectable()
 export class PersonService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
   COMMUNITIES      = 'communities';
   ACTIVE_COMMUNITY = 'activeCommunity';
@@ -80,6 +80,16 @@ export class PersonService {
     headers.append('Token', this.person['token']);
 
     return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/invite`, invitations, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
+  joinCommunity(invitation){
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.person['token']);
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${invitation['community_id']}/join`, {}, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
