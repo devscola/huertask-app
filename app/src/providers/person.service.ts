@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Events } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -10,11 +12,19 @@ import { Community } from '../models/community';
 export class PersonService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
+  COMMUNITIES      = 'communities';
+  ACTIVE_COMMUNITY = 'activeCommunity';
+  USER             = 'user';
   logged;
   person;
   communityId;
+  isAdmin;
 
-  constructor(public http: Http) { }
+  constructor(
+    public http: Http,
+    public events: Events,
+    public storage: Storage
+  ) { }
 
   instanciatedPeople(json): Person[]{
     let people = []
@@ -30,6 +40,14 @@ export class PersonService {
       person[param] = object[param]
     }
     return person
+  }
+
+  instanciatedCommunities(json): Community[]{
+    let communities = []
+    for(let object in json){
+      communities.push(this.instanciatedCommunity(json[object]))
+    }
+    return communities
   }
 
   instanciatedCommunity(object): Community{
@@ -79,17 +97,31 @@ export class PersonService {
     person = this.http.post(`${this.huertaskApiUrl}/login`, person, options)
                     .map((res:Response) => <Person>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+
+    this.person = person;
     return person
   }
 
-  logOut(): Observable<Person>{
+  loadUserData(person){
+    this.person = person
+    this.communityId = person['token'].split(':')[2]
+    return this.storage.set(this.USER, person).then(person => {
+      this.setCommunities().then(() => {
+        this.events.publish('user:login');
+      });
+    });
+  }
+
+  logOut(){
     this.logged = false
-    return this.http.get(`${this.huertaskApiUrl}/logout`)
-      .map(res => <Person>res.json());
+    this.person = null
+    this.storage.remove(this.USER);
+    // this.events.publish('user:logout');
   }
 
   signUp(person): Observable<Person>{
     this.logged = true
+    this.events.publish('user:signup');
     delete person['terms']
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
@@ -137,6 +169,55 @@ export class PersonService {
 
   getToken(){
     return this.person ? this.person['token'] : "";
+  }
+
+  // return a promise
+  getUser(){
+    return this.storage.get(this.USER).then((value) => {
+      return value;
+    });
+  };
+
+  activeCommunity() {
+    return this.storage.get(this.ACTIVE_COMMUNITY).then((value) => {
+      return value;
+    });
+  };
+
+  setCommunities(){
+    if(!this.person){
+      return this.storage.set(this.COMMUNITIES, [])
+    }else{
+      let communities = this.person.communities || []
+      let communities_ids = communities.map(com => {
+        return com.id;
+      })
+      return this.storage.set(this.COMMUNITIES, communities).then((communities) => {
+        return this.activeCommunity().then((value) => {
+          //TODO remove magic number: 2
+          if (!value || communities_ids.indexOf(value.id) == -1){
+            if (communities.length>0){
+              this.storage.set(this.ACTIVE_COMMUNITY, communities[0])
+              this.communityId = communities[0].id;
+              this.isAdmin = communities[0].type == 2;
+            } else {
+              this.storage.remove(this.ACTIVE_COMMUNITY)
+              this.communityId = null;
+              this.isAdmin = false;
+            }
+          }else{
+            this.communityId = value.id;
+            this.isAdmin = value.type == 2;
+          }
+          return value
+        })
+      })
+    }
+  }
+
+  setActiveCommunity(community){
+    this.communityId = community.community.id;
+    this.storage.set(this.ACTIVE_COMMUNITY, community);
   }
 
 }
