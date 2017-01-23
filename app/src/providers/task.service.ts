@@ -36,37 +36,33 @@ export class TaskService {
   }
 
   getFutureTasks(user_id = null): Observable<Task[]> {
-    return this.getTasks(user_id);
+    return this.getTasks();
   }
 
   getPastTasks(user_id = null): Observable<Task[]> {
-    return this.getTasks(user_id, 'past');
+    return this.getTasks('past');
   }
 
-  getTasks(user_id = null, filter = null): Observable<Task[]> {
+  getTasks(filter = null): Observable<Task[]> {
     let token = ""
+    let userId = 0
     let communityId = 0
     if(this.personService.person != null){
       token = this.personService.person['token']
-      user_id = this.personService.person['id']
+      userId = this.personService.person['id']
       communityId = this.personService.communityId
     }
-    let params = this.getTasksUrlParams(user_id, filter)
+    let params = this.getTasksUrlParams(filter)
 
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Token', token);
     let options    = new RequestOptions({ headers: headers });
-    return this.http.get(`${this.huertaskApiUrl}/communities/${communityId}/tasks/${params}`, options)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${communityId}/people/${userId}/tasks/${params}`, options)
       .map(res => <Task[]>this.instanciatedTasks(res.json()));
   }
 
   getTasksUrlParams(user_id = null, filter = null): String {
-    let params = filter  ? `?filter=${filter}&`  : "?";
-    params += user_id ? `user_id=${user_id}&` : "";
-    params = params.substring(0,params.length - 1);
-    if (params == "?") params = "";
-
-    return params
+    return filter  ? `?filter=${filter}`  : "";
   }
 
   createTask(body: Object): Observable<Task> {
@@ -86,7 +82,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     let id         = body['id']
 
-    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${id}`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
                     .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -96,7 +92,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.delete(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}`, options)
+    return this.http.delete(`${this.huertaskApiUrl}/tasks/${task_id}`, options)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -107,7 +103,7 @@ export class TaskService {
     let body       = {'person_id': person_id};
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}/going/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/going/`, body, options)
       .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -118,7 +114,7 @@ export class TaskService {
     let body       = {'person_id': person_id};
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.put(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/tasks/${task_id}/notgoing/`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/notgoing/`, body, options)
       .map(res => <Task>this.instanciatedTask(res.json()))
       .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }

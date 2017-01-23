@@ -12,14 +12,17 @@ describe Huertask::API do
     Fixtures.seed
   end
 
-  let(:current_user) { Huertask::Person.first }
+  let(:normal_user) { Huertask::Person[6] }
+  let(:admin_user) { Huertask::Person[1] }
+  let(:community) { Huertask::Community[0] }
   let(:request_time) { Time.now.utc }
 
-  describe "GET /api/tasks" do
+  describe "GET api/communities/:community_id/people/:person_id/tasks" do
     subject(:tasks) { JSON.parse(last_response.body) }
 
     it "returns ok" do
-      get "/api/tasks"
+      header('Token', normal_user.token)
+      get "api/communities/#{community.id}/people/#{normal_user.id}/tasks"
 
       expect(last_response).to be_ok
     end
@@ -29,16 +32,15 @@ describe Huertask::API do
       task.active = false
       task.save
 
-      get "api/tasks"
+      get "api/communities/#{community.id}/people/#{normal_user.id}/tasks"
 
       expect(last_response).to be_ok
       expect(past_tasks).to be_empty
       expect(tasks.include?(task)).to be false
     end
 
-    it "return only tasks of fav categories if param user_id is present" do
-      user_id = Huertask::Person.last.id
-      get "api/tasks?user_id=#{user_id}"
+    it "return only tasks of fav categories" do
+      get "api/communities/#{community.id}/people/#{normal_user.id}/tasks"
 
       expect(last_response).to be_ok
     end
@@ -52,7 +54,7 @@ describe Huertask::API do
     end
   end
 
-  describe "POST /api/tasks" do
+  describe "POST api/communities/:community_id/people/:person_id/tasks" do
     subject(:response) { JSON.parse(last_response.body) }
 
     let(:category) { Huertask::Category.first }
@@ -63,8 +65,8 @@ describe Huertask::API do
                from_date: Time.now,
                to_date: (Time.now - 60*60) }
 
-      header('User-Id', current_user.id)
-      post "/api/tasks", data
+      header('Token', admin_user.create_auth_token)
+      post "/api/communities/#{community.id}/people/#{admin_user.id}/tasks", data
 
       expect(last_response).to be_bad_request
       expect(response.size).to be 3
@@ -77,8 +79,8 @@ describe Huertask::API do
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
-      header('User-Id', current_user.id)
-      post "/api/tasks", data
+      header('Token', admin_user.create_auth_token)
+      post "/api/communities/#{community.id}/people/#{admin_user.id}/tasks", data
 
       expect(last_response).to be_created
     end
@@ -90,15 +92,14 @@ describe Huertask::API do
                 from_date: Time.now,
                 to_date: (Time.now + 60*60) }
 
-      header('Authorization', 'admin: false')
-      post "/api/tasks", data
+      post "/api/communities/#{community.id}/people/#{normal_user.id}/tasks", data
 
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"
     end
   end
 
-  describe "PUT /api/tasks/:id" do
+  describe "api/tasks/:task_id" do
     subject(:response) { JSON.parse(last_response.body) }
 
     let(:task) { Huertask::Task.first }
@@ -106,7 +107,7 @@ describe Huertask::API do
     it "returs error when task is invalid" do
       body = { title: "" }
 
-      header('User-Id', current_user.id)
+      header('Token', admin_user.create_auth_token)
       put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_bad_request
@@ -117,7 +118,7 @@ describe Huertask::API do
       body = { title: "Limpiar lechugas",
                ignored_param: "Este paremetro se ignorará" }
 
-      header('User-Id', current_user.id)
+      header('Token', admin_user.create_auth_token)
       put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_ok
@@ -126,7 +127,7 @@ describe Huertask::API do
     it "returns 404 error if dont find task with invalid id" do
       body = { title: "Limpiar lechugas" }
 
-      header('User-Id', current_user.id)
+      header('Token', admin_user.create_auth_token)
       put "/api/tasks/0", body
 
       expect(last_response).to be_not_found
@@ -136,7 +137,7 @@ describe Huertask::API do
     it "returns 401 error if dont have valid Authorization header" do
       body = { title: "Limpiar lechugas" }
 
-      header('Authorization', 'admin: false')
+      header('Token', normal_user.token)
       put "/api/tasks/#{task.id}", body
 
       expect(last_response).to be_unauthorized
@@ -153,7 +154,7 @@ describe Huertask::API do
       active_status = task.active
       expect(active_status).to be true
 
-      header('User-Id', current_user.id)
+      header('Token', admin_user.create_auth_token)
       delete "/api/tasks/#{task.id}"
       task = Huertask::Task.first
       active_status = task.active
@@ -164,7 +165,7 @@ describe Huertask::API do
     end
 
     it "returns 404 error if dont find task with invalid id" do
-      header('User-Id', current_user.id)
+      header('Token', admin_user.create_auth_token)
       delete "/api/tasks/0"
 
       expect(last_response).to be_not_found
@@ -172,10 +173,9 @@ describe Huertask::API do
     end
 
     it "returns 401 error if dont have valid Authorization header" do
-      body = { title: "Limpiar lechugas" }
 
-      header('Authorization', 'admin: false')
-      delete "/api/tasks/#{task.id}", body
+      header('Token', normal_user.token)
+      delete "/api/tasks/#{task.id}"
 
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"

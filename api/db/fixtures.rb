@@ -5,6 +5,7 @@ class Fixtures
     Huertask::CommunityInvitation.all.destroy
     Huertask::CategoryTaskRelation.all.destroy
     Huertask::CategoryPersonRelation.all.destroy
+    Huertask::TaskCommunityRelation.all.destroy
     Huertask::Task.all.destroy
     Huertask::Category.all.destroy
     Huertask::Person.all.destroy

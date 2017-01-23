@@ -1,4 +1,5 @@
 require_relative './Category'
+require_relative './person_community_relation'
 
 module Huertask
   module Entities
@@ -9,6 +10,10 @@ module Huertask
       expose :id, :name, :token, :communities, :invitations
       expose :dislike_categories, using: Huertask::Entities::Category
       expose :categories, using: Huertask::Entities::Category
+    end
+    class PersonAfterLogin < Person
+      expose :email, :invitations
+      expose :community_relations, using: Huertask::Entities::CommunityFromPerson
     end
   end
 end
