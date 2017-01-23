@@ -10,7 +10,7 @@ import { Community } from '../models/community';
 
 @Injectable()
 export class PersonService {
-  huertaskApiUrl = 'http://localhost:9292/api';
+  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
 
   COMMUNITIES      = 'communities';
   ACTIVE_COMMUNITY = 'activeCommunity';
