@@ -81,7 +81,7 @@ module Huertask
       return 0 unless relation
       relation.community_id
     end
-
+    
     def invitations
       CommunityInvitation.all(email: self.email)
     end
