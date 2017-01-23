@@ -182,6 +182,32 @@ module Huertask
           end
         end
 
+        resource :categories do
+          get "/" do
+            community = Community.find_by_id(params[:community_id])
+            present community.categories.active, with: Entities::Category
+          end
+
+          params do
+            requires :name,           type: String
+            optional :description,    type: String
+            optional :mandatory,      type: Boolean
+          end
+
+          post '/' do
+            admin_required
+
+            community = Community.find_by_id(params[:community_id])
+            category = Category.new declared(params)
+            category.community = community
+            if category.save
+              present category, with: Entities::Category
+            else
+              error_400(category)
+            end
+          end
+        end
+
         resource :people do
           route_param :person_id do
             resource :tasks do
@@ -298,27 +324,6 @@ module Huertask
     end
 
     resource :categories do
-      get "/" do
-        present Category.active, with: Entities::Category
-      end
-
-      params do
-        requires :name,           type: String
-        optional :description,    type: String
-        optional :mandatory,      type: Boolean
-      end
-
-      post '/' do
-        admin_required
-
-        category = Category.new declared(params)
-        if category.save
-          present category, with: Entities::Category
-        else
-          error_400(category)
-        end
-      end
-
       route_param :id do
 
         params do
