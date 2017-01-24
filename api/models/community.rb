@@ -27,6 +27,7 @@ module Huertask
     has n, :people_invitations, 'CommunityInvitation'
     has n, :tasks_relations, 'TaskCommunityRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task
+    has n, :categories
 
     class << self
       def find_by_id(id)

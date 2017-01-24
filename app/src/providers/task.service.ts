@@ -120,7 +120,7 @@ export class TaskService {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get(`${this.huertaskApiUrl}/categories/`)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/categories/`)
       .map(res => <Category[]>this.instanciatedCategories(res.json()));
   }
 
@@ -145,7 +145,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/categories/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/categories/`, body, options)
                     .map((res:Response) => <Category>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }

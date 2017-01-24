@@ -20,6 +20,8 @@ module Huertask
     has n, :tasks, :through => :tasks_relations, :via => :task
     has n, :people_relations, 'CategoryPersonRelation'
 
+    belongs_to :community
+
     validates_presence_of :name
 
     def update_fields(params)
