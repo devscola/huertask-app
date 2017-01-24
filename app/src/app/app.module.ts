@@ -9,6 +9,7 @@ import { EqualValidator } from './equal-validator.directive';
 import { CommunityForm } from '../pages/community-form/community-form';
 import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
+import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { Tasks } from '../pages/tasks/tasks';
@@ -45,6 +46,7 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    JoinCommunity,
     SimpleInvitationForm,
     CreateTask,
     TaskDetail,
@@ -79,6 +81,7 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    JoinCommunity,
     SimpleInvitationForm,
     CreateTask,
     TaskDetail,

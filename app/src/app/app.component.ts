@@ -14,6 +14,7 @@ import { Welcome } from '../pages/welcome/welcome';
 import { CommunityForm } from '../pages/community-form/community-form';
 import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
+import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { TaskService } from '../providers/task.service';
@@ -36,6 +37,7 @@ export class MyApp {
     { title: "TASKS.TITLE", component: Tasks },
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
     { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+    { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
 
   loggedOutPages: PageInterface[] = [
