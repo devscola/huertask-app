@@ -17,6 +17,7 @@ export class TaskForm {
   form;
   action;
   submited = false;
+  actualYear = new Date().getFullYear();
 
   constructor(
     public el: ElementRef,

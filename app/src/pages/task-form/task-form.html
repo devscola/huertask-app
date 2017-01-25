@@ -54,7 +54,8 @@
         <ion-datetime
           formControlName="date"
           displayFormat="DD/MM/YYYY"
-          pickerFormat="DD MM YYYY">
+          pickerFormat="DD MM YYYY"
+          min="{{actualYear - 1}}" max="{{actualYear + 1}}">
         </ion-datetime>
       </ion-col>
     </ion-row>
