@@ -193,6 +193,23 @@ module Huertask
               error! e.message, 404
             end
           end
+
+          put '/' do
+            begin
+              community = Community.find_by_id(params[:community_id])
+              person = Person.find_by_id(headers['Admin-Toggled'])
+              community.toggle_admin(person)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            rescue Person::PersonNotFound => e
+              error! e.message, 404
+            end
+          end
         end
 
         resource :categories do

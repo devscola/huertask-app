@@ -90,6 +90,15 @@ module Huertask
         self.create_or_update_relation(person, UNJOINED_USER_TYPE)
     end
 
+    def toggle_admin(person)
+      relation = PersonCommunityRelation.first(:community_id => self.id, :person_id => person.id)
+      if relation.type == ADMIN_USER_TYPE
+        self.create_or_update_relation(person, SIMPLE_USER_TYPE)
+      else
+        self.create_or_update_relation(person, ADMIN_USER_TYPE)
+      end
+    end
+
     def create_or_update_relation(person, type)
       relation = PersonCommunityRelation.first(:community_id => self.id, :person_id => person.id)
       if relation

@@ -9,7 +9,7 @@ import { People } from './people'
   selector: 'quick-people-menu',
   template: `
     <ion-list>
-      <button ion-item (click)="toggleAdmin(person)">Marcar como cordinador</button>
+      <button ion-item (click)="tryToggleAdmin(person)">Marcar como cordinador</button>
       <button ion-item (click)="tryDelete(person)">{{ 'BUTTONS.DELETE' | translate }}</button>
     </ion-list>
   `
@@ -35,7 +35,7 @@ export class QuickPeopleMenu {
   }
 
   showConfirm(person) {
-    this.translate.get('CATEGORIES.DELETE_CONFIRM').subscribe((res: Object) => {
+    this.translate.get('PEOPLE.DELETE_CONFIRM').subscribe((res: Object) => {
       this.presentDeleteConfirm(res, person)
     });
     this.close()
@@ -67,6 +67,48 @@ export class QuickPeopleMenu {
 
   deletePerson(person_id){
     this.personService.unjoinCommunity(person_id).subscribe(community => {
+      this.navCtrl.setRoot(People)
+    })
+  }
+
+  tryToggleAdmin(person){
+    this.showAdminConfirmation(person)
+    this.close()
+  }
+
+  showAdminConfirmation(person) {
+    this.translate.get('PEOPLE.TOGGLE_ADMIN_CONFIRM').subscribe((res: Object) => {
+      this.presentAdminConfirm(res, person)
+    });
+    this.close()
+  }
+
+  presentAdminConfirm(messages: Object, person) {
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'],
+      message: messages['SUBTITLE'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['CANCEL'],
+          role: 'cancel',
+          handler: () => {
+            alert.dismiss();
+          }
+        },
+        {
+          text: messages['BUTTONS']['SUBMIT'],
+          handler: () => {
+            this.toggleAdmin(person['id']);
+            alert.dismiss();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  toggleAdmin(person_id){
+    this.personService.toggleAdmin(person_id).subscribe(community => {
       this.navCtrl.setRoot(People)
     })
   }
