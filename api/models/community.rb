@@ -38,7 +38,7 @@ module Huertask
     end
 
     def joined
-      people_relations.all(:order => [ :type.desc ])
+      people_relations.all(:type.gte => 1, :order => [ :type.desc ])
     end
 
     def invited

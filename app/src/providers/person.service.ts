@@ -94,6 +94,17 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
+  unjoinCommunity(person_id){
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.person['token']);
+    headers.append('Unjoined', person_id);
+
+    return this.http.delete(`${this.huertaskApiUrl}/communities/${this.communityId}/join`, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
   getCommunity(community_id): Observable<Community> {
     return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
       .map(res => <Community>this.instanciatedCommunity(res.json()));
