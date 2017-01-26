@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { PersonService } from '../../providers/person.service';
 import { Person } from '../../models/person';
+import { QuickPeopleMenu } from './quick-people-menu'
 
 @Component({
   selector: 'people',
@@ -19,6 +20,7 @@ export class People {
 
   constructor(
     public navCtrl: NavController,
+    public popoverCtrl: PopoverController,
     private personService: PersonService
   ) {
     personService.getCommunity(personService.communityId).subscribe(community => {
@@ -39,6 +41,13 @@ export class People {
       if(tabTitle === tab.title) { tab.active = true };
     });
     this.showTasks(tabTitle)
+  }
+
+  presentPopover(event, person) {
+    let popover = this.popoverCtrl.create(QuickPeopleMenu, {person: person});
+    popover.present({
+      ev: event
+    });
   }
 
   goToInvitePerson(){

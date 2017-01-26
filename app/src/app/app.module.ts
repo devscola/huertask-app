@@ -11,6 +11,7 @@ import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
 import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
+import { QuickPeopleMenu } from '../pages/people/quick-people-menu';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
@@ -46,6 +47,7 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    QuickPeopleMenu,
     JoinCommunity,
     SimpleInvitationForm,
     CreateTask,
@@ -81,6 +83,7 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    QuickPeopleMenu,
     JoinCommunity,
     SimpleInvitationForm,
     CreateTask,

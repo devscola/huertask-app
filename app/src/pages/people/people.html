@@ -42,6 +42,9 @@
         </ion-grid>
       </ion-card-content>
     </ion-col>
+    <button item-right ion-button icon-only clear *ngIf="personService.isAdmin" (click)="presentPopover($event, category)">
+      <ion-icon name="more"></ion-icon>
+    </button>
     </ion-row>
   </ion-card>
 </ion-content>
