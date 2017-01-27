@@ -56,7 +56,9 @@ export class QuickPeopleMenu {
           text: messages['BUTTONS']['DELETE'],
           handler: () => {
             this.deletePerson(person['id']);
-            alert.dismiss();
+            alert.dismiss().then(() => {
+              this.navCtrl.setRoot(People)
+            });;
           }
         }
       ]
@@ -66,7 +68,6 @@ export class QuickPeopleMenu {
 
   deletePerson(person_id){
     this.personService.unjoinCommunity(person_id).subscribe(community => {
-      this.navCtrl.setRoot(People)
     })
   }
 
@@ -97,7 +98,9 @@ export class QuickPeopleMenu {
           text: messages['BUTTONS']['SUBMIT'],
           handler: () => {
             this.toggleAdmin(person['id']);
-            alert.dismiss();
+            alert.dismiss().then(() => {
+              this.navCtrl.setRoot(People)
+            });
           }
         }
       ]
@@ -107,7 +110,6 @@ export class QuickPeopleMenu {
 
   toggleAdmin(person_id){
     this.personService.toggleAdmin(person_id).subscribe(community => {
-      this.navCtrl.setRoot(People)
     })
   }
 
