@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 import { PersonService } from '../../providers/person.service';
 import { Person } from '../../models/person';
+import { SimpleInvitationForm } from '../simple-invitation-form/simple-invitation-form';
 import { QuickPeopleMenu } from './quick-people-menu'
 
 @Component({
@@ -74,6 +75,6 @@ export class People {
  }
 
   goToInvitePerson(){
-    console.log("Ir a la página de invitar a usuario");
+    this.navCtrl.push(SimpleInvitationForm);
   }
 }
