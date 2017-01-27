@@ -38,7 +38,6 @@ export class QuickPeopleMenu {
     this.translate.get('PEOPLE.DELETE_CONFIRM').subscribe((res: Object) => {
       this.presentDeleteConfirm(res, person)
     });
-    this.close()
   }
 
   presentDeleteConfirm(messages: Object, person) {
@@ -80,7 +79,6 @@ export class QuickPeopleMenu {
     this.translate.get('PEOPLE.TOGGLE_ADMIN_CONFIRM').subscribe((res: Object) => {
       this.presentAdminConfirm(res, person)
     });
-    this.close()
   }
 
   presentAdminConfirm(messages: Object, person) {

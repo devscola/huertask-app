@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Unete o crea</ion-title>
+    <ion-title>{{ 'COMMUNITY.JOIN.TITLE' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button>
         <ion-icon name="add"></ion-icon>
@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>Invitaciones</h1>
+  <h1>{{ 'COMMUNITY.JOIN.INVITATIONS' | translate }}</h1>
   <ion-card *ngIf="invitation" (click)="joinCommunity()">
   <ion-row>
     <ion-col>
@@ -26,7 +26,7 @@
     </ion-col>
     </ion-row>
   </ion-card>
-  <h1>Comunidades</h1>
+  <h1>{{ 'COMMUNITY.JOIN.COMMUNITIES' | translate }}</h1>
   <ion-card *ngFor="let community of communities">
   <ion-row>
     <ion-col>
@@ -36,5 +36,5 @@
     </ion-col>
     </ion-row>
   </ion-card>
-  <span>Si aceptas una invitacion entras en la comunidad nueva pero sales de la vieja</span>
+  <span>{{ 'COMMUNITY.JOIN.INVITATION_INFORMATION' | translate }}</span>
 </ion-content>

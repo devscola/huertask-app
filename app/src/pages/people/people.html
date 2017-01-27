@@ -43,7 +43,7 @@
         </ion-grid>
       </ion-card-content>
     </ion-col>
-    <button item-right ion-button icon-only clear *ngIf="personService.isAdmin" (click)="presentPopover($event, person)">
+    <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPopover($event, person)">
       <ion-icon name="more"></ion-icon>
     </button>
     </ion-row>

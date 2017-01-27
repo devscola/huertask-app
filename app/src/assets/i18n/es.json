@@ -186,7 +186,13 @@
       }
     },
     "CREATED" : "Enhorabuena, eres coordinador del huerto. Ahora añade a otros coordinadores y hortelanos",
-    "INVITE" : "Invitar hortelanos"
+    "INVITE" : "Invitar hortelanos",
+    "JOIN" : {
+      "TITLE" : "Unete o crea",
+      "INVITATIONS" : "Invitaciones",
+      "COMMUNITIES" : "Comunidades",
+      "INVITATION_INFORMATION" : "Si aceptas una invitacion entras en la comunidad nueva pero sales de la vieja"
+    }
   },
   "INVITATIONS" : {
     "TITLE" : "Invitar hortelanos",
