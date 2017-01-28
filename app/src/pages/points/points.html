@@ -14,17 +14,17 @@
     </ion-row>
 
   </ion-grid>
-  <ion-card *ngFor="let type of list">
+  <ion-card *ngFor="let type of points | keys">
     <ion-card-header>
-      <span class="number">{{ type.points }}</span>
-      {{ type.type + ".name" | uppercase | translate }}
+      <span class="number">{{ type.value.qty }}</span>
+      {{ type.key + ".name" | uppercase | translate }}
     </ion-card-header>
 
     <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <p>{{ type.type + ".DESCRIPTION" | uppercase | translate }}</p>
+            <p>{{ type.key + ".DESCRIPTION" | uppercase | translate }}</p>
           </ion-col>
         </ion-row>
       </ion-grid>

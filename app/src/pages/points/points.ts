@@ -7,7 +7,7 @@ import { PersonService } from '../../providers/person.service';
   templateUrl: 'points.html',
 })
 export class Points {
-  list: any[];
+  points;
 
   tabs = [
     {title: "POINTS.RESUME", active: true},
@@ -15,7 +15,9 @@ export class Points {
   ]
 
   constructor(public navCtrl: NavController, private personService: PersonService) {
-    this.list = [{type: "taskPoints", points: 4}, {type: "userPoints", points: 2}];
+    personService.getPoints().subscribe(points => {
+      this.points = points;
+    });
   }
 
   selectTab(tabTitle) {

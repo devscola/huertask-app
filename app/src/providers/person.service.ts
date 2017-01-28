@@ -89,6 +89,16 @@ export class PersonService {
       .map(res => <Community>this.instanciatedCommunity(res.json()));
   }
 
+  getPoints(): Observable<any> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.person['token']);
+
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.communityId}/people/${this.person.id}/points`, options)
+      .map(res => res.json());
+  }
+
+
   logIn(person): Observable<Person>{
     this.logged = true
     let headers    = new Headers({ 'Content-Type': 'application/json' });

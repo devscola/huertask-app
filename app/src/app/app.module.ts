@@ -3,6 +3,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
+import { KeysPipe } from './keys.pipe';
 import { LogIn } from '../pages/log-in/log-in';
 import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
@@ -39,6 +40,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     MyApp,
     EqualValidator,
+    KeysPipe,
     Tasks,
     LogIn,
     TermsAndConditions,
