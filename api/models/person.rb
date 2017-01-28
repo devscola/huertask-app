@@ -26,7 +26,7 @@ module Huertask
     property :hashed_password, String
     property :salt, String, :unique => true
 
-    has n, :people_relations, 'PersonTaskRelation'
+    has n, :task_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
     has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
     has n, :community_relations, 'PersonCommunityRelation'
@@ -84,6 +84,12 @@ module Huertask
 
     def invitations
       CommunityInvitation.all(email: self.email)
+    end
+
+    def finalized_tasks(days = nil)
+      return task_relations.all(:task => {status: 1}).size unless days
+      seconds = days * 24 * 60 * 60;
+      task_relations.all(:task => {status: 1, :from_date.gte => Time.now - seconds}).size
     end
 
     def create_auth_token
