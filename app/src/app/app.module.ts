@@ -23,6 +23,7 @@ import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { Register } from '../pages/register/register';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
+import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -58,6 +59,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    Points,
   ],
   imports: [
     HttpModule,
@@ -90,7 +92,8 @@ export function createTranslateLoader(http: Http) {
     DuplicateTask,
     Register,
     ResetPassword,
-    Welcome
+    Welcome,
+    Points
   ],
   providers: [TaskService, PersonService, Storage]
 })
