@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'POINTS.SETTINGS.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-border>
+
+    <ion-list-header>
+      {{ 'POINTS.TASKPOINTS.NAME' | translate }}
+    </ion-list-header>
+
+
+    <ion-item>
+      <ion-toggle checked="{{ settings.taskPoints.active }}"></ion-toggle>
+      <ion-label>
+        {{ 'POINTS.TASKPOINTS.ACTIVATE.TITLE' | translate }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      {{ 'POINTS.TASKPOINTS.MONTHS.TITLE' | translate }}
+      <p>{{ 'POINTS.TASKPOINTS.MONTHS.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert('taskPoints', 'months')">
+      {{ settings.taskPoints.months }}
+      </ion-note>
+    </ion-item>
+
+  </ion-list>
+
+
+  <ion-list>
+
+
+
+    <ion-list-header>
+      {{ 'POINTS.PERSONPOINTS.NAME' | translate }}
+      <p>.</p>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-toggle checked="{{ settings.personPoints.active }}"></ion-toggle>
+      <ion-label>
+        {{ 'POINTS.PERSONPOINTS.ACTIVATE.TITLE' | translate }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      {{ 'POINTS.PERSONPOINTS.AMOUNT.TITLE' | translate }}
+      <p>{{ 'POINTS.PERSONPOINTS.AMOUNT.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'amount')">
+      {{ settings.personPoints.amount }}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      {{ 'POINTS.PERSONPOINTS.RELOAD.TITLE' | translate }}
+      <p>{{ 'POINTS.PERSONPOINTS.RELOAD.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'reload')">
+      {{ settings.personPoints.reload }}
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      {{ 'POINTS.PERSONPOINTS.MONTHS.TITLE' | translate }}
+      <p>{{ 'POINTS.PERSONPOINTS.MONTHS.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'months')">
+      {{ settings.personPoints.months }}
+      </ion-note>
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>
