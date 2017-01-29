@@ -16,17 +16,17 @@
 
 
     <ion-item>
-      <ion-toggle checked="{{ settings.taskPoints.active }}"></ion-toggle>
+      <ion-toggle (ionChange)="toggle('task_points_enabled')" [(ngModel)]="community.task_points_enabled"></ion-toggle>
       <ion-label>
         {{ 'POINTS.TASKPOINTS.ACTIVATE.TITLE' | translate }}
       </ion-label>
     </ion-item>
 
     <ion-item>
-      {{ 'POINTS.TASKPOINTS.MONTHS.TITLE' | translate }}
-      <p>{{ 'POINTS.TASKPOINTS.MONTHS.DESCRIPTION' | translate }}</p>
-      <ion-note item-right class="big-number" (click)="showAlert('taskPoints', 'months')">
-      {{ settings.taskPoints.months }}
+      {{ 'POINTS.TASKPOINTS.DURATION.TITLE' | translate }}
+      <p>{{ 'POINTS.TASKPOINTS.DURATION.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert( 'task_points_duration')">
+      {{ community.task_points_duration || '' }}
       </ion-note>
     </ion-item>
 
@@ -43,7 +43,7 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-toggle checked="{{ settings.personPoints.active }}"></ion-toggle>
+      <ion-toggle (ionChange)="toggle('person_points_enabled')" [(ngModel)]="community.person_points_enabled"></ion-toggle>
       <ion-label>
         {{ 'POINTS.PERSONPOINTS.ACTIVATE.TITLE' | translate }}
       </ion-label>
@@ -52,24 +52,24 @@
     <ion-item>
       {{ 'POINTS.PERSONPOINTS.AMOUNT.TITLE' | translate }}
       <p>{{ 'POINTS.PERSONPOINTS.AMOUNT.DESCRIPTION' | translate }}</p>
-      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'amount')">
-      {{ settings.personPoints.amount }}
+      <ion-note item-right class="big-number" (click)="showAlert('person_points_amount')">
+      {{ community.person_points_amount || '' }}
       </ion-note>
     </ion-item>
 
     <ion-item>
       {{ 'POINTS.PERSONPOINTS.RELOAD.TITLE' | translate }}
       <p>{{ 'POINTS.PERSONPOINTS.RELOAD.DESCRIPTION' | translate }}</p>
-      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'reload')">
-      {{ settings.personPoints.reload }}
+      <ion-note item-right class="big-number" (click)="showAlert( 'person_points_reload')">
+      {{ community.person_points_reload || '' }}
       </ion-note>
     </ion-item>
 
     <ion-item>
-      {{ 'POINTS.PERSONPOINTS.MONTHS.TITLE' | translate }}
-      <p>{{ 'POINTS.PERSONPOINTS.MONTHS.DESCRIPTION' | translate }}</p>
-      <ion-note item-right class="big-number" (click)="showAlert('personPoints', 'months')">
-      {{ settings.personPoints.months }}
+      {{ 'POINTS.PERSONPOINTS.DURATION.TITLE' | translate }}
+      <p>{{ 'POINTS.PERSONPOINTS.DURATION.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert( 'person_points_duration')">
+      {{ community.person_points_duration || '' }}
       </ion-note>
     </ion-item>
 

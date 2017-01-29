@@ -289,7 +289,7 @@
       "NAME" : "Azadas",
       "DESCRIPTION" : "Indica la cantidad de tareas en las que se ha participado",
       "ACTIVATE.TITLE" : "Activar",
-      "MONTHS" : {
+      "DURATION" : {
         "TITLE" : "Meses a contabilizar",
         "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las azadas conseguidas en los últimos meses.",
         "ALERT" : {
@@ -330,7 +330,7 @@
           }
         }
       },
-      "MONTHS" : {
+      "DURATION" : {
         "TITLE" : "Meses a contabilizar",
         "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las semillas recibidas en los últimos meses.",
         "ALERT" : {

@@ -153,6 +153,32 @@ module Huertask
           present community, with: Entities::Community
         end
 
+        params do
+          optional :name,                   type: String
+          optional :description,            type: String
+          optional :task_points_enabled,    type: Boolean
+          optional :task_points_duration,   type: Integer
+          optional :person_points_enabled,  type: Boolean
+          optional :person_points_amount,   type: Integer
+          optional :person_points_reload,   type: Integer
+          optional :person_points_duration, type: Integer
+        end
+
+        put '/' do
+          admin_required
+          begin
+            community = Community.find_by_id(params[:community_id])
+            community.update_fields(declared(params, include_missing: false))
+            if community.save
+              present community, with: Entities::Community
+            else
+              error_400(community)
+            end
+          rescue Community::CommunityNotFound => e
+            error! e.message, 404
+          end
+        end
+
         resource :invite do
           post '/' do
             begin

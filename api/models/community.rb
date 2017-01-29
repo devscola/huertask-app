@@ -17,9 +17,15 @@ module Huertask
 
     include DataMapper::Resource
 
-    property :id,          Serial
-    property :name,        String, :length => 1..100
-    property :description, String, :default => "", :length => 0..200
+    property :id,                     Serial
+    property :name,                   String,  :length => 1..100
+    property :description,            String,  :default => "", :length => 0..200
+    property :task_points_enabled,    Boolean, :default => true
+    property :task_points_duration,   Integer, :default => 4
+    property :person_points_enabled,  Boolean, :default => true
+    property :person_points_amount,   Integer, :default => 2
+    property :person_points_reload,   Integer, :default => 1
+    property :person_points_duration, Integer, :default => 4
 
     validates_presence_of :name
 
@@ -33,6 +39,12 @@ module Huertask
         community = get(id)
         raise CommunityNotFound.new(id) if community.nil?
         community
+      end
+    end
+
+    def update_fields(params)
+      params.each do |key, value|
+        self.send("#{key}=", value)
       end
     end
 
