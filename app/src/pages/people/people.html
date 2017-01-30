@@ -8,7 +8,7 @@
       <button ion-button (click)="goToInvitePerson()">
         <ion-icon name="add"></ion-icon>
       </button>
-      <button ion-button>
+      <button ion-button (click)="search()">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,13 +16,14 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-searchbar *ngIf="searching" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true"></ion-searchbar>
   <ion-grid class="tabs">
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
 
   </ion-grid>
-  <ion-card *ngFor="let person of list">
+  <ion-card *ngFor="let person of filteredList">
   <ion-row>
     <ion-col>
       <img src="{{person.getGravatar()}}" alt="{{person.email}}">
@@ -42,6 +43,9 @@
         </ion-grid>
       </ion-card-content>
     </ion-col>
+    <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPopover($event, person)">
+      <ion-icon name="more"></ion-icon>
+    </button>
     </ion-row>
   </ion-card>
 </ion-content>
