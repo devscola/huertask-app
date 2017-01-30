@@ -3,6 +3,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
+import { KeysPipe } from './keys.pipe';
 import { LogIn } from '../pages/log-in/log-in';
 import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
@@ -25,6 +26,7 @@ import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { Register } from '../pages/register/register';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
+import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -40,6 +42,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     MyApp,
     EqualValidator,
+    KeysPipe,
     Tasks,
     LogIn,
     TermsAndConditions,
@@ -62,6 +65,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    Points,
   ],
   imports: [
     HttpModule,
@@ -96,7 +100,8 @@ export function createTranslateLoader(http: Http) {
     DuplicateTask,
     Register,
     ResetPassword,
-    Welcome
+    Welcome,
+    Points
   ],
   providers: [TaskService, PersonService, Storage]
 })

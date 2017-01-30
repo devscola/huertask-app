@@ -302,5 +302,18 @@
   },
   "PERSON" : {
     "ADMIN" : "Coordinador"
+  },
+  "POINTS" : {
+    "TITLE" : "Medallas",
+    "RESUME" : "Tus medallas",
+    "DONATE" : "Regala una semilla"
+  },
+  "TASKPOINTS" : {
+    "NAME" : "Azadas",
+    "DESCRIPTION" : "Por unirte a tareas que estén finalizadas"
+  },
+  "USERPOINTS" : {
+    "NAME" : "Semillas",
+    "DESCRIPTION" : "Regalo que te ha hecho un hortelano"
   }
 }

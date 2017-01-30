@@ -272,6 +272,13 @@ module Huertask
                 end
               end
             end
+
+            resource :points do
+              get "/" do
+                login_required
+                present current_user, with: Entities::PersonPoints
+              end
+            end
           end
         end
       end
