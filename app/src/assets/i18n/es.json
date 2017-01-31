@@ -307,6 +307,67 @@
     "TITLE" : "Medallas",
     "RESUME" : "Tus medallas",
     "DONATE" : "Regala una semilla"
+    "SETTINGS" : {
+      "TITLE" : "Configuración"
+    },
+    "TASKPOINTS" : {
+      "NAME" : "Azadas",
+      "DESCRIPTION" : "Indica la cantidad de tareas en las que se ha participado",
+      "ACTIVATE.TITLE" : "Activar",
+      "DURATION" : {
+        "TITLE" : "Meses a contabilizar",
+        "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las azadas conseguidas en los últimos meses.",
+        "ALERT" : {
+          "TITLE" : "Azadas: Meses",
+          "SUBTITLE" : "Elige durante cuantos meses se contabilizarán las azadas conseguidas",
+          "BUTTONS" : {
+            "SUBMIT" : "Modificar",
+            "CANCEL" : "Cancelar"
+          }
+        }
+      }
+    },
+    "PERSONPOINTS" : {
+      "NAME" : "Semillas",
+      "DESCRIPTION" : "Cada hortelano dispondrá cada cierto tiempo de un número de semillas con las que premiar a sus compañeros",
+      "ACTIVATE.TITLE" : "Activar",
+      "AMOUNT" : {
+        "TITLE" : "Cantidad para regalar",
+        "DESCRIPTION" : "Son las semillas que obtendrá periodicamente cada hortelano para regalar a sus compañeros",
+        "ALERT" : {
+          "TITLE" : "Semillas: Cantidad de recarga",
+          "SUBTITLE" : "Elige la cantidad de semillas que podrá regalar un hortelano tras cada recarga",
+          "BUTTONS" : {
+            "SUBMIT" : "Modificar",
+            "CANCEL" : "Cancelar"
+          }
+        }
+      },
+      "RELOAD" : {
+        "TITLE" : "Meses entre recargas",
+        "DESCRIPTION" : "Elige cada cuantos meses los hortelanos dispondrán de nuevas semillas para ofrecer",
+        "ALERT" : {
+          "TITLE" : "Semillas: Periodicidad de recarga",
+          "SUBTITLE" : "Elige cada cuantos meses se obtendrán nuevas semillas para poder regalar",
+          "BUTTONS" : {
+            "SUBMIT" : "Modificar",
+            "CANCEL" : "Cancelar"
+          }
+        }
+      },
+      "DURATION" : {
+        "TITLE" : "Meses a contabilizar",
+        "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las semillas recibidas en los últimos meses.",
+        "ALERT" : {
+          "TITLE" : "Semillas: Meses",
+          "SUBTITLE" : "Elige durante cuantos meses se contabilizarán las semillas recibidas",
+          "BUTTONS" : {
+            "SUBMIT" : "Modificar",
+            "CANCEL" : "Cancelar"
+          }
+        }
+      }
+    }
   },
   "TASKPOINTS" : {
     "NAME" : "Azadas",

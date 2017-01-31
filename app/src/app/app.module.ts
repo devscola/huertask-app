@@ -26,6 +26,7 @@ import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { Register } from '../pages/register/register';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
+import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
@@ -65,6 +66,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    PointsSettings,
     Points,
   ],
   imports: [
@@ -101,6 +103,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    PointsSettings,
     Points
   ],
   providers: [TaskService, PersonService, Storage]

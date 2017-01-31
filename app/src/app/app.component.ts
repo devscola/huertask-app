@@ -17,6 +17,7 @@ import { InvitationForm } from '../pages/invitation-form/invitation-form';
 import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
+import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
@@ -53,6 +54,7 @@ export class MyApp {
     { title: "INVITATIONS.TITLE", component: InvitationForm },
     { title: "PEOPLE.TITLE", component: People },
     { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
+    { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
 
   isAdmin: boolean = false;

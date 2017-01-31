@@ -74,6 +74,17 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
+  editCommunity(body: Object): Observable<Community> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.person['token']);
+
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.communityId}`, body, options)
+                    .map((res:Response) => <Community>this.instanciatedCommunity(res.json()))
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   invitePeople(invitations){
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
