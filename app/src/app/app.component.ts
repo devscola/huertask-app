@@ -14,9 +14,11 @@ import { Welcome } from '../pages/welcome/welcome';
 import { CommunityForm } from '../pages/community-form/community-form';
 import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
+import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { PointsSettings } from '../pages/points-settings/points-settings';
+import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -36,7 +38,9 @@ export class MyApp {
   loggedInPages: PageInterface[] = [
     { title: "TASKS.TITLE", component: Tasks },
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+    { title: "POINTS.TITLE", component: Points },
     { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+    { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
 
   loggedOutPages: PageInterface[] = [

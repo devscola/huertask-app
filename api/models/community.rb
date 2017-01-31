@@ -33,6 +33,7 @@ module Huertask
     has n, :people_invitations, 'CommunityInvitation'
     has n, :tasks_relations, 'TaskCommunityRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task
+    has n, :categories
 
     class << self
       def find_by_id(id)
@@ -49,7 +50,7 @@ module Huertask
     end
 
     def joined
-      people_relations.all(:order => [ :type.desc ])
+      people_relations.all(:type.gte => 1, :order => [ :type.desc ])
     end
 
     def invited
@@ -66,6 +67,7 @@ module Huertask
     end
 
     def invite_person(email, type)
+      return if email == ""
       self.create_or_update_invitation(email, type)
       Mailer.send_invitation(email)
     end
@@ -90,6 +92,7 @@ module Huertask
 
     def join(person)
       if invitation = CommunityInvitation.first(:email => person.email)
+        person.community_relations.all.destroy
         self.create_or_update_relation(person, invitation.type)
         invitation.destroy
       end
@@ -97,6 +100,15 @@ module Huertask
 
     def unjoin(person)
         self.create_or_update_relation(person, UNJOINED_USER_TYPE)
+    end
+
+    def toggle_admin(person)
+      relation = PersonCommunityRelation.first(:community_id => self.id, :person_id => person.id)
+      if relation.type == ADMIN_USER_TYPE
+        self.create_or_update_relation(person, SIMPLE_USER_TYPE)
+      else
+        self.create_or_update_relation(person, ADMIN_USER_TYPE)
+      end
     end
 
     def create_or_update_relation(person, type)

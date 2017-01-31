@@ -204,7 +204,63 @@ module Huertask
           end
 
           delete '/' do
-            joining(:unjoin)
+            begin
+              community = Community.find_by_id(params[:community_id])
+              person = Person.find_by_id(headers['Unjoined'])
+              community.unjoin(person)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            rescue Person::PersonNotFound => e
+              error! e.message, 404
+            end
+          end
+
+          put '/' do
+            begin
+              community = Community.find_by_id(params[:community_id])
+              person = Person.find_by_id(headers['Admin-Toggled'])
+              community.toggle_admin(person)
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            rescue Person::PersonNotFound => e
+              error! e.message, 404
+            end
+          end
+        end
+
+        resource :categories do
+          get "/" do
+            community = Community.find_by_id(params[:community_id])
+            present community.categories.active, with: Entities::Category
+          end
+
+          params do
+            requires :name,           type: String
+            optional :description,    type: String
+            optional :mandatory,      type: Boolean
+          end
+
+          post '/' do
+            admin_required
+
+            community = Community.find_by_id(params[:community_id])
+            category = Category.new declared(params)
+            category.community = community
+            if category.save
+              present category, with: Entities::Category
+            else
+              error_400(category)
+            end
           end
         end
 
@@ -240,6 +296,13 @@ module Huertask
                 else
                   error_400(task)
                 end
+              end
+            end
+
+            resource :points do
+              get "/" do
+                login_required
+                present current_user, with: Entities::PersonPoints
               end
             end
           end
@@ -300,8 +363,8 @@ module Huertask
       def joining(method)
         begin
           community = Community.find_by_id(params[:community_id])
-          person = Person.find_by_id(headers['User-Id'])
-          community.send(method, person)
+          person = Person.find_by_token(headers["Token"])
+          community.send(method, current_user)
           if community.save
             present community, with: Entities::Community
           else
@@ -324,27 +387,6 @@ module Huertask
     end
 
     resource :categories do
-      get "/" do
-        present Category.active, with: Entities::Category
-      end
-
-      params do
-        requires :name,           type: String
-        optional :description,    type: String
-        optional :mandatory,      type: Boolean
-      end
-
-      post '/' do
-        admin_required
-
-        category = Category.new declared(params)
-        if category.save
-          present category, with: Entities::Category
-        else
-          error_400(category)
-        end
-      end
-
       route_param :id do
 
         params do

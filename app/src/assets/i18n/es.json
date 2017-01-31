@@ -186,7 +186,13 @@
       }
     },
     "CREATED" : "Enhorabuena, eres coordinador del huerto. Ahora añade a otros coordinadores y hortelanos",
-    "INVITE" : "Invitar hortelanos"
+    "INVITE" : "Invitar hortelanos",
+    "JOIN" : {
+      "TITLE" : "Unete o crea",
+      "INVITATIONS" : "Invitaciones",
+      "COMMUNITIES" : "Comunidades",
+      "INVITATION_INFORMATION" : "Si aceptas una invitacion entras en la comunidad nueva pero sales de la vieja"
+    }
   },
   "INVITATIONS" : {
     "TITLE" : "Invitar hortelanos",
@@ -276,12 +282,31 @@
   "PEOPLE" : {
     "TITLE" : "Gente",
     "JOINED" : "Unidos",
-    "INVITED" : "Invitados"
+    "INVITED" : "Invitados",
+    "DELETE_CONFIRM" : {
+      "TITLE" : "Eliminar persona",
+      "SUBTITLE" : "¿Está seguro de que desea eliminar esta persona? Dejará de pertenecer a esta comunidad.",
+      "BUTTONS" : {
+          "DELETE" : "Borrar",
+          "CANCEL" : "Cancelar"
+      }
+    },
+    "TOGGLE_ADMIN_CONFIRM" : {
+      "TITLE" : "Modificar usuario",
+      "SUBTITLE" : "¿Está seguro de que desea cambiar el estado de esta persona?",
+      "BUTTONS" : {
+          "SUBMIT" : "Si",
+          "CANCEL" : "No"
+      }
+    }
   },
   "PERSON" : {
     "ADMIN" : "Coordinador"
   },
   "POINTS" : {
+    "TITLE" : "Medallas",
+    "RESUME" : "Tus medallas",
+    "DONATE" : "Regala una semilla"
     "SETTINGS" : {
       "TITLE" : "Configuración"
     },
@@ -343,5 +368,13 @@
         }
       }
     }
+  },
+  "TASKPOINTS" : {
+    "NAME" : "Azadas",
+    "DESCRIPTION" : "Por unirte a tareas que estén finalizadas"
+  },
+  "USERPOINTS" : {
+    "NAME" : "Semillas",
+    "DESCRIPTION" : "Regalo que te ha hecho un hortelano"
   }
 }

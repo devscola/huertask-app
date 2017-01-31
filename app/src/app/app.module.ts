@@ -3,13 +3,16 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { MyApp } from './app.component';
+import { KeysPipe } from './keys.pipe';
 import { LogIn } from '../pages/log-in/log-in';
 import { TermsAndConditions } from '../pages/terms-and-conditions/terms-and-conditions';
 import { EqualValidator } from './equal-validator.directive';
 import { CommunityForm } from '../pages/community-form/community-form';
 import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
+import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
+import { QuickPeopleMenu } from '../pages/people/quick-people-menu';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { Tasks } from '../pages/tasks/tasks';
 import { CreateTask } from '../pages/create-task/create-task';
@@ -24,6 +27,7 @@ import { Register } from '../pages/register/register';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
 import { PointsSettings } from '../pages/points-settings/points-settings';
+import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -39,6 +43,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     MyApp,
     EqualValidator,
+    KeysPipe,
     Tasks,
     LogIn,
     TermsAndConditions,
@@ -46,6 +51,8 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    QuickPeopleMenu,
+    JoinCommunity,
     SimpleInvitationForm,
     CreateTask,
     TaskDetail,
@@ -60,6 +67,7 @@ export function createTranslateLoader(http: Http) {
     ResetPassword,
     Welcome,
     PointsSettings,
+    Points,
   ],
   imports: [
     HttpModule,
@@ -81,6 +89,8 @@ export function createTranslateLoader(http: Http) {
     CommunityModal,
     InvitationForm,
     People,
+    QuickPeopleMenu,
+    JoinCommunity,
     SimpleInvitationForm,
     CreateTask,
     TaskDetail,
@@ -94,6 +104,7 @@ export function createTranslateLoader(http: Http) {
     ResetPassword,
     Welcome,
     PointsSettings,
+    Points
   ],
   providers: [TaskService, PersonService, Storage]
 })

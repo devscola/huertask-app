@@ -1,0 +1,20 @@
+page-points {
+  .points-tabs{
+    text-align: center;
+    text-transform: uppercase;
+    padding: 15px 0px;
+    .active{
+      color: red;
+    }
+  }
+
+  ion-card.card-md, ion-card.card-ios, ion-card.card-wp {
+    background-color: white;
+    ion-card-header{
+      border-bottom: 1px solid darken(map-get($colors,light), 20%);
+    }
+    ion-card-content{
+      padding-top: 13px;
+    }
+  }
+}

@@ -18,17 +18,26 @@ class Fixtures
                   "cultivo",
                   "cultura"]
 
-    (1..categories.size).each do |n|
-      Huertask::Category.create({
-        name: categories[n-1],
-        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil
+    (1..2).each do |n|
+      Huertask::Community.create({
+        name: "Comunidad #{n}",
+        description: "Información sobre la comunidad #{n}"
       })
     end
 
-    (1..2).each do |n|
-      person = Huertask::Community.create({
-        name: "Comunidad #{n}",
-        description: "Información sobre la comunidad #{n}"
+    (1..categories.size).each do |n|
+      Huertask::Category.create({
+        name: categories[n-1],
+        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil,
+        community: Huertask::Community.first
+      })
+    end
+
+    (1..categories.size).each do |n|
+      Huertask::Category.create({
+        name: "#{categories[n/2-1]} (com2)",
+        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil,
+        community: Huertask::Community.last
       })
     end
 
@@ -82,7 +91,7 @@ class Fixtures
         from_date: (Time.now + 30*24*60*60),
         to_date: (Time.now + 30*24*60*60 + 3*60*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         note: "Esta es la nota de la tarea número #{n}",
         community_id: community.id
       })
@@ -96,7 +105,7 @@ class Fixtures
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         community_id: community.id
       })
       community.tasks << task
@@ -109,7 +118,7 @@ class Fixtures
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         community_id: community.id
       })
       community.tasks << task
@@ -124,7 +133,7 @@ class Fixtures
         from_date: (Time.now + 30*24*60*60),
         to_date: (Time.now + 30*24*60*60 + 3*60*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         note: "Esta es la nota de la tarea número #{n}",
         community_id: community.id
       })
@@ -138,7 +147,7 @@ class Fixtures
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         community_id: community.id
       })
       community.tasks << task
@@ -151,7 +160,7 @@ class Fixtures
         from_date: (Time.now - 2*60*60),
         to_date: n.odd? ? (Time.now - 1*60) : (Time.now + 1*60),
         required_people: n,
-        categories: [Huertask::Category[(n%categories.size)-1]],
+        categories: [community.categories[(n%categories.size)-1]],
         community_id: community.id
       })
       community.tasks << task

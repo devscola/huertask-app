@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PersonService } from '../../providers/person.service';
+import { Tasks } from '../tasks/tasks';
 
 @Component({
   selector: 'page-simple-invitation-form',
@@ -13,6 +15,7 @@ export class SimpleInvitationForm {
   constructor(
     public toastCtrl: ToastController,
     public navCtrl: NavController,
+    public personService: PersonService,
     public formBuilder: FormBuilder
   ) {
     var emailRegex =  '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'
@@ -39,7 +42,21 @@ export class SimpleInvitationForm {
     {
         this.form.patchValue({ admin: false });
     }
-    // TODO send data to API via service
+    let invitations = {}
+    if(invitation.admin){
+      invitations["admin_users"] = [invitation['email']]
+      invitations["simple_users"] = []
+    }
+    else{
+      invitations["simple_users"] = [invitation['email']]
+      invitations["admin_users"] = []
+    }
+    this.personService.invitePeople(invitations).subscribe( data => {
+        this.presentToast('Persona invitada', 'success')
+        this.navCtrl.setRoot(Tasks);
+      },
+      err => this.presentToast('Ha habido un error', 'danger')
+    )
   }
 
   presentToast(message: string, cssClass: string = '') {

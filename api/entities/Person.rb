@@ -15,5 +15,10 @@ module Huertask
       expose :email, :invitations
       expose :community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities
     end
+    class PersonPoints < Grape::Entity
+      expose :taskpoints do
+        expose :finalized_tasks, as: :qty
+      end
+    end
   end
 end
