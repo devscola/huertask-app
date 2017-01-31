@@ -52,8 +52,8 @@ export class PointsSettings {
     for(let i of this.monthsQty){
       alert.addInput({
         type: 'radio',
-        label: i,
-        value: i,
+        label: String(i),
+        value: String(i),
         checked: i == this.community[property]
       });
     }
