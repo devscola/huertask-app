@@ -19,6 +19,7 @@ module Huertask
       expose :taskpoints do
         expose :finalized_tasks, as: :qty
       end
+      expose :person_medals
     end
   end
 end

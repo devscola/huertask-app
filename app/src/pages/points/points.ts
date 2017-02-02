@@ -52,6 +52,18 @@ export class Points {
 
   submit(){
     this.submited = true;
+    let point = {"receiver_id": this.sendPointTo['id'],
+                 "sender_id": this.personService.person['id'],
+                 "description": this.form.value['description']}
+    this.sendPoint(point)
+  }
+
+  sendPoint(point){
+    this.personService.sendPoint(point).subscribe(res => {
+      console.log("medalla enviada")
+    }, err => {
+      console.log("medalla no enviada")
+    })
   }
 
   selectTab(tabTitle) {

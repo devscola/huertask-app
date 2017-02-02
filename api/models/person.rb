@@ -30,6 +30,7 @@ module Huertask
     has n, :categories_relations, 'CategoryPersonRelation'
     has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
     has n, :community_relations, 'PersonCommunityRelation'
+    has n, :person_medals, 'PersonMedal'
 
     def categories
       Category.active.select{ |cat| !dislike_categories.include? cat }

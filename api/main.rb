@@ -22,6 +22,7 @@ require_relative './models/community_invitation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
+require_relative './models/person_medal'
 require_relative './db/fixtures'
 require_relative './repositories/tasks'
 require_relative './repositories/mailer'
@@ -277,6 +278,12 @@ module Huertask
               get "/" do
                 login_required
                 present current_user, with: Entities::PersonPoints
+              end
+
+              post '/donate' do
+                login_required
+                receiver = Person.find_by_id(params[:receiver_id])
+                receiver.person_medals.create(sender_id: params[:sender_id], description: params[:description])
               end
             end
           end
