@@ -59,20 +59,20 @@ export class People {
   }
 
   getItems(ev) {
-   this.filteredList = this.list
-   let val = ev.target.value;
-   if (val && val.trim() != '') {
-     this.filteredList = this.list.filter((item) => {
-       return (item.email.toLowerCase().indexOf(val.toLowerCase()) > -1);
-     })
-   }
- }
+    this.filteredList = this.list
+    let val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.filteredList = this.list.filter((item) => {
+        return (item.email.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
 
- onClear(ev) {
+  onClear(ev) {
    this.filteredList = this.list;
    this.searching = false;
    ev.target.value = '';
- }
+  }
 
   goToInvitePerson(){
     this.navCtrl.push(SimpleInvitationForm);

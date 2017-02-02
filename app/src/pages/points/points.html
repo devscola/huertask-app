@@ -14,20 +14,75 @@
     </ion-row>
 
   </ion-grid>
-  <ion-card *ngFor="let type of points | keys">
-    <ion-card-header>
-      <span class="number">{{ type.value.qty }}</span>
-      {{ type.key + ".name" | uppercase | translate }}
-    </ion-card-header>
+  <div *ngIf="tabs[0].active">
+    <ion-card *ngFor="let type of points | keys">
+      <ion-card-header>
+        <span class="number">{{ type.value.qty }}</span>
+        {{ type.key + ".name" | uppercase | translate }}
+      </ion-card-header>
 
-    <ion-card-content>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>{{ type.key + ".DESCRIPTION" | uppercase | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="tabs[1].active">
+    <h3>Quiero regalar una semilla</h3>
+    <span>Te quedan 2 hasta abril 2017</span>
+    <span>Para:</span>
+    <ion-searchbar *ngIf="!sendPointTo" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true" [autocomplete]="on" placeholder="Selecciona a la persona"></ion-searchbar>
+    <ion-card *ngIf="sendPointTo">
+      <span>{{sendPointTo['name']}}</span>
+      <button ion-button clear item-right><ion-icon (click)="unselectPerson(person)" name="close"></ion-icon></button>
+    </ion-card>
+    <div *ngIf="showList">
+      <ion-card *ngFor="let person of list">
+        <ion-card-header (click)="selectPerson(person)">
+          {{person.name}}
+        </ion-card-header>
+      </ion-card>
+    </div>
+    <form [formGroup]="form" (submit)="submit()">
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <p>{{ type.key + ".DESCRIPTION" | uppercase | translate }}</p>
-          </ion-col>
+          <ion-label>{{ 'COMMUNITY.FORM.DESCRIPTION.LABEL' | translate }}</ion-label>
         </ion-row>
+        <ion-row>
+          <ion-input
+            type="text"
+            formControlName="description"
+            placeholder="{{ 'COMMUNITY.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
+          </ion-input>
+        </ion-row>
+        <div *ngIf="hasValidationError('description')" class="alert alert-danger">
+          <p *ngIf="hasThisError('description', 'required')">
+            {{ 'COMMUNITY.FORM.DESCRIPTION.ALERT.REQUIRED' | translate }}
+          </p>
+          <p *ngIf="hasThisError('description', 'maxlength')">
+            {{ 'COMMUNITY.FORM.DESCRIPTION.ALERT.MAX_LENGTH' | translate }}
+          </p>
+        </div>
       </ion-grid>
-    </ion-card-content>
-  </ion-card>
+
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col width-50>
+            </ion-col>
+            <ion-col width-50>
+              <button ion-button type="submit" clear full>
+                {{ 'BUTTONS.SAVE' | translate }}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </form>
+  </div>
 </ion-content>
