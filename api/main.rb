@@ -159,7 +159,7 @@ module Huertask
             begin
               admin_required
               community = Community.find_by_id(params[:community_id])
-              community.invite_people(params)
+              community.invite_people(params, current_user)
               if community.save
                 present community, with: Entities::Community
               else

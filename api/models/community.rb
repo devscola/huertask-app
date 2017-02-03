@@ -45,19 +45,19 @@ module Huertask
       people_invitations.all
     end
 
-    def invite_people(params)
+    def invite_people(params, current_user)
       params[:simple_users].each do |email|
-        invite_person(email, SIMPLE_USER_TYPE)
+        invite_person(email, SIMPLE_USER_TYPE, current_user)
       end
       params[:admin_users].each do |email|
-        invite_person(email, ADMIN_USER_TYPE)
+        invite_person(email, ADMIN_USER_TYPE, current_user)
       end
     end
 
-    def invite_person(email, type)
+    def invite_person(email, type, current_user)
       return if email == ""
       self.create_or_update_invitation(email, type)
-      Mailer.send_invitation(email)
+      Mailer.send_invitation(email, self.name, current_user.name)
     end
 
     def create_or_update_invitation(email, type)
