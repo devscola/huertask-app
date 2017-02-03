@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 
@@ -22,12 +22,17 @@ export class Points {
   ]
 
   constructor(
+    public toastCtrl: ToastController,
     public navCtrl: NavController,
     private personService: PersonService,
     public formBuilder: FormBuilder
   ) {
     personService.getPoints().subscribe(points => {
+      points["userpoints"] = points["person_medals"]
+      delete points["person_medals"]
+      points["userpoints"]["qty"] = points["userpoints"].length;
       this.points = points;
+
     });
     personService.getCommunity(personService.communityId).subscribe(community => {
       this.people = community['joined']
@@ -60,9 +65,10 @@ export class Points {
 
   sendPoint(point){
     this.personService.sendPoint(point).subscribe(res => {
-      console.log("medalla enviada")
+      this.presentToast("medalla enviada", "success")
+      this.selectTab("POINTS.RESUME")
     }, err => {
-      console.log("medalla no enviada")
+      this.presentToast("medalla no enviada", "danger")
     })
   }
 
@@ -96,5 +102,16 @@ export class Points {
 
   unselectPerson(){
     this.sendPointTo = null
+  }
+
+  presentToast(message: string, cssClass: string = '') {
+    let toast = this.toastCtrl.create({
+     message: message,
+     duration: 3000,
+     position: 'bottom',
+     cssClass: cssClass
+    });
+
+    toast.present();
   }
 }
