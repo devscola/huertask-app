@@ -16,6 +16,10 @@ export class Points {
   sendPointTo;
   showList = false;
 
+  //TODO cambiar por valores adecuados
+  userpointsLeft = 1;
+  userpointsRechargeDate = Date.now();
+
   tabs = [
     {title: "POINTS.RESUME", active: true},
     {title: "POINTS.DONATE", active: false}
@@ -55,12 +59,25 @@ export class Points {
     return this.form.controls[property].hasError(error)
   }
 
+  userpointsLeftMessage = () => {
+    switch (this.userpointsLeft) {
+       case 0:
+         return "USERPOINTS.LEFT.MSG.ZERO";
+       case 1:
+         return "USERPOINTS.LEFT.MSG.ONE";
+       default:
+         return "USERPOINTS.LEFT.MSG.PLURAL";
+    }
+  }
+
   submit(){
     this.submited = true;
-    let point = {"receiver_id": this.sendPointTo['id'],
-                 "sender_id": this.personService.person['id'],
-                 "description": this.form.value['description']}
-    this.sendPoint(point)
+    if (this.form.valid && this.sendPointTo){
+      let point = {"receiver_id": this.sendPointTo['id'],
+                   "sender_id": this.personService.person['id'],
+                   "description": this.form.value['description']}
+      this.sendPoint(point)
+    }
   }
 
   sendPoint(point){
@@ -103,6 +120,11 @@ export class Points {
   unselectPerson(){
     this.sendPointTo = null
   }
+
+  emptySelectedPerson(){
+    return this.submited && !this.sendPointTo
+  }
+
 
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
