@@ -17,7 +17,11 @@ module Huertask
     end
     class PersonPoints < Grape::Entity
       expose :taskpoints do
-        expose :finalized_tasks, as: :qty
+        expose :finalized_tasks, as: :list
+      end
+      expose :userpoints do
+        expose :person_medals, as: :list
+        expose :available_person_points, as: :available
       end
     end
   end

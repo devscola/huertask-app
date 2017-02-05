@@ -141,6 +141,15 @@ export class PersonService {
       .map(res => res.json());
   }
 
+  sendPoint(point){
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    let options    = new RequestOptions({ headers: headers });
+    headers.append('Token', this.person['token']);
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/people/${this.person['id']}/points/donate`, point, options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
 
   logIn(person): Observable<Person>{
     this.logged = true

@@ -375,6 +375,31 @@
   },
   "USERPOINTS" : {
     "NAME" : "Semillas",
-    "DESCRIPTION" : "Regalo que te ha hecho un hortelano"
+    "DESCRIPTION" : "Regalo que te ha hecho un hortelano",
+    "TITLE" : "Quiero regalar una semilla",
+    "LEFT" : {
+      "MSG" : {
+        "ZERO" : "No te quedan semillas que regalar. Recibirás nuevas en {{date}}",
+        "ONE" : "Te queda <span class='personpoints-left-text'>1</span> semilla hasta {{date}}",
+        "PLURAL" : "Te quedan <span class='personpoints-left-text'>{{count}}</span> semillas hasta {{date}}"
+      }
+    },
+    "FORM" : {
+      "RECEIVER" : {
+        "LABEL" : "Para",
+        "PLACEHOLDER" : "Selecciona a la persona",
+        "ALERT" : {
+          "REQUIRED" : "Debes seleccionar a una persona"
+        }
+      },
+      "DESCRIPTION" : {
+        "LABEL" : "Se lo regalo por",
+        "PLACEHOLDER" : "",
+        "ALERT" : {
+          "REQUIRED" : "Debes escribir un mensaje",
+          "MAX_LENGTH" : "El máximo son 200 caracteres"
+        }
+      }
+    }
   }
 }

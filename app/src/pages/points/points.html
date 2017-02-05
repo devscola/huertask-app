@@ -14,20 +14,87 @@
     </ion-row>
 
   </ion-grid>
-  <ion-card *ngFor="let type of points | keys">
-    <ion-card-header>
-      <span class="number">{{ type.value.qty }}</span>
-      {{ type.key + ".name" | uppercase | translate }}
-    </ion-card-header>
+  <div *ngIf="tabs[0].active">
+    <ion-card *ngFor="let type of points | keys">
+      <ion-card-header>
+        <span class="number">{{ type.value.qty }}</span>
+        {{ type.key + ".name" | uppercase | translate }}
+      </ion-card-header>
 
-    <ion-card-content>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>{{ type.key + ".DESCRIPTION" | uppercase | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="tabs[1].active">
+    <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
+
+    <span [innerHTML]="userpointsLeftMessage() | translate:{count: points.userpoints.available, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
+
+
+    <ion-label>{{ 'USERPOINTS.FORM.RECEIVER.LABEL' | translate }}</ion-label>
+    <ion-searchbar *ngIf="!sendPointTo" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true" [autocomplete]="on" placeholder="{{ 'USERPOINTS.FORM.RECEIVER.PLACEHOLDER' | translate }}"></ion-searchbar>
+    <ion-card *ngIf="sendPointTo">
+      <ion-item>
+        <ion-label>{{sendPointTo['name']}}</ion-label>
+        <button ion-button clear item-right><ion-icon (click)="unselectPerson(person)" name="close"></ion-icon></button>
+      </ion-item>
+    </ion-card>
+    <div *ngIf="showList">
+      <ion-card *ngFor="let person of list">
+        <ion-card-header (click)="selectPerson(person)">
+          {{person.name}}
+        </ion-card-header>
+      </ion-card>
+    </div>
+    <div *ngIf="emptySelectedPerson()" class="alert alert-danger">
+      <p>
+        {{ 'USERPOINTS.FORM.RECEIVER.ALERT.REQUIRED' | translate }}
+      </p>
+    </div>
+
+    <form [formGroup]="form" (submit)="submit()">
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <p>{{ type.key + ".DESCRIPTION" | uppercase | translate }}</p>
-          </ion-col>
+          <ion-label>{{ 'USERPOINTS.FORM.DESCRIPTION.LABEL' | translate }}</ion-label>
         </ion-row>
+        <ion-row>
+          <ion-input
+            type="text"
+            formControlName="description"
+            placeholder="{{ 'USERPOINTS.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
+          </ion-input>
+        </ion-row>
+
+        <div *ngIf="hasValidationError('description')" class="alert alert-danger">
+          <p *ngIf="hasThisError('description', 'required')">
+            {{ 'USERPOINTS.FORM.DESCRIPTION.ALERT.REQUIRED' | translate }}
+          </p>
+          <p *ngIf="hasThisError('description', 'maxlength')">
+            {{ 'USERPOINTS.FORM.DESCRIPTION.ALERT.MAX_LENGTH' | translate }}
+          </p>
+        </div>
       </ion-grid>
-    </ion-card-content>
-  </ion-card>
+
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col width-50>
+            </ion-col>
+            <ion-col width-50>
+              <button ion-button (submit)="submit()" type="submit" clear full>
+                {{ 'BUTTONS.SAVE' | translate }}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </form>
+  </div>
 </ion-content>

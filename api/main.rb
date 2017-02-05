@@ -22,6 +22,7 @@ require_relative './models/community_invitation'
 require_relative './models/category_person_relation'
 require_relative './models/category_task_relation'
 require_relative './models/person_task_relation'
+require_relative './models/person_medal'
 require_relative './db/fixtures'
 require_relative './repositories/tasks'
 require_relative './repositories/mailer'
@@ -304,6 +305,20 @@ module Huertask
                 login_required
                 present current_user, with: Entities::PersonPoints
               end
+
+              post '/donate' do
+                login_required(params[:sender_id])
+                begin
+                  receiver = Person.find_by_id(params[:receiver_id])
+                  if point = current_user.donate_person_points(receiver, params[:community_id], params[:description])
+                    present point
+                  else
+                    error_400(current_user)
+                  end
+                rescue Person::InsufficientAvailablePersonPoints => e
+                  error! e.message, 405
+                end
+              end
             end
           end
         end
@@ -325,8 +340,9 @@ module Huertask
         Person.find_by_token(headers["Token"]) if headers["Token"]
       end
 
-      def login_required
+      def login_required(id = nil)
         return error!('Unauthorized', 401) unless current_user && current_user.validate_auth_token(headers["Token"])
+        return error!('Unauthorized', 401) unless id == nil || current_user.id == id
       end
 
       def admin_required
