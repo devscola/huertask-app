@@ -16,8 +16,7 @@ export class Points {
   sendPointTo;
   showList = false;
 
-  //TODO cambiar por valores adecuados
-  userpointsRechargeDate = Date.now();
+  userpointsRechargeDate;
 
   tabs = [
     {title: "POINTS.RESUME", active: true},
@@ -39,6 +38,9 @@ export class Points {
     personService.getCommunity(personService.communityId).subscribe(community => {
       this.people = community['joined']
       this.list = community['joined']
+    })
+    personService.getCommunity(this.personService.communityId).subscribe(community => {
+      this.userpointsRechargeDate = community['next_reload']
     })
     this.form = this.generateForm()
   }

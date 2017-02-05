@@ -26,6 +26,7 @@ module Huertask
     property :person_points_amount,   Integer, :default => 2
     property :person_points_reload,   Integer, :default => 1
     property :person_points_duration, Integer, :default => 4
+    property :last_reload,           DateTime, :default => DateTime.now
 
     validates_presence_of :name
 
@@ -41,6 +42,10 @@ module Huertask
         raise CommunityNotFound.new(id) if community.nil?
         community
       end
+    end
+
+    def next_reload
+      self.last_reload + (self.person_points_reload * 30)
     end
 
     def update_fields(params)
