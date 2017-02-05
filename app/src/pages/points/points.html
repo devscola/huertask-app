@@ -35,14 +35,14 @@
   <div *ngIf="tabs[1].active">
     <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
 
-    <span [innerHTML]="userpointsLeftMessage() | translate:{count: userpointsLeft, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
+    <span [innerHTML]="userpointsLeftMessage() | translate:{count: points.userpoints.available, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
 
 
     <ion-label>{{ 'USERPOINTS.FORM.RECEIVER.LABEL' | translate }}</ion-label>
     <ion-searchbar *ngIf="!sendPointTo" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true" [autocomplete]="on" placeholder="{{ 'USERPOINTS.FORM.RECEIVER.PLACEHOLDER' | translate }}"></ion-searchbar>
     <ion-card *ngIf="sendPointTo">
       <ion-item>
-        <ion-label item-left>{{sendPointTo['name']}}</ion-label>
+        <ion-label>{{sendPointTo['name']}}</ion-label>
         <button ion-button clear item-right><ion-icon (click)="unselectPerson(person)" name="close"></ion-icon></button>
       </ion-item>
     </ion-card>

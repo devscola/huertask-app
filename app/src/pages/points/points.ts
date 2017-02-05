@@ -17,7 +17,6 @@ export class Points {
   showList = false;
 
   //TODO cambiar por valores adecuados
-  userpointsLeft = 1;
   userpointsRechargeDate = Date.now();
 
   tabs = [
@@ -32,9 +31,8 @@ export class Points {
     public formBuilder: FormBuilder
   ) {
     personService.getPoints().subscribe(points => {
-      points["userpoints"] = points["person_medals"]
-      delete points["person_medals"]
-      points["userpoints"]["qty"] = points["userpoints"].length;
+      points["userpoints"]["qty"] = points["userpoints"]["list"].length;
+      points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
       this.points = points;
 
     });
@@ -84,6 +82,7 @@ export class Points {
     this.personService.sendPoint(point).subscribe(res => {
       this.presentToast("medalla enviada", "success")
       this.selectTab("POINTS.RESUME")
+      this.navCtrl.setRoot(Points);
     }, err => {
       this.presentToast("medalla no enviada", "danger")
     })

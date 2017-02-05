@@ -69,10 +69,10 @@ export class MyApp {
     translate.use('es');
     moment().locale('es');
     this.listenToLoginEvents();
-
     personService.getUser().then(user =>{
       personService.person = user;
       personService.setCommunities().then((res)=>{
+        personService.loadUserData(user).then(data => {})
         this.isAdmin = personService.isAdmin;
         this.enableMenu(null != user);
         this.rootPage =  user ? Tasks : Welcome;
