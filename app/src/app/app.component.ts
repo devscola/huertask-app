@@ -72,14 +72,19 @@ export class MyApp {
     moment().locale('es');
     this.listenToLoginEvents();
     personService.getUser().then(user =>{
-      personService.person = user;
-      personService.setCommunities().then((res)=>{
-        personService.loadUserData(user).then(data => {})
-        this.isAdmin = personService.isAdmin;
-        this.enableMenu(null != user);
-        this.rootPage =  user ? Tasks : Welcome;
+      if(null == user){
+        this.rootPage = Welcome;
         this.initializeApp();
-      })
+      }else{
+        personService.person = user;
+        personService.setCommunities().then((res)=>{
+          personService.loadUserData(user).then(data => {})
+          this.isAdmin = personService.isAdmin;
+          this.enableMenu(null != user);
+          this.rootPage = Tasks;
+          this.initializeApp();
+        })
+      }
     })
   }
 
