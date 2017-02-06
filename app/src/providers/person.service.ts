@@ -141,7 +141,7 @@ export class PersonService {
       .map(res => res.json());
   }
 
-  sendPoint(point){
+   sendPoint(point){
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);

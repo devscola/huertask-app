@@ -81,7 +81,8 @@ export class MyApp {
         this.initializeApp();
       })
     })
-
+    this.rootPage =  Welcome;
+    this.initializeApp();
   }
 
   initializeApp() {

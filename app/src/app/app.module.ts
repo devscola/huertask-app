@@ -28,6 +28,7 @@ import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
+import { PointsHelp } from '../pages/points-help/points-help';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -67,6 +68,7 @@ export function createTranslateLoader(http: Http) {
     ResetPassword,
     Welcome,
     PointsSettings,
+    PointsHelp,
     Points,
   ],
   imports: [
@@ -104,6 +106,7 @@ export function createTranslateLoader(http: Http) {
     ResetPassword,
     Welcome,
     PointsSettings,
+    PointsHelp,
     Points
   ],
   providers: [TaskService, PersonService, Storage]

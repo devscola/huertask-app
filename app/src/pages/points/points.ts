@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
+import { PointsHelp } from '../points-help/points-help';
 
 @Component({
   selector: 'page-points',
@@ -17,6 +18,7 @@ export class Points {
   showList = false;
 
   userpointsRechargeDate;
+  userpointsLeft;
 
   tabs = [
     {title: "POINTS.RESUME", active: true},
@@ -25,6 +27,7 @@ export class Points {
 
   constructor(
     public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
     public navCtrl: NavController,
     private personService: PersonService,
     public formBuilder: FormBuilder
@@ -32,8 +35,8 @@ export class Points {
     personService.getPoints().subscribe(points => {
       points["userpoints"]["qty"] = points["userpoints"]["list"].length;
       points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
+      this.userpointsLeft = points["available"]
       this.points = points;
-
     });
     personService.getCommunity(personService.communityId).subscribe(community => {
       this.people = community['joined']
@@ -126,6 +129,10 @@ export class Points {
     return this.submited && !this.sendPointTo
   }
 
+  showModal(){
+    let modal = this.modalCtrl.create(PointsHelp);
+    modal.present();
+  }
 
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({
