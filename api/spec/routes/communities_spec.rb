@@ -68,7 +68,7 @@ describe Huertask::API do
       expect(response['error']).to eq "The community 0 was not found"
     end
 
-    it "invite persons in community when both are valid", :focus => true do
+    it "invite persons in community when both are valid" do
       data = {
         "simple_users" => ["person1@devscola.org", "person2@devscola.org"],
         "admin_users" => ["person3@devscola.org"]

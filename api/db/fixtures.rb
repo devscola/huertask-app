@@ -10,6 +10,7 @@ class Fixtures
     Huertask::Category.all.destroy
     Huertask::Person.all.destroy
     Huertask::Community.all.destroy
+    Huertask::Plot.all.destroy
 
     categories = ["mantenimiento",
                   "riego",

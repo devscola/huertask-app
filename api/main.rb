@@ -13,9 +13,11 @@ require_relative './entities/Person'
 require_relative './entities/community'
 require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
+require_relative './entities/plot'
 require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
+require_relative './models/plot'
 require_relative './models/task_community_relation'
 require_relative './models/person_community_relation'
 require_relative './models/community_invitation'
@@ -130,6 +132,28 @@ module Huertask
       end
     end
 
+    resource :plots do
+      route_param :plot_id do
+        put '/' do
+          begin
+            admin_required
+            person = Person.find_by_id(params[:person_id])
+            plot = Plot.find_by_id(params[:plot_id])
+            plot.assign_person(person)
+            if plot.save
+              present plot, with: Entities::Plot
+            else
+              error_400(plot)
+            end
+          rescue Person::PersonNotFound => e
+            error! e.message, 404
+          rescue Plot::PlotNotFound => e
+            error! e.message, 404
+          end
+        end
+      end
+    end
+
     resource :communities do
       params do
         requires :name,            type: String
@@ -177,6 +201,32 @@ module Huertask
             end
           rescue Community::CommunityNotFound => e
             error! e.message, 404
+          end
+        end
+
+        resource :plots do
+          get '/' do
+            begin
+              community = Community.find_by_id(params[:community_id])
+              present community.plots, with: Entities::Plot
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
+          end
+
+          post '/' do
+            begin
+              admin_required
+              community = Community.find_by_id(params[:community_id])
+              community.create_plots(params[:prefix], params[:quantity])
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
           end
         end
 
@@ -323,9 +373,6 @@ module Huertask
           end
         end
       end
-
-
-
     end
 
     helpers do

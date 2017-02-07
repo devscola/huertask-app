@@ -15,6 +15,7 @@ module Huertask
       expose :person_points_reload
       expose :person_points_duration
       expose :next_reload
+      expose :plots
     end
   end
 end
