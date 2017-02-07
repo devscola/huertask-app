@@ -35,12 +35,21 @@ module Huertask
     has n, :tasks_relations, 'TaskCommunityRelation'
     has n, :tasks, :through => :tasks_relations, :via => :task
     has n, :categories
+    has n, :plots, 'Plot'
 
     class << self
       def find_by_id(id)
         community = get(id)
         raise CommunityNotFound.new(id) if community.nil?
         community
+      end
+    end
+
+    def create_plots(prefix, quantity)
+      (1..quantity).each do |n|
+        name = prefix + '-' + n.to_s
+        plot = Plot.new(name: name, community_id: self.id)
+        self.plots << plot
       end
     end
 

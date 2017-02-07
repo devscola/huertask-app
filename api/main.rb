@@ -16,6 +16,7 @@ require_relative './entities/person_task_relation'
 require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
+require_relative './models/plot'
 require_relative './models/task_community_relation'
 require_relative './models/person_community_relation'
 require_relative './models/community_invitation'
@@ -180,6 +181,23 @@ module Huertask
           end
         end
 
+        resource :plots do
+          post '/' do
+            begin
+              admin_required
+              community = Community.find_by_id(params[:community_id])
+              community.create_plots(params[:prefix], params[:quantity])
+              if community.save
+                present community, with: Entities::Community
+              else
+                error_400(community)
+              end
+            rescue Community::CommunityNotFound => e
+              error! e.message, 404
+            end
+          end
+        end
+
         resource :invite do
           post '/' do
             begin
@@ -323,9 +341,6 @@ module Huertask
           end
         end
       end
-
-
-
     end
 
     helpers do
