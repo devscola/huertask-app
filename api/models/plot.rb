@@ -4,7 +4,7 @@ module Huertask
 
     property :id, Serial
     property :name, String
-    property :person_id, Integer
+    property :person_name, String
 
     belongs_to :community
   end
