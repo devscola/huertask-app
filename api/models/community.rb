@@ -46,7 +46,7 @@ module Huertask
     end
 
     def create_plots(prefix, quantity)
-      (1..quantity).each do |n|
+      (1..quantity.to_i).each do |n|
         name = prefix + '-' + n.to_s
         plot = Plot.new(name: name, community_id: self.id)
         self.plots << plot
