@@ -23,22 +23,20 @@ describe Huertask::API do
         prefix: "parcela"
       }
 
-      header('User-Id', current_user.id)
       header('Token', current_user.create_auth_token)
 
       post "/api/communities/0/plots", data
 
-      expect(last_response.status).to be 404
+      expect(last_response).to be_not_found
       expect(response.size).to be 1
     end
 
-    it "returns created community" do
+    it "returns modified community with created plots" do
       data = {
         quantity: 20,
         prefix: "parcela"
       }
 
-      header('User-Id', current_user.id)
       header('Token', current_user.create_auth_token)
 
       post "/api/communities/1/plots", data
@@ -55,5 +53,25 @@ describe Huertask::API do
       expect(last_response).to be_unauthorized
       expect(response['error']).to eq "Unauthorized"
     end
+  end
+
+  describe "PUT /api/plots/:id" do
+    subject(:response) { JSON.parse(last_response.body) }
+
+    it "assign person to plot" do
+      person = Huertask::Person.first
+      data = { person_id: person.id }
+
+      plot = Huertask::Plot.create(name: 'parcela 1', community_id: Huertask::Community.first.id)
+
+      header('Token', current_user.create_auth_token)
+
+      put "/api/plots/#{plot.id}", data
+
+      expect(last_response).to be_ok
+      expect(response['person']['id']).to be person.id
+      expect(response['person']['name']).to eq person.name
+    end
+
   end
 end

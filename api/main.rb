@@ -132,6 +132,29 @@ module Huertask
       end
     end
 
+    resource :plots do
+      route_param :plot_id do
+        put '/' do
+          begin
+            admin_required
+            person = Person.find_by_id(params[:person_id])
+            plot = Plot.find_by_id(params[:plot_id])
+            plot.assign_person(person)
+            if plot.save
+              present plot, with: Entities::Plot
+            else
+              error_400(plot)
+            end
+          rescue Person::PersonNotFound => e
+            error! e.message, 404
+          rescue Plot::PlotNotFound => e
+            p 'he entrado'
+            error! e.message, 404
+          end
+        end
+      end
+    end
+
     resource :communities do
       params do
         requires :name,            type: String
