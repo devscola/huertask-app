@@ -148,7 +148,6 @@ module Huertask
           rescue Person::PersonNotFound => e
             error! e.message, 404
           rescue Plot::PlotNotFound => e
-            p 'he entrado'
             error! e.message, 404
           end
         end
