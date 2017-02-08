@@ -1,16 +1,18 @@
 class Fixtures
   def self.seed
+    p "estoy fixtures"
     Huertask::PersonTaskRelation.all.destroy
     Huertask::PersonCommunityRelation.all.destroy
+    Huertask::PersonMedal.all.destroy
     Huertask::CommunityInvitation.all.destroy
     Huertask::CategoryTaskRelation.all.destroy
     Huertask::CategoryPersonRelation.all.destroy
     Huertask::TaskCommunityRelation.all.destroy
     Huertask::Task.all.destroy
     Huertask::Category.all.destroy
+    Huertask::Plot.all.destroy
     Huertask::Person.all.destroy
     Huertask::Community.all.destroy
-    Huertask::Plot.all.destroy
 
     categories = ["mantenimiento",
                   "riego",

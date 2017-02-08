@@ -357,7 +357,7 @@ module Huertask
               end
 
               post '/donate' do
-                login_required(params[:sender_id])
+                login_required(params[:person_id])
                 begin
                   receiver = Person.find_by_id(params[:receiver_id])
                   if point = current_user.donate_person_points(receiver, params[:community_id], params[:description])
@@ -389,7 +389,7 @@ module Huertask
 
       def login_required(id = nil)
         return error!('Unauthorized', 401) unless current_user && current_user.validate_auth_token(headers["Token"])
-        return error!('Unauthorized', 401) unless id == nil || current_user.id == id
+        return error!('Unauthorized', 401) unless id == nil || current_user.id == id.to_i
       end
 
       def admin_required

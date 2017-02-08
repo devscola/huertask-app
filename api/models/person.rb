@@ -32,7 +32,7 @@ module Huertask
     property :hashed_password, String
     property :salt, String, :unique => true
 
-    property :available_person_points, Integer, :default => 2
+    property :available_person_points, Integer, :default => 1
 
     has n, :task_relations, 'PersonTaskRelation'
     has n, :categories_relations, 'CategoryPersonRelation'
@@ -145,9 +145,9 @@ module Huertask
 
     def donate_person_points(receiver, community_id, description)
       raise Person::InsufficientAvailablePersonPoints.new(self.id) if self.available_person_points<1
-      receiver.person_medals.create(sender_id: self.id, community_id: community_id, description: description)
+      medal =receiver.person_medals.create(sender_id: self.id, community_id: community_id, description: description)
       self.available_person_points -= 1
-      self.save
+      medal if self.save
     end
   end
 end
