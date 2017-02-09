@@ -401,5 +401,19 @@
         }
       }
     }
+  },
+  "PLOTS" : {
+    "TITLE" : "Parcelas"
+  },
+  "PLOT" : {
+    "UNASSIGNED" : "Sin asignar",
+    "DELETE_CONFIRM" : {
+      "TITLE" : "Eliminar parcela",
+      "SUBTITLE" : "¿Está seguro de que desea eliminar esta parcela?",
+      "BUTTONS" : {
+          "DELETE" : "Borrar",
+          "CANCEL" : "Cancelar"
+      }
+    }
   }
 }

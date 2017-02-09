@@ -29,6 +29,8 @@ import { Welcome } from '../pages/welcome/welcome';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { PointsHelp } from '../pages/points-help/points-help';
+import { Plots } from '../pages/plots/plots';
+import { QuickPlotsMenu } from '../pages/plots/quick-plots-menu';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 import { FormAction } from '../components/form-action/form-action';
@@ -70,6 +72,8 @@ export function createTranslateLoader(http: Http) {
     PointsSettings,
     PointsHelp,
     Points,
+    Plots,
+    QuickPlotsMenu
   ],
   imports: [
     HttpModule,
@@ -107,7 +111,9 @@ export function createTranslateLoader(http: Http) {
     Welcome,
     PointsSettings,
     PointsHelp,
-    Points
+    Points,
+    Plots,
+    QuickPlotsMenu
   ],
   providers: [TaskService, PersonService, Storage]
 })

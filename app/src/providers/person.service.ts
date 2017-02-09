@@ -7,10 +7,12 @@ import 'rxjs/add/operator/map';
 
 import { Person } from '../models/person';
 import { Community } from '../models/community';
+import { Plot } from '../models/plot';
 
 @Injectable()
 export class PersonService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+
 
   COMMUNITIES      = 'communities';
   ACTIVE_COMMUNITY = 'activeCommunity';
@@ -60,6 +62,22 @@ export class PersonService {
       }
     }
     return community
+  }
+
+  instanciatedPlots(json): Plot[]{
+    let plots = []
+    for(let object in json){
+      plots.push(this.instanciatedPlot(json[object]))
+    }
+    return plots
+  }
+
+  instanciatedPlot(object): Plot{
+    let plot = new Plot();
+    for(let param in object){
+      plot[param] = object[param]
+    }
+    return plot
   }
 
   createCommunity(community): Observable<Community>{
@@ -130,6 +148,11 @@ export class PersonService {
   getCommunity(community_id): Observable<Community> {
     return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
       .map(res => <Community>this.instanciatedCommunity(res.json()));
+  }
+
+  getPlots(): Observable<Plot[]> {
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.communityId}/plots`)
+      .map(res => <Plot[]>this.instanciatedPlots(res.json()));
   }
 
   getPoints(): Observable<any> {
