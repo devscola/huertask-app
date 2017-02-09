@@ -406,6 +406,19 @@
     "TITLE" : "Parcelas"
   },
   "PLOT" : {
+    "EDIT" : {
+      "TITLE" : "Editar parcela"
+    },
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "ALERT" : {
+          "REQUIRED" : "Es necesario un nombre",
+          "MAX_LENGTH" : "Nombre demasiado largo"
+        }
+      },
+      "BUTTON.EDIT" : "Editar parcela"
+    },
     "UNASSIGNED" : "Sin asignar",
     "DELETE_CONFIRM" : {
       "TITLE" : "Eliminar parcela",

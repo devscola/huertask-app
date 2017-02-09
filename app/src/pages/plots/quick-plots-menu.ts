@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
 import { Plots } from './plots'
+import { PlotForm } from '../plot-form/plot-form'
 
 
 @Component({
@@ -35,7 +36,7 @@ export class QuickPlotsMenu {
   }
 
   edit(plot){
-    // this.navCtrl.push();
+    this.navCtrl.push(PlotForm, {plot: plot});
   }
 
   showConfirm(plot) {

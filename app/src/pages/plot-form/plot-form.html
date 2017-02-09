@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>{{ title | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label>{{ 'PLOT.FORM.NAME.LABEL' | translate }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input
+            type="text"
+            formControlName="name">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="hasValidationError('name')" class="alert alert-danger">
+        <p *ngIf="hasThisError('name', 'required')">
+          {{ 'CATEGORY.FORM.NAME.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('name', 'maxlength')">
+          {{ 'CATEGORY.FORM.NAME.ALERT.MAX_LENGTH' | translate }}
+        </p>
+      </div>
+
+
+
+   <ion-label>{{ 'USERPOINTS.FORM.RECEIVER.LABEL' | translate }}</ion-label>
+    <ion-searchbar *ngIf="!form.controls.person.value" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true" [autocomplete]="on" placeholder="{{ 'USERPOINTS.FORM.RECEIVER.PLACEHOLDER' | translate }}"></ion-searchbar>
+    <ion-card *ngIf="form.controls.person.value">
+      <ion-item>
+        <ion-label>{{form.controls.person.value.name}}</ion-label>
+        <button ion-button clear item-right><ion-icon (click)="unselectPerson(person)" name="close"></ion-icon></button>
+      </ion-item>
+    </ion-card>
+    <div *ngIf="showList">
+      <ion-card *ngFor="let person of list">
+        <ion-card-header (click)="selectPerson(person)">
+          {{person.name}}
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+
+
+
+
+
+    </ion-grid>
+    <button type="submit" ion-button outline>
+      {{ 'PLOT.FORM.BUTTON.EDIT' | translate }}
+    </button>
+  </form>
+</ion-content>
