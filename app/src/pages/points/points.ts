@@ -38,11 +38,9 @@ export class Points {
       this.userpointsLeft = points["available"]
       this.points = points;
     });
-    personService.getCommunity(personService.communityId).subscribe(community => {
+    personService.getCommunity().subscribe(community => {
       this.people = community['joined']
       this.list = community['joined']
-    })
-    personService.getCommunity(this.personService.communityId).subscribe(community => {
       this.userpointsRechargeDate = community['next_reload']
     })
     this.form = this.generateForm()

@@ -7,13 +7,13 @@ import { PersonService } from '../../providers/person.service';
   templateUrl: 'join-community.html'
 })
 export class JoinCommunity {
-  invitation;
+  invitations;
   communities;
-
+  invitation;
   constructor(public navCtrl: NavController, public personService: PersonService) {
     this.communities = this.personService.person['communities']
-    this.invitation = this.personService.person['invitations'][0]
-    if(this.invitation){
+    this.invitations = this.personService.person['invitations'][0]
+    if(this.invitations){
       this.getCommunity(this.invitation['community_id'])
     }
   }

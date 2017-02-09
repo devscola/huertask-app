@@ -43,6 +43,11 @@ export class MyApp {
     { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
 
+  notMemberPages: PageInterface[] = [
+    { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
+    { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
+  ];
+
   loggedOutPages: PageInterface[] = [
     { title: "LOGIN.TITLE", component: LogIn},
     { title: "REGISTER.TITLE", component: Register },
@@ -58,6 +63,8 @@ export class MyApp {
   ];
 
   isAdmin: boolean = false;
+  communities;
+  activeCommunityName;
 
   constructor(
     public events: Events,
@@ -77,8 +84,9 @@ export class MyApp {
         this.initializeApp();
       }else{
         personService.person = user;
-        personService.setCommunities().then((res)=>{
-          personService.loadUserData(user).then(data => {})
+        this.communities = user.communities;
+        personService.setDefaultCommunity().then((community)=>{
+          this.activeCommunityName = community['name']
           this.isAdmin = personService.isAdmin;
           this.enableMenu(null != user);
           this.rootPage = Tasks;
@@ -101,6 +109,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  changeCommunity(community){
+    console.log(community)
   }
 
   logOut(){
@@ -131,10 +143,17 @@ export class MyApp {
       this.menu.enable(true, 'adminMenu');
       this.menu.enable(false, 'loggedInMenu');
       this.menu.enable(false, 'loggedOutMenu');
+      this.menu.enable(false, 'notMemberMenu');
+    }else if(this.personService.person['communities'].length < 1){
+      this.menu.enable(true, 'notMemberMenu');
+      this.menu.enable(false, 'adminMenu');
+      this.menu.enable(false, 'loggedInMenu');
+      this.menu.enable(false, 'loggedOutMenu');
     }else{
       this.menu.enable(false, 'adminMenu');
       this.menu.enable(loggedIn, 'loggedInMenu');
       this.menu.enable(!loggedIn, 'loggedOutMenu');
+      this.menu.enable(false, 'notMemberMenu');
     }
   }
 }

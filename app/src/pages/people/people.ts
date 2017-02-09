@@ -25,7 +25,7 @@ export class People {
     public popoverCtrl: PopoverController,
     private personService: PersonService
   ) {
-    personService.getCommunity(personService.communityId).subscribe(community => {
+    personService.getCommunity().subscribe(community => {
       this.joined = community.joined;
       this.invited = community.invited;
       this.list = this.joined;

@@ -79,8 +79,8 @@ module Huertask
       end
     end
 
-    def is_admin?
-      relation = self.community_relations.first(person_id: self.id)
+    def is_admin?(community_id)
+      relation = self.community_relations.first(person_id: self.id, community_id: community_id)
       return true if relation.type == ADMIN_USER_TYPE
       false
     end

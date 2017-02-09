@@ -393,7 +393,7 @@ module Huertask
       end
 
       def admin_required
-        return error!('Unauthorized', 401) unless current_user && current_user.is_admin?
+        return error!('Unauthorized', 401) unless current_user && current_user.is_admin?(params[:community_id])
       end
 
       def action(is_going)

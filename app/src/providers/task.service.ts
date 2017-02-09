@@ -50,7 +50,7 @@ export class TaskService {
     if(this.personService.person != null){
       token = this.personService.person['token']
       userId = this.personService.person['id']
-      communityId = this.personService.communityId
+      communityId = this.personService.activeCommunity['id']
     }
     let params = this.getTasksUrlParams(filter)
 
@@ -70,7 +70,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/people/${this.personService.person['id']}/tasks/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.activeCommunity['id']}/people/${this.personService.person['id']}/tasks/`, body, options)
                     .map((res:Response) => <Task[]>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -120,7 +120,7 @@ export class TaskService {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/categories/`)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.personService.activeCommunity['id']}/categories/`)
       .map(res => <Category[]>this.instanciatedCategories(res.json()));
   }
 
@@ -145,7 +145,7 @@ export class TaskService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.personService.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.communityId}/categories/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.personService.activeCommunity['id']}/categories/`, body, options)
                     .map((res:Response) => <Category>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }

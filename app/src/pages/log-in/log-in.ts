@@ -34,10 +34,12 @@ export class LogIn {
     let person = this.form.value
 
     this.personService.logIn(person).subscribe(person => {
-      this.personService.loadUserData(person).then(data => {
-        this.presentToast(("Hola " + person.name), "success")
-        this.navCtrl.setRoot(JoinCommunity)
-      });
+        this.personService.person = person
+        this.personService.setDefaultCommunity().then(community =>{
+          this.personService.events.publish('user:login')
+          this.presentToast(("Hola " + person.name), "success")
+          this.navCtrl.setRoot(JoinCommunity)
+        })
     }, err => {
       this.presentToast("incorrecto", "danger")
       console.log(err)
