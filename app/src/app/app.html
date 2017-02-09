@@ -15,6 +15,23 @@
   </ion-content>
 </ion-menu>
 
+<!-- not member menu -->
+<ion-menu id="notMemberMenu" [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of notMemberPages" (click)="openPage(p)" color="white">
+        {{p.title | translate}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <!-- logged in menu -->
 <ion-menu id="loggedInMenu" [content]="content">
   <ion-header>
@@ -24,7 +41,14 @@
   </ion-header>
 
   <ion-content>
+  <ion-select>
+    <ion-option value="a">a</ion-option>
+    <ion-option value="b">b</ion-option>
+  </ion-select>
     <ion-list>
+      <ion-select>
+        <ion-option *ngFor="let community of communities" value="{{community}}">{{community}}</ion-option>
+      </ion-select>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
       </button>
@@ -43,6 +67,9 @@
 
   <ion-content>
     <ion-list>
+      <ion-select [(ngModel)]="activeCommunityName" (ionChange)="changeCommunity(activeCommunityName)">
+        <ion-option *ngFor="let community of communities" value="{{community['name']}}">{{community['name']}}</ion-option>
+      </ion-select>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
       </button>

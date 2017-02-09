@@ -32,7 +32,7 @@ export class PointsSettings {
     private translate: TranslateService,
     private personService: PersonService
   ) {
-    personService.getCommunity(personService.communityId).subscribe(community => {
+    personService.getCommunity().subscribe(community => {
       this.community = community;
     });
   }

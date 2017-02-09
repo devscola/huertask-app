@@ -17,8 +17,8 @@ export class PersonService {
   USER             = 'user';
   logged;
   person;
-  communityId;
-  isAdmin;
+  activeCommunity = null;
+  isAdmin = false;
 
   constructor(
     public http: Http,
@@ -80,7 +80,7 @@ export class PersonService {
 
     let options    = new RequestOptions({ headers: headers });
 
-    return this.http.put(`${this.huertaskApiUrl}/communities/${this.communityId}`, body, options)
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}`, body, options)
                     .map((res:Response) => <Community>this.instanciatedCommunity(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
@@ -90,7 +90,7 @@ export class PersonService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/invite`, invitations, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/invite`, invitations, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
@@ -111,7 +111,7 @@ export class PersonService {
     headers.append('Token', this.person['token']);
     headers.append('Unjoined', person_id);
 
-    return this.http.delete(`${this.huertaskApiUrl}/communities/${this.communityId}/join`, options)
+    return this.http.delete(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/join`, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
@@ -122,12 +122,12 @@ export class PersonService {
     headers.append('Token', this.person['token']);
     headers.append('Admin-Toggled', person_id);
 
-    return this.http.put(`${this.huertaskApiUrl}/communities/${this.communityId}/join`, {}, options)
+    return this.http.put(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/join`, {}, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
-  getCommunity(community_id): Observable<Community> {
+  getCommunity(community_id = this.activeCommunity['id']): Observable<Community> {
     return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
       .map(res => <Community>this.instanciatedCommunity(res.json()));
   }
@@ -137,7 +137,7 @@ export class PersonService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
 
-    return this.http.get(`${this.huertaskApiUrl}/communities/${this.communityId}/people/${this.person.id}/points`, options)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/people/${this.person.id}/points`, options)
       .map(res => res.json());
   }
 
@@ -146,7 +146,7 @@ export class PersonService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/people/${this.person['id']}/points/donate`, point, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/people/${this.person['id']}/points/donate`, point, options)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
@@ -162,16 +162,6 @@ export class PersonService {
 
     this.person = person;
     return person
-  }
-
-  loadUserData(person){
-    this.person = person
-    this.communityId = person['token'].split(':')[2]
-    return this.storage.set(this.USER, person).then(person => {
-      this.setCommunities().then(() => {
-        this.events.publish('user:login');
-      });
-    });
   }
 
   logOut(){
@@ -240,46 +230,15 @@ export class PersonService {
     });
   };
 
-  activeCommunity() {
-    return this.storage.get(this.ACTIVE_COMMUNITY).then((value) => {
-      return value;
-    });
-  };
-
-  setCommunities(){
-    if(!this.person){
-      return this.storage.set(this.COMMUNITIES, [])
-    }else{
-      let communities = this.person.communities || []
-      let communities_ids = communities.map(com => {
-        return com.id;
-      })
-      return this.storage.set(this.COMMUNITIES, communities).then((communities) => {
-        return this.activeCommunity().then((value) => {
-          //TODO remove magic number: 2
-          if (!value || communities_ids.indexOf(value.id) == -1){
-            if (communities.length>0){
-              this.storage.set(this.ACTIVE_COMMUNITY, communities[0])
-              this.communityId = communities[0].id;
-              this.isAdmin = communities[0].type == 2;
-            } else {
-              this.storage.remove(this.ACTIVE_COMMUNITY)
-              this.communityId = null;
-              this.isAdmin = false;
-            }
-          }else{
-            this.communityId = value.id;
-            this.isAdmin = value.type == 2;
-          }
-          return value
-        })
-      })
+  setDefaultCommunity(){
+    let adminType = 2
+    if(this.person['communities'].length > 0){
+      this.activeCommunity = this.person['communities'][0]
+      this.isAdmin = this.activeCommunity['type'] == adminType
     }
-  }
-
-  setActiveCommunity(community){
-    this.communityId = community.community.id;
-    this.storage.set(this.ACTIVE_COMMUNITY, community);
+    return new Promise((resolve, reject) => {
+      resolve(this.activeCommunity);
+    });
   }
 
 }
