@@ -19,7 +19,6 @@ import { People } from '../pages/people/people';
 import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
-import { Plots } from '../pages/plots/plots';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
 
@@ -54,7 +53,6 @@ export class MyApp {
     { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
     { title: "INVITATIONS.TITLE", component: InvitationForm },
     { title: "PEOPLE.TITLE", component: People },
-    { title: "PLOTS.TITLE", component: Plots },
     { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];

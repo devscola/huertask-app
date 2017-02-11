@@ -29,8 +29,7 @@ import { Welcome } from '../pages/welcome/welcome';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { PointsHelp } from '../pages/points-help/points-help';
-import { Plots } from '../pages/plots/plots';
-import { QuickPlotsMenu } from '../pages/plots/quick-plots-menu';
+import { QuickPlotsMenu } from '../pages/people/quick-plots-menu';
 import { PlotForm } from '../pages/plot-form/plot-form';
 import { TaskService } from '../providers/task.service';
 import { PersonService } from '../providers/person.service';
@@ -73,7 +72,6 @@ export function createTranslateLoader(http: Http) {
     PointsSettings,
     PointsHelp,
     Points,
-    Plots,
     QuickPlotsMenu,
     PlotForm
   ],
@@ -114,7 +112,6 @@ export function createTranslateLoader(http: Http) {
     PointsSettings,
     PointsHelp,
     Points,
-    Plots,
     QuickPlotsMenu,
     PlotForm
   ],

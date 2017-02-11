@@ -4,6 +4,8 @@ import { PersonService } from '../../providers/person.service';
 import { Person } from '../../models/person';
 import { SimpleInvitationForm } from '../simple-invitation-form/simple-invitation-form';
 import { QuickPeopleMenu } from './quick-people-menu'
+import { Plot } from '../../models/plot';
+import { QuickPlotsMenu } from './quick-plots-menu'
 
 @Component({
   selector: 'people',
@@ -11,13 +13,15 @@ import { QuickPeopleMenu } from './quick-people-menu'
 })
 export class People {
   filteredList: Person[];
-  list: Person[];
+  list: any[];
   joined: Person[];
+  plots: Plot[] = [];
   invited: Person[];
   searching = false;
   tabs = [
     {title: "PEOPLE.JOINED", active: true},
-    {title: "PEOPLE.INVITED", active: false}
+    {title: "PEOPLE.INVITED", active: false},
+    {title: "PLOTS.TITLE", active: false}
   ]
 
   constructor(
@@ -31,11 +35,21 @@ export class People {
       this.list = this.joined;
       this.filteredList = this.list
     });
+    personService.getPlots().subscribe(plots => {
+      // this.plots = plots
+      this.plots = [
+        {'id': 1, 'name': 'Parcela 1', 'person' : {'name': 'Ana'}},
+        {'id': 2, 'name': 'Parcela 2', 'person' : {'name': 'Emma'}},
+        {'id': 3, 'name': 'Parcela 3', 'person' : {'name': 'Teresa'}},
+        {'id': 4, 'name': 'Parcela 4', 'person' : null},
+      ]
+    });
   }
 
   showTasks(tabTitle){
     if(tabTitle === "PEOPLE.JOINED"){ this.list = this.joined }
-    if(tabTitle === "PEOPLE.INVITED"){ this.list = this.invited }
+    else if(tabTitle === "PEOPLE.INVITED"){ this.list = this.invited }
+    else if(tabTitle === "PLOTS.TITLE"){ this.list = this.plots }
     this.filteredList = this.list
   }
 
@@ -47,8 +61,15 @@ export class People {
     this.showTasks(tabTitle)
   }
 
-  presentPopover(event, person) {
+  presentPersonPopover(event, person) {
     let popover = this.popoverCtrl.create(QuickPeopleMenu, {person: person});
+    popover.present({
+      ev: event
+    });
+  }
+
+  presentPlotPopover(event, plot) {
+    let popover = this.popoverCtrl.create(QuickPlotsMenu, {plot: plot});
     popover.present({
       ev: event
     });
