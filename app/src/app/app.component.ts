@@ -84,9 +84,10 @@ export class MyApp {
     personService.getUser().then(user =>{
       if(null == user){
         this.rootPage = Welcome;
-        this.communities = personService.communities;
         this.initializeApp();
       }else{
+        personService.person = user
+        this.communities = user['communities']
         personService.setDefaultCommunity().then((community)=>{
           this.activeCommunityName = community['name']
           this.isAdmin = personService.isAdmin;
@@ -123,11 +124,11 @@ export class MyApp {
 
       for(let community in this.communities){
         let checked = false
-        if(this.communities[community]['name'] == this.activeCommunityName){ checked = true }
+        if(this.communities[community]['community']['name'] == this.activeCommunityName){ checked = true }
         alert.addInput({
           type: 'radio',
-          label: this.communities[community]['name'],
-          value: this.communities[community]['name'],
+          label: this.communities[community]['community']['name'],
+          value: this.communities[community]['community']['name'],
           checked: checked
         });
       }

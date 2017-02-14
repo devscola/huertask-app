@@ -43,7 +43,7 @@
   <ion-content>
     <ion-list>
       <ion-item>
-        <button menuClose color="white" icon-right>
+        <button id="change-community" menuClose color="white" icon-right>
           <span (click)="showRadio()">{{activeCommunityName}}</span>
         </button>
         <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>
@@ -67,7 +67,7 @@
   <ion-content>
     <ion-list>
       <ion-item>
-        <button menuClose color="white" icon-right>
+        <button id="change-community" menuClose color="white" icon-right>
           <span (click)="showRadio()">{{activeCommunityName}}</span>
         </button>
         <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>

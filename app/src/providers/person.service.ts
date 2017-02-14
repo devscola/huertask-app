@@ -243,8 +243,8 @@ export class PersonService {
   setDefaultCommunity(){
     let adminType = 2
     if(this.person['communities'].length > 0){
-      this.activeCommunity = this.person['communities'][0]
-      this.isAdmin = this.activeCommunity['type'] == adminType
+      this.activeCommunity = this.person['communities'][0]['community']
+      this.isAdmin = this.person['communities'][0]['type'] == adminType
     }
     return new Promise((resolve, reject) => {
       resolve(this.activeCommunity);
