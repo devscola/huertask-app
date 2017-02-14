@@ -87,17 +87,17 @@ module Huertask
     end
 
     def create_or_update_invitation(email, type)
-      invitation = CommunityInvitation.first(:community_id => self.id, :email => email)
+      invitation = self.people_invitations.first(:community_id => self.id, :email => email)
       if invitation
         invitation.type = type
       else
-        invitation = CommunityInvitation.new({
+        invitation = self.people_invitations.new({
           community_id: self.id,
           email: email,
           type: type
         })
       end
-      if invitation.save
+      if community.save
         invitation
       else
         error_400(invitation)

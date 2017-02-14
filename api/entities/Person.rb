@@ -12,7 +12,8 @@ module Huertask
       expose :categories, using: Huertask::Entities::Category
     end
     class PersonAfterLogin < Person
-      expose :email, :invitations
+      expose :email
+      expose :invitations, using: Huertask::Entities::CommunityFromPerson
       expose :community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities
     end
     class PersonPoints < Grape::Entity

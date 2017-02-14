@@ -4,6 +4,6 @@ module Huertask
     property :id, Serial
     property :type,      Integer
     property :email,     String
-    property :community_id, Integer
+    belongs_to :community
   end
 end
