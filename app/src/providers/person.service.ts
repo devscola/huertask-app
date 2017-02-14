@@ -101,7 +101,7 @@ export class PersonService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${invitation['community_id']}/join`, {}, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${invitation['community']['id']}/join`, {}, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
