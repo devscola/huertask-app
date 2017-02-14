@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events, MenuController } from 'ionic-angular';
+import { Nav, Platform, Events, MenuController, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
 import 'moment/locale/es';
@@ -65,12 +65,15 @@ export class MyApp {
   isAdmin: boolean = false;
   communities;
   activeCommunityName;
+  hasInvitations;
+  invitations;
 
   constructor(
     public events: Events,
     public menu: MenuController,
+    public alertCtrl: AlertController,
     public platform: Platform,
-    translate: TranslateService,
+    public translate: TranslateService,
     public taskService: TaskService,
     public personService: PersonService
   ) {
@@ -81,10 +84,9 @@ export class MyApp {
     personService.getUser().then(user =>{
       if(null == user){
         this.rootPage = Welcome;
+        this.communities = personService.communities;
         this.initializeApp();
       }else{
-        personService.person = user;
-        this.communities = user.communities;
         personService.setDefaultCommunity().then((community)=>{
           this.activeCommunityName = community['name']
           this.isAdmin = personService.isAdmin;
@@ -111,8 +113,55 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  changeCommunity(community){
-    console.log(community)
+  showRadio() {
+      let messages;
+      this.translate.get('COMMUNITY.CHANGE_ALERT').subscribe((res: Object) => {
+        messages = res
+      });
+      let alert = this.alertCtrl.create();
+      alert.setTitle(messages['TITLE']);
+
+      for(let community in this.communities){
+        let checked = false
+        if(this.communities[community]['name'] == this.activeCommunityName){ checked = true }
+        alert.addInput({
+          type: 'radio',
+          label: this.communities[community]['name'],
+          value: this.communities[community]['name'],
+          checked: checked
+        });
+      }
+
+      alert.addInput({
+        type: 'radio',
+        label: messages['NEW'],
+        value: 'new_community',
+        checked: false
+      });
+
+      alert.addButton(messages['CANCEL']);
+      alert.addButton({
+        text: messages['OK'],
+        handler: data => {
+          this.changeCommunity(data)
+        }
+      });
+      alert.present();
+    }
+
+  changeCommunity(community_name){
+    if(community_name == 'new_community'){
+      this.activeCommunityName = this.personService.activeCommunity['name']
+      this.menu.close()
+      return this.nav.setRoot(CommunityForm)
+    }
+    let community = this.communities.filter(community => community.name === community_name)[0]
+    this.personService.setCommunity(community)
+  }
+
+  goToInvitations(){
+    this.menu.close()
+    this.nav.setRoot(JoinCommunity)
   }
 
   logOut(){
@@ -124,6 +173,12 @@ export class MyApp {
   listenToLoginEvents() {
     this.personService.events.subscribe('user:login', () => {
       console.log('user:login');
+      this.communities = this.personService.communities
+      if (this.personService.person['invitations'].length > 0 ){ this.hasInvitations = true }
+      this.invitations = this.personService.person['invitations'].length
+      this.activeCommunityName = this.personService.activeCommunity['name']
+      this.isAdmin = this.personService.isAdmin
+      this.menu.close()
       this.enableMenu(true);
     });
 

@@ -17,6 +17,7 @@ export class PersonService {
   USER             = 'user';
   logged;
   person;
+  communities;
   activeCommunity = null;
   isAdmin = false;
 
@@ -156,12 +157,14 @@ export class PersonService {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
 
-    person = this.http.post(`${this.huertaskApiUrl}/login`, person, options)
+    return this.http.post(`${this.huertaskApiUrl}/login`, person, options)
                     .map((res:Response) => <Person>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
 
-    this.person = person;
-    return person
+  setPerson(person){
+    this.person = person
+    this.communities = person['communities']
   }
 
   logOut(){
@@ -229,6 +232,13 @@ export class PersonService {
       return value;
     });
   };
+
+  setCommunity(community){
+    let adminType = 2
+    this.activeCommunity = community
+    this.isAdmin = this.activeCommunity['type'] == adminType
+    this.events.publish('user:login')
+  }
 
   setDefaultCommunity(){
     let adminType = 2

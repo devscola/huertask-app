@@ -34,7 +34,7 @@ export class LogIn {
     let person = this.form.value
 
     this.personService.logIn(person).subscribe(person => {
-        this.personService.person = person
+        this.personService.setPerson(person)
         this.personService.setDefaultCommunity().then(community =>{
           this.personService.events.publish('user:login')
           this.presentToast(("Hola " + person.name), "success")

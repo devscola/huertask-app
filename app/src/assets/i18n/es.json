@@ -192,6 +192,12 @@
       "INVITATIONS" : "Invitaciones",
       "COMMUNITIES" : "Comunidades",
       "INVITATION_INFORMATION" : "Si aceptas una invitacion entras en la comunidad nueva pero sales de la vieja"
+    },
+    "CHANGE_ALERT" : {
+      "TITLE" : "Cambia de comunidad",
+      "NEW" : "Nueva comunidad",
+      "OK" : "Cambiar",
+      "CANCEL" : "Cancelar"
     }
   },
   "INVITATIONS" : {
