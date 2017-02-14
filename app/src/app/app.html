@@ -41,14 +41,13 @@
   </ion-header>
 
   <ion-content>
-  <ion-select>
-    <ion-option value="a">a</ion-option>
-    <ion-option value="b">b</ion-option>
-  </ion-select>
     <ion-list>
-      <ion-select>
-        <ion-option *ngFor="let community of communities" value="{{community}}">{{community}}</ion-option>
-      </ion-select>
+      <ion-item>
+        <button menuClose color="white" icon-right>
+          <span (click)="showRadio()">{{activeCommunityName}}</span>
+        </button>
+        <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>
+      </ion-item>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
       </button>
@@ -67,9 +66,12 @@
 
   <ion-content>
     <ion-list>
-      <ion-select [(ngModel)]="activeCommunityName" (ionChange)="changeCommunity(activeCommunityName)">
-        <ion-option *ngFor="let community of communities" value="{{community['name']}}">{{community['name']}}</ion-option>
-      </ion-select>
+      <ion-item>
+        <button menuClose color="white" icon-right>
+          <span (click)="showRadio()">{{activeCommunityName}}</span>
+        </button>
+        <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>
+      </ion-item>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
       </button>
