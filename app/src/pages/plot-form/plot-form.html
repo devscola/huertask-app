@@ -86,6 +86,11 @@
             </ion-card-header>
           </ion-card>
         </div>
+        <div *ngIf="alertMessage">
+        {{ alertMessage | translate: {
+          person: form.controls.person.value.name,
+          plot: (form.controls.person.value.plot.name + ' ' + form.controls.person.value.plot.number)
+        } }}</div>
       </div>
     </ion-grid>
 

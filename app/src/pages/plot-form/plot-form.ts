@@ -22,6 +22,7 @@ export class PlotForm {
   people;
   list;
   showList = false;
+  alertMessage = null;
 
   constructor(
     public el: ElementRef,
@@ -75,6 +76,7 @@ export class PlotForm {
       'quantity': form.quantity.value,
       'person_id': form.person.value && form.person.value.id || null
     }
+
     if(this.action == 'edit'){
       this.personService.editPlot(plot).subscribe( data => {
         this.navCtrl.setRoot(People);
@@ -110,10 +112,14 @@ export class PlotForm {
   selectPerson(person){
     this.showList = false
     this.form.patchValue({person: person})
+    if(person.plot.id != null && person.plot.id != this.plot.id){
+      this.alertMessage = 'PLOT.FORM.PERSON.ALREADY_ASSIGNED';
+    }
   }
 
   unselectPerson(){
     this.form.patchValue({person: null})
+    this.alertMessage = null;
   }
 
   presentToast(message: string, cssClass: string = '') {

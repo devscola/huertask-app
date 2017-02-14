@@ -434,7 +434,8 @@
       },
       "PERSON" : {
         "LABEL" : "Hortelano",
-        "PLACEHOLDER" : ""
+        "PLACEHOLDER" : "",
+        "ALREADY_ASSIGNED" : "Si continúas quitarás a {{ person }} de la parcela {{ plot }} que tiene actualmente asignada"
       },
       "BUTTON" : {
         "CREATE" : "Crear parcela",
