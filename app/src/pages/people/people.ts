@@ -79,9 +79,13 @@ export class People {
     let val = ev.target.value;
     if (val && val.trim() != '') {
       this.filteredList = this.list.filter((item) => {
-        return (item.email.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return ( (item.email && this.includes(item.email, val)) || this.includes(item.name, val) )
       })
     }
+  }
+
+  includes(string, substring){
+    return string.toLowerCase().indexOf(substring.toLowerCase()) > -1
   }
 
   onClear(ev) {
