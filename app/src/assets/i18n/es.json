@@ -406,6 +406,9 @@
     "TITLE" : "Parcelas"
   },
   "PLOT" : {
+    "CREATE" : {
+      "TITLE" : "Añadir parcela"
+    },
     "EDIT" : {
       "TITLE" : "Editar parcela"
     },
@@ -417,7 +420,26 @@
           "MAX_LENGTH" : "Nombre demasiado largo"
         }
       },
-      "BUTTON.EDIT" : "Editar parcela"
+      "NUMBER" : {
+        "LABEL" : "Nº de parcela",
+        "ALERT" : {
+          "REQUIRED" : "Es necesario un número"
+        }
+      },
+      "QUANTITY" : {
+        "LABEL" : "Nº de parcelas",
+        "ALERT" : {
+          "REQUIRED" : "Es necesaria una cantidad"
+        }
+      },
+      "PERSON" : {
+        "LABEL" : "Hortelano",
+        "PLACEHOLDER" : ""
+      },
+      "BUTTON" : {
+        "CREATE" : "Crear parcela",
+        "EDIT" : "Editar parcela"
+      }
     },
     "UNASSIGNED" : "Sin asignar",
     "DELETE_CONFIRM" : {

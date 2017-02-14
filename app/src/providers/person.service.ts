@@ -155,6 +155,30 @@ export class PersonService {
       .map(res => <Plot[]>this.instanciatedPlots(res.json()));
   }
 
+  createPlot(body): Observable<Plot>{
+    let token = this.getToken();
+
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/plots/`, body, options)
+                    .map((res:Response) => <Plot>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
+  editPlot(body: Object): Observable<Plot> {
+    console.log(body);
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.person['token']);
+
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${this.huertaskApiUrl}/plots/${body['id']}`, body, options)
+                    .map((res:Response) => <Plot>this.instanciatedPlot(res.json()))
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   getPoints(): Observable<any> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });

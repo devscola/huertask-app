@@ -5,7 +5,7 @@ module Huertask
   module Entities
     class PersonFromCommunity < Grape::Entity
       expose :person, merge: true, using: "Huertask::Entities::PersonEmail"
-      expose :type
+      expose :type, :plot
     end
     class CommunityFromPerson < Grape::Entity
       expose :community, merge: true, using: Huertask::Entities::CommunitySimple

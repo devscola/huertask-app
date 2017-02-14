@@ -5,6 +5,7 @@ import { Person } from '../../models/person';
 import { SimpleInvitationForm } from '../simple-invitation-form/simple-invitation-form';
 import { QuickPeopleMenu } from './quick-people-menu'
 import { Plot } from '../../models/plot';
+import { PlotForm } from '../plot-form/plot-form'
 import { QuickPlotsMenu } from './quick-plots-menu'
 
 @Component({
@@ -36,13 +37,7 @@ export class People {
       this.filteredList = this.list
     });
     personService.getPlots().subscribe(plots => {
-      // this.plots = plots
-      this.plots = [
-        {'id': 1, 'name': 'Parcela 1', 'person' : {'name': 'Ana'}},
-        {'id': 2, 'name': 'Parcela 2', 'person' : {'name': 'Emma'}},
-        {'id': 3, 'name': 'Parcela 3', 'person' : {'name': 'Teresa'}},
-        {'id': 4, 'name': 'Parcela 4', 'person' : null},
-      ]
+      this.plots = plots
     });
   }
 
@@ -97,5 +92,9 @@ export class People {
 
   goToInvitePerson(){
     this.navCtrl.push(SimpleInvitationForm);
+  }
+
+  goToAddPlot(){
+    this.navCtrl.push(PlotForm);
   }
 }

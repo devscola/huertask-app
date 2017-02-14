@@ -5,7 +5,7 @@
     </button>
     <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goToInvitePerson()">
+      <button ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
         <ion-icon name="add"></ion-icon>
       </button>
       <button ion-button (click)="search()">
@@ -56,7 +56,7 @@
       <ion-row>
         <ion-col>
           <ion-card-header>
-            {{ plot.name }}
+            {{ plot.name }} {{ plot.number }}
           </ion-card-header>
 
           <ion-card-content>

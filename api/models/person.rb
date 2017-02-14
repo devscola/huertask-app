@@ -149,5 +149,6 @@ module Huertask
       self.available_person_points -= 1
       self.save
     end
+
   end
 end
