@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
-import { Plots } from './plots'
-import { PlotForm } from '../plot-form/plot-form'
 
 
 @Component({
@@ -32,11 +30,10 @@ export class QuickPlotsMenu {
 
   tryDelete(plot){
     this.showConfirm(plot);
-    this.close();
   }
 
   edit(plot){
-    this.navCtrl.push(PlotForm, {plot: plot});
+    this.close('edit', plot);
   }
 
   showConfirm(plot) {
@@ -61,20 +58,23 @@ export class QuickPlotsMenu {
           text: messages['BUTTONS']['DELETE'],
           handler: () => {
             this.deletePlot(plot['id']);
-            alert.dismiss();
+            alert.dismiss('delete');
           }
         }
       ]
+    });
+    alert.onDidDismiss((action) => {
+      this.close(action);
     });
     alert.present();
   }
 
   deletePlot(plot_id){
-    // this.personService.deletePlot(plot_id).subscribe(plots => {
-    // })
+    this.personService.deletePlot(plot_id).subscribe(plots => {
+    })
   }
 
-  close() {
-    this.viewCtrl.dismiss();
+  close(action, plot = null) {
+    this.viewCtrl.dismiss(action, plot);
   }
 }

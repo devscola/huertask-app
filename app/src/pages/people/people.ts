@@ -68,6 +68,13 @@ export class People {
     popover.present({
       ev: event
     });
+    popover.onDidDismiss((action, plot = null) => {
+      if('edit' == action){
+        this.navCtrl.push(PlotForm, {plot: plot});
+      }else if('delete' == action){
+        this.navCtrl.setRoot(People);
+      }
+    })
   }
 
   search(){
