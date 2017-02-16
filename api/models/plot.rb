@@ -18,6 +18,7 @@ module Huertask
     property :id, Serial
     property :name, String
     property :number, Integer
+    property :active, Boolean, :default => true
 
     has 1, :personRelation, 'PersonCommunityRelation'
     has 1, :person, :through => :personRelation
@@ -32,7 +33,7 @@ module Huertask
     end
 
     def update_fields(params)
-      if Plot.count(:id.not => self.id, :name=>self.name, :number=>self.number) > 0
+      if Plot.count(:id.not => self.id, :active => true, :name => self.name, :number => self.number) > 0
         raise PlotNameAlreadyUsed.new(self.name, self.number)
       end
       params.each do |key, value|
@@ -47,6 +48,12 @@ module Huertask
     def setPerson(person_id)
       personRelation = Huertask::PersonCommunityRelation.first(person_id: person_id, community_id: self.community_id)
       self.personRelation = personRelation
+    end
+
+    def delete
+      self.personRelation = nil
+      self.active = false
+      save
     end
   end
 end

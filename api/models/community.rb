@@ -57,7 +57,7 @@ module Huertask
     end
 
     def create_plot(name, number, person = nil)
-      raise Plot::PlotNameAlreadyUsed.new(name, number) if Plot.count(:name=>name, :number=>number) > 0
+      raise Plot::PlotNameAlreadyUsed.new(name, number) if Plot.count(:name=>name, :number=>number, :active=>true) > 0
       plot = Plot.new(name: name, number:number, community_id: self.id)
       person.setPlot(plot) if person
       self.plots << plot

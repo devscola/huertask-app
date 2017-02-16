@@ -158,6 +158,20 @@ module Huertask
             error! e.message, 400
           end
         end
+
+        delete '/' do
+          begin
+            admin_required
+            plot = Plot.find_by_id(params[:plot_id])
+            if plot.delete
+              {}
+            else
+              error_400(plot)
+            end
+          rescue Plot::PlotNotFound => e
+            error! e.message, 404
+          end
+        end
       end
     end
 
@@ -215,7 +229,7 @@ module Huertask
           get '/' do
             begin
               community = Community.find_by_id(params[:community_id])
-              present community.plots, with: Entities::Plot
+              present community.plots.all(active: true, :order => [ :name, :number ]), with: Entities::Plot
             rescue Community::CommunityNotFound => e
               error! e.message, 404
             end

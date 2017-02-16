@@ -179,6 +179,16 @@ export class PersonService {
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
+  deletePlot(plot_id): Observable<any> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.person['token']);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.delete(`${this.huertaskApiUrl}/plots/${plot_id}`, options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
   getPoints(): Observable<any> {
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
