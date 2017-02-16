@@ -48,11 +48,11 @@ export class PlotForm {
 
   generateForm(plot){
     return this.formBuilder.group({
-      name: [plot.name, Validators.compose([
+      name: [plot.name || 'Parcela', Validators.compose([
         Validators.required,
         Validators.maxLength(35)
       ])],
-      number: [plot.number, Validators.required],
+      number: [plot.number || 1, Validators.required],
       quantity: 1,
       person: [plot.person]
     });
@@ -132,5 +132,7 @@ export class PlotForm {
 
     toast.present();
   }
+
+
 
 }

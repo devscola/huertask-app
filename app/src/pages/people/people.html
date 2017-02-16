@@ -31,15 +31,19 @@
       </ion-col>
       <ion-col>
         <ion-card-header>
-          {{person.email}}
+          <h1>{{ person.email }}</h1>
+          <h2>{{ person.name }}</h2>
         </ion-card-header>
 
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <span *ngIf="person.type == 2">
+              <ion-col>
+                {{ person.plot.getFullName() || '' }}
+              </ion-col>
+              <ion-col class="isAdmin" *ngIf="person.type == 2">
                 {{ 'PERSON.ADMIN' | translate }}
-              </span>
+              </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-content>

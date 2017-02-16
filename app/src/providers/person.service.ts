@@ -39,7 +39,11 @@ export class PersonService {
   instanciatedPerson(object): Person{
     let person = new Person();
     for(let param in object){
-      person[param] = object[param]
+      if(param == 'plot'){
+        person[param] = this.instanciatedPlot(object[param])
+      }else{
+        person[param] = object[param]
+      }
     }
     return person
   }

@@ -13,4 +13,7 @@ people {
   .people ion-row ion-col:first-child{
     max-width: 100px;
   }
+  .isAdmin{
+    text-align: right;
+  }
 }
