@@ -529,7 +529,7 @@ module Huertask
     resource :people do
       route_param :id do
         get "/" do
-          present Person.find_by_id(params[:id]), with: Entities::Person
+          present Person.find_by_id(params[:id]), with: Entities::PersonAfterLogin
         end
 
         resource :categories do

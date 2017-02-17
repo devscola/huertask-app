@@ -6,10 +6,7 @@
     <ion-title>{{ 'COMMUNITY.JOIN.TITLE' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button>
-        <ion-icon name="add"></ion-icon>
-      </button>
-      <button ion-button>
-        <ion-icon name="search"></ion-icon>
+        <ion-icon name="help"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,24 +14,13 @@
 
 <ion-content padding>
   <h1>{{ 'COMMUNITY.JOIN.INVITATIONS' | translate }}</h1>
-  <ion-card *ngIf="invitation" (click)="joinCommunity()">
+  <ion-card *ngFor="let invitation of invitations" (click)="joinCommunity(invitation)">
   <ion-row>
     <ion-col>
       <ion-card-header>
-        {{invitation['community_name']}}
+        {{invitation['community']['name']}}
       </ion-card-header>
     </ion-col>
     </ion-row>
   </ion-card>
-  <h1>{{ 'COMMUNITY.JOIN.COMMUNITIES' | translate }}</h1>
-  <ion-card *ngFor="let community of communities">
-  <ion-row>
-    <ion-col>
-      <ion-card-header>
-        {{community['name']}}
-      </ion-card-header>
-    </ion-col>
-    </ion-row>
-  </ion-card>
-  <span>{{ 'COMMUNITY.JOIN.INVITATION_INFORMATION' | translate }}</span>
 </ion-content>

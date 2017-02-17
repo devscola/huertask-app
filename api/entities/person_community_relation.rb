@@ -8,7 +8,7 @@ module Huertask
       expose :type, :plot
     end
     class CommunityFromPerson < Grape::Entity
-      expose :community, merge: true, using: Huertask::Entities::CommunitySimple
+      expose :community, using: Huertask::Entities::CommunitySimple
       expose :type
     end
   end

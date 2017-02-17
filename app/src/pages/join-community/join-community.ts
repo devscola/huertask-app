@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
+import { Splashscreen } from 'ionic-native';
 import { PersonService } from '../../providers/person.service';
 
 @Component({
@@ -8,26 +9,29 @@ import { PersonService } from '../../providers/person.service';
 })
 export class JoinCommunity {
   invitations;
-  communities;
-  invitation;
-  constructor(public navCtrl: NavController, public personService: PersonService) {
-    this.communities = this.personService.person['communities']
-    this.invitations = this.personService.person['invitations'][0]
-    if(this.invitations){
-      this.getCommunity(this.invitation['community_id'])
-    }
+
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController,
+              public personService: PersonService) {
+    this.invitations = this.personService.person['invitations']
   }
 
-  getCommunity(id){
-    this.personService.getCommunity(id).subscribe(
-      community => {this.invitation['community_name'] = community['name']},
-      err => console.log(err)
-    )
-  }
-
-  joinCommunity(){
-    this.personService.joinCommunity(this.invitation).subscribe(community => {
-      console.log(community);
+  joinCommunity(invitation){
+    this.personService.joinCommunity(invitation).subscribe(community => {
+      this.presentToast('Te has unido!', 'success')
+      Splashscreen.show();
+      window.location.reload()
     })
+  }
+
+  presentToast(message: string, cssClass: string = '') {
+    let toast = this.toastCtrl.create({
+     message: message,
+     duration: 2000,
+     position: 'bottom',
+     cssClass: cssClass
+    });
+
+    toast.present();
   }
 }

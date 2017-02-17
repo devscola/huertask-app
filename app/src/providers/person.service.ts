@@ -123,7 +123,7 @@ export class PersonService {
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${invitation['community_id']}/join`, {}, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${invitation['community']['id']}/join`, {}, options)
                     .map((res:Response) => <Community>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
@@ -226,6 +226,12 @@ export class PersonService {
   setPerson(person){
     this.person = person
     this.communities = person['communities']
+    this.events.subscribe('user:login', () => {
+      this.storage.set(this.USER, person);
+    });
+    return new Promise((resolve, reject) => {
+      resolve(this.person);
+    });
   }
 
   logOut(){
@@ -294,18 +300,18 @@ export class PersonService {
     });
   };
 
-  setCommunity(community){
+  setCommunity(community, type){
     let adminType = 2
     this.activeCommunity = community
-    this.isAdmin = this.activeCommunity['type'] == adminType
+    this.isAdmin = type == adminType
     this.events.publish('user:login')
   }
 
   setDefaultCommunity(){
     let adminType = 2
     if(this.person['communities'].length > 0){
-      this.activeCommunity = this.person['communities'][0]
-      this.isAdmin = this.activeCommunity['type'] == adminType
+      this.activeCommunity = this.person['communities'][0]['community']
+      this.isAdmin = this.person['communities'][0]['type'] == adminType
     }
     return new Promise((resolve, reject) => {
       resolve(this.activeCommunity);
