@@ -18,4 +18,8 @@ export class Person {
     var def  = "mm";
     return base + hash + '.jpg?s=' + size + '&d=' + def;
   }
+
+  searcheable(){
+    return this.name + '-' + this.email;
+  }
 }
