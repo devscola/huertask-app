@@ -1,6 +1,5 @@
 class Fixtures
   def self.seed
-    p "estoy fixtures"
     Huertask::PersonTaskRelation.all.destroy
     Huertask::PersonCommunityRelation.all.destroy
     Huertask::PersonMedal.all.destroy
@@ -45,6 +44,9 @@ class Fixtures
     end
 
     community = Huertask::Community.first
+
+    community.people_invitations.create({email: "person4@devscola.org", type: 2})
+    community.save
 
     person = Huertask::Person.new({
       name: "miguelonga",

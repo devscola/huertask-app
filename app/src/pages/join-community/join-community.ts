@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
+import { Splashscreen } from 'ionic-native';
 import { PersonService } from '../../providers/person.service';
 
 @Component({
@@ -13,16 +14,15 @@ export class JoinCommunity {
               public toastCtrl: ToastController,
               public personService: PersonService) {
     this.invitations = this.personService.person['invitations']
-    console.log(this.personService.person['invitations'])
   }
 
   joinCommunity(invitation){
     this.personService.joinCommunity(invitation).subscribe(community => {
       this.presentToast('Te has unido!', 'success')
+      Splashscreen.show();
+      window.location.reload()
     })
   }
-
-
 
   presentToast(message: string, cssClass: string = '') {
     let toast = this.toastCtrl.create({

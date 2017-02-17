@@ -97,7 +97,7 @@ module Huertask
           type: type
         })
       end
-      if community.save
+      if self.save
         invitation
       else
         error_400(invitation)
@@ -105,15 +105,14 @@ module Huertask
     end
 
     def join(person)
-      if invitation = CommunityInvitation.first(:email => person.email)
-        person.community_relations.all.destroy
+      if invitation = self.people_invitations.first(:email => person.email)
         self.create_or_update_relation(person, invitation.type)
         invitation.destroy
       end
     end
 
     def unjoin(person)
-        self.create_or_update_relation(person, UNJOINED_USER_TYPE)
+      self.create_or_update_relation(person, UNJOINED_USER_TYPE)
     end
 
     def toggle_admin(person)

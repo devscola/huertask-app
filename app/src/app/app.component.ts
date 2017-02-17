@@ -86,16 +86,20 @@ export class MyApp {
         this.rootPage = Welcome;
         this.initializeApp();
       }else{
-        personService.person = user
-        this.communities = user['communities']
-        personService.setDefaultCommunity().then((community)=>{
-          this.activeCommunityName = community['name']
-          this.isAdmin = personService.isAdmin;
-          this.enableMenu(null != user);
-          this.rootPage = Tasks;
+        personService.getPerson(user['id']).subscribe(person => {
+          personService.setPerson(person).then(person => {
+            personService.setDefaultCommunity().then((community)=>{
+              personService.events.publish('user:login')
+              this.rootPage = Tasks;
+              this.initializeApp();
+            })
+          })
+        }, err => {
+          this.rootPage = Welcome;
           this.initializeApp();
         })
       }
+      Splashscreen.hide();
     })
   }
 
@@ -156,8 +160,8 @@ export class MyApp {
       this.menu.close()
       return this.nav.setRoot(CommunityForm)
     }
-    let community = this.communities.filter(community => community.name === community_name)[0]
-    this.personService.setCommunity(community)
+    let relation = this.communities.filter(relation => relation.community.name === community_name)[0]
+    this.personService.setCommunity(relation.community, relation.type)
   }
 
   goToInvitations(){
@@ -179,6 +183,7 @@ export class MyApp {
       this.invitations = this.personService.person['invitations'].length
       this.activeCommunityName = this.personService.activeCommunity['name']
       this.isAdmin = this.personService.isAdmin
+      this.nav.setRoot(Tasks)
       this.menu.close()
       this.enableMenu(true);
     });

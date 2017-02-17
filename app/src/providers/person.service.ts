@@ -165,6 +165,12 @@ export class PersonService {
   setPerson(person){
     this.person = person
     this.communities = person['communities']
+    this.events.subscribe('user:login', () => {
+      this.storage.set(this.USER, person);
+    });
+    return new Promise((resolve, reject) => {
+      resolve(this.person);
+    });
   }
 
   logOut(){
@@ -233,10 +239,10 @@ export class PersonService {
     });
   };
 
-  setCommunity(community){
+  setCommunity(community, type){
     let adminType = 2
     this.activeCommunity = community
-    this.isAdmin = this.activeCommunity['type'] == adminType
+    this.isAdmin = type == adminType
     this.events.publish('user:login')
   }
 
