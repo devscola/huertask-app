@@ -407,5 +407,55 @@
         }
       }
     }
+  },
+  "PLOTS" : {
+    "TITLE" : "Parcelas"
+  },
+  "PLOT" : {
+    "CREATE" : {
+      "TITLE" : "Añadir parcela"
+    },
+    "EDIT" : {
+      "TITLE" : "Editar parcela"
+    },
+    "FORM" : {
+      "NAME" : {
+        "LABEL" : "Nombre",
+        "ALERT" : {
+          "REQUIRED" : "Es necesario un nombre",
+          "MAX_LENGTH" : "Nombre demasiado largo"
+        }
+      },
+      "NUMBER" : {
+        "LABEL" : "Nº de parcela",
+        "ALERT" : {
+          "REQUIRED" : "Es necesario un número"
+        }
+      },
+      "QUANTITY" : {
+        "LABEL" : "Nº de parcelas",
+        "ALERT" : {
+          "REQUIRED" : "Es necesaria una cantidad"
+        }
+      },
+      "PERSON" : {
+        "LABEL" : "Hortelano",
+        "PLACEHOLDER" : "",
+        "ALREADY_ASSIGNED" : "Si continúas quitarás a {{ person }} de la parcela {{ plot }} que tiene actualmente asignada"
+      },
+      "BUTTON" : {
+        "CREATE" : "Crear parcela",
+        "EDIT" : "Editar parcela"
+      }
+    },
+    "UNASSIGNED" : "Sin asignar",
+    "DELETE_CONFIRM" : {
+      "TITLE" : "Eliminar parcela",
+      "SUBTITLE" : "¿Está seguro de que desea eliminar esta parcela?",
+      "BUTTONS" : {
+          "DELETE" : "Borrar",
+          "CANCEL" : "Cancelar"
+      }
+    }
   }
 }

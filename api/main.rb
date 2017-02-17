@@ -134,12 +134,17 @@ module Huertask
 
     resource :plots do
       route_param :plot_id do
+        params do
+          optional :name,       type: String
+          optional :number,     type: Integer
+          optional :person_id,  type: String
+        end
+
         put '/' do
           begin
             admin_required
-            person = Person.find_by_id(params[:person_id])
             plot = Plot.find_by_id(params[:plot_id])
-            plot.assign_person(person)
+            plot.update_fields(declared(params, include_missing: false))
             if plot.save
               present plot, with: Entities::Plot
             else
@@ -147,6 +152,22 @@ module Huertask
             end
           rescue Person::PersonNotFound => e
             error! e.message, 404
+          rescue Plot::PlotNotFound => e
+            error! e.message, 404
+          rescue Plot::PlotNameAlreadyUsed => e
+            error! e.message, 400
+          end
+        end
+
+        delete '/' do
+          begin
+            admin_required
+            plot = Plot.find_by_id(params[:plot_id])
+            if plot.delete
+              {}
+            else
+              error_400(plot)
+            end
           rescue Plot::PlotNotFound => e
             error! e.message, 404
           end
@@ -208,24 +229,38 @@ module Huertask
           get '/' do
             begin
               community = Community.find_by_id(params[:community_id])
-              present community.plots, with: Entities::Plot
+              present community.plots.all(active: true, :order => [ :name, :number ]), with: Entities::Plot
             rescue Community::CommunityNotFound => e
               error! e.message, 404
             end
+          end
+
+
+          params do
+            requires :name,       type: String
+            optional :number,     type: Integer
+            optional :quantity,   type: Integer
+            optional :person_id,  type: String
           end
 
           post '/' do
             begin
               admin_required
               community = Community.find_by_id(params[:community_id])
-              community.create_plots(params[:prefix], params[:quantity])
+              if(params[:person_id])
+                created = community.create_plot(params[:name], params[:number], params[:person_id])
+              else
+                created = community.create_plots(params[:name], params[:number], params[:quantity])
+              end
               if community.save
-                present community, with: Entities::Community
+                present created, with: Entities::Plot
               else
                 error_400(community)
               end
             rescue Community::CommunityNotFound => e
               error! e.message, 404
+            rescue Plot::PlotNameAlreadyUsed => e
+              error! e.message, 400
             end
           end
         end

@@ -149,5 +149,6 @@ module Huertask
       self.available_person_points -= 1
       medal if self.save
     end
+
   end
 end

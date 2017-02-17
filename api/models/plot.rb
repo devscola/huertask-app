@@ -7,13 +7,22 @@ module Huertask
       end
     end
 
+    class PlotNameAlreadyUsed < StandardError
+      def initialize(name, number)
+        super("Plot '#{name} #{number}' already exists")
+      end
+    end
+
     include DataMapper::Resource
 
     property :id, Serial
     property :name, String
+    property :number, Integer
+    property :active, Boolean, :default => true
 
-    belongs_to :person, required: false
-    belongs_to :community
+    has 1, :personRelation, 'PersonCommunityRelation'
+    has 1, :person, :through => :personRelation
+    has 1, :community, :through => :personRelation
 
     class << self
       def find_by_id(id)
@@ -23,8 +32,28 @@ module Huertask
       end
     end
 
-    def assign_person(person)
-      self.person = person
+    def update_fields(params)
+      if Plot.count(:id.not => self.id, :active => true, :name => self.name, :number => self.number) > 0
+        raise PlotNameAlreadyUsed.new(self.name, self.number)
+      end
+      params.each do |key, value|
+        if key == 'person_id'
+          self.setPerson(value)
+        else
+          self.send("#{key}=", value)
+        end
+      end
+    end
+
+    def setPerson(person_id)
+      personRelation = Huertask::PersonCommunityRelation.first(person_id: person_id, community_id: self.community_id)
+      self.personRelation = personRelation
+    end
+
+    def delete
+      self.personRelation = nil
+      self.active = false
+      save
     end
   end
 end

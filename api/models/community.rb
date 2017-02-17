@@ -45,12 +45,23 @@ module Huertask
       end
     end
 
-    def create_plots(prefix, quantity)
-      (1..quantity.to_i).each do |n|
-        name = prefix + '-' + n.to_s
-        plot = Plot.new(name: name, community_id: self.id)
-        self.plots << plot
+    def create_plots(name, number = nil, quantity = 1)
+      plots = [];
+      max = Plot.max(:number, :conditions => [ 'name = ?', name ]) || 0
+      first = number || max + 1
+      last = first + quantity.to_i - 1
+      (first..last).each do |n|
+        plots << self.create_plot(name, n);
       end
+      plots
+    end
+
+    def create_plot(name, number, person = nil)
+      raise Plot::PlotNameAlreadyUsed.new(name, number) if Plot.count(:name=>name, :number=>number, :active=>true) > 0
+      plot = Plot.new(name: name, number:number, community_id: self.id)
+      person.setPlot(plot) if person
+      self.plots << plot
+      plot
     end
 
     def next_reload

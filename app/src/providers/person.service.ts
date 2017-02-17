@@ -7,10 +7,12 @@ import 'rxjs/add/operator/map';
 
 import { Person } from '../models/person';
 import { Community } from '../models/community';
+import { Plot } from '../models/plot';
 
 @Injectable()
 export class PersonService {
   huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+
 
   COMMUNITIES      = 'communities';
   ACTIVE_COMMUNITY = 'activeCommunity';
@@ -38,7 +40,11 @@ export class PersonService {
   instanciatedPerson(object): Person{
     let person = new Person();
     for(let param in object){
-      person[param] = object[param]
+      if(param == 'plot'){
+        person[param] = this.instanciatedPlot(object[param])
+      }else{
+        person[param] = object[param]
+      }
     }
     return person
   }
@@ -61,6 +67,22 @@ export class PersonService {
       }
     }
     return community
+  }
+
+  instanciatedPlots(json): Plot[]{
+    let plots = []
+    for(let object in json){
+      plots.push(this.instanciatedPlot(json[object]))
+    }
+    return plots
+  }
+
+  instanciatedPlot(object): Plot{
+    let plot = new Plot();
+    for(let param in object){
+      plot[param] = object[param]
+    }
+    return plot
   }
 
   createCommunity(community): Observable<Community>{
@@ -131,6 +153,45 @@ export class PersonService {
   getCommunity(community_id = this.activeCommunity['id']): Observable<Community> {
     return this.http.get(`${this.huertaskApiUrl}/communities/${community_id}`)
       .map(res => <Community>this.instanciatedCommunity(res.json()));
+  }
+
+  getPlots(): Observable<Plot[]> {
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.communityId}/plots`)
+      .map(res => <Plot[]>this.instanciatedPlots(res.json()));
+  }
+
+  createPlot(body): Observable<Plot>{
+    let token = this.getToken();
+
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/plots/`, body, options)
+                    .map((res:Response) => <Plot>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
+  editPlot(body: Object): Observable<Plot> {
+    console.log(body);
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.person['token']);
+
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${this.huertaskApiUrl}/plots/${body['id']}`, body, options)
+                    .map((res:Response) => <Plot>this.instanciatedPlot(res.json()))
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
+  deletePlot(plot_id): Observable<any> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.person['token']);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.delete(`${this.huertaskApiUrl}/plots/${plot_id}`, options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
 
   getPoints(): Observable<any> {

@@ -5,7 +5,7 @@
     </button>
     <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goToInvitePerson()">
+      <button ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
         <ion-icon name="add"></ion-icon>
       </button>
       <button ion-button (click)="search()">
@@ -21,31 +21,66 @@
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
-
   </ion-grid>
-  <ion-card *ngFor="let person of filteredList">
-  <ion-row>
-    <ion-col>
-      <img src="{{person.getGravatar()}}" alt="{{person.email}}">
-    </ion-col>
-    <ion-col>
-      <ion-card-header>
-        {{person.email}}
-      </ion-card-header>
 
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <span *ngIf="person.type == 2">
-              {{ 'PERSON.ADMIN' | translate }}
-            </span>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-col>
-    <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPopover($event, person)">
-      <ion-icon name="more"></ion-icon>
-    </button>
-    </ion-row>
-  </ion-card>
+  <div *ngIf="!tabs[2].active" class="people">
+    <ion-card *ngFor="let person of filteredList">
+    <ion-row>
+      <ion-col>
+        <img src="{{person.getGravatar()}}" alt="{{person.email}}">
+      </ion-col>
+      <ion-col>
+        <ion-card-header>
+          <h1>{{ person.email }}</h1>
+          <h2>{{ person.name }}</h2>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                {{ person.plot.getFullName() || '' }}
+              </ion-col>
+              <ion-col class="isAdmin" *ngIf="person.type == 2">
+                {{ 'PERSON.ADMIN' | translate }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-col>
+      <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPersonPopover($event, person)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <div *ngIf="tabs[2].active" class="plots">
+    <ion-card *ngFor="let plot of filteredList">
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            {{ plot.name }} {{ plot.number }}
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <span *ngIf="plot.person">
+                  {{ plot.person.name }}
+                </span>
+                <span *ngIf="!plot.person">
+                  {{ 'PLOT.UNASSIGNED' | translate }}
+                </span>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-col>
+        <button item-right ion-button icon-only clear
+        (click)="presentPlotPopover($event, plot)">
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-row>
+    </ion-card>
+  </div>
 </ion-content>
