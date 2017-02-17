@@ -40,7 +40,7 @@ export class PlotForm {
       this.action = 'edit';
     }
     this.form = this.generateForm(this.plot);
-    personService.getCommunity(personService.communityId).subscribe(community => {
+    personService.getCommunity().subscribe(community => {
       this.people = community['joined']
       this.list = community['joined']
     })

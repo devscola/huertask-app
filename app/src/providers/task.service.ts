@@ -9,7 +9,7 @@ import { PersonService } from './person.service';
 
 @Injectable()
 export class TaskService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api'
 
   isAdmin: boolean = false;
 

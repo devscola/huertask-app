@@ -156,7 +156,7 @@ export class PersonService {
   }
 
   getPlots(): Observable<Plot[]> {
-    return this.http.get(`${this.huertaskApiUrl}/communities/${this.communityId}/plots`)
+    return this.http.get(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/plots`)
       .map(res => <Plot[]>this.instanciatedPlots(res.json()));
   }
 
@@ -167,7 +167,7 @@ export class PersonService {
     headers.append('Token', token);
     let options    = new RequestOptions({ headers: headers });
 
-    return this.http.post(`${this.huertaskApiUrl}/communities/${this.communityId}/plots/`, body, options)
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/plots/`, body, options)
                     .map((res:Response) => <Plot>res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
