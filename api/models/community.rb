@@ -38,6 +38,7 @@ module Huertask
     has n, :tasks, :through => :tasks_relations, :via => :task
     has n, :categories
     has n, :plots, 'Plot'
+    has n, :revisions, 'CommunityRevision'
 
     class << self
       def find_by_id(id)
@@ -64,6 +65,17 @@ module Huertask
       plot.setPerson(person_id) if person_id
       self.plots << plot
       plot
+    end
+
+    def add_revision(plots)
+      revision = self.revisions.new(:created_at => Time.now)
+      plots.each do |item|
+        plot = Huertask::Plot.get(item.id)
+        revision.plot_revisions << plot.revisions.new(:status => item.status)
+        plot.status = 0
+      end
+      revision.save
+      revision
     end
 
     def next_reload

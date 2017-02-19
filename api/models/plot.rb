@@ -23,6 +23,8 @@ module Huertask
 
     has 1, :personRelation, 'PersonCommunityRelation'
     has 1, :person, :through => :personRelation
+    belongs_to :community, 'Community'
+    has n, :revisions, 'PlotRevision'
 
     class << self
       def find_by_id(id)
@@ -30,6 +32,10 @@ module Huertask
         raise PlotNotFound.new(id) if plot.nil?
         plot
       end
+    end
+
+    def addRevision(status)
+      self.revisions.new(:status => status, :created_at => Time.now)
     end
 
     def update_fields(params)

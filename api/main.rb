@@ -11,12 +11,15 @@ require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
 require_relative './entities/community'
+require_relative './entities/community_revision'
 require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './entities/plot'
 require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
+require_relative './models/community_revision'
+require_relative './models/plot_revision'
 require_relative './models/plot'
 require_relative './models/task_community_relation'
 require_relative './models/person_community_relation'
@@ -288,7 +291,7 @@ module Huertask
               begin
                 community = Community.find_by_id(params[:community_id])
                 params[:plots].each do |item|
-                  plot = Plot.find_by_id(item.id)
+                  plot = community.plots.find_by_id(item.id)
                   plot.status = item.status
                   plot.save
                 end
@@ -297,6 +300,26 @@ module Huertask
                 error! e.message, 404
               end
             end
+          end
+        end
+
+        resource :revisions do
+          params do
+            requires :plots, type: Array
+          end
+          post '/' do
+              admin_required
+              begin
+                community = Community.find_by_id(params[:community_id])
+                revision = community.add_revision(params[:plots])
+                if revision.save
+                  present revision, with: Entities::CommunityRevision
+                else
+                  error_400(community)
+                end
+              rescue Community::CommunityNotFound => e
+                error! e.message, 404
+              end
           end
         end
 
