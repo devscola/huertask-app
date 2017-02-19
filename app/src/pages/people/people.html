@@ -39,7 +39,7 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                {{ person.plot.getFullName() || '' }}
+                {{ person.plot && person.plot.getFullName() || '' }}
               </ion-col>
               <ion-col class="isAdmin" *ngIf="person.type == 2">
                 {{ 'PERSON.ADMIN' | translate }}

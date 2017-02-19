@@ -7,6 +7,10 @@ export class Plot {
   ) {  }
 
   getFullName = () => {
-    return this.name + ' ' + (this.number || '')
-  };
+    return this.name + ' ' + (this.number || '');
+  }
+
+  searcheable = () => {
+    return this.getFullName();
+  }
 }
