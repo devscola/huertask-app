@@ -18,6 +18,7 @@ export class People {
   joined: Person[];
   plots: Plot[] = [];
   invited: Person[];
+  plot_points_enabled: boolean = false;
   searching = false;
   tabs = [
     {title: "PEOPLE.JOINED", active: true},
@@ -34,7 +35,8 @@ export class People {
       this.joined = community.joined;
       this.invited = community.invited;
       this.list = this.joined;
-      this.filteredList = this.list
+      this.filteredList = this.list;
+      this.plot_points_enabled = community.plot_points_enabled;
     });
     personService.getPlots().subscribe(plots => {
       this.plots = plots

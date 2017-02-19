@@ -22,6 +22,8 @@ module Huertask
     property :description,            String,  :default => "", :length => 0..200
     property :task_points_enabled,    Boolean, :default => true
     property :task_points_duration,   Integer, :default => 4
+    property :plot_points_enabled,    Boolean, :default => false
+    property :plot_points_duration,   Integer, :default => 4
     property :person_points_enabled,  Boolean, :default => true
     property :person_points_amount,   Integer, :default => 2
     property :person_points_reload,   Integer, :default => 1

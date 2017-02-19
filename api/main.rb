@@ -217,6 +217,8 @@ module Huertask
           optional :description,            type: String
           optional :task_points_enabled,    type: Boolean
           optional :task_points_duration,   type: Integer
+          optional :plot_points_enabled,    type: Boolean
+          optional :plot_points_duration,   type: Integer
           optional :person_points_enabled,  type: Boolean
           optional :person_points_amount,   type: Integer
           optional :person_points_reload,   type: Integer

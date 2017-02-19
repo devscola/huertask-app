@@ -335,6 +335,23 @@
         }
       }
     },
+    "PLOTPOINTS" : {
+      "NAME" : "Estado de parcelas",
+      "DESCRIPTION" : "Indica el estado de la parcela",
+      "ACTIVATE.TITLE" : "Activar",
+      "DURATION" : {
+        "TITLE" : "Meses a contabilizar",
+        "DESCRIPTION" : "Se tendrán en cuenta las valoraciones de parcela recibidas en los últimos meses.",
+        "ALERT" : {
+          "TITLE" : "Estado de parcelas: Meses",
+          "SUBTITLE" : "Elige durante cuantos meses se contabilizarán los puntos recibidos por el estado de las parcelas",
+          "BUTTONS" : {
+            "SUBMIT" : "Modificar",
+            "CANCEL" : "Cancelar"
+          }
+        }
+      }
+    },
     "PERSONPOINTS" : {
       "NAME" : "Semillas",
       "DESCRIPTION" : "Cada hortelano dispondrá cada cierto tiempo de un número de semillas con las que premiar a sus compañeros",
