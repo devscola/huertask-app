@@ -122,6 +122,7 @@
   "BUTTONS" : {
     "SAVE" : "Guardar",
     "SEND" : "Enviar",
+    "GIVE" : "Entregar",
     "CANCEL" : "Cancelar",
     "EDIT" : "Editar",
     "DELETE" : "Eliminar",
