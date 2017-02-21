@@ -99,10 +99,9 @@ module Huertask
         end
 
         put '/' do
-          admin_required
-
           begin
             task = Task.find_by_id(params[:task_id])
+            admin_required(task.community_id)
             task.update_fields(filter(params, false))
             if task.save
               present task, with: Entities::Task
@@ -115,10 +114,9 @@ module Huertask
         end
 
         delete '/' do
-          admin_required
-
           begin
             task = Task.find_by_id(params[:task_id])
+            admin_required(task.community_id)
             if task.delete
               {}
             else
@@ -142,8 +140,8 @@ module Huertask
 
         put '/' do
           begin
-            admin_required
             plot = Plot.find_by_id(params[:plot_id])
+            admin_required(plot.community_id)
             plot.update_fields(declared(params, include_missing: false))
             if plot.save
               present plot, with: Entities::Plot
@@ -161,8 +159,8 @@ module Huertask
 
         delete '/' do
           begin
-            admin_required
             plot = Plot.find_by_id(params[:plot_id])
+            admin_required(plot.community_id)
             if plot.delete
               {}
             else
@@ -419,6 +417,7 @@ module Huertask
       end
 
       def current_user
+        p headers["Token"]
         Person.find_by_token(headers["Token"]) if headers["Token"]
       end
 
@@ -427,8 +426,8 @@ module Huertask
         return error!('Unauthorized', 401) unless id == nil || current_user.id == id.to_i
       end
 
-      def admin_required
-        return error!('Unauthorized', 401) unless current_user && current_user.is_admin?(params[:community_id])
+      def admin_required(community_id = params[:community_id])
+        return error!('Unauthorized', 401) unless current_user && current_user.is_admin?(community_id)
       end
 
       def action(is_going)
@@ -494,10 +493,9 @@ module Huertask
         end
 
         put '/' do
-          admin_required
-
           begin
             category = Category.find_by_id(params[:id])
+            admin_required(category.community_id)
             category.update_fields(declared(params))
             if category.save
               present category, with: Entities::Category
@@ -510,10 +508,9 @@ module Huertask
         end
 
         delete '/' do
-          admin_required
-
           begin
             category = Category.find_by_id(params[:id])
+            admin_required(category.community_id)
             if category.delete
               {}
             else
