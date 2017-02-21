@@ -225,6 +225,11 @@ export class PersonService {
 
   setPerson(person){
     this.person = person
+    if(null == this.person['token']){
+      this.storage.get(this.USER).then((person) => {
+        this.person['token'] = person['token']
+      });
+    }
     this.communities = person['communities']
     this.events.subscribe('user:login', () => {
       this.storage.set(this.USER, person);
