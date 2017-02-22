@@ -9,6 +9,9 @@ module Huertask
       end
     end
 
+    ATTENDED_USER_TYPE = 4
+    NOT_ATTENDED_USER_TYPE = 5
+
     include DataMapper::Resource
 
     property :id,                Serial
@@ -37,9 +40,32 @@ module Huertask
       people_relations.all(:type => 0)
     end
 
+    def attended_people
+      people_relations.all(:type => 4)
+    end
+
+    def not_attended_people
+      people_relations.all(:type => 5)
+    end
+
     def update_fields(params)
       params.each do |key, value|
         self.send("#{key}=", value)
+      end
+    end
+
+    def finalize(attended)
+      attended.each do |attender|
+        person_id = attender[0]
+        attended = attender[1]
+        relation = self.people_relations.first(person_id: person_id)
+        if attended
+          relation.type = ATTENDED_USER_TYPE
+        else
+          relation.type = NOT_ATTENDED_USER_TYPE
+        end
+        relation.save
+        self.status = 1
       end
     end
 
