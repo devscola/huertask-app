@@ -19,10 +19,21 @@ export class TaskDetail {
   task = new Task();
   waitingForResponse = false
   person;
+  isAdmin = false;
+  attended = {};
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService, public personService: PersonService) {
     this.task = navParams.get('task');
     this.person = personService.person
+    this.isAdmin = personService.isAdmin
+    this.setAttended()
+  }
+
+  setAttended(){
+    for(let i in this.task.people_going){
+      let person = this.task.people_going[i]
+      this.attended[person.id] = true
+    }
   }
 
   togglePeopleGoing(event){
@@ -40,7 +51,6 @@ export class TaskDetail {
   going(){
     return this.taskService.going(this.task.id, this.person['id']).subscribe( data => {
       this.task = data
-      console.log(data)
     },
     err => console.log(err)
     )
@@ -49,7 +59,6 @@ export class TaskDetail {
   notGoing(){
     return this.taskService.notGoing(this.task.id, this.person['id']).subscribe( data => {
       this.task = data
-      console.log(data)
     },
     err => console.log(err)
     )
@@ -63,6 +72,14 @@ export class TaskDetail {
       this.task = data
       task['categories'] = data.categories
       this.waitingForResponse = false
+    },
+    err => console.log(err)
+    )
+  }
+
+  finalize(){
+    this.taskService.finalizeTask(this.attended, this.task['id']).subscribe( data => {
+      this.task = data
     },
     err => console.log(err)
     )

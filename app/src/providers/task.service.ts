@@ -26,7 +26,7 @@ export class TaskService {
   instanciatedTask(object): Task{
     let task = new Task();
     for(let param in object){
-      if(param == 'people_going' || param == 'people_not_going' ){
+      if(param == 'people_going' || param == 'people_not_going' || param == 'not_attended_people' || param == 'attended_people'){
         task[param] = this.personService.instanciatedPeople(object[param])
       }else{
         task[param] = object[param]
@@ -83,6 +83,19 @@ export class TaskService {
     let id         = body['id']
 
     return this.http.put(`${this.huertaskApiUrl}/tasks/${id}`, body, options)
+                    .map((res:Response) => <Task>this.instanciatedTask(res.json()))
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
+  finalizeTask(attended: Object, task_id): Observable<Task> {
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', this.personService.person['token']);
+
+    let options    = new RequestOptions({ headers: headers });
+    let body = {}
+    body['attended'] = attended
+
+    return this.http.put(`${this.huertaskApiUrl}/tasks/${task_id}/finalize`, body, options)
                     .map((res:Response) => <Task>this.instanciatedTask(res.json()))
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
   }
