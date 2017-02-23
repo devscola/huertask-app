@@ -19,10 +19,10 @@ module Huertask
     property :name, String
     property :number, Integer
     property :active, Boolean, :default => true
+    property :status, Integer, :required => false
 
     has 1, :personRelation, 'PersonCommunityRelation'
     has 1, :person, :through => :personRelation
-    has 1, :community, :through => :personRelation
 
     class << self
       def find_by_id(id)

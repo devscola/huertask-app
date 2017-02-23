@@ -278,6 +278,26 @@ module Huertask
               error! e.message, 400
             end
           end
+
+          resource :status do
+            params do
+              requires :plots, type: Array
+            end
+            patch '/' do
+              admin_required
+              begin
+                community = Community.find_by_id(params[:community_id])
+                params[:plots].each do |item|
+                  plot = Plot.find_by_id(item.id)
+                  plot.status = item.status
+                  plot.save
+                end
+                present community, with: Entities::Community
+              rescue Community::CommunityNotFound => e
+                error! e.message, 404
+              end
+            end
+          end
         end
 
         resource :invite do
