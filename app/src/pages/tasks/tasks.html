@@ -5,7 +5,7 @@
     </button>
     <ion-title>{{ 'TASKS.TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goToCreateTask()">
+      <button *ngIf="personService.isAdmin" ion-button (click)="goToCreateTask()">
         <ion-icon name="add"></ion-icon>
       </button>
       <button ion-button>

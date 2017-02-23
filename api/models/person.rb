@@ -3,6 +3,7 @@ module Huertask
 
     DIGEST = OpenSSL::Digest.new('sha1')
     ADMIN_USER_TYPE = 2
+    ATTENDED_USER_TYPE = 4
 
     class PersonNotFound < StandardError
       def initialize(id)
@@ -96,9 +97,9 @@ module Huertask
     end
 
     def finalized_tasks(days = nil)
-      return task_relations.all(:task => {status: 1}) unless days
+      return task_relations.all(:task => {status: 1}, type: ATTENDED_USER_TYPE) unless days
       seconds = days * 24 * 60 * 60;
-      task_relations.all(:task => {status: 1, :from_date.gte => Time.now - seconds})
+      task_relations.all(:task => {status: 1, type: ATTENDED_USER_TYPE, :from_date.gte => Time.now - seconds})
     end
 
     def person_points(community_id, days = nil)

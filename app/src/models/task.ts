@@ -11,6 +11,8 @@ export class Task {
     public note?: string,
     public people_going?: any[],
     public people_not_going?: any[],
+    public attended_people?: any[],
+    public not_attended_people?: any[],
   ) {  }
 
   peopleLeft = () => {

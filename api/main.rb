@@ -113,6 +113,21 @@ module Huertask
           end
         end
 
+        put '/finalize' do
+          begin
+            task = Task.find_by_id(params[:task_id])
+            admin_required(task.community_id)
+            task.finalize(params[:attended])
+            if task.save
+              present task, with: Entities::Task
+            else
+              error_400(task)
+            end
+          rescue Task::TaskNotFound => e
+            error! e.message, 404
+          end
+        end
+
         delete '/' do
           begin
             task = Task.find_by_id(params[:task_id])

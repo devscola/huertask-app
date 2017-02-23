@@ -7,6 +7,8 @@ module Huertask
       expose :id, :created_at, :title, :from_date, :to_date, :required_people, :note, :status
       expose :people_going, using: Huertask::Entities::PersonTaskRelation
       expose :people_not_going, using: Huertask::Entities::PersonTaskRelation
+      expose :attended_people, using: Huertask::Entities::PersonTaskRelation
+      expose :not_attended_people, using: Huertask::Entities::PersonTaskRelation
       expose :categories, using: Huertask::Entities::Category
     end
   end

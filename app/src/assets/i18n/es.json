@@ -84,7 +84,9 @@
     },
     "PEOPLE" : {
       "GOING" : "Se han unido",
-      "NOT_GOING" : "No pueden asistir"
+      "NOT_GOING" : "No pueden asistir",
+      "ATTENDED" : "Han asistido",
+      "NOT_ATTENDED" : "No han podido asistir"
     }
   },
   "LOGIN" : {
