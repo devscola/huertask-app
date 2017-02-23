@@ -119,6 +119,8 @@ export class PersonService {
   }
 
   joinCommunity(invitation){
+    this.storage.set('invitationCommunity', invitation['community'])
+
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
     headers.append('Token', this.person['token']);
@@ -173,7 +175,6 @@ export class PersonService {
   }
 
   editPlot(body: Object): Observable<Plot> {
-    console.log(body);
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Token', this.person['token']);
 
@@ -318,6 +319,15 @@ export class PersonService {
       this.activeCommunity = this.person['communities'][0]['community']
       this.isAdmin = this.person['communities'][0]['type'] == adminType
     }
+
+    this.storage.get('invitationCommunity').then((community) => {
+      if(null != community){
+        this.setCommunity(community, community['type'])
+      }
+    });
+
+    this.storage.remove('invitationCommunity')
+
     return new Promise((resolve, reject) => {
       resolve(this.activeCommunity);
     });
