@@ -437,6 +437,15 @@
     "EDIT" : {
       "TITLE" : "Editar parcela"
     },
+    "STATUS" : {
+      "BAD" : "Mal",
+      "REGULAR" : "Regular",
+      "GOOD" : "Bien",
+      "BUTTONS" : {
+        "SAVE" : "Guardar",
+        "ADD_REVISION" : "Confirmar Revisión"
+      }
+    },
     "FORM" : {
       "NAME" : {
         "LABEL" : "Nombre",

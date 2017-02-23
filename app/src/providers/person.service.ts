@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { Person } from '../models/person';
 import { Community } from '../models/community';
 import { Plot } from '../models/plot';
+import { PlotRevision } from '../models/plot_revision';
 
 @Injectable()
 export class PersonService {
@@ -83,6 +84,21 @@ export class PersonService {
       plot[param] = object[param]
     }
     return plot
+  }
+  instanciatedPlotRevisions(json): PlotRevision[]{
+    let revisions = []
+    for(let object in json){
+      revisions.push(this.instanciatedPlotRevision(json[object]))
+    }
+    return revisions
+  }
+
+  instanciatedPlotRevision(object): PlotRevision{
+    let revision = new PlotRevision();
+    for(let param in object){
+      revision[param] = object[param]
+    }
+    return revision
   }
 
   createCommunity(community): Observable<Community>{
@@ -192,6 +208,30 @@ export class PersonService {
     return this.http.delete(`${this.huertaskApiUrl}/plots/${plot_id}`, options)
                     .map((res:Response) => res.json())
                     .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+  }
+
+  updateStatus(body): Observable<Community>{
+    let token = this.getToken();
+
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.patch(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/plots/status/`, body, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
+  }
+
+  createRevision(body): Observable<Community>{
+    let token = this.getToken();
+
+    let headers    = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Token', token);
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${this.huertaskApiUrl}/communities/${this.activeCommunity['id']}/revisions/`, body, options)
+                    .map((res:Response) => <Community>res.json())
+                    .catch((error:any) => Observable.throw(error.json() || 'Server error'))
   }
 
   getPoints(): Observable<any> {

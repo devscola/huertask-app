@@ -106,4 +106,30 @@ export class People {
   goToAddPlot(){
     this.navCtrl.push(PlotForm);
   }
+
+  setStatus(plot, status){
+    plot.status = status;
+  }
+
+  saveStatus(){
+    let plots = []
+    for(let plot of this.plots){
+      if (null != plot.status){
+        plots.push({'id' : plot.id, 'status' : plot.status});
+      }
+    }
+    this.personService.updateStatus({'plots': plots}).subscribe(community => {
+      this.navCtrl.setRoot(People);
+    });
+  }
+
+  createRevision(){
+    let plots = []
+    for(let plot of this.plots){
+      plots.push({'id' : plot.id, 'status' : plot.status});
+    }
+    this.personService.createRevision({'plots': plots}).subscribe(plots => {
+      this.navCtrl.setRoot(People);
+    });
+  }
 }
