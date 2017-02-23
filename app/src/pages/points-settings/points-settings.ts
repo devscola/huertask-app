@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
+import { SettingsHelp } from '../settings-help/settings-help';
 
 @Component({
   selector: 'page-points-settings',
@@ -29,6 +30,7 @@ export class PointsSettings {
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
     private translate: TranslateService,
     private personService: PersonService
   ) {
@@ -42,6 +44,11 @@ export class PointsSettings {
     this.translate.get(translation).subscribe((res: Object) => {
       this.doRadio(res, property)
     });
+  }
+
+  showModal(){
+    let modal = this.modalCtrl.create(SettingsHelp);
+    modal.present();
   }
 
   doRadio(messages: Object, property) {
