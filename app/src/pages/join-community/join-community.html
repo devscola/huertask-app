@@ -5,6 +5,9 @@
     </button>
     <ion-title>{{ 'COMMUNITY.JOIN.TITLE' | translate }}</ion-title>
     <ion-buttons end>
+      <button ion-button (click)="goToCreateCommunity()">
+        <ion-icon name="add"></ion-icon>
+      </button>
       <button ion-button (click)="showModal()">
         <ion-icon name="help"></ion-icon>
       </button>

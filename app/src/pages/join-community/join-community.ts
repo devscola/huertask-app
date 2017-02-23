@@ -3,6 +3,7 @@ import { NavController, ToastController, ModalController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 import { PersonService } from '../../providers/person.service';
 import { InvitationsHelp } from '../invitations-help/invitations-help';
+import { CommunityForm } from '../community-form/community-form';
 
 @Component({
   selector: 'page-join-community',
@@ -21,6 +22,10 @@ export class JoinCommunity {
   showModal(){
     let modal = this.modalCtrl.create(InvitationsHelp);
     modal.present();
+  }
+
+  goToCreateCommunity(){
+    this.navCtrl.setRoot(CommunityForm)
   }
 
   joinCommunity(invitation){
