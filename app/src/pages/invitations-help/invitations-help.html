@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button navPop>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Ayuda</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding text-center>
+  <h5>Para participar en un grupo tienes que tener una invitacion</h5>
+  <button ion-button round (click)="goToInvitations()">Ver invitaciones</button>
+
+  <h5>Pero si eres coordinador de un huerto y no habéis creado aún vuestra comunidad, crea 1º un huerto</h5>
+  <button ion-button round (click)="goToCreateCommunity()">Crear huerto</button>
+</ion-content>
