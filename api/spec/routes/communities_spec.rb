@@ -53,7 +53,7 @@ describe Huertask::API do
     end
   end
 
-  describe "POST /api/communities/:id/invite" do
+  describe "POST /api/communities/:id/invite", :focus => true do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "returs error when community is invalid" do
@@ -74,14 +74,14 @@ describe Huertask::API do
         "admin_users" => ["person3@devscola.org"]
       }
 
-      community = Huertask::Community.first
+      community = Huertask::Community[1]
 
       header('User-Id', current_user.id)
       header('Token', current_user.create_auth_token)
 
       post "/api/communities/#{community.id}/invite", data
 
-      community = Huertask::Community.first
+      community = Huertask::Community[1]
 
       expect(last_response).to be_created
       expect(community.people_invitations.size).to be 3
