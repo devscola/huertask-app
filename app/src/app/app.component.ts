@@ -181,9 +181,12 @@ export class MyApp {
       this.communities = this.personService.communities
       if (this.personService.person['invitations'].length > 0 ){ this.hasInvitations = true }
       this.invitations = this.personService.person['invitations'].length
-      this.activeCommunityName = this.personService.activeCommunity['name']
       this.isAdmin = this.personService.isAdmin
-      this.nav.setRoot(Tasks)
+      if(this.personService.person['communities'] > 0){
+        this.activeCommunityName = this.personService.activeCommunity['name']
+        this.nav.setRoot(Tasks)
+      }
+      this.nav.setRoot(JoinCommunity)
       this.menu.close()
       this.enableMenu(true);
     });
