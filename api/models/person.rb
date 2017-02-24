@@ -92,6 +92,10 @@ module Huertask
       relation.community_id
     end
 
+    def active_community_relations
+      self.community_relations.all(:type.gte => 1, :order => [ :type.desc ])
+    end
+
     def invitations
       CommunityInvitation.all(email: self.email)
     end
