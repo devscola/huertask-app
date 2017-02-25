@@ -61,5 +61,16 @@ module Huertask
       self.active = false
       save
     end
+
+    def points(days)
+      days_in_seconds = days * 24 * 60 * 60
+      from_date = Time.now - days_in_seconds
+      self.revisions.all(:community_revision => {:created_at.gt => from_date}).map do |revision|
+        {
+          status: revision.status,
+          date: revision.community_revision.created_at
+        }
+      end
+    end
   end
 end

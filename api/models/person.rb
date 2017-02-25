@@ -19,7 +19,10 @@ module Huertask
 
     include DataMapper::Resource
 
-    attr_accessor :password, :password_confirmation, :token
+    attr_accessor :password,
+                  :password_confirmation,
+                  :token,
+                  :community_relation
 
     property :id, Serial
     property :name, String
@@ -40,6 +43,7 @@ module Huertask
     has n, :dislike_categories, 'Category', :through => :categories_relations, :via => :category
     has n, :community_relations, 'PersonCommunityRelation'
     has n, :person_medals, 'PersonMedal'
+    has n, :plots, 'Plot', :through => :community_relations
 
     def categories
       Category.active.select{ |cat| !dislike_categories.include? cat }
@@ -86,10 +90,19 @@ module Huertask
       false
     end
 
-    def community_id
+    def set_community(community_id)
+      self.community_relation = self.community_relations.first(community_id: community_id)
+    end
+
+    def default_community
       relation = self.community_relations.first(person_id: self.id)
       return 0 unless relation
       relation.community_id
+    end
+
+    def community_id()
+      return default_community unless self.community_relation
+      self.community_relation.community.id
     end
 
     def invitations
@@ -98,14 +111,21 @@ module Huertask
 
     def finalized_tasks(days = nil)
       return task_relations.all(:task => {status: 1}, type: ATTENDED_USER_TYPE) unless days
-      seconds = days * 24 * 60 * 60;
-      task_relations.all(:task => {status: 1, type: ATTENDED_USER_TYPE, :from_date.gte => Time.now - seconds})
+      days_in_seconds = days * 24 * 60 * 60
+      from_date = Time.now - days_in_seconds
+      task_relations.all(:task => {status: 1, :from_date.gte => from_date}, type: ATTENDED_USER_TYPE)
     end
 
-    def person_points(community_id, days = nil)
-      return person_medals.all unless days
+    def person_points(days = nil)
+      community_id = self.community_relation.community.id
+      return person_medals.all(community_id: community_id) unless days
       seconds = days * 24 * 60 * 60;
       person_medals.all(:created_at.gte => Time.now - seconds, community_id: community_id)
+    end
+
+    def plot_points()
+      days = self.community_relation.community.plot_points_duration * 30
+      self.community_relation.plot.points(days)
     end
 
     def create_auth_token

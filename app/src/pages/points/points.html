@@ -17,8 +17,8 @@
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
-
   </ion-grid>
+
   <div *ngIf="tabs[0].active">
     <ion-card *ngFor="let type of points | keys">
       <ion-card-header>
@@ -37,6 +37,7 @@
       </ion-card-content>
     </ion-card>
   </div>
+
   <div *ngIf="tabs[1].active">
     <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
 

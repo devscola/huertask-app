@@ -398,6 +398,10 @@
     "NAME" : "Azadas",
     "DESCRIPTION" : "Por unirte a tareas que estén finalizadas"
   },
+  "PLOTPOINTS" : {
+    "NAME" : "Estado de la parcela",
+    "DESCRIPTION" : "Por tratar con cariño tu espacio"
+  },
   "USERPOINTS" : {
     "NAME" : "Semillas",
     "DESCRIPTION" : "Regalo que te ha hecho un hortelano",

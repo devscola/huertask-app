@@ -477,8 +477,9 @@ module Huertask
       end
 
       def current_user
-        p headers["Token"]
-        Person.find_by_token(headers["Token"]) if headers["Token"]
+        person = Person.find_by_token(headers["Token"]) if headers["Token"]
+        person.set_community(params[:community_id])
+        person
       end
 
       def login_required(id = nil)
