@@ -8,6 +8,7 @@ module Mailer
         :from => "huertohigo@gmail.com",
           :subject => "Tu contraseña ha sido cambiada",
           :body => "#{user_mail.split("@")[0]} tu nueva contraseña es #{new_password}",
+          :charset => "UTF-8",
           :via => :smtp,
           :via_options => {
             :address              => 'smtp.gmail.com',
@@ -29,6 +30,7 @@ module Mailer
         :from => "huertohigo@gmail.com",
           :subject => "Te han invitado a una comunidad",
           :body => body,
+          :charset => "UTF-8",
           :via => :smtp,
           :via_options => {
             :address              => 'smtp.gmail.com',

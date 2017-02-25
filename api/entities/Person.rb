@@ -14,7 +14,7 @@ module Huertask
     class PersonAfterLogin < Person
       expose :email
       expose :invitations, using: Huertask::Entities::CommunityFromPerson
-      expose :community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities
+      expose :active_community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities
     end
     class PersonPoints < Grape::Entity
       expose :taskpoints do

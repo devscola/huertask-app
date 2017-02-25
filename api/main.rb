@@ -487,7 +487,8 @@ module Huertask
         return error!('Unauthorized', 401) unless id == nil || current_user.id == id.to_i
       end
 
-      def admin_required(community_id = params[:community_id])
+      def admin_required(community_id = params[:community_id].to_i)
+        raise Community::CommunityNotFound.new(community_id) if community_id == 0
         return error!('Unauthorized', 401) unless current_user && current_user.is_admin?(community_id)
       end
 

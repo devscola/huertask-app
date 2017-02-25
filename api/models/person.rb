@@ -100,9 +100,13 @@ module Huertask
       relation.community_id
     end
 
-    def community_id()
+    def community_id
       return default_community unless self.community_relation
       self.community_relation.community.id
+    end
+    
+    def active_community_relations
+      self.community_relations.all(:type.gte => 1, :order => [ :type.desc ])
     end
 
     def invitations

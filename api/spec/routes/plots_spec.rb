@@ -20,7 +20,7 @@ describe Huertask::API do
     it "returs error when community is invalid" do
       data = {
         quantity: 20,
-        prefix: "parcela"
+        name: "parcela"
       }
 
       header('Token', current_user.create_auth_token)
@@ -34,14 +34,16 @@ describe Huertask::API do
     it "returns modified community with created plots" do
       data = {
         quantity: 20,
-        prefix: "parcela"
+        name: "parcela"
       }
+
+      community_id = Huertask::Community[1].id
 
       header('Token', current_user.create_auth_token)
 
-      post "/api/communities/1/plots", data
+      post "/api/communities/#{community_id}/plots", data
       expect(last_response).to be_created
-      expect(response['plots'].size).to be data[:quantity]
+      expect(response.size).to be data[:quantity]
     end
 
     it "returns 401 error if dont have valid Authorization header" do
@@ -55,14 +57,14 @@ describe Huertask::API do
     end
   end
 
-  describe "PUT /api/plots/:id" do
+  describe "PUT /api/plots/:id", :now => true do
     subject(:response) { JSON.parse(last_response.body) }
 
     it "assign person to plot" do
       person = Huertask::Person.first
       data = { person_id: person.id }
 
-      plot = Huertask::Plot.create(name: 'parcela 1', community_id: Huertask::Community.first.id)
+      plot = Huertask::Plot.create(name: 'parcela 1', community_id: Huertask::Community[1].id)
 
       header('Token', current_user.create_auth_token)
 
