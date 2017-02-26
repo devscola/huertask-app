@@ -7,11 +7,12 @@ module Huertask
       expose :id, :name, :email
     end
     class Person < Grape::Entity
-      expose :id, :name, :token
+      expose :id, :name, :token, :email_hash
       expose :dislike_categories, using: Huertask::Entities::Category
       expose :categories, using: Huertask::Entities::Category
     end
     class PersonAfterLogin < Person
+      unexpose :email_hash
       expose :email
       expose :invitations, using: Huertask::Entities::CommunityFromPerson
       expose :active_community_relations, using: Huertask::Entities::CommunityFromPerson, as: :communities

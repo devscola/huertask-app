@@ -155,5 +155,9 @@ module Huertask
       medal if self.save
     end
 
+    def email_hash
+      Digest::MD5.hexdigest(email)
+    end
+
   end
 end
