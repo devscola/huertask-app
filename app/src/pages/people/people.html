@@ -5,7 +5,7 @@
     </button>
     <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
+      <button *ngIf="personService.isAdmin" ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
         <ion-icon name="add"></ion-icon>
       </button>
       <button ion-button (click)="search()">
@@ -17,7 +17,7 @@
 
 <ion-content padding>
   <ion-searchbar *ngIf="searching" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true"></ion-searchbar>
-  <ion-grid class="tabs">
+  <ion-grid class="tabs"  *ngIf="personService.isAdmin">
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
@@ -31,8 +31,8 @@
       </ion-col>
       <ion-col>
         <ion-card-header>
-          <h1>{{ person.email }}</h1>
-          <h2>{{ person.name }}</h2>
+          <h1>{{ person.name }}</h1>
+          <h2 *ngIf="personService.isAdmin">{{ person.email }}</h2>
         </ion-card-header>
 
         <ion-card-content>

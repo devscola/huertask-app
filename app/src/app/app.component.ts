@@ -39,6 +39,7 @@ export class MyApp {
     { title: "TASKS.TITLE", component: Tasks },
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
     { title: "POINTS.TITLE", component: Points },
+    { title: "PEOPLE.TITLE", component: People },
     { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
     { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
@@ -54,10 +55,7 @@ export class MyApp {
     { title: "WELCOME.TITLE", component: Welcome }
   ];
   adminPages: PageInterface[] = [
-    { title: "TASK.CREATE.TITLE", component: CreateTask },
-    { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
     { title: "INVITATIONS.TITLE", component: InvitationForm },
-    { title: "PEOPLE.TITLE", component: People },
     { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
