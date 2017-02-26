@@ -13,15 +13,15 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <ion-searchbar *ngIf="searching" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true"></ion-searchbar>
   <ion-grid class="tabs"  *ngIf="personService.isAdmin">
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
   </ion-grid>
+  <ion-searchbar *ngIf="searching" (ionInput)="getItems($event)" (ionClear)="onClear($event)" [showCancelButton]="true"></ion-searchbar>
+</ion-header>
+
+<ion-content padding [ngClass]="{'searching': searching }">
 
   <div *ngIf="!tabs[2].active" class="people">
     <ion-card *ngFor="let person of filteredList">

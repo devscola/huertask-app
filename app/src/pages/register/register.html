@@ -1,7 +1,7 @@
-<ion-content padding>
-  <h1>{{ 'REGISTER.HEADING' | translate }}</h1>
+<ion-content padding class="notlogged">
   <form [formGroup]="form" (submit)="submit()">
     <ion-grid>
+      <h1>{{ 'REGISTER.HEADING' | translate }}</h1>
       <ion-item>
         <ion-label floating>{{ 'REGISTER.FORM.NAME.LABEL' | translate }}</ion-label>
         <ion-input
@@ -83,19 +83,19 @@
         <a (click)="goToLogIn()">{{ 'REGISTER.LINK.LOGIN' | translate }}</a>
       </ion-item>
     </ion-grid>
-
-    <ion-footer>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-50>
-          </ion-col>
-          <ion-col width-50>
-            <button ion-button type="submit" color="light" clear full>
-              {{ 'REGISTER.FORM.BUTTON.CREATE' | translate }}
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-footer>
   </form>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+      </ion-col>
+      <ion-col width-50>
+        <button (click)="submit()" ion-button type="submit" clear full>
+          {{ 'REGISTER.FORM.BUTTON.CREATE' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

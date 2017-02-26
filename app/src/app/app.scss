@@ -15,7 +15,131 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-#change-community{
+#change-community {
   background-color: transparent;
   font-size: 1.5rem;
+}
+
+
+button.button-default{
+  &.button-ios, &.button-md, &.button-wp {
+    background-color: map-get($colors, secondary);
+    color: #fff;
+    &:hover:not(.disable-hover) {
+      background-color: map-get($colors, secondary);
+      // color: map-get($colors, secondary);
+    }
+  }
+}
+
+.tabs{
+  text-align: center;
+  text-transform: uppercase;
+  background-color: $toolbar-background;
+  ion-col{
+    padding: 12px 0px;
+    &.active{
+      border-bottom: 4px solid map-get($colors, primary);
+    }
+  }
+}
+
+ion-footer ion-row{
+  margin: 0px;
+  &.covered-message{
+    margin: 10px;
+    padding: 10px;
+  }
+  button.button.button-default{
+     @extend .button-full;
+     background-color: transparent;
+     color: map-get($colors, dark-primary);
+     box-shadow: none;
+     margin: 0px;
+     min-height: 56px;
+  }
+}
+
+.item-md, .item-mios, .item-wp{
+  padding: 0 16px;
+  background-color: inherit;
+  &.item-block .item-inner{
+    padding: 0px;
+  }
+}
+
+log-in, page-register, page-reset-password{
+  ion-footer ion-row{
+    button.button.button-default{
+       @extend .button-full;
+       background-color: transparent;
+       box-shadow: none;
+       margin: 0px;
+    }
+  }
+  ion-content{
+    &.content-md, &.content-ios, &.content-wp{
+      background-color: map-get($colors, dark-primary);
+      color: white;
+      .item-md, .item-ios, .item-wp{
+        &.item-block, &.item-input.ng-invalid.ng-touched:not(.input-has-focus){
+          .item-inner{
+            border-bottom: none;
+            box-shadow: none;
+          }
+        }
+      }
+
+      form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100%;
+      }
+
+      ion-grid{
+        margin-bottom: 50px;
+        .item-md, .item-ios, .item-wp{
+          background-color: inherit;
+        }
+        .input-has-focus, .input-has-value{
+          .label-md[floating], .label-ios[floating], .label-wp[floating]{
+            color: white;
+          }
+        }
+        .item-input .label-md,
+        .item-input .label-ios,
+        .item-input .label-wp{
+          color: map-get($colors, primary);
+          padding-left: 10px;
+        }
+
+        ion-input{
+          background-color: white;
+          border-radius: 5px;
+          color: black;
+          padding-left: 10px;
+        }
+
+        .item-checkbox{
+          height: 65px;
+          &.item.item-md .checkbox-md {
+            padding: 9px 10px 9px 4px;
+            margin: 0;
+          }
+          .item-cover{
+            position: relative;
+            width: 0;
+            height: 0;
+          }
+          .item-inner{
+            color: white;
+          }
+          ion-checkbox{
+            line-height: 0;
+          }
+        }
+      }
+    }
+  }
 }

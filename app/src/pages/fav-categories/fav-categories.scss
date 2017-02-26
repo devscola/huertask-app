@@ -14,6 +14,8 @@ page-fav-categories {
     overflow-y: hidden;
   }
   .description{
+    display: block;
+    overflow: hidden;
     border-bottom: 1px solid #dedede;
     min-height: 0;
     transition: 0.09s all linear;

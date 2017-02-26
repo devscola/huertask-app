@@ -1,54 +1,54 @@
-<form id="login" [formGroup]="form">
-  <ion-grid>
-    <ion-row>
-      <ion-input
-        type="email"
-        formControlName="email"
-        placeholder="Mail">
-      </ion-input>
-    </ion-row>
-    <div *ngIf="hasValidationError('email')" class="alert alert-danger">
-      <p *ngIf="hasThisError('email', 'required')">
-        {{ 'LOGIN.FORM.EMAIL.ALERT.REQUIRED' | translate }}
-      </p>
-      <p *ngIf="hasThisError('email', 'pattern')">
-        {{ 'LOGIN.FORM.EMAIL.ALERT.PATTERN' | translate }}
-      </p>
-    </div>
+<ion-content padding>
+  <form id="login" [formGroup]="form">
+    <ion-grid>
+      <ion-item>
+        <ion-label floating>{{ 'LOGIN.FORM.EMAIL.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="email"
+          formControlName="email">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('email')" class="alert alert-danger">
+        <p *ngIf="hasThisError('email', 'required')">
+          {{ 'LOGIN.FORM.EMAIL.ALERT.REQUIRED' | translate }}
+        </p>
+        <p *ngIf="hasThisError('email', 'pattern')">
+          {{ 'LOGIN.FORM.EMAIL.ALERT.PATTERN' | translate }}
+        </p>
+      </div>
 
-    <ion-row>
-      <ion-input
-        type="password"
-        formControlName="password"
-        placeholder="Contraseña">
-      </ion-input>
-    </ion-row>
-    <div *ngIf="hasValidationError('password')" class="alert alert-danger">
-      <p *ngIf="hasThisError('password', 'required')">
-        {{ 'LOGIN.FORM.PASSWORD.ALERT.REQUIRED' | translate }}
-      </p>
-    </div>
-    <ion-row>
+      <ion-item>
+        <ion-label floating>{{ 'LOGIN.FORM.PASSWORD.LABEL' | translate }}</ion-label>
+        <ion-input
+          type="password"
+          formControlName="password">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="hasValidationError('password')" class="alert alert-danger">
+        <p *ngIf="hasThisError('password', 'required')">
+          {{ 'LOGIN.FORM.PASSWORD.ALERT.REQUIRED' | translate }}
+        </p>
+      </div>
       <ion-item>
         <ion-label>{{ 'LOGIN.FORM.BUTTON.REMEMBER' | translate }}</ion-label>
-        <ion-checkbox color="success" checked="true"></ion-checkbox>
+        <ion-checkbox checked="true"></ion-checkbox>
       </ion-item>
-    </ion-row>
-    <ion-row>
-      <span (click)="goToResetPassword()" >{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</span>
-    </ion-row>
-    <ion-row>
-      <span (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</span>
-    </ion-row>
-  </ion-grid>
-</form>
+      <ion-item>
+        <p (click)="goToResetPassword()" >{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</p>
+      </ion-item>
+      <ion-item>
+        <p (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</p>
+      </ion-item>
+    </ion-grid>
+  </form>
+</ion-content>
 
 <ion-footer>
-    <ion-row class="buttons">
+    <ion-row>
       <ion-col width-50>
       </ion-col>
       <ion-col width-50>
-        <button form="login" (click)="logIn()" ion-button id="log-in" clear full>
+        <button form="login" (click)="logIn()" ion-button id="log-in">
           Entrar
         </button>
       </ion-col>

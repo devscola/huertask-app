@@ -91,6 +91,10 @@ export class TaskForm {
     return this.form.controls[property].hasError(error)
   }
 
+  title(){
+    return 'TASK.' + this.action.toUpperCase() + '.TITLE';
+  }
+
   submitTask(){
     this.submited = true;
     let task = this.form.value;

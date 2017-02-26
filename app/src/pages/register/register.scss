@@ -1,64 +1,9 @@
 page-register {
-  ion-content{
-    &.content-md, &.content-ios, &.content-wp{
-      background-color: map-get($colors, primary);
-      color: white;
-    }
-    h1{
-      padding-left: 25px;
-      padding-right: 25px;
-      padding-top: 20px;
-      font-size: 2.8rem;
-    }
-    ion-grid{
-      margin-bottom: 50px;
-      .item-md, .item-ios, .item-wp{
-        background-color: map-get($colors, primary);
-      }
-      .input-has-focus .label-md[floating], .input-has-value .label-md[floating],
-      .input-has-focus .label-ios[floating], .input-has-value .label-ios[floating],
-      .input-has-focus .label-wp[floating], .input-has-value .label-wp[floating],
-      .item-input .label-md, .item-input .label-ios, .item-input .label-wp{
-        color: white;
-      }
-
-      .item-input .label-md, .item-input .label-ios, .item-input .label-wp{
-        color: map-get($colors, primary);
-        padding-left: 10px;
-      }
-      ion-input{
-        background-color: white;
-        border-radius: 5px;
-        color: black;
-        padding-left: 10px;
-      }
-
-      .item-checkbox{
-        height: 65px;
-        &.item.item-md .checkbox-md {
-          padding: 9px 10px 9px 4px;
-          margin: 0;
-        }
-        .item-cover{
-          position: relative;
-          width: 0;
-          height: 0;
-        }
-        .item-inner{
-          color: white;
-        }
-        ion-checkbox{
-          line-height: 0;
-        }
-      }
-    }
-    ion-footer{
-      background-color: map-get($colors, primary);
-      position: relative;
-      ion-grid{
-        margin-bottom: 0px;
-      }
-    }
+  h1{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 20px;
+    font-size: 2.8rem;
   }
 
   .text-input::-moz-placeholder {
@@ -77,12 +22,6 @@ page-register {
   a{
       color: white;
       text-decoration: underline;
-  }
-
-  .item-md.item-block .item-inner,
-  .item-ios.item-block .item-inner,
-  .item-wp.item-block .item-inner{
-    border-bottom: none
   }
 
   .alert-danger{

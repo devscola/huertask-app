@@ -14,6 +14,7 @@ import { JoinCommunity } from '../join-community/join-community';
 
 export class LogIn {
   form;
+  submited = false;
 
   constructor(
    public toastCtrl: ToastController,
@@ -31,19 +32,22 @@ export class LogIn {
   }
 
   logIn(){
+    this.submited = true;
     let person = this.form.value
 
-    this.personService.logIn(person).subscribe(person => {
-        this.personService.setPerson(person)
-        this.personService.setDefaultCommunity().then(community =>{
-          this.personService.events.publish('user:login')
-          this.presentToast(("Hola " + person.name), "success")
-          this.navCtrl.setRoot(JoinCommunity)
-        })
-    }, err => {
-      this.presentToast("incorrecto", "danger")
-      console.log(err)
-    })
+    if (this.form.valid){
+      this.personService.logIn(person).subscribe(person => {
+          this.personService.setPerson(person)
+          this.personService.setDefaultCommunity().then(community =>{
+            this.personService.events.publish('user:login')
+            this.presentToast(("Hola " + person.name), "success")
+            this.navCtrl.setRoot(JoinCommunity)
+          })
+      }, err => {
+        this.presentToast("incorrecto", "danger")
+        console.log(err)
+      })
+    }
   }
 
   goToRegister(){
@@ -55,7 +59,7 @@ export class LogIn {
   }
 
   hasValidationError(property){
-    return !this.form.controls[property].valid && this.personService.logged
+    return !this.form.controls[property].valid && this.submited
   }
 
   hasThisError(property, error){

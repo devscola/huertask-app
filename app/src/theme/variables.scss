@@ -10,9 +10,9 @@
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-$text-color:        #000;
+$text-color:        #212020;
 $background-color:  #f4f4f4;
-$toolbar-background: #f66e54;
+$toolbar-background: #ffffff;
 $grid-padding-width: 0px;
 
 // Named Color Variables
@@ -25,43 +25,37 @@ $grid-padding-width: 0px;
 
 
 $colors: (
-  primary:    $toolbar-background,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  success:    #5cb85c,
-  light:      #f4f4f4,
-  dark:       #222
+  primary:      #f4ea36,
+  dark-primary: #f2be28,
+  secondary:    #1a9186,
+  danger:       #f53d3d,
+  success:      #5cb85c,
+  light:        #f4f4f4,
+  dark:         #222
 );
-
-$category-colors: (
-  cat-1: #f79da7,
-  cat-2: #94c8e0,
-  cat-3: #f6a063,
-  cat-4: #88cd96,
-  cat-5: #f5bf55,
-  cat-6: #f5767d
-);
-
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
+$checkbox-ios-background-color-on: map-get($colors, secondary);
+$checkbox-ios-icon-border-color-on: map-get($colors, secondary);
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
+$checkbox-md-icon-background-color-on: map-get($colors, secondary);
+$checkbox-md-icon-border-color-on: map-get($colors, secondary);
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
-
+$checkbox-wp-icon-background-color-on: map-get($colors, secondary);
+$checkbox-wp-icon-border-color-on: map-get($colors, secondary);
 
 
 // App Theme
