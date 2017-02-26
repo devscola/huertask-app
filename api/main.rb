@@ -197,7 +197,7 @@ module Huertask
       post '/' do
         login_required
         community = Community.new filter(params)
-        community.people_relations.new(type: 1, person_id: current_user.id, community_id: community.id)
+        community.people_relations.new(type: 2, person_id: current_user.id, community_id: community.id)
         if community.save
           present community, with: Entities::Community
         else

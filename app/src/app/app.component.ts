@@ -182,7 +182,7 @@ export class MyApp {
       if (this.personService.person['invitations'].length > 0 ){ this.hasInvitations = true }
       this.invitations = this.personService.person['invitations'].length
       this.isAdmin = this.personService.isAdmin
-      if(this.personService.person['communities'] > 0){
+      if(this.personService.person['communities'].length > 0){
         this.activeCommunityName = this.personService.activeCommunity['name']
         this.nav.setRoot(Tasks)
       }

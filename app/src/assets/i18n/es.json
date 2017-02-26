@@ -200,6 +200,12 @@
       "NEW" : "Nueva comunidad",
       "OK" : "Cambiar",
       "CANCEL" : "Cancelar"
+    },
+    "CREATED_ALERT" : {
+      "TITLE" : "Huerto creado",
+      "MESSAGE" : "¿Quieres crear parcelas para poder revisar su mantenimiento?",
+      "OK" : "Si",
+      "CANCEL" : "No"
     }
   },
   "INVITATIONS" : {
