@@ -1,5 +1,7 @@
 class Fixtures
   def self.seed
+    Huertask::PlotRevision.all.destroy
+    Huertask::CommunityRevision.all.destroy
     Huertask::PersonTaskRelation.all.destroy
     Huertask::PersonCommunityRelation.all.destroy
     Huertask::PersonMedal.all.destroy

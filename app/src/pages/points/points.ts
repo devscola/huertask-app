@@ -25,6 +25,8 @@ export class Points {
     {title: "POINTS.DONATE", active: false}
   ]
 
+  plotpointsValues = {1: -2, 2: 0, 3: 2};
+
   constructor(
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
@@ -34,6 +36,7 @@ export class Points {
   ) {
     personService.getPoints().subscribe(points => {
       points["userpoints"]["qty"] = points["userpoints"]["list"].length;
+      points["plotpoints"]["qty"] = this.plotpointsScore(points["plotpoints"]["list"]);
       points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
       this.userpointsLeft = points["available"]
       this.points = points;
@@ -58,6 +61,14 @@ export class Points {
 
   hasThisError(property, error){
     return this.form.controls[property].hasError(error)
+  }
+
+  plotpointsScore(list){
+    let score = 0;
+    list.forEach((revision) => {
+      score += this.plotpointsValues[revision.status]
+    })
+    return score;
   }
 
   userpointsLeftMessage = () => {

@@ -13,15 +13,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list no-border>
 
+  <ion-list no-border>
     <ion-list-header>
       {{ 'POINTS.TASKPOINTS.NAME' | translate }}
     </ion-list-header>
 
 
     <ion-item>
-      <ion-toggle (ionChange)="toggle('task_points_enabled')" [(ngModel)]="community.task_points_enabled"></ion-toggle>
+      <ion-toggle (click)="toggle('task_points_enabled')" [(ngModel)]="community.task_points_enabled"></ion-toggle>
       <ion-label>
         {{ 'POINTS.TASKPOINTS.ACTIVATE.TITLE' | translate }}
       </ion-label>
@@ -34,21 +34,38 @@
       {{ community.task_points_duration || '' }}
       </ion-note>
     </ion-item>
+  </ion-list>
 
+  <ion-list no-border>
+    <ion-list-header>
+      {{ 'POINTS.PLOTPOINTS.NAME' | translate }}
+    </ion-list-header>
+
+
+    <ion-item>
+      <ion-toggle (click)="toggle('plot_points_enabled')" [(ngModel)]="community.plot_points_enabled"></ion-toggle>
+      <ion-label>
+        {{ 'POINTS.PLOTPOINTS.ACTIVATE.TITLE' | translate }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      {{ 'POINTS.PLOTPOINTS.DURATION.TITLE' | translate }}
+      <p>{{ 'POINTS.PLOTPOINTS.DURATION.DESCRIPTION' | translate }}</p>
+      <ion-note item-right class="big-number" (click)="showAlert( 'plot_points_duration')">
+      {{ community.plot_points_duration || '' }}
+      </ion-note>
+    </ion-item>
   </ion-list>
 
 
   <ion-list>
-
-
-
     <ion-list-header>
       {{ 'POINTS.PERSONPOINTS.NAME' | translate }}
-      <p>.</p>
     </ion-list-header>
 
     <ion-item>
-      <ion-toggle (ionChange)="toggle('person_points_enabled')" [(ngModel)]="community.person_points_enabled"></ion-toggle>
+      <ion-toggle (click)="toggle('person_points_enabled')" [(ngModel)]="community.person_points_enabled"></ion-toggle>
       <ion-label>
         {{ 'POINTS.PERSONPOINTS.ACTIVATE.TITLE' | translate }}
       </ion-label>
@@ -77,8 +94,6 @@
       {{ community.person_points_duration || '' }}
       </ion-note>
     </ion-item>
-
   </ion-list>
-
 
 </ion-content>

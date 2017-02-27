@@ -13,4 +13,39 @@ people {
   .isAdmin{
     text-align: right;
   }
+
+  .status button, .status [ion-button]{
+    background-color: map-get($colors, light);
+    color: map-get($colors, dark);
+    &[disabled], &:hover:not(.disable-hover){
+      opacity: 1;
+      color: map-get($colors, light);
+      &.bad{
+        background-color: map-get($colors, danger);
+      }
+      &.regular{
+        background-color: orange;
+      }
+      &.good{
+        background-color: map-get($colors, success);
+      }
+    }
+  }
+
+  #plots{
+    margin-bottom: 90px;
+  }
+
+  ion-footer ion-row{
+    margin: 0px;
+    &.revision-buttons{
+      button {
+        margin: 0px;
+        padding: 20px;
+        height: 56px;
+      }
+    }
+  }
 }
+
+

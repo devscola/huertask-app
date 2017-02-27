@@ -17,7 +17,6 @@
   </ion-grid>
 </ion-header>
 
-
 <ion-content padding>
   <div *ngIf="tabs[0].active">
     <ion-card *ngFor="let type of points | keys">
@@ -37,6 +36,7 @@
       </ion-card-content>
     </ion-card>
   </div>
+
   <div *ngIf="tabs[1].active">
     <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
 

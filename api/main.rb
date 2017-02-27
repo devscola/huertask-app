@@ -11,12 +11,15 @@ require_relative './entities/Task'
 require_relative './entities/Category'
 require_relative './entities/Person'
 require_relative './entities/community'
+require_relative './entities/community_revision'
 require_relative './entities/category_task_relation'
 require_relative './entities/person_task_relation'
 require_relative './entities/plot'
 require_relative './models/category'
 require_relative './models/person'
 require_relative './models/community'
+require_relative './models/community_revision'
+require_relative './models/plot_revision'
 require_relative './models/plot'
 require_relative './models/task_community_relation'
 require_relative './models/person_community_relation'
@@ -217,6 +220,8 @@ module Huertask
           optional :description,            type: String
           optional :task_points_enabled,    type: Boolean
           optional :task_points_duration,   type: Integer
+          optional :plot_points_enabled,    type: Boolean
+          optional :plot_points_duration,   type: Integer
           optional :person_points_enabled,  type: Boolean
           optional :person_points_amount,   type: Integer
           optional :person_points_reload,   type: Integer
@@ -275,6 +280,46 @@ module Huertask
             rescue Plot::PlotNameAlreadyUsed => e
               error! e.message, 400
             end
+          end
+
+          resource :status do
+            params do
+              requires :plots, type: Array
+            end
+            patch '/' do
+              admin_required
+              begin
+                community = Community.find_by_id(params[:community_id])
+                params[:plots].each do |item|
+                  plot = community.plots.find_by_id(item.id)
+                  plot.status = item.status
+                  plot.save
+                end
+                present community, with: Entities::Community
+              rescue Community::CommunityNotFound => e
+                error! e.message, 404
+              end
+            end
+          end
+        end
+
+        resource :revisions do
+          params do
+            requires :plots, type: Array
+          end
+          post '/' do
+              admin_required
+              begin
+                community = Community.find_by_id(params[:community_id])
+                revision = community.add_revision(params[:plots])
+                if revision.save
+                  present revision, with: Entities::CommunityRevision
+                else
+                  error_400(community)
+                end
+              rescue Community::CommunityNotFound => e
+                error! e.message, 404
+              end
           end
         end
 
@@ -432,7 +477,9 @@ module Huertask
       end
 
       def current_user
-        Person.find_by_token(headers["Token"]) if headers["Token"]
+        person = Person.find_by_token(headers["Token"]) if headers["Token"]
+        person.set_community(params[:community_id])
+        person
       end
 
       def login_required(id = nil)

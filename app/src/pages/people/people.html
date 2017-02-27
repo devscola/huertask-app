@@ -55,7 +55,7 @@
     </ion-card>
   </div>
 
-  <div *ngIf="tabs[2].active" class="plots">
+  <div id="plots" *ngIf="tabs[2].active">
     <ion-card *ngFor="let plot of filteredList">
       <ion-row>
         <ion-col>
@@ -73,6 +73,17 @@
                   {{ 'PLOT.UNASSIGNED' | translate }}
                 </span>
               </ion-row>
+              <ion-row class="status" *ngIf="plot_points_enabled">
+                <button class="bad" [disabled]="1 == plot.status" (click)="setStatus(plot, 1)" ion-button round>
+                  {{ 'PLOT.STATUS.BAD' | translate }}
+                </button>
+                <button class="regular" [disabled]="2 == plot.status" (click)="setStatus(plot, 2)" ion-button round>
+                  {{ 'PLOT.STATUS.REGULAR' | translate }}
+                </button>
+                <button class="good" [disabled]="3 == plot.status" (click)="setStatus(plot, 3)" ion-button round>
+                  {{ 'PLOT.STATUS.GOOD' | translate }}
+                </button>
+              </ion-row>
             </ion-grid>
           </ion-card-content>
         </ion-col>
@@ -84,3 +95,21 @@
     </ion-card>
   </div>
 </ion-content>
+
+<ion-footer *ngIf="tabs[2].active">
+  <ion-row class="revision-buttons">
+    <ion-col width-50>
+      <button ion-button color="danger" full
+        (click)="saveStatus()">
+          {{ 'PLOT.STATUS.BUTTONS.SAVE' | translate }}
+      </button>
+    </ion-col>
+    <ion-col width-50>
+      <button ion-button color="danger" full
+        (click)="createRevision()">
+          {{ 'PLOT.STATUS.BUTTONS.ADD_REVISION' | translate }}
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

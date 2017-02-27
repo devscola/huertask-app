@@ -10,6 +10,8 @@ module Huertask
       expose :joined, using: "Huertask::Entities::PersonFromCommunity"
       expose :task_points_enabled
       expose :task_points_duration
+      expose :plot_points_enabled
+      expose :plot_points_duration
       expose :person_points_enabled
       expose :person_points_amount
       expose :person_points_reload
