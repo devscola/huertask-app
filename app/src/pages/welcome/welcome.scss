@@ -2,7 +2,6 @@ page-welcome {
   .content-ios, .content-md, .content-wp{
     background-color: map-get($colors, primary);
     text-align: center;
-    color: white;
   }
   .scroll-content{
     min-height: 100%;
@@ -20,13 +19,5 @@ page-welcome {
   p{
     font-size: 1.5em;
   }
-  button{
-    min-width: 70%;
-    &.button-ios, &.button-md, &.button-wp{
-      font-size: 1.3em;
-      text-transform: none;
-      border-radius: 10px;
-      margin-top: 1rem;
-    }
-  }
+
 }

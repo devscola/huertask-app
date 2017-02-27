@@ -13,16 +13,15 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <ion-grid class="tasks-tabs">
+  <ion-grid class="tabs">
     <ion-row>
       <ion-col *ngFor="let tab of tabs" (click)="selectTab(tab.title)" [class.active]="tab.active">{{ tab.title | translate }}</ion-col>
     </ion-row>
-
   </ion-grid>
-  <ion-card *ngFor="let task of list" (click)="showTask(task)" [ngClass]="{'going': task.isUserGoing(personService.person['id']) }">
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let task of list" (click)="showTask(task)">
     <ion-card-header>
       {{task.title}}
     </ion-card-header>
@@ -32,6 +31,11 @@
         <ion-row>
           <ion-col class="from-date"><span [ngClass]="{'finalized': isFinalized(task) }" >{{ fromDateMessage(task) }}</span></ion-col>
           <ion-col [innerHTML]='peopleMessage(task) | translate:{count: peopleLeft(task)}'></ion-col>
+        </ion-row>
+        <ion-row class="user-going" *ngIf="task.isUserGoing(personService.person['id'])">
+          <ion-col>
+            {{ 'TASK.USER_GOING' | translate }}
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

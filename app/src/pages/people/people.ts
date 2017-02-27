@@ -80,7 +80,8 @@ export class People {
   }
 
   search(){
-    this.searching = true
+    this.searching = !this.searching;
+   this.filteredList = this.list;
   }
 
   getItems(ev) {

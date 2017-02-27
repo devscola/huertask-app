@@ -1,17 +1,14 @@
 people {
+  ion-content.searching .scroll-content{
+    padding-top: 50px;
+  }
   ion-card {
     color: #888888;
     background-color: #fff !important;
   }
-  .tabs{
-    text-align: center;
-    padding: 15px 0px;
-    .active{
-      color: red;
-    }
-  }
   .people ion-row ion-col:first-child{
     max-width: 100px;
+    min-width: 50px;
   }
   .isAdmin{
     text-align: right;

@@ -1,31 +1,7 @@
 log-in{
-  background-color: rgb(246, 110, 84);
-  ion-grid{
-    margin-top: 50%;
-    ion-row{
-      padding: 0px 30px;
-      span{
-        color: white;
-        margin-bottom: 15px
-      }
-      ion-item{
-        background-color: #f66e54 !important;
-        padding-left: 0px !important;
-        .item-inner{
-          border-bottom: 0px !important
-        }
-      }
-      ion-label{
-        color: white
-      }
-    }
-  }
   ion-input{
     background-color: white;
     margin-bottom: 13px;
-  }
-  #log-in{
-    color: white
   }
 
   .alert-danger{
@@ -42,5 +18,4 @@ log-in{
       }
     }
   }
-
 }

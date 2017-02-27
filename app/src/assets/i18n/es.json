@@ -6,6 +6,7 @@
   },
   "TASK" : {
     "FINISHED" : "Finalizada",
+    "USER_GOING" : "Me he unido",
     "PEOPLE_LEFT" : {
       "LABEL" : "Personas restantes",
       "MSG" : {
@@ -16,6 +17,9 @@
     },
     "CREATE" : {
       "TITLE" : "Crear Tarea"
+    },
+    "DUPLICATE" : {
+      "TITLE" : "Duplicar Tarea"
     },
     "EDIT" : {
       "TITLE" : "Editar Tarea"
@@ -114,7 +118,15 @@
     },
     "REMEMBER_PASSWORD" : {
       "TITLE" : "Resetear contraseña",
-      "INFO" : "Te enviaremos un mail para verificar que eres quien dices ser"
+      "INFO" : "Te enviaremos un mail para verificar que eres quien dices ser",
+      "FORM" : {
+        "EMAIL" : {
+          "LABEL" : "Mail"
+        },
+        "BUTTON" : {
+          "SUBMIT" : "Enviar"
+        }
+      }
     },
     "LINK" : {
       "REGISTER" : "¿Aún no tienes cuenta?",
