@@ -25,6 +25,9 @@ module Huertask
         expose :person_medals, as: :list
         expose :available_person_points, as: :available
       end
+      expose :plotpoints do
+        expose :plot_points, as: :list
+      end
     end
   end
 end

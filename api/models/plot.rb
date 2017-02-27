@@ -19,10 +19,12 @@ module Huertask
     property :name, String
     property :number, Integer
     property :active, Boolean, :default => true
+    property :status, Integer, :required => false
 
     has 1, :personRelation, 'PersonCommunityRelation'
     has 1, :person, :through => :personRelation
-    has 1, :community, :through => :personRelation
+    belongs_to :community, 'Community'
+    has n, :revisions, 'PlotRevision'
 
     class << self
       def find_by_id(id)
@@ -30,6 +32,10 @@ module Huertask
         raise PlotNotFound.new(id) if plot.nil?
         plot
       end
+    end
+
+    def addRevision(status)
+      self.revisions.new(:status => status, :created_at => Time.now)
     end
 
     def update_fields(params)
@@ -54,6 +60,17 @@ module Huertask
       self.personRelation = nil
       self.active = false
       save
+    end
+
+    def points(days)
+      days_in_seconds = days * 24 * 60 * 60
+      from_date = Time.now - days_in_seconds
+      self.revisions.all(:community_revision => {:created_at.gt => from_date}).map do |revision|
+        {
+          status: revision.status,
+          date: revision.community_revision.created_at
+        }
+      end
     end
   end
 end

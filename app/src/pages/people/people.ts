@@ -18,6 +18,7 @@ export class People {
   joined: Person[];
   plots: Plot[] = [];
   invited: Person[];
+  plot_points_enabled: boolean = false;
   searching = false;
   tabs = [
     {title: "PEOPLE.JOINED", active: true},
@@ -34,7 +35,8 @@ export class People {
       this.joined = community.joined;
       this.invited = community.invited;
       this.list = this.joined;
-      this.filteredList = this.list
+      this.filteredList = this.list;
+      this.plot_points_enabled = community.plot_points_enabled;
     });
     personService.getPlots().subscribe(plots => {
       this.plots = plots
@@ -103,5 +105,31 @@ export class People {
 
   goToAddPlot(){
     this.navCtrl.push(PlotForm);
+  }
+
+  setStatus(plot, status){
+    plot.status = status;
+  }
+
+  saveStatus(){
+    let plots = []
+    for(let plot of this.plots){
+      if (null != plot.status){
+        plots.push({'id' : plot.id, 'status' : plot.status});
+      }
+    }
+    this.personService.updateStatus({'plots': plots}).subscribe(community => {
+      this.navCtrl.setRoot(People);
+    });
+  }
+
+  createRevision(){
+    let plots = []
+    for(let plot of this.plots){
+      plots.push({'id' : plot.id, 'status' : plot.status});
+    }
+    this.personService.createRevision({'plots': plots}).subscribe(plots => {
+      this.navCtrl.setRoot(People);
+    });
   }
 }

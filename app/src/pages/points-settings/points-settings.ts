@@ -12,6 +12,8 @@ export class PointsSettings {
   community: any = {
     "task_points_enabled":false,
     "task_points_duration":'',
+    "plot_points_enabled":false,
+    "plot_points_duration":'',
     "person_points_enabled":false,
     "person_points_amount":'',
     "person_points_reload":'',
@@ -20,6 +22,7 @@ export class PointsSettings {
   monthsQty = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   messages = {
     task_points_duration: 'POINTS.TASKPOINTS.DURATION.ALERT',
+    plot_points_duration: 'POINTS.PLOTPOINTS.DURATION.ALERT',
     person_points_amount: 'POINTS.PERSONPOINTS.AMOUNT.ALERT',
     person_points_reload: 'POINTS.PERSONPOINTS.RELOAD.ALERT',
     person_points_duration: 'POINTS.PERSONPOINTS.DURATION.ALERT'
@@ -89,7 +92,6 @@ export class PointsSettings {
   }
 
   toggle(property){
-    console.log(({[property]: this.community[property]}));
     this.editCommunity({[property]: this.community[property]})
   }
 

@@ -4,6 +4,7 @@ export class Plot {
     public name: string = '',
     public number: number = null,
     public person: any = null,
+    public status: number = null,
   ) {  }
 
   getFullName = () => {

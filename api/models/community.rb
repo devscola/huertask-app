@@ -22,6 +22,8 @@ module Huertask
     property :description,            String,  :default => "", :length => 0..200
     property :task_points_enabled,    Boolean, :default => true
     property :task_points_duration,   Integer, :default => 4
+    property :plot_points_enabled,    Boolean, :default => false
+    property :plot_points_duration,   Integer, :default => 4
     property :person_points_enabled,  Boolean, :default => true
     property :person_points_amount,   Integer, :default => 2
     property :person_points_reload,   Integer, :default => 1
@@ -36,6 +38,7 @@ module Huertask
     has n, :tasks, :through => :tasks_relations, :via => :task
     has n, :categories
     has n, :plots, 'Plot'
+    has n, :revisions, 'CommunityRevision'
 
     class << self
       def find_by_id(id)
@@ -62,6 +65,17 @@ module Huertask
       plot.setPerson(person_id) if person_id
       self.plots << plot
       plot
+    end
+
+    def add_revision(plots)
+      revision = self.revisions.new(:created_at => Time.now)
+      plots.each do |item|
+        plot = Huertask::Plot.get(item.id)
+        revision.plot_revisions << plot.revisions.new(:status => item.status)
+        plot.status = 0
+      end
+      revision.save
+      revision
     end
 
     def next_reload
