@@ -64,6 +64,7 @@ export class Points {
   }
 
   plotpointsScore(list){
+    if (list.length<1) return 0;
     let score = 0;
     list.forEach((revision) => {
       score += this.plotpointsValues[revision.status]

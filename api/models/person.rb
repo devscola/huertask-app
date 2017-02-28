@@ -104,7 +104,7 @@ module Huertask
       return default_community unless self.community_relation
       self.community_relation.community.id
     end
-    
+
     def active_community_relations
       self.community_relations.all(:type.gte => 1, :order => [ :type.desc ])
     end
@@ -128,6 +128,7 @@ module Huertask
     end
 
     def plot_points()
+      return [] unless self.community_relation.plot
       days = self.community_relation.community.plot_points_duration * 30
       self.community_relation.plot.points(days)
     end
