@@ -247,7 +247,8 @@
       "ADMIN" : {
         "LABEL" : "Coordinador"
       }
-    }
+    },
+    "LINK" : "Invitar de forma masiva"
   },
   "REGISTER" : {
     "TITLE" : "Registro",

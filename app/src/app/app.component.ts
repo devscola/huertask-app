@@ -55,8 +55,6 @@ export class MyApp {
     { title: "WELCOME.TITLE", component: Welcome }
   ];
   adminPages: PageInterface[] = [
-    { title: "INVITATIONS.TITLE", component: InvitationForm },
-    { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
 
