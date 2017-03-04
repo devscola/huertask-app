@@ -1,0 +1,14 @@
+plot-form{
+  ion-label{
+    color: #999;
+  }
+  .info{
+    margin-top: 30px;
+    padding: 12px;
+    color: white;
+    background-color: map-get($colors, secondary);
+    .plot-name{
+      font-weight: bold;
+    }
+  }
+}

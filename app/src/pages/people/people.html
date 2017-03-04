@@ -31,21 +31,17 @@
       </ion-col>
       <ion-col>
         <ion-card-header>
-          <h1>{{ person.name }}</h1>
-          <h2 *ngIf="personService.isAdmin">{{ person.email }}</h2>
+          <p class="name">{{ person.name }}</p>
+          <p class="email" *ngIf="personService.isAdmin">{{ person.email }}</p>
         </ion-card-header>
 
         <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                {{ person.plot && person.plot.getFullName() || '' }}
-              </ion-col>
-              <ion-col class="isAdmin" *ngIf="person.type == 2">
-                {{ 'PERSON.ADMIN' | translate }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <p class="plot">
+            {{ person.plot && person.plot.getFullName() || '' }}
+          </p>
+          <p class="is-admin" *ngIf="person.type == 2">
+            {{ 'PERSON.ADMIN' | translate }}
+          </p>
         </ion-card-content>
       </ion-col>
       <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPersonPopover($event, person)">

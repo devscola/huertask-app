@@ -21,15 +21,16 @@ ion-alert.select-alert{
     height: 100%;
     border-radius: 0;
     .alert-head{
-      background-color: map-get($colors, primary);
-      padding: 4px;
-      .platform-android &{
+      color: map-get($colors, dark);
+      background-color: white;
+      padding: 15px 4px 4px 70px;
+      ion-app.md &{
         min-height: 56px;
       }
-      .platform-windows &{
+      ion-app.wp &{
         min-height: 46px;
       }
-      .platform-ios &{
+      ion-app.ios &{
         min-height: 44px;
       }
     }
@@ -77,17 +78,16 @@ ion-alert.select-alert{
         left: 0;
         width: auto;
         height: auto;
-        color: white;
-        background-color: map-get($colors, primary);
+        color: map-get($colors, dark);
         border: 0;
         text-align: left;
-        .platform-android &{
+        ion-app.md &{
           min-height: 56px;
         }
-        .platform-windows &{
+        ion-app.wp &{
           min-height: 46px;
         }
-        .platform-ios &{
+        ion-app.ios &{
           min-height: 44px;
         }
         .button-inner{

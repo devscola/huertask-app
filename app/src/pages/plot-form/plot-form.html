@@ -7,31 +7,32 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <form [formGroup]="form" (submit)="submit()">
     <ion-grid>
       <ion-row *ngIf="action=='create'">
-        <ion-col>
+        <ion-item>
           <ion-label>{{ 'PLOT.FORM.QUANTITY.LABEL' | translate }}</ion-label>
-        </ion-col>
-        <ion-col>
           <ion-input
-            formControlName="quantity"
-            type="number" min="1">
+            type="number"
+            formControlName="quantity" min="1">
           </ion-input>
-        </ion-col>
+        </ion-item>
       </ion-row>
+      <div *ngIf="hasValidationError('quantity')" class="alert alert-danger">
+        <p *ngIf="hasThisError('quantity', 'required')">
+          {{ 'PLOT.FORM.QUANTITY.ALERT.REQUIRED' | translate }}
+        </p>
+      </div>
 
       <ion-row>
-        <ion-col>
+        <ion-item>
           <ion-label>{{ 'PLOT.FORM.NAME.LABEL' | translate }}</ion-label>
-        </ion-col>
-        <ion-col>
           <ion-input
             type="text"
             formControlName="name">
           </ion-input>
-        </ion-col>
+        </ion-item>
       </ion-row>
       <div *ngIf="hasValidationError('name')" class="alert alert-danger">
         <p *ngIf="hasThisError('name', 'required')">
@@ -43,34 +44,19 @@
       </div>
 
       <ion-row>
-        <ion-col>
+        <ion-item>
           <ion-label>{{ 'PLOT.FORM.NUMBER.LABEL' | translate }}</ion-label>
-        </ion-col>
-        <ion-col>
           <ion-input
             type="number"
             formControlName="number" min="0">
           </ion-input>
-        </ion-col>
+        </ion-item>
       </ion-row>
       <div *ngIf="hasValidationError('number')" class="alert alert-danger">
         <p *ngIf="hasThisError('number', 'required')">
           {{ 'PLOT.FORM.NUMBER.ALERT.REQUIRED' | translate }}
         </p>
       </div>
-
-      <ion-row>
-        <ion-col *ngIf="form.controls.quantity.value == 1">
-          Se creará la parcela: <br/>
-          {{ form.controls.name.value }} {{ form.controls.number.value }}
-        </ion-col>
-        <ion-col *ngIf="form.controls.quantity.value > 1">
-          Se crearán las parcelas: <br/>
-          {{ form.controls.name.value }} {{ form.controls.number.value }}
-          ...
-          {{ form.controls.name.value }} {{ (form.controls.number.value*1 + form.controls.quantity.value*1 - 1) }}
-        </ion-col>
-      </ion-row>
 
       <div *ngIf="form.controls.quantity.value == 1">
         <ion-label>{{ 'PLOT.FORM.PERSON.LABEL' | translate }}</ion-label>
@@ -96,8 +82,20 @@
       </div>
     </ion-grid>
 
-    <button type="submit" ion-button outline>
-      {{ 'PLOT.FORM.BUTTON.' + (action|uppercase) | translate }}
-    </button>
+    <div class="info" *ngIf="form.valid" [innerHTML]='plotsMessage() | translate:{first: first_plot(), last: last_plot()}'></div>
   </form>
 </ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col width-50>
+    </ion-col>
+    <ion-col width-50>
+      <button ion-button type="submit" (click)="submit()">
+        {{ 'PLOT.FORM.BUTTON.' + (action|uppercase) | translate }}
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+
+

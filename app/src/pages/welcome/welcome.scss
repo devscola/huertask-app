@@ -1,11 +1,11 @@
 page-welcome {
   .content-ios, .content-md, .content-wp{
-    background-color: map-get($colors, primary);
+    background-color: map-get($colors, secondary);
     text-align: center;
   }
   .scroll-content{
     min-height: 100%;
-    background-image: url('../../assets/img/welcome.png');
+    background-image: url('../../assets/img/huertarea-logo.svg');
     background-size: auto 40vh;
     background-repeat: no-repeat;
     background-position: center top;
@@ -15,9 +15,15 @@ page-welcome {
   }
   h1{
     font-size: 3em;
+    font-weight: bold;
   }
   p{
     font-size: 1.5em;
+  }
+  button, button.button-md, button.button-ios, button.button-wp{
+    min-width: 60%;
+    margin: 3rem 0 0 0;
+    border-radius: 10px;
   }
 
 }

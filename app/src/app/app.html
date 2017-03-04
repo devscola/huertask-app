@@ -46,7 +46,7 @@
         <button id="change-community" menuClose color="white" icon-right>
           <span (click)="showRadio()">{{activeCommunityName}}</span>
         </button>
-        <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>
+        <span class="invitations" (click)="goToInvitations()"  *ngIf="hasInvitations" item-right><strong>{{invitations}}</strong></span>
       </ion-item>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
@@ -60,19 +60,19 @@
 <ion-menu id="adminMenu" [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>{{person?.name||''}}</ion-title>
+      <ion-item>
+        <button (click)="showRadio()" id="change-community" menuClose color="white" icon-right>
+          <span>{{activeCommunityName}}</span>
+        </button>
+        <span class="invitations" (click)="goToInvitations()"*ngIf="hasInvitations" item-right><strong>{{invitations}}</strong></span>
+      </ion-item>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <ion-item>
-        <button id="change-community" menuClose color="white" icon-right>
-          <span (click)="showRadio()">{{activeCommunityName}}</span>
-        </button>
-        <ion-badge *ngIf="hasInvitations" item-right><span (click)="goToInvitations()">{{invitations}}</span></ion-badge>
-      </ion-item>
-      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
+      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
       <button menuClose ion-item *ngFor="let p of adminPages" (click)="openPage(p)" color="white">

@@ -19,7 +19,7 @@ export class ResetPassword {
         this.navCtrl.pop()
       },
       err => {
-        this.presentToast('Ha habido un error', 'success')
+        this.presentToast('Ha habido un error', 'danger')
       }
     )
   }

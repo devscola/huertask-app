@@ -53,7 +53,7 @@ export class PlotForm {
         Validators.maxLength(35)
       ])],
       number: [plot.number || 1, Validators.required],
-      quantity: 1,
+      quantity: [plot.quantity || 1, Validators.required],
       person: [plot.person]
     });
   }
@@ -76,22 +76,44 @@ export class PlotForm {
       'quantity': form.quantity.value,
       'person_id': form.person.value && form.person.value.id || null
     }
-
-    if(this.action == 'edit'){
-      this.personService.editPlot(plot).subscribe( data => {
-        this.navCtrl.setRoot(People);
-      },
-      err => this.presentToast('Ha habido un error', 'danger')
-      )
-    }else{
-      if(plot.quantity != 1){ delete plot.person_id }
-      this.personService.createPlot(plot).subscribe( data => {
-        this.navCtrl.setRoot(People);
-      },
-      err => this.presentToast('Ha habido un error', 'danger')
-      )
+    if (this.form.valid){
+      if(this.action == 'edit'){
+        this.personService.editPlot(plot).subscribe( data => {
+          this.navCtrl.setRoot(People);
+        },
+        err => this.presentToast('Ha habido un error', 'danger')
+        )
+      }else{
+        if(plot.quantity != 1){ delete plot.person_id }
+        this.personService.createPlot(plot).subscribe( data => {
+          this.navCtrl.setRoot(People);
+        },
+        err => this.presentToast('Ha habido un error', 'danger')
+        )
+      }
     }
   }
+
+  plotsMessage(){
+    switch (this.form.controls.quantity.value) {
+       case 1:
+         return "PLOT.FORM.MSG.ONE";
+       default:
+         return "PLOT.FORM.MSG.PLURAL";
+    }
+  }
+
+  first_plot(){
+    let form = this.form.controls;
+    return form.name.value + ' ' + form.number.value;
+  }
+
+  last_plot(){
+    let form = this.form.controls;
+    let last_number = form.number.value * 1 + form.quantity.value * 1 - 1;
+    return form.name.value + ' ' + last_number;
+  }
+
 
   getItems(ev) {
     let val = ev.target.value;

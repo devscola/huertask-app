@@ -1,3 +1,40 @@
 page-settings-help {
-
+  [padding] .scroll-content{
+    div{
+      line-height: 2em;
+      margin-bottom: 50px;
+      strong{
+        display: block;
+        vertical-align: top;
+        margin-bottom: 30px;
+        &:before{
+          content: "";
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border: 2px solid black;
+          border-radius: 10px;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: auto 40px;
+          margin: 0 20px -20px 0;
+        }
+      }
+      &#taskpoints strong:before{
+        background-image: url('../../assets/img/hoe.svg');
+      }
+      &#personpoints strong:before{
+        background-image: url('../../assets/img/seed.svg');
+      }
+      ul{
+        padding-left: 20px;
+      }
+    }
+    p{
+      margin: 1.5em 0;
+    }
+    li{
+      margin-bottom: .5em;
+    }
+  }
 }
