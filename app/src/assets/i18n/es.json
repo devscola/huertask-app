@@ -79,6 +79,14 @@
         }
       }
     },
+    "DELETE_ALERT" : {
+      "TITLE" : "¿Seguro que quieres borrarla?",
+      "SUBTITLE" : "Se eliminará de nuestra base de datos",
+      "BUTTONS" : {
+        "SUBMIT" : "Eliminar",
+        "CANCEL" : "Cancelar"
+      }
+    },
     "MESSAGES" : {
       "COVERED" : "Esta tarea esta cubierta, mira otras tareas..."
     },

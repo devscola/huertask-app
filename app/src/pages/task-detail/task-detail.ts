@@ -5,9 +5,9 @@ import { TaskService } from '../../providers/task.service';
 import { PersonService } from '../../providers/person.service';
 import { EditTask } from '../edit-task/edit-task';
 import { DuplicateTask } from '../duplicate-task/duplicate-task';
-
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'task-detail',
@@ -22,7 +22,12 @@ export class TaskDetail {
   isAdmin = false;
   attended = {};
 
-  constructor(public navCtrl: NavController, private navParams: NavParams, public taskService: TaskService, public personService: PersonService) {
+  constructor(public navCtrl: NavController,
+              private navParams: NavParams,
+              public translate: TranslateService,
+              public taskService: TaskService,
+              public personService: PersonService,
+              public alertCtrl: AlertController) {
     this.task = navParams.get('task');
     this.person = personService.person
     this.isAdmin = personService.isAdmin
@@ -38,6 +43,28 @@ export class TaskDetail {
 
   togglePeopleGoing(event){
     event.target.parentElement.parentElement.classList.toggle('show_all')
+  }
+
+  deleteConfirmation() {
+    this.translate.get('TASK.DELETE_ALERT').subscribe((res: Object) => {
+      this.presentAlert(res)
+    });
+  }
+
+  presentAlert(messages: Object){
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'],
+      subTitle: messages['SUBTITLE'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['SUBMIT'],
+          handler: () => {
+            this.deleteTask()
+          }
+        }, messages['BUTTONS']['CANCEL']
+      ]
+    });
+    alert.present()
   }
 
   deleteTask(){
