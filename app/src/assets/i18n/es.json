@@ -97,6 +97,7 @@
     "PEOPLE" : {
       "GOING" : "Se han unido",
       "NOT_GOING" : "No pueden asistir",
+      "CHECK_ATTEND" : "¿Han asistido?",
       "ATTENDED" : "Han asistido",
       "NOT_ATTENDED" : "No han podido asistir"
     }

@@ -51,7 +51,7 @@
     </ion-row>
 
     <div *ngIf="!task.isFinalized()">
-      <span>{{'TASK.PEOPLE.GOING' | translate}}</span>
+      <span>{{'TASK.PEOPLE.CHECK_ATTEND' | translate}}</span>
       <ion-row *ngIf="!isAdmin" class="people-going">
         <ion-col>
           <img *ngFor="let person of task.people_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
