@@ -86,7 +86,11 @@ export class MyApp {
           personService.setPerson(person).then(person => {
             personService.setDefaultCommunity().then((community)=>{
               personService.events.publish('user:login')
-              this.rootPage = Tasks;
+              if(person['communities'].length > 0){
+                this.rootPage = Tasks;
+              }else{
+                this.rootPage = JoinCommunity;
+              }
               this.initializeApp();
             })
           })
