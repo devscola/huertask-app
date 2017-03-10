@@ -1,4 +1,7 @@
-{
+{ "TUTORIAL" : {
+    "SKIP" : "Saltar",
+    "NEXT" : "Siguiente"
+  },
   "TASKS" : {
     "TITLE"     : "Tareas",
     "NEXT"      : "Próximas",

@@ -11,6 +11,7 @@ import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
 import { Welcome } from '../pages/welcome/welcome';
+import { Tutorial } from '../pages/tutorial/tutorial';
 import { CommunityForm } from '../pages/community-form/community-form';
 import { CommunityModal } from '../pages/community-modal/community-modal';
 import { InvitationForm } from '../pages/invitation-form/invitation-form';
@@ -79,7 +80,7 @@ export class MyApp {
     this.listenToLoginEvents();
     personService.getUser().then(user =>{
       if(null == user){
-        this.rootPage = Welcome;
+        this.rootPage = Tutorial;
         this.initializeApp();
       }else{
         personService.getPerson(user['id']).subscribe(person => {
