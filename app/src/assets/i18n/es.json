@@ -6,6 +6,7 @@
   },
   "TASK" : {
     "FINISHED" : "Finalizada",
+    "FINALIZE" : "Finalizar",
     "USER_GOING" : "Me he unido",
     "PEOPLE_LEFT" : {
       "LABEL" : "Personas restantes",
@@ -27,7 +28,6 @@
     "FORM" : {
       "TITLE" : {
         "LABEL" : "Nombre",
-        "PLACEHOLDER" : "Nombre de la tarea",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener un título",
           "MAX_LENGTH" : "La título no puede tener más de 100 caracteres"
@@ -40,8 +40,7 @@
         }
       },
       "NOTE" : {
-        "LABEL" : "Nota",
-        "PLACEHOLDER" : "Escribe más información"
+        "LABEL" : "Nota"
       },
       "DATE" : {
         "LABEL" : "Fecha",
@@ -104,6 +103,7 @@
   },
   "LOGIN" : {
     "TITLE" : "Entra",
+    "HEADING" : "Entra y participa en el huerto",
     "FORM" : {
       "EMAIL" : {
         "LABEL" : "Mail",
@@ -153,7 +153,7 @@
   },
   "CATEGORIES" : {
     "FAV" : {
-      "TITLE" : "Tipo de Tareas que más te interesan"
+      "TITLE" : "Tipo de Tareas"
     },
     "DELETE_CONFIRM" : {
       "TITLE" : "Eliminar categoría",
@@ -265,14 +265,12 @@
     "FORM" : {
       "NAME" : {
         "LABEL" : "Nombre",
-        "PLACEHOLDER" : "Nombre",
         "ALERT" : {
           "REQUIRED" : "Debe indicar un nombre"
         }
       },
       "EMAIL" : {
         "LABEL" : "Mail",
-        "PLACEHOLDER" : "Mail",
         "ALERT" : {
           "REQUIRED" : "Debe indicar una dirección de email",
           "PATTERN" : "Debe introducir un email válido"
@@ -280,14 +278,12 @@
       },
       "PASSWORD" : {
         "LABEL" : "Contraseña",
-        "PLACEHOLDER" : "Contraseña",
         "ALERT" : {
           "REQUIRED" : "Debe indicar una contraseña"
         }
       },
       "PASSWORD2" : {
         "LABEL" : "Repetir contraseña",
-        "PLACEHOLDER" : "Repetir contraseña",
         "ALERT" : {
           "REQUIRED" : "Debe repetir la contraseña",
           "NOT_EQUAL" : "Las contraseñas deben coincidir"
@@ -344,7 +340,15 @@
     "RESUME" : "Tus medallas",
     "DONATE" : "Regala una semilla",
     "SETTINGS" : {
-      "TITLE" : "Configuración"
+      "TITLE" : "Configuración",
+      "HELP" : {
+        "TASKPOINTS" : "<strong>Usa azadas si...</strong><ul><li>Hacéis trabajos comunitarios</li><li>Vais a poner en marcha un proyecto en común o grupos de trabajo</li><li>Os gustaría gestionar la asistencia o interés en actividades.</li></ul>",
+        "PERSONPOINTS" : "<strong>Usa semillas para...</strong><ul><li>Visibilizar el compañerismo y espíritu de comunidad</li><li>Potenciar la socialización entre hortelanos.</li>  </ul><p>Un ejemplo:<br>\"1 hortelano regala 1 semilla a otro por haberle ayudado a quitar las malas hierbas\"</p>"
+      }
+    },
+    "HELP" : {
+      "TITLE" : "Ayuda",
+      "PERSONPOINTS" : "<p><strong>Las semillas son un gesto de agradecimiento entre hortelanos.</strong></p><p>Es un \"intercambio de semillas\" simbólico para dar las gracias por habernos echado una mano o enseñado algo.</p><p>Puede haber mil motivos, por ejemplo:</p><ul><li>Te ha ayudado a quitar las malas hierbas</li><li>Te ha enseñado cómo combatir una plaga</li><li>Te ha enseñado un truco para recolectar mejor</li></ul><p>Las semillas que no gastes en ese tiempo...¡se pierden!</p>"
     },
     "TASKPOINTS" : {
       "NAME" : "Azadas",
@@ -502,6 +506,10 @@
         "LABEL" : "Hortelano",
         "PLACEHOLDER" : "",
         "ALREADY_ASSIGNED" : "Si continúas quitarás a {{ person }} de la parcela {{ plot }} que tiene actualmente asignada"
+      },
+      "MSG" : {
+        "ONE" : "Se creará la parcela: <span class='plot-name'>{{ first }}</span>.",
+        "PLURAL" : "Se crearán parcelas desde <span class='plot-name'>{{ first }}</span> hasta <span class='plot-name'>{{ last }}</span>."
       },
       "BUTTON" : {
         "CREATE" : "Crear parcela",

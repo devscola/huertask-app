@@ -6,8 +6,7 @@
         <ion-label floating>{{ 'REGISTER.FORM.NAME.LABEL' | translate }}</ion-label>
         <ion-input
           type="text"
-          formControlName="name"
-          placeholder="{{ 'REGISTER.FORM.NAME.PLACEHOLDER' | translate }}">
+          formControlName="name">
         </ion-input>
       </ion-item>
       <div *ngIf="hasValidationError('name')" class="alert alert-danger">
@@ -23,8 +22,7 @@
         <ion-label floating>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</ion-label>
         <ion-input
           type="text"
-          formControlName="email"
-          placeholder="{{ 'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate }}">
+          formControlName="email">
         </ion-input>
       </ion-item>
       <div *ngIf="hasValidationError('email')" class="alert alert-danger">
@@ -41,8 +39,8 @@
         <ion-input
           type="password"
           formControlName="password"
-          validateEqual="password_confirmation" reverse="true"
-          placeholder="{{ 'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate }}">
+          validateEqual="password_confirmation"
+          reverse="true">
         </ion-input>
       </ion-item>
       <div *ngIf="hasValidationError('password')" class="alert alert-danger">
@@ -56,8 +54,8 @@
         <ion-input
           type="password"
           formControlName="password_confirmation"
-          validateEqual="password" reverse="false"
-          placeholder="{{ 'REGISTER.FORM.PASSWORD2.PLACEHOLDER' | translate }}">
+          validateEqual="password"
+          reverse="false">
         </ion-input>
       </ion-item>
       <div *ngIf="hasValidationError('password_confirmation')" class="alert alert-danger">
@@ -92,7 +90,7 @@
       <ion-col width-50>
       </ion-col>
       <ion-col width-50>
-        <button (click)="submit()" ion-button type="submit" clear full>
+        <button (click)="submit()" ion-button type="submit">
           {{ 'REGISTER.FORM.BUTTON.CREATE' | translate }}
         </button>
       </ion-col>

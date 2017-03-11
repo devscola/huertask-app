@@ -2,16 +2,24 @@ people {
   ion-content.searching .scroll-content{
     padding-top: 50px;
   }
+
   ion-card {
-    color: #888888;
-    background-color: #fff !important;
+    .name{
+      font-weight: bold;
+    }
+    .plot{
+      text-transform: uppercase;
+      font-size: 1.4rem;
+    }
   }
+
   .people ion-row ion-col:first-child{
-    max-width: 100px;
+    width: 15%;
+    max-width: 15%;
     min-width: 50px;
-  }
-  .isAdmin{
-    text-align: right;
+    img{
+      width: 100%;
+    }
   }
 
   .status button, .status [ion-button]{

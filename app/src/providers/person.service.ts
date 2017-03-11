@@ -12,7 +12,7 @@ import { PlotRevision } from '../models/plot_revision';
 
 @Injectable()
 export class PersonService {
-  huertaskApiUrl = 'http://huertask-dev.herokuapp.com/api';
+  huertaskApiUrl = 'http://localhost:9292/api';
 
 
   COMMUNITIES      = 'communities';

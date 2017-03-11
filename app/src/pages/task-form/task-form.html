@@ -9,11 +9,10 @@
     <ion-grid>
       <ion-row>
         <ion-item>
-          <ion-label floating>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
+          <ion-label>{{ 'TASK.FORM.TITLE.LABEL' | translate }}</ion-label>
           <ion-input
             type="text"
-            formControlName="title"
-            placeholder="{{ 'TASK.FORM.TITLE.PLACEHOLDER' | translate }}">
+            formControlName="title">
           </ion-input>
         </ion-item>
       </ion-row>
@@ -28,7 +27,7 @@
 
       <ion-row>
         <ion-item>
-          <ion-label floating>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
+          <ion-label>{{ 'TASK.FORM.CATEGORY.LABEL' | translate }}</ion-label>
           <ion-select
             formControlName="categories"
             multiple=true
@@ -37,7 +36,7 @@
             <ion-option
               *ngFor="let category of categories"
               value="{{category.id}}"
-              selected="{{task.hasCategory(category)}}">
+              selected="{{task.hasCategory(category)}}" color="primary">
               {{category.name}}
             </ion-option>
           </ion-select>
@@ -51,7 +50,7 @@
 
       <ion-row class="date">
         <ion-item>
-          <ion-label floating>{{ 'TASK.FORM.DATE.LABEL' | translate }}</ion-label>
+          <ion-label>{{ 'TASK.FORM.DATE.LABEL' | translate }}</ion-label>
           <ion-datetime
             formControlName="date"
             displayFormat="DD/MM/YYYY"
@@ -68,7 +67,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label floating>{{ 'TASK.FORM.START_TIME.LABEL' | translate }}</ion-label>
+            <ion-label>{{ 'TASK.FORM.START_TIME.LABEL' | translate }}</ion-label>
             <ion-datetime
               formControlName="start_time"
               displayFormat="h:mm A"
@@ -78,7 +77,7 @@
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-label floating>{{ 'TASK.FORM.END_TIME.LABEL' | translate }}</ion-label>
+            <ion-label>{{ 'TASK.FORM.END_TIME.LABEL' | translate }}</ion-label>
             <ion-datetime
               formControlName="end_time"
               displayFormat="h:mm A"
@@ -100,7 +99,7 @@
 
       <ion-row>
         <ion-item>
-          <ion-label floating>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
+          <ion-label>{{ 'TASK.FORM.PEOPLE.LABEL' | translate }}</ion-label>
           <ion-input
             formControlName="required_people"
             type="number" min="0">
@@ -115,11 +114,10 @@
 
       <ion-row>
         <ion-item>
-          <ion-label floating>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
+          <ion-label>{{ 'TASK.FORM.NOTE.LABEL' | translate }}</ion-label>
           <ion-textarea
             formControlName="note"
-            rows="3"
-            placeholder="{{ 'TASK.FORM.NOTE.PLACEHOLDER' | translate }}">
+            rows="3">
           </ion-textarea>
         </ion-item>
       </ion-row>

@@ -1,6 +1,7 @@
 <ion-content padding>
   <form id="login" [formGroup]="form">
     <ion-grid>
+      <h1>{{ 'LOGIN.HEADING' | translate }}</h1>
       <ion-item>
         <ion-label floating>{{ 'LOGIN.FORM.EMAIL.LABEL' | translate }}</ion-label>
         <ion-input
@@ -34,10 +35,10 @@
         <ion-checkbox checked="true"></ion-checkbox>
       </ion-item>
       <ion-item>
-        <p (click)="goToResetPassword()" >{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</p>
+        <a (click)="goToResetPassword()" >{{ 'LOGIN.LINK.PASSWORD_LOST' | translate }}</a>
       </ion-item>
       <ion-item>
-        <p (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</p>
+        <a (click)="goToRegister()">{{ 'LOGIN.LINK.REGISTER' | translate }}</a>
       </ion-item>
     </ion-grid>
   </form>

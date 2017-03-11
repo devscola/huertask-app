@@ -23,46 +23,56 @@
     <ion-row>
       <ion-col><h1>{{task.title}}</h1></ion-col>
     </ion-row>
+
     <ion-row class="categories">
       <ion-col><span class="category" *ngFor="let category of task.categories">{{category.name}}</span></ion-col>
     </ion-row>
-    <ion-row class="date">
-      <ion-col>
+
+    <div class="datetime">
+      <p class="date">
         {{task.from_date | amDateFormat:'dddd D MMMM' }}
-      </ion-col>
+      </p>
+
+      <p class="hours">
+          {{task.from_date | amDateFormat:'H:mm[h]' }}
+          {{task.to_date | amDateFormat:'[ - ]H:mm[h]' || ''}}
+      </p>
+    </div>
+
+    <ion-row class="finalized">
       <ion-col>
         <ion-chip>
           <ion-label color="{{task.finalizeColor()}}">{{ 'TASK.FINISHED' | translate }}</ion-label>
         </ion-chip>
       </ion-col>
     </ion-row>
-    <ion-row class="hours">
-      <ion-col>
-        {{task.from_date | amDateFormat:'H:mm[h]' }}
-        {{task.to_date | amDateFormat:'[ - ]H:mm[h]' || ''}}
-      </ion-col>
-    </ion-row>
+
     <ion-row class="note">
       <ion-col>{{task.note}}</ion-col>
     </ion-row>
+
     <ion-row class="remaining people">
       <ion-col [innerHTML]='task.peopleMessage() | translate:{count: task.peopleLeft()}'>
       </ion-col>
     </ion-row>
 
     <div *ngIf="!task.isFinalized()">
-      <span>{{'TASK.PEOPLE.CHECK_ATTEND' | translate}}</span>
-      <ion-row *ngIf="!isAdmin" class="people-going">
-        <ion-col>
-          <img *ngFor="let person of task.people_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
-        </ion-col>
-        <span *ngIf="task.people_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
-           <span class="more">+{{task.people_going.length - 4}}</span>
-           <ion-icon class="less" name="arrow-up"></ion-icon>
-        </span>
-      </ion-row>
+      <div class="people-going">
+        <p>
+          {{'TASK.PEOPLE.CHECK_ATTEND' | translate}}
+        </p>
+        <ion-row *ngIf="!isAdmin">
+          <ion-col>
+            <img *ngFor="let person of task.people_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
+          </ion-col>
+          <span *ngIf="task.people_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
+             <span class="more">+{{task.people_going.length - 4}}</span>
+             <ion-icon class="less" name="arrow-up"></ion-icon>
+          </span>
+        </ion-row>
+      </div>
 
-      <ion-list *ngIf="isAdmin">
+      <ion-list class="finalize" *ngIf="isAdmin">
         <ion-item *ngFor="let person of task.people_going">
           <ion-avatar item-left>
             <img src="{{person.getGravatar()}}" alt="{{person.name}}">
@@ -70,63 +80,73 @@
           <ion-label>{{person.name}}</ion-label>
           <ion-toggle [(ngModel)]="attended[person.id]" checked="false"></ion-toggle>
         </ion-item>
-        <button ion-item (click)="finalize()">Finalizar</button>
+        <div>
+          <button ion-button item-right (click)="finalize()">
+            {{'TASK.FINALIZE' | translate}}
+          </button>
+        </div>
       </ion-list>
 
-      <span>{{'TASK.PEOPLE.NOT_GOING' | translate}}</span>
-      <ion-row class="people-going">
-        <ion-col>
-          <img *ngFor="let person of task.people_not_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
-        </ion-col>
-        <span *ngIf="task.people_not_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
-           <span class="more">+{{task.people_not_going.length - 4}}</span>
-           <ion-icon class="less" name="arrow-up"></ion-icon>
-        </span>
-      </ion-row>
+      <div class="people-not-going">
+        <p>{{'TASK.PEOPLE.NOT_GOING' | translate}}</p>
+        <ion-row>
+          <ion-col>
+            <img *ngFor="let person of task.people_not_going" src="{{person.getGravatar()}}" alt="{{person.name}}">
+          </ion-col>
+          <span *ngIf="task.people_not_going.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
+             <span class="more">+{{task.people_not_going.length - 4}}</span>
+             <ion-icon class="less" name="arrow-up"></ion-icon>
+          </span>
+        </ion-row>
+      </div>
     </div>
 
     <div *ngIf="task.isFinalized()">
-      <span>{{'TASK.PEOPLE.ATTENDED' | translate}}</span>
-      <ion-row class="people-going">
-        <ion-col>
-          <img *ngFor="let person of task.attended_people" src="{{person.getGravatar()}}" alt="{{person.name}}">
-        </ion-col>
-        <span *ngIf="task.attended_people.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
-           <span class="more">+{{task.attended_people.length - 4}}</span>
-           <ion-icon class="less" name="arrow-up"></ion-icon>
-        </span>
-      </ion-row>
+      <div class="people-going">
+        <p>{{'TASK.PEOPLE.ATTENDED' | translate}}</p>
+        <ion-row class="people-going">
+          <ion-col>
+            <img *ngFor="let person of task.attended_people" src="{{person.getGravatar()}}" alt="{{person.name}}">
+          </ion-col>
+          <span *ngIf="task.attended_people.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
+             <span class="more">+{{task.attended_people.length - 4}}</span>
+             <ion-icon class="less" name="arrow-up"></ion-icon>
+          </span>
+        </ion-row>
+      </div>
 
-      <span>{{'TASK.PEOPLE.NOT_ATTENDED' | translate}}</span>
-      <ion-row class="people-going">
-        <ion-col>
-          <img *ngFor="let person of task.not_attended_people" src="{{person.getGravatar()}}" alt="{{person.name}}">
-        </ion-col>
-        <span *ngIf="task.not_attended_people.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
-           <span class="more">+{{task.not_attended_people.length - 4}}</span>
-           <ion-icon class="less" name="arrow-up"></ion-icon>
-        </span>
-      </ion-row>
+      <div class="people-not-going">
+        <p>{{'TASK.PEOPLE.NOT_ATTENDED' | translate}}</p>
+        <ion-row class="people-going">
+          <ion-col>
+            <img *ngFor="let person of task.not_attended_people" src="{{person.getGravatar()}}" alt="{{person.name}}">
+          </ion-col>
+          <span *ngIf="task.not_attended_people.length > 4" class="toggle-people" (click)="togglePeopleGoing($event)">
+             <span class="more">+{{task.not_attended_people.length - 4}}</span>
+             <ion-icon class="less" name="arrow-up"></ion-icon>
+          </span>
+        </ion-row>
+      </div>
     </div>
-
   </ion-grid>
 </ion-content>
+
 <ion-footer>
-    <ion-row class="going-buttons" [hidden]="task.userNotAllowedToGo(personService.person['id'])">
-      <ion-col width-50>
-        <button ion-button id="going"
-          [disabled]="task.isUserGoing(personService.person['id']) || task.isFinalized()"
-          (click)="going()">
-          {{ 'TASK.BUTTONS.GOING' | translate}}
-        </button>
-      </ion-col>
-      <ion-col width-50>
-        <button ion-button id="not-going"
-          [disabled]="task.isUserNotGoing(personService.person['id']) || task.isFinalized()"
-          (click)="notGoing()">
-          {{ 'TASK.BUTTONS.NOTGOING' | translate}}
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="covered-message" *ngIf="task.userNotAllowedToGo(personService.person['id'])">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
+  <ion-row class="going-buttons" [hidden]="task.userNotAllowedToGo(personService.person['id'])">
+    <ion-col width-50>
+      <button ion-button id="going"
+        [disabled]="task.isUserGoing(personService.person['id']) || task.isFinalized()"
+        (click)="going()">
+        {{ 'TASK.BUTTONS.GOING' | translate}}
+      </button>
+    </ion-col>
+    <ion-col width-50>
+      <button ion-button id="not-going"
+        [disabled]="task.isUserNotGoing(personService.person['id']) || task.isFinalized()"
+        (click)="notGoing()">
+        {{ 'TASK.BUTTONS.NOTGOING' | translate}}
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="covered-message" *ngIf="task.userNotAllowedToGo(personService.person['id'])">{{ 'TASK.MESSAGES.COVERED' | translate}}</ion-row>
 </ion-footer>

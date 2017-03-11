@@ -3,7 +3,7 @@ tasks {
 		border-left: 8px solid rgba(0, 0, 0, 0);
     color: #888888;
 		&.going {
-			border-color: map-get($colors, secondary)
+			border-color: map-get($colors, primary)
 		}
     background-color: #fff !important;
 	}
@@ -27,7 +27,7 @@ tasks {
   }
 
   .user-going{
-    color: map-get($colors, secondary);
+    color: map-get($colors, primary);
     font-weight: bold;
     padding-top: 8px;
   }

@@ -15,19 +15,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-#change-community {
-  background-color: transparent;
-  font-size: 1.5rem;
-}
-
-
 button.button-default{
   &.button-ios, &.button-md, &.button-wp {
-    background-color: map-get($colors, secondary);
+    background-color: map-get($colors, primary);
     color: #fff;
     &:hover:not(.disable-hover) {
-      background-color: map-get($colors, secondary);
-      // color: map-get($colors, secondary);
+      background-color: map-get($colors, primary);
     }
   }
 }
@@ -39,7 +32,7 @@ button.button-default{
   ion-col{
     padding: 12px 0px;
     &.active{
-      border-bottom: 4px solid map-get($colors, primary);
+      border-bottom: 4px solid map-get($colors, secondary);
     }
   }
 }
@@ -53,36 +46,60 @@ ion-footer ion-row{
   button.button.button-default{
      @extend .button-full;
      background-color: transparent;
-     color: map-get($colors, dark-primary);
+     color: map-get($colors, primary);
      box-shadow: none;
      margin: 0px;
      min-height: 56px;
+     &:hover{
+       color: map-get($colors, secondary);
+     }
   }
 }
 
-.item-md, .item-mios, .item-wp{
-  padding: 0 16px;
-  background-color: inherit;
-  &.item-block .item-inner{
-    padding: 0px;
+form{
+  .item-md, .item-mios, .item-wp{
+    padding: 0;
+    background-color: inherit;
+    &.item-block .item-inner{
+      padding: 0px;
+    }
   }
 }
 
 log-in, page-register, page-reset-password{
-  ion-footer ion-row{
-    button.button.button-default{
-       @extend .button-full;
-       background-color: transparent;
-       box-shadow: none;
-       margin: 0px;
+  h1, p, a, ion-label{
+    color: map-get($colors, dark);
+  }
+  a{
+    text-decoration: underline;
+  }
+  ion-footer{
+    &.footer-md::before{
+      background-image: none;
+    }
+    ion-row{
+      button.button.button-default{
+        background-color: map-get($colors, primary);
+        box-shadow: none;
+        color: white;
+        margin: 0px 20px 20px 0px;
+        max-width: 80%;
+        border-radius: 10px;
+        &:hover:not(.disable-hover){
+          background-color: map-get($colors, primary);
+        }
+      }
     }
   }
+
   ion-content{
     &.content-md, &.content-ios, &.content-wp{
-      background-color: map-get($colors, dark-primary);
+      background-color: map-get($colors, secondary);
       color: white;
       .item-md, .item-ios, .item-wp{
-        &.item-block, &.item-input.ng-invalid.ng-touched:not(.input-has-focus){
+        &.item-block,
+        &.item-input.ng-invalid.ng-touched:not(.input-has-focus),
+        &.item-input.ng-valid.input-has-value:not(.input-has-focus){
           .item-inner{
             border-bottom: none;
             box-shadow: none;
@@ -95,6 +112,44 @@ log-in, page-register, page-reset-password{
         align-items: center;
         justify-content: center;
         min-height: 100%;
+
+        ion-input.ng-dirty.ng-valid,
+        ion-input.ng-dirty.ng-invalid{
+          padding-right: 25px;
+          &:after{
+            color: map-get($colors, danger);
+            content: "\f2bf";
+            font-family: "Ionicons";
+            font-size: 1.6rem;
+            padding: 0px;
+            position: absolute;
+            right: 25px;
+            top: 38px;
+          }
+        }
+
+        ion-input.ng-dirty.ng-invalid{
+          &:after{
+            color: map-get($colors, danger);
+            content: "\f2bf";
+          }
+        }
+
+        ion-input.ng-dirty.ng-valid{
+          &:after{
+            color: map-get($colors, success);
+            content: "\f2bb";
+          }
+        }
+
+        .alert-danger{
+          background: none;
+          padding: 4px;
+          p{
+            color: map-get($colors, danger);
+            margin: 0;
+          }
+        }
       }
 
       ion-grid{
@@ -104,13 +159,13 @@ log-in, page-register, page-reset-password{
         }
         .input-has-focus, .input-has-value{
           .label-md[floating], .label-ios[floating], .label-wp[floating]{
-            color: white;
+            color: map-get($colors, primary);
           }
         }
         .item-input .label-md,
         .item-input .label-ios,
         .item-input .label-wp{
-          color: map-get($colors, primary);
+          color: map-get($colors, dark);
           padding-left: 10px;
         }
 
@@ -142,4 +197,114 @@ log-in, page-register, page-reset-password{
       }
     }
   }
+}
+
+ion-card, ion-card.card-md, ion-card.card-ios, ion-card.card-wp {
+  margin: 10px 0px 10px 0px;
+  width: 100%;
+  color: map-get($colors, dark);
+  background-color: #fff !important;
+  font-size: 1.6rem;
+}
+
+ion-menu{
+  .toolbar-ios ion-title{
+    position: relative;
+    height: auto;
+  }
+}
+
+.menu-inner{
+  .toolbar{
+    padding-top: 8px;
+    padding-bottom: 0px;
+    .toolbar-background-md,
+    .toolbar-background-ios,
+    .toolbar-background-wp,{
+      background-color: map-get($colors, secondary);
+    }
+    .item-md, .item-ios, .item-wp{
+      background-color: inherit;
+      padding-left: 8px;
+    }
+    #change-community {
+      background-color: transparent;
+      font-size: 1.5rem;
+      &::after{
+        font-family: "Ionicons";
+        content:"\f280";
+      }
+    }
+    span.invitations{
+      strong{
+        font-weight: normal;
+        background-color: map-get($colors, secondary);
+        border: 1px solid black;
+        border-radius: 50%;
+        text-align: center;
+        display: inline-block;
+        font-size: 0.9em;
+        min-width: 1.2em;
+        position: relative;
+        left: -15px;
+        bottom: 12px;
+      }
+      &::before{
+        display: inline-block;
+        width: 30px;
+        height: 1.6rem;
+        content: "";
+        background-image: url('../../assets/img/message.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: left 0 bottom 0;
+      }
+    }
+  }
+  ion-content{
+    padding-top: 10px;
+    .list-md .item-block .item-inner,
+    .item-md.item-block .item-inner,
+    .list-md > .item-block:first-child,
+    .list-md > .item-block:last-child{
+      border: none;
+    }
+    button{
+      &::before{
+        display: inline-block;
+        width: 30px;
+        padding-right: 8px;
+        content: "";
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: left center;
+      }
+      &.tasks::before{
+        background-image: url('../../assets/img/task.svg');
+        height: 2rem;
+      }
+      &.categories-fav::before{
+        background-image: url('../../assets/img/heart.svg');
+        height: 2rem;
+      }
+      &.points::before{
+        background-image: url('../../assets/img/medal.svg');
+        height: 2rem;
+      }
+      &.people::before{
+        background-image: url('../../assets/img/people.svg');
+        height: 2rem;
+      }
+    }
+  }
+}
+
+ion-icon {
+  font-size: 1.8em;
+  padding: 10px
+}
+
+ion-chip ion-icon {
+  width: auto;
+  height: auto;
 }

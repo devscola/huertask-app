@@ -5,20 +5,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <form [formGroup]="form" (submit)="submit()">
     <ion-grid>
       <ion-row>
-        <ion-col>
+        <ion-item>
           <ion-label>{{ 'CATEGORY.FORM.NAME.LABEL' | translate }}</ion-label>
-        </ion-col>
-        <ion-col>
           <ion-input
             type="text"
             formControlName="name"
             placeholder="{{ 'CATEGORY.FORM.NAME.PLACEHOLDER' | translate }}">
           </ion-input>
-        </ion-col>
+        </ion-item>
       </ion-row>
       <div *ngIf="hasValidationError('name')" class="alert alert-danger">
         <p *ngIf="hasThisError('name', 'required')">
@@ -30,23 +28,36 @@
       </div>
 
       <ion-row>
-        <ion-label>{{ 'CATEGORY.FORM.DESCRIPTION.LABEL' | translate }}</ion-label>
-      </ion-row>
-      <ion-row>
-        <ion-textarea
-          formControlName="description"
-          rows="3"
-          placeholder="{{ 'CATEGORY.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
-        </ion-textarea>
+        <ion-item>
+          <ion-label>{{ 'CATEGORY.FORM.DESCRIPTION.LABEL' | translate }}</ion-label>
+          <ion-textarea
+            formControlName="description"
+            rows="3"
+            placeholder="{{ 'CATEGORY.FORM.DESCRIPTION.PLACEHOLDER' | translate }}">
+          </ion-textarea>
+        </ion-item>
       </ion-row>
 
       <ion-row>
-        <ion-label>{{ 'CATEGORY.FORM.MANDATORY.LABEL' | translate }}</ion-label>
-        <ion-checkbox formControlName="mandatory"></ion-checkbox>
+        <ion-item>
+          <ion-label>{{ 'CATEGORY.FORM.MANDATORY.LABEL' | translate }}</ion-label>
+          <ion-checkbox formControlName="mandatory"></ion-checkbox>
+        </ion-item>
       </ion-row>
     </ion-grid>
-    <button type="submit" ion-button outline>
-      {{ 'CATEGORY.FORM.BUTTON.CREATE' | translate }}
-    </button>
   </form>
 </ion-content>
+
+
+<ion-footer>
+  <ion-row>
+    <ion-col width-50>
+    </ion-col>
+    <ion-col width-50>
+      <button ion-button type="submit" (click)="submit()">
+        {{ 'CATEGORY.FORM.BUTTON.CREATE' | translate }}
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

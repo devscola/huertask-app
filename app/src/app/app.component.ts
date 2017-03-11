@@ -58,6 +58,7 @@ export class MyApp {
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
 
+  person = null;
   isAdmin: boolean = false;
   communities;
   activeCommunityName;
@@ -84,6 +85,7 @@ export class MyApp {
       }else{
         personService.getPerson(user['id']).subscribe(person => {
           personService.setPerson(person).then(person => {
+            this.person = person;
             personService.setDefaultCommunity().then((community)=>{
               personService.events.publish('user:login')
               if(person['communities'].length > 0){
@@ -219,5 +221,9 @@ export class MyApp {
       this.menu.enable(!loggedIn, 'loggedOutMenu');
       this.menu.enable(false, 'notMemberMenu');
     }
+  }
+
+  pageClass(title: string) {
+    return title.toLowerCase().replace('.title', '').split('.').join('-')
   }
 }

@@ -10,28 +10,8 @@
 </ion-header>
 
 <ion-content padding>
-  <h4>Usa azadas si...</h4>
-  <ul>
-    <li>
-      Hacéis trabajos comunitarios
-    </li>
-    <li>
-      Vais a poner en marcha un proyecto en común o grupos de trabajo
-    </li>
-    <li>
-      Os gustaría gestionar la asistencia o interés en actividades.
-    </li>
-  </ul>
-
-  <h4>Usa semillas para...</h4>
-  <ul>
-    <li>
-      Visibilizar el compañerismo y espíritu de comunidad
-    </li>
-    <li>
-      Potenciar la socialización entre hortelanos.
-    </li>
-  </ul>
-
-  <p>Un ejemplo: "1 hortelano regala 1 semilla a otro por haberle ayudado a quitar las malas hierbas"</p>
+  <div id="taskpoints" [innerHTML]=" 'POINTS.SETTINGS.HELP.TASKPOINTS' | translate ">
+  </div>
+  <div id="personpoints" [innerHTML]=" 'POINTS.SETTINGS.HELP.PERSONPOINTS' | translate ">
+  </div>
 </ion-content>
