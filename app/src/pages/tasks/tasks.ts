@@ -21,16 +21,25 @@ export class Tasks {
   ]
 
 	constructor(public navCtrl: NavController, private taskService: TaskService, private personService: PersonService) {
-    let user_id = personService.person['id'];
-    taskService.getFutureTasks(user_id).subscribe(tasks => {
+    this.loadTasksData()
+	}
+
+  ionViewWillEnter() {
+    this.loadTasksData()
+    this.selectTab("TASKS.NEXT")
+  }
+
+  loadTasksData(){
+    let user_id = this.personService.person['id'];
+    this.taskService.getFutureTasks(user_id).subscribe(tasks => {
       this.tasks = tasks;
       this.list = tasks;
     });
 
-    taskService.getPastTasks(user_id).subscribe(tasks => {
+    this.taskService.getPastTasks(user_id).subscribe(tasks => {
       this.pastTasks = tasks;
     });
-	}
+  }
 
   peopleLeft(task){
     let people_left = task.required_people - task.people_going.length;

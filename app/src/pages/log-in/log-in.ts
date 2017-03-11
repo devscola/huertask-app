@@ -41,7 +41,11 @@ export class LogIn {
           this.personService.setDefaultCommunity().then(community =>{
             this.personService.events.publish('user:login')
             this.presentToast(("Hola " + person.name), "success")
-            this.navCtrl.setRoot(JoinCommunity)
+            if(person['invitations'].length > 0 || person['communities'].length < 1){
+              this.navCtrl.setRoot(JoinCommunity)
+            }else{
+              this.navCtrl.setRoot(Tasks)
+            }
           })
       }, err => {
         this.presentToast("incorrecto", "danger")

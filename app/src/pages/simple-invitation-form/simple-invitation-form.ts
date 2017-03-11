@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
+import { InvitationForm } from '../invitation-form/invitation-form';
 
 @Component({
   selector: 'page-simple-invitation-form',
@@ -57,6 +58,10 @@ export class SimpleInvitationForm {
       },
       err => this.presentToast('Ha habido un error', 'danger')
     )
+  }
+
+  goToInvitations(){
+    this.navCtrl.setRoot(InvitationForm)
   }
 
   presentToast(message: string, cssClass: string = '') {

@@ -78,6 +78,14 @@
         }
       }
     },
+    "DELETE_ALERT" : {
+      "TITLE" : "¿Seguro que quieres borrarla?",
+      "SUBTITLE" : "Se eliminará de nuestra base de datos",
+      "BUTTONS" : {
+        "SUBMIT" : "Eliminar",
+        "CANCEL" : "Cancelar"
+      }
+    },
     "MESSAGES" : {
       "COVERED" : "Esta tarea esta cubierta, mira otras tareas..."
     },
@@ -88,6 +96,7 @@
     "PEOPLE" : {
       "GOING" : "Se han unido",
       "NOT_GOING" : "No pueden asistir",
+      "CHECK_ATTEND" : "¿Han asistido?",
       "ATTENDED" : "Han asistido",
       "NOT_ATTENDED" : "No han podido asistir"
     }
@@ -247,7 +256,8 @@
       "ADMIN" : {
         "LABEL" : "Coordinador"
       }
-    }
+    },
+    "LINK" : "Invitar de forma masiva"
   },
   "REGISTER" : {
     "TITLE" : "Registro",

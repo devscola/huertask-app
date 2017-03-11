@@ -11,7 +11,7 @@
       <button ion-button (click)="goToEditTask()" [disabled]="task.isFinalized()">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button ion-button (click)="deleteTask()">
+      <button ion-button (click)="deleteConfirmation()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
@@ -59,7 +59,7 @@
     <div *ngIf="!task.isFinalized()">
       <div class="people-going">
         <p>
-          {{'TASK.PEOPLE.GOING' | translate}}
+          {{'TASK.PEOPLE.CHECK_ATTEND' | translate}}
         </p>
         <ion-row *ngIf="!isAdmin">
           <ion-col>

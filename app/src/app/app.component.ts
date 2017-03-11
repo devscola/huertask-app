@@ -55,8 +55,6 @@ export class MyApp {
     { title: "WELCOME.TITLE", component: Welcome }
   ];
   adminPages: PageInterface[] = [
-    { title: "INVITATIONS.TITLE", component: InvitationForm },
-    { title: "INVITATION.FORM.TITLE", component: SimpleInvitationForm },
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
 
@@ -90,7 +88,11 @@ export class MyApp {
             this.person = person;
             personService.setDefaultCommunity().then((community)=>{
               personService.events.publish('user:login')
-              this.rootPage = Tasks;
+              if(person['communities'].length > 0){
+                this.rootPage = Tasks;
+              }else{
+                this.rootPage = JoinCommunity;
+              }
               this.initializeApp();
             })
           })

@@ -28,6 +28,7 @@
       <button menuClose ion-item *ngFor="let p of notMemberPages" (click)="openPage(p)" color="white">
         {{p.title | translate}}
       </button>
+      <button menuClose ion-item (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
 </ion-menu>
