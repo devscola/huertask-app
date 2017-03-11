@@ -26,6 +26,7 @@ import { FavCategoriesMenu } from '../pages/fav-categories/fav-categories-menu';
 import { Register } from '../pages/register/register';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { Welcome } from '../pages/welcome/welcome';
+import { Tutorial } from '../pages/tutorial/tutorial';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { PointsHelp } from '../pages/points-help/points-help';
@@ -71,6 +72,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    Tutorial,
     PointsSettings,
     PointsHelp,
     SettingsHelp,
@@ -113,6 +115,7 @@ export function createTranslateLoader(http: Http) {
     Register,
     ResetPassword,
     Welcome,
+    Tutorial,
     PointsSettings,
     PointsHelp,
     SettingsHelp,
