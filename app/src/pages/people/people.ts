@@ -29,7 +29,7 @@ export class People {
   constructor(
     public navCtrl: NavController,
     public popoverCtrl: PopoverController,
-    private personService: PersonService
+    public personService: PersonService
   ) {
     personService.getCommunity().subscribe(community => {
       this.joined = community.joined;

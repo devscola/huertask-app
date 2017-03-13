@@ -20,7 +20,7 @@ export class Tasks {
     {title: "TASKS.PREVIOUS", active: false}
   ]
 
-	constructor(public navCtrl: NavController, private taskService: TaskService, private personService: PersonService) {
+	constructor(public navCtrl: NavController, private taskService: TaskService, public personService: PersonService) {
     this.loadTasksData()
 	}
 
