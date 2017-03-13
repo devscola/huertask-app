@@ -191,16 +191,19 @@ export class MyApp {
       }
       this.nav.setRoot(JoinCommunity)
       this.menu.close()
+      this.person = this.personService.person;
       this.enableMenu(true);
     });
 
     this.personService.events.subscribe('user:signup', () => {
       console.log('user:signup');
+      this.person = this.personService.person;
       this.enableMenu(true);
     });
 
     this.personService.events.subscribe('user:logout', () => {
       console.log('user:logout');
+      this.person = null;
       this.enableMenu(false);
     });
   }

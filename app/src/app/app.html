@@ -19,7 +19,7 @@
 <ion-menu id="notMemberMenu" [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>{{person?.name||''}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -37,7 +37,7 @@
 <ion-menu id="loggedInMenu" [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>{{person?.name||''}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
