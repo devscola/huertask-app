@@ -44,8 +44,8 @@ export class People {
   }
 
   showTasks(tabTitle){
-    if(tabTitle === "PEOPLE.JOINED"){ this.list = this.joined }
-    else if(tabTitle === "PEOPLE.INVITED"){ this.list = this.invited }
+    if(tabTitle === "PEOPLE.JOINED.TITLE"){ this.list = this.joined }
+    else if(tabTitle === "PEOPLE.INVITED.TITLE"){ this.list = this.invited }
     else if(tabTitle === "PLOTS.TITLE"){ this.list = this.plots }
     this.filteredList = this.list
   }
