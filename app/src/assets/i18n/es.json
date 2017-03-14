@@ -3,7 +3,7 @@
     "NEXT" : "Siguiente"
   },
   "TASKS" : {
-    "TITLE"     : "Tareas",
+    "TITLE"     : "Tareas y actividades",
     "NEXT"      : "Próximas",
     "PREVIOUS"  : "Pasadas"
   },
@@ -20,19 +20,19 @@
       }
     },
     "CREATE" : {
-      "TITLE" : "Crear Tarea"
+      "TITLE" : "Crear Tarea/actividad"
     },
     "DUPLICATE" : {
-      "TITLE" : "Duplicar Tarea"
+      "TITLE" : "Duplicar Tarea/actividad"
     },
     "EDIT" : {
-      "TITLE" : "Editar Tarea"
+      "TITLE" : "Editar Tarea/actividad"
     },
     "FORM" : {
       "TITLE" : {
         "LABEL" : "Nombre",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener un título",
+          "REQUIRED" : "Pon un título breve y explicativo",
           "MAX_LENGTH" : "La título no puede tener más de 100 caracteres"
         }
       },
@@ -43,7 +43,8 @@
         }
       },
       "NOTE" : {
-        "LABEL" : "Nota"
+        "LABEL" : "Nota",
+        "PLACEHOLDER" : "Añade alguna indicación (si es necesario)"
       },
       "DATE" : {
         "LABEL" : "Fecha",
@@ -52,21 +53,21 @@
         }
       },
       "START_TIME" : {
-        "LABEL" : "Inicio",
+        "LABEL" : "Hora inicio",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener una hora de inicio"
         }
       },
       "END_TIME" : {
-        "LABEL" : "Fin",
+        "LABEL" : "Hora fin",
         "ALERT" : {
           "REQUIRED" : "La tarea debe tener una hora de fin"
         }
       },
       "PEOPLE" : {
-        "LABEL" : "Nº de personas",
+        "LABEL" : "Nº de personas necesarias",
         "ALERT" : {
-          "REQUIRED" : "La tarea debe tener el número de personas necesarias"
+          "REQUIRED" : "Indica el número de personas necesarias"
         }
       },
       "BUTTON" : {
@@ -90,14 +91,14 @@
       }
     },
     "MESSAGES" : {
-      "COVERED" : "Esta tarea esta cubierta, mira otras tareas..."
+      "COVERED" : "Esta tarea esta cubierta, mira otras donde falten personas"
     },
     "BUTTONS" : {
       "GOING" : "Asistiré",
       "NOTGOING" : "No puedo"
     },
     "PEOPLE" : {
-      "GOING" : "Se han unido",
+      "GOING" : "Asisten",
       "NOT_GOING" : "No pueden asistir",
       "CHECK_ATTEND" : "¿Han asistido?",
       "ATTENDED" : "Han asistido",
@@ -109,18 +110,18 @@
     "HEADING" : "Entra y participa en el huerto",
     "FORM" : {
       "EMAIL" : {
-        "LABEL" : "Mail",
-        "PLACEHOLDER" : "Mail",
+        "LABEL" : "Email",
+        "PLACEHOLDER" : "Email",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar una dirección de email",
-          "PATTERN" : "Debe introducir un email válido"
+          "REQUIRED" : "Tienes que introducir una dirección de email",
+          "PATTERN" : "La dirección de email no es válida"
         }
       },
       "PASSWORD" : {
         "LABEL" : "Contraseña",
         "PLACEHOLDER" : "Contraseña",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar una contraseña"
+          "REQUIRED" : "Tienes que introducir una contraseña"
         }
       },
       "BUTTON" : {
@@ -130,7 +131,7 @@
     },
     "REMEMBER_PASSWORD" : {
       "TITLE" : "Resetear contraseña",
-      "INFO" : "Te enviaremos un mail para verificar que eres quien dices ser",
+      "INFO" : "Te enviaremos un mail para para verificar tu identidad y que tu cuenta esté segura",
       "FORM" : {
         "EMAIL" : {
           "LABEL" : "Mail"
@@ -156,36 +157,35 @@
   },
   "CATEGORIES" : {
     "FAV" : {
-      "TITLE" : "Tipo de Tareas"
+      "TITLE" : "Grupos o motivaciones"
     },
     "DELETE_CONFIRM" : {
-      "TITLE" : "Eliminar categoría",
-      "SUBTITLE" : "¿Está seguro de que desea eliminar esta categoría? Dejará de estar disponible para todos los usuarios.",
+      "TITLE" : "Eliminar grupo o motivación",
+      "SUBTITLE" : "¿Está seguro de que desea eliminar este grupo o motivación? Dejará de estar disponible para todos los usuarios.",
       "BUTTONS" : {
           "DELETE" : "Borrar",
           "CANCEL" : "Cancelar"
       }
     },
     "CATEGORY_WITH_TASKS_ALERT" : {
-      "TITLE" : "Categoría en uso",
-      "SUBTITLE" : "No es posible eliminarlo porque hay tareas asociadas.",
-      "BUTTON" : "OK"
+      "SUBTITLE" : "No puedes eliminar este grupo o motivación porque hay tareas asociadas.",
+      "BUTTON" : "Entendido"
     }
   },
   "CATEGORY" : {
     "CREATE" : {
-      "TITLE" : "Crear categoría"
+      "TITLE" : "Crear grupo o motivación"
     },
     "EDIT" : {
-      "TITLE" : "Editar categoría"
+      "TITLE" : "Editar grupo o motivación"
     },
     "DEFAULT_DESCRIPTION" : "Sin descripción",
     "FORM" : {
       "NAME" : {
         "LABEL" : "Nombre",
-        "PLACEHOLDER" : "Escribe aquí el título de la categoría",
+        "PLACEHOLDER" : "Escribe aquí el nombre del grupo / motivación",
         "ALERT" : {
-          "REQUIRED" : "Debes introducir un nombre para la categoría"
+          "REQUIRED" : "Tienes que introducir un nombre para el grupo / motivación"
         }
       },
       "DESCRIPTION" : {
@@ -193,7 +193,7 @@
         "PLACEHOLDER" : "Si quieres puedes añadir una breve descripción del tipo de tareas que engloba la categoría"
       },
       "MANDATORY" : {
-        "LABEL" : "Obligatoria"
+        "LABEL" : "Obligatoria (visible para todos)"
       },
       "BUTTON" : {
         "CREATE" : "Guardar"
@@ -216,12 +216,11 @@
     "INVITE" : "Invitar hortelanos",
     "JOIN" : {
       "TITLE" : "Invitaciones recibidas",
-      "INVITATIONS" : "Entra y empieza a participar",
-      "INVITATION_INFORMATION" : "Si aceptas una invitacion entras en la comunidad nueva pero sales de la vieja"
+      "INVITATIONS" : "Entra y empieza a participar"
     },
     "CHANGE_ALERT" : {
-      "TITLE" : "Cambia de comunidad",
-      "NEW" : "Nueva comunidad",
+      "TITLE" : "Cambia de huerto",
+      "NEW" : "Nuevo huerto",
       "OK" : "Cambiar",
       "CANCEL" : "Cancelar"
     },
@@ -252,8 +251,8 @@
         "PLACEHOLDER" : "",
         "REQUIRED" : "Introduce un email",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar una dirección de email",
-          "PATTERN" : "Debe introducir un email válido"
+          "REQUIRED" : "Tienes que indicar una dirección de email",
+          "PATTERN" : "Tienes que introducir un email válido"
         }
       },
       "ADMIN" : {
@@ -269,33 +268,33 @@
       "NAME" : {
         "LABEL" : "Nombre",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar un nombre"
+          "REQUIRED" : "Tienes que introducir un nombre"
         }
       },
       "EMAIL" : {
         "LABEL" : "Mail",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar una dirección de email",
-          "PATTERN" : "Debe introducir un email válido"
+          "REQUIRED" : "Tienes que introducir una dirección de email",
+          "PATTERN" : "Tienes que introducir una dirección de email válida"
         }
       },
       "PASSWORD" : {
         "LABEL" : "Contraseña",
         "ALERT" : {
-          "REQUIRED" : "Debe indicar una contraseña"
+          "REQUIRED" : "Tienes que introducir una contraseña"
         }
       },
       "PASSWORD2" : {
         "LABEL" : "Repetir contraseña",
         "ALERT" : {
-          "REQUIRED" : "Debe repetir la contraseña",
+          "REQUIRED" : "Tienes que repetir la contraseña",
           "NOT_EQUAL" : "Las contraseñas deben coincidir"
         }
       },
       "TERMS" : {
         "LABEL" : "Aceptar términos de uso",
         "ALERT" : {
-          "REQUIRED" : "Debe leer y aceptar los términos para proceder al registro"
+          "REQUIRED" : "Tienes que leer y aceptar los términos de uso para seguir"
         }
       },
       "BUTTON" : {
@@ -308,26 +307,31 @@
   },
   "WELCOME" : {
     "TITLE" : "¡Bienvenido!",
-    "INTRO" : "Gánate ser un buen agrourbanita en tu comunidad",
+    "INTRO" : "Gánate ser un buen compañero de huerto",
     "BUTTONS" : {
       "LOGIN" : "Entra a tu cuenta",
       "REGISTER" : "Regístrate"
     }
   },
   "PEOPLE" : {
-    "TITLE" : "Gente",
-    "JOINED" : "Unidos",
-    "INVITED" : "Invitados",
+    "TITLE" : "Hortelanos",
+    "JOINED" : {
+      "TITLE" : "Unidos"
+    },
+    "INVITED" : {
+      "TITLE" : "Invitados",
+      "HEADING" : "Esperando respuesta"
+    },
     "DELETE_CONFIRM" : {
-      "TITLE" : "Eliminar persona",
-      "SUBTITLE" : "¿Está seguro de que desea eliminar esta persona? Dejará de pertenecer a esta comunidad.",
+      "TITLE" : "Eliminar hortelano",
+      "SUBTITLE" : "¿Estás seguro de que quieres eliminar a este hortelano? Dejará de formar parte de este huerto.",
       "BUTTONS" : {
           "DELETE" : "Borrar",
           "CANCEL" : "Cancelar"
       }
     },
     "TOGGLE_ADMIN_CONFIRM" : {
-      "TITLE" : "Modificar usuario",
+      "TITLE" : "Convertir en coordinador",
       "SUBTITLE" : "¿Está seguro de que desea cambiar el estado de esta persona?",
       "BUTTONS" : {
           "SUBMIT" : "Si",
@@ -339,14 +343,14 @@
     "ADMIN" : "Coordinador"
   },
   "POINTS" : {
-    "TITLE" : "Medallas",
-    "RESUME" : "Tus medallas",
+    "TITLE" : "Logros",
+    "RESUME" : "Tus logros",
     "DONATE" : "Regala una semilla",
     "SETTINGS" : {
-      "TITLE" : "Configuración",
+      "TITLE" : "Configuración (logros)",
       "HELP" : {
         "TASKPOINTS" : "<strong>Usa azadas si...</strong><ul><li>Hacéis trabajos comunitarios</li><li>Vais a poner en marcha un proyecto en común o grupos de trabajo</li><li>Os gustaría gestionar la asistencia o interés en actividades.</li></ul>",
-        "PERSONPOINTS" : "<strong>Usa semillas para...</strong><ul><li>Visibilizar el compañerismo y espíritu de comunidad</li><li>Potenciar la socialización entre hortelanos.</li>  </ul><p>Un ejemplo:<br>\"1 hortelano regala 1 semilla a otro por haberle ayudado a quitar las malas hierbas\"</p>"
+        "PERSONPOINTS" : "<strong>Usa semillas para...</strong><ul><li>Visibilizar el compañerismo y espíritu del huerto</li><li>Potenciar la socialización entre hortelanos.</li>  </ul><p>Un ejemplo:<br>\"1 hortelano regala 1 semilla a otro por haberle ayudado a quitar las malas hierbas\"</p>"
       }
     },
     "HELP" : {
@@ -355,16 +359,16 @@
     },
     "TASKPOINTS" : {
       "NAME" : "Azadas",
-      "DESCRIPTION" : "Indica la cantidad de tareas en las que se ha participado",
+      "DESCRIPTION" : "Indica el nº de tareas en las que se ha participado y se han finalizado",
       "ACTIVATE.TITLE" : "Activar",
       "DURATION" : {
         "TITLE" : "Meses a contabilizar",
-        "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las azadas conseguidas en los últimos meses.",
+        "DESCRIPTION" : "Para animar más a participar, sólo se contabilizarán las azadas conseguidas en los meses que decidáis, elegir entre 1 y 12 meses.",
         "ALERT" : {
           "TITLE" : "Azadas: Meses",
-          "SUBTITLE" : "Elige durante cuantos meses se contabilizarán las azadas conseguidas",
+          "SUBTITLE" : "Elige durante cuantos meses se contabilizarán el nº azadas conseguidas",
           "BUTTONS" : {
-            "SUBMIT" : "Modificar",
+            "SUBMIT" : "Guardar",
             "CANCEL" : "Cancelar"
           }
         }
@@ -372,16 +376,16 @@
     },
     "PLOTPOINTS" : {
       "NAME" : "Estado de parcelas",
-      "DESCRIPTION" : "Indica el estado de la parcela",
+      "DESCRIPTION" : "Indica el nº puntos conseguidos por las valoraciones del estado de las parcelas cuando se revisan",
       "ACTIVATE.TITLE" : "Activar",
       "DURATION" : {
         "TITLE" : "Meses a contabilizar",
-        "DESCRIPTION" : "Se tendrán en cuenta las valoraciones de parcela recibidas en los últimos meses.",
+        "DESCRIPTION" : "Se contabilizarán los puntos obtenidos por las valoraciones de las revisiones de estado de parcelas (bueno +2, regular 0 o malo -2) durante los meses que decidáis, elige entre 1 y 12 meses.",
         "ALERT" : {
           "TITLE" : "Estado de parcelas: Meses",
           "SUBTITLE" : "Elige durante cuantos meses se contabilizarán los puntos recibidos por el estado de las parcelas",
           "BUTTONS" : {
-            "SUBMIT" : "Modificar",
+            "SUBMIT" : "Guardar",
             "CANCEL" : "Cancelar"
           }
         }
@@ -389,40 +393,40 @@
     },
     "PERSONPOINTS" : {
       "NAME" : "Semillas",
-      "DESCRIPTION" : "Cada hortelano dispondrá cada cierto tiempo de un número de semillas con las que premiar a sus compañeros",
+      "DESCRIPTION" : "Cada hortelano dispondrá cada cierto tiempo de un nº de semillas que regalar a sus compañeros",
       "ACTIVATE.TITLE" : "Activar",
       "AMOUNT" : {
         "TITLE" : "Cantidad para regalar",
-        "DESCRIPTION" : "Son las semillas que obtendrá periodicamente cada hortelano para regalar a sus compañeros",
+        "DESCRIPTION" : "Son las semillas que obtendrá periódicamente cada hortelano para regalar a sus compañeros",
         "ALERT" : {
-          "TITLE" : "Semillas: Cantidad de recarga",
-          "SUBTITLE" : "Elige la cantidad de semillas que podrá regalar un hortelano tras cada recarga",
+          "TITLE" : "Nº semillas en cada recarga",
+          "SUBTITLE" : "Elige el nº semillas que cada hortelano podrá regalar en cada recarga",
           "BUTTONS" : {
-            "SUBMIT" : "Modificar",
+            "SUBMIT" : "Guardar",
             "CANCEL" : "Cancelar"
           }
         }
       },
       "RELOAD" : {
         "TITLE" : "Meses entre recargas",
-        "DESCRIPTION" : "Elige cada cuantos meses los hortelanos dispondrán de nuevas semillas para ofrecer",
+        "DESCRIPTION" : "Elige cada cuantos meses los hortelanos dispondrán de nuevas semillas para regalar",
         "ALERT" : {
           "TITLE" : "Semillas: Periodicidad de recarga",
           "SUBTITLE" : "Elige cada cuantos meses se obtendrán nuevas semillas para poder regalar",
           "BUTTONS" : {
-            "SUBMIT" : "Modificar",
+            "SUBMIT" : "Guardar",
             "CANCEL" : "Cancelar"
           }
         }
       },
       "DURATION" : {
         "TITLE" : "Meses a contabilizar",
-        "DESCRIPTION" : "Para no bajar la guardia, solo se contabilizarán las semillas recibidas en los últimos meses.",
+        "DESCRIPTION" : "Para mantener más vivo el compañerismo huertano sólo se contabilizarán las semillas recibidas durante los meses que decidáis, elige entre 1 y 12 meses.",
         "ALERT" : {
           "TITLE" : "Semillas: Meses",
           "SUBTITLE" : "Elige durante cuantos meses se contabilizarán las semillas recibidas",
           "BUTTONS" : {
-            "SUBMIT" : "Modificar",
+            "SUBMIT" : "Guardar",
             "CANCEL" : "Cancelar"
           }
         }
@@ -431,7 +435,7 @@
   },
   "TASKPOINTS" : {
     "NAME" : "Azadas",
-    "DESCRIPTION" : "Por unirte a tareas que estén finalizadas"
+    "DESCRIPTION" : "Por haberte unido a tareas que se han finalizado"
   },
   "PLOTPOINTS" : {
     "NAME" : "Estado de la parcela",
@@ -439,28 +443,28 @@
   },
   "USERPOINTS" : {
     "NAME" : "Semillas",
-    "DESCRIPTION" : "Regalo que te ha hecho un hortelano",
+    "DESCRIPTION" : "Regalos que te han hecho otros hortelanos",
     "TITLE" : "Quiero regalar una semilla",
     "LEFT" : {
       "MSG" : {
         "ZERO" : "No te quedan semillas que regalar. Recibirás nuevas en {{date}}",
-        "ONE" : "Te queda <span class='personpoints-left-text'>1</span> semilla hasta {{date}}",
-        "PLURAL" : "Te quedan <span class='personpoints-left-text'>{{count}}</span> semillas hasta {{date}}"
+        "ONE" : "Te queda <span class='personpoints-left-text'>1</span> semilla para regalar hasta {{date}} ¡úsala o la perderás!",
+        "PLURAL" : "Te quedan <span class='personpoints-left-text'>{{count}}</span> semillas para regalar hasta {{date}} ¡úsalas o las perderás!"
       }
     },
     "FORM" : {
       "RECEIVER" : {
         "LABEL" : "Para",
-        "PLACEHOLDER" : "Selecciona a la persona",
+        "PLACEHOLDER" : "Elige a un hortelano",
         "ALERT" : {
-          "REQUIRED" : "Debes seleccionar a una persona"
+          "REQUIRED" : "Tienes que elegir a un hortelano al que regalar la semilla"
         }
       },
       "DESCRIPTION" : {
-        "LABEL" : "Se lo regalo por",
+        "LABEL" : "Se la regalo por",
         "PLACEHOLDER" : "",
         "ALERT" : {
-          "REQUIRED" : "Debes escribir un mensaje",
+          "REQUIRED" : "Escribe un mensaje para qué conozca el motivo de tu regalo",
           "MAX_LENGTH" : "El máximo son 200 caracteres"
         }
       }

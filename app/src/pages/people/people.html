@@ -24,6 +24,7 @@
 <ion-content padding [ngClass]="{'searching': searching }">
 
   <div *ngIf="!tabs[2].active" class="people">
+    <p *ngIf="tabs[1].active">{{ 'PEOPLE.INVITED.HEADING' | translate }}</p>
     <ion-card *ngFor="let person of filteredList">
     <ion-row>
       <ion-col>

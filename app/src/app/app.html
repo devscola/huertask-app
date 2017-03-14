@@ -8,7 +8,7 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of loggedOutPages" (click)="openPage(p)" color="white">
+      <button menuClose ion-item *ngFor="let p of loggedOutPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
     </ion-list>
@@ -25,10 +25,11 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of notMemberPages" (click)="openPage(p)" color="white">
+      <button menuClose ion-item *ngFor="let p of notMemberPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <button menuClose ion-item (click)="logOut()">Log out</button>
+      <hr>
+      <button menuClose ion-item class="logout" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -38,21 +39,22 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>{{person?.name||''}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
       <ion-item>
         <button id="change-community" menuClose color="white" icon-right>
           <span (click)="showRadio()">{{activeCommunityName}}</span>
         </button>
         <span class="invitations" (click)="goToInvitations()"  *ngIf="hasInvitations" item-right><strong>{{invitations}}</strong></span>
       </ion-item>
-      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white">
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <button menuClose ion-item (click)="logOut()">Log out</button>
+      <hr>
+      <button menuClose ion-item class="logout" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -76,10 +78,11 @@
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <button menuClose ion-item *ngFor="let p of adminPages" (click)="openPage(p)" color="white">
+      <hr>
+      <button menuClose ion-item *ngFor="let p of adminPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <button menuClose ion-item (click)="logOut()">Log out</button>
+      <button menuClose ion-item class="logout" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
 </ion-menu>

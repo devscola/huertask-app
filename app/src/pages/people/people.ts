@@ -21,8 +21,8 @@ export class People {
   plot_points_enabled: boolean = false;
   searching = false;
   tabs = [
-    {title: "PEOPLE.JOINED", active: true},
-    {title: "PEOPLE.INVITED", active: false},
+    {title: "PEOPLE.JOINED.TITLE", active: true},
+    {title: "PEOPLE.INVITED.TITLE", active: false},
     {title: "PLOTS.TITLE", active: false}
   ]
 

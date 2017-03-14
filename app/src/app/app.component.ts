@@ -41,8 +41,6 @@ export class MyApp {
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
     { title: "POINTS.TITLE", component: Points },
     { title: "PEOPLE.TITLE", component: People },
-    { title: "COMMUNITY.CREATE.TITLE", component: CommunityForm },
-    { title: "COMMUNITY.JOIN.TITLE", component: JoinCommunity },
   ];
 
   notMemberPages: PageInterface[] = [

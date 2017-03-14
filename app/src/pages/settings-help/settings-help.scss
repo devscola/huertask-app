@@ -7,7 +7,7 @@ page-settings-help {
         display: block;
         vertical-align: top;
         margin-bottom: 30px;
-        &:before{
+        &::before{
           content: "";
           display: inline-block;
           width: 50px;
