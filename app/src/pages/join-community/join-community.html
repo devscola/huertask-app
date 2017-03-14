@@ -16,14 +16,9 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>{{ 'COMMUNITY.JOIN.INVITATIONS' | translate }}</h1>
-  <ion-card *ngFor="let invitation of invitations" (click)="joinCommunity(invitation)">
-  <ion-row>
-    <ion-col>
-      <ion-card-header>
-        {{invitation['community']['name']}}
-      </ion-card-header>
-    </ion-col>
-    </ion-row>
-  </ion-card>
+  <h1>{{ 'COMMUNITY.JOIN.WELCOME' | translate:{name: personService.person.name} }}</h1>
+  <h2>{{ 'COMMUNITY.JOIN.INVITATIONS' | translate }}</h2>
+  <button ion-button *ngFor="let invitation of invitations" (click)="joinCommunity(invitation)">
+    {{invitation['community']['name']}}
+  </button>
 </ion-content>
