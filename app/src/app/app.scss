@@ -39,6 +39,7 @@ button.button-default{
 
 ion-footer ion-row{
   margin: 0px;
+  background-color: map-get($colors, light);
   &.covered-message{
     margin: 10px;
     padding: 10px;
