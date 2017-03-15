@@ -25,7 +25,7 @@ export class Points {
     {title: "POINTS.DONATE", active: false}
   ]
 
-  plotpointsValues = {1: -2, 2: 0, 3: 2};
+  plotpointsValues = {0: 0, 1: -2, 2: 0, 3: 2};
 
   constructor(
     public toastCtrl: ToastController,
