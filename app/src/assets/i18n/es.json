@@ -467,7 +467,11 @@
     }
   },
   "PLOTS" : {
-    "TITLE" : "Parcelas"
+    "TITLE" : "Parcelas",
+    "CREATED_ALERT" : {
+      "TITLE" : "Has creado tus parcelas :)",
+      "GO_TO_INVITATIONS" : "Invita a tus hortelanos"
+    }
   },
   "PLOT" : {
     "CREATE" : {

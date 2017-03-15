@@ -1,11 +1,12 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, ViewController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, ViewController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Plot } from '../../models/plot';
 import { PersonService } from '../../providers/person.service';
 import { FavCategories } from '../fav-categories/fav-categories';
 import { People } from '../people/people';
+import { InvitationForm } from '../invitation-form/invitation-form';
 
 @Component({
   selector: 'plot-form',
@@ -27,6 +28,7 @@ export class PlotForm {
   constructor(
     public el: ElementRef,
     public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public viewCtrl: ViewController,
     private navParams: NavParams,
     public formBuilder: FormBuilder,
@@ -86,12 +88,36 @@ export class PlotForm {
       }else{
         if(plot.quantity != 1){ delete plot.person_id }
         this.personService.createPlot(plot).subscribe( data => {
-          this.navCtrl.setRoot(People);
+          this.presentConfirm()
         },
         err => this.presentToast('Ha habido un error', 'danger')
         )
       }
     }
+  }
+
+  goToInvitations(){
+    this.navCtrl.setRoot(InvitationForm)
+  }
+
+  presentConfirm() {
+    let messages;
+    this.translate.get('PLOTS.CREATED_ALERT').subscribe((res: Object) => {
+      messages = res
+    });
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'],
+      message: messages['MESSAGE'],
+      buttons: [
+        {
+          text: messages['GO_TO_INVITATIONS'],
+          handler: () => {
+            this.goToInvitations()
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   plotsMessage(){
