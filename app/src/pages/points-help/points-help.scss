@@ -1,11 +1,15 @@
 page-points-help {
   [padding] .scroll-content{
-    background-image: url('../assets/img/seed.svg');
-    background-position: center 40px;
-    background-size: 100px;
-    background-repeat: no-repeat;
-    padding-top: 160px;
     line-height: 2em;
+    &::before{
+      content: "";
+      background-image: url('../assets/img/seed.svg');
+      background-position: center 40px;
+      background-size: 100px;
+      background-repeat: no-repeat;
+      display: block;
+      height: 160px;
+    }
     p{
       margin: 1.5em 0;
     }

@@ -39,6 +39,7 @@ button.button-default{
 
 ion-footer ion-row{
   margin: 0px;
+  background-color: map-get($colors, light);
   &.covered-message{
     margin: 10px;
     padding: 10px;
@@ -227,9 +228,16 @@ ion-menu{
       background-color: inherit;
       padding-left: 8px;
     }
+    .toolbar-title,
+    .toolbar-title-md,
+    .toolbar-title-ios,
+    .toolbar-title-wp{
+      padding: 15px 12px;
+    }
     #change-community {
       background-color: transparent;
       font-size: 1.5rem;
+      padding-bottom: 10px;
       &::after{
         font-family: "Ionicons";
         content:"\f280";
@@ -269,10 +277,16 @@ ion-menu{
     .list-md > .item-block:last-child{
       border: none;
     }
+    .scroll-content{
+      padding-top: 10px;
+    }
     button{
+      font-size: 1.8rem;
+      line-height: 4rem;
       &::before{
         display: inline-block;
         width: 30px;
+        height: 2.5rem;
         padding-right: 8px;
         content: "";
         background-repeat: no-repeat;
@@ -281,20 +295,32 @@ ion-menu{
       }
       &.tasks::before{
         background-image: url('../assets/img/task.svg');
-        height: 2rem;
       }
       &.categories-fav::before{
         background-image: url('../assets/img/heart.svg');
-        height: 2rem;
       }
       &.points::before{
         background-image: url('../assets/img/medal.svg');
-        height: 2rem;
       }
       &.people::before{
         background-image: url('../assets/img/people.svg');
-        height: 2rem;
       }
+      &.community-join::before{
+        background-image: url('../assets/img/message.svg');
+      }
+      &.community-create::before{
+        content: "\f273";
+        font-family: "Ionicons";
+        background-image: none;
+      }
+      &.points-settings, &.logout{
+        font-size: 1.8rem;
+        line-height: 2rem;
+        &::before{
+          content: none;
+        }
+      }
+
     }
   }
 }

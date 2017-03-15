@@ -85,7 +85,7 @@ export class FavCategoriesMenu {
 
   presentCategoryWithTasksAlert(messages: Object){
     let alert = this.alertCtrl.create({
-      title: messages['TITLE'],
+      title: this.category.name,
       subTitle: messages['SUBTITLE'],
       buttons: [messages['BUTTON']]
     });

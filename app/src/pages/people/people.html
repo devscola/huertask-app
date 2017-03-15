@@ -24,6 +24,7 @@
 <ion-content padding [ngClass]="{'searching': searching }">
 
   <div *ngIf="!tabs[2].active" class="people">
+    <p *ngIf="tabs[1].active">{{ 'PEOPLE.INVITED.HEADING' | translate }}</p>
     <ion-card *ngFor="let person of filteredList">
     <ion-row>
       <ion-col>
@@ -44,7 +45,7 @@
           </p>
         </ion-card-content>
       </ion-col>
-      <button item-right ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPersonPopover($event, person)">
+      <button class="more" ion-button icon-only clear *ngIf="personService.isAdmin && tabs[0].active" (click)="presentPersonPopover($event, person)">
         <ion-icon name="more"></ion-icon>
       </button>
       </ion-row>
@@ -83,7 +84,7 @@
             </ion-grid>
           </ion-card-content>
         </ion-col>
-        <button item-right ion-button icon-only clear
+        <button class="more" ion-button icon-only clear
         (click)="presentPlotPopover($event, plot)">
           <ion-icon name="more"></ion-icon>
         </button>
@@ -95,13 +96,13 @@
 <ion-footer *ngIf="tabs[2].active">
   <ion-row class="revision-buttons">
     <ion-col width-50>
-      <button ion-button color="danger" full
+      <button ion-button
         (click)="saveStatus()">
           {{ 'PLOT.STATUS.BUTTONS.SAVE' | translate }}
       </button>
     </ion-col>
     <ion-col width-50>
-      <button ion-button color="danger" full
+      <button ion-button
         (click)="createRevision()">
           {{ 'PLOT.STATUS.BUTTONS.ADD_REVISION' | translate }}
       </button>

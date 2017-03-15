@@ -22,6 +22,7 @@ page-points {
   }
 
   .personpoints-left-text{
-    color: map-get($colors, secondary)
+    color: black;
+    font-weight: bold;
   }
 }
