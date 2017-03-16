@@ -19,7 +19,8 @@
 
 <ion-content padding>
   <div *ngIf="tabs[0].active">
-    <ion-card *ngFor="let type of points | keys">
+    <div id="total-points" [innerHTML]=" 'POINTS.TOTAL' | translate: {count: totalPoints()} "></div>
+    <ion-card *ngFor="let type of points | keys" [ngClass]="type.key">
       <ion-card-header>
         <span class="number">{{ type.value.qty }}</span>
         {{ type.key + ".name" | uppercase | translate }}

@@ -347,6 +347,7 @@
     "TITLE" : "Logros",
     "RESUME" : "Tus logros",
     "DONATE" : "Regala una semilla",
+    "TOTAL" : "Total: <span class='number'>{{ count }}</span> medallas",
     "SETTINGS" : {
       "TITLE" : "Configuración (logros)",
       "HELP" : {
