@@ -22,6 +22,13 @@ class Fixtures
                   "cultivo",
                   "cultura"]
 
+    other_categories = ["cocina",
+                  "actividades",
+                  "niños",
+                  "compostaje",
+                  "bioconstrucción",
+                  "aromáticas"]
+
     (1..2).each do |n|
       Huertask::Community.create({
         name: "Comunidad #{n}",
@@ -37,10 +44,10 @@ class Fixtures
       })
     end
 
-    (1..categories.size).each do |n|
+    (1..other_categories.size).each do |n|
       Huertask::Category.create({
-        name: "#{categories[n/2-1]} (com2)",
-        description: n%2==0 ? "Descripción de #{categories[n-1]}" : nil,
+        name: "#{other_categories[n-1]}",
+        description: n%2==0 ? "Descripción de #{other_categories[n-1]}" : nil,
         community: Huertask::Community.last
       })
     end
