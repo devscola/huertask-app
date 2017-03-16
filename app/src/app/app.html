@@ -28,7 +28,6 @@
       <button menuClose ion-item *ngFor="let p of notMemberPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <hr>
       <button menuClose ion-item class="logout" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
@@ -53,7 +52,6 @@
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>
-      <hr>
       <button menuClose ion-item class="logout" (click)="logOut()">Log out</button>
     </ion-list>
   </ion-content>
@@ -75,10 +73,6 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
-        {{p.title | translate}}
-      </button>
-      <hr>
       <button menuClose ion-item *ngFor="let p of adminPages" (click)="openPage(p)" color="white" [ngClass]="pageClass(p.title)">
         {{p.title | translate}}
       </button>

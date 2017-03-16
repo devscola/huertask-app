@@ -56,6 +56,12 @@ export class MyApp {
     { title: "WELCOME.TITLE", component: Welcome }
   ];
   adminPages: PageInterface[] = [
+    { title: "TASKS.TITLE", component: Tasks },
+    { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
+    { title: "POINTS.TITLE", component: Points },
+    { title: "POINTS.DONATE", component: Points, tab: "POINTS.DONATE" },
+    { title: "PEOPLE.TITLE", component: People },
+    { title: "PLOTS.TITLE", component: People, tab: "PLOTS.TITLE" },
     { title: "POINTS.SETTINGS.TITLE", component: PointsSettings },
   ];
 

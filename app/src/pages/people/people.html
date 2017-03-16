@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
+    <ion-title>{{ title() | translate }}</ion-title>
     <ion-buttons end>
       <button *ngIf="personService.isAdmin" ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
         <ion-icon name="add"></ion-icon>

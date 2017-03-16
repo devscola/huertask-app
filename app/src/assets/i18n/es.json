@@ -314,6 +314,9 @@
       "REGISTER" : "Regístrate"
     }
   },
+  "PEOPLE_AND_PLOTS" : {
+    "TITLE" : "Hortelanos y parcelas"
+  },
   "PEOPLE" : {
     "TITLE" : "Hortelanos",
     "JOINED" : {
