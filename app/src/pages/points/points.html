@@ -40,7 +40,7 @@
   <div *ngIf="tabs[1].active">
     <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
 
-    <span [innerHTML]="userpointsLeftMessage() | translate:{count: points.userpoints.available, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
+    <span [innerHTML]="userpointsLeftMessage() | translate:{count: userpointsLeft, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
 
 
     <ion-label>{{ 'USERPOINTS.FORM.RECEIVER.LABEL' | translate }}</ion-label>

@@ -38,7 +38,7 @@ export class Points {
       points["userpoints"]["qty"] = points["userpoints"]["list"].length;
       points["plotpoints"]["qty"] = this.plotpointsScore(points["plotpoints"]["list"]);
       points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
-      this.userpointsLeft = points["available"]
+      this.userpointsLeft = points["userpoints"]["available"];
       this.points = points;
     });
     personService.getCommunity().subscribe(community => {
