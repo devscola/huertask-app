@@ -72,13 +72,13 @@
               </ion-row>
               <ion-row class="status" *ngIf="plot_points_enabled">
                 <button class="bad" [disabled]="1 == plot.status" (click)="setStatus(plot, 1)" ion-button round>
-                  {{ 'PLOT.STATUS.BAD' | translate }}
+                  <span>{{ 'PLOT.STATUS.BAD' | translate }}</span>
                 </button>
                 <button class="regular" [disabled]="2 == plot.status" (click)="setStatus(plot, 2)" ion-button round>
-                  {{ 'PLOT.STATUS.REGULAR' | translate }}
+                  <span>{{ 'PLOT.STATUS.REGULAR' | translate }}</span>
                 </button>
                 <button class="good" [disabled]="3 == plot.status" (click)="setStatus(plot, 3)" ion-button round>
-                  {{ 'PLOT.STATUS.GOOD' | translate }}
+                  <span>{{ 'PLOT.STATUS.GOOD' | translate }}</span>
                 </button>
               </ion-row>
             </ion-grid>

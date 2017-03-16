@@ -27,20 +27,42 @@ people {
     }
   }
 
-  .status button, .status [ion-button]{
-    background-color: map-get($colors, light);
-    color: map-get($colors, dark);
-    &[disabled], &:hover:not(.disable-hover){
-      opacity: 1;
-      color: map-get($colors, light);
+  .status {
+    margin-top: .5rem;
+    button, [ion-button]{
+      background-color: map-get($colors, light);
+      color: map-get($colors, dark);
+      span span{
+        display: none;
+      }
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 4rem;
+      height: 4rem;
+      padding: 0px;
+      margin-right: 2rem;
       &.bad{
-        background-color: map-get($colors, danger);
+        background-image: url('../assets/img/sad.svg');
       }
       &.regular{
-        background-color: orange;
+        background-image: url('../assets/img/expressionless.svg');
       }
       &.good{
-        background-color: map-get($colors, success);
+        background-image: url('../assets/img/happy.svg');
+      }
+      &[disabled], &:hover:not(.disable-hover){
+        opacity: 1;
+        color: map-get($colors, light);
+        &.bad{
+          background-color: map-get($colors, danger);
+        }
+        &.regular{
+          background-color: orange;
+        }
+        &.good{
+          background-color: map-get($colors, success);
+        }
       }
     }
   }
