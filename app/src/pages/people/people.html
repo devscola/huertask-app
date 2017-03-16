@@ -56,13 +56,13 @@
     <ion-card *ngFor="let plot of filteredList">
       <ion-row>
         <ion-col>
-          <ion-card-header>
+          <ion-card-header class="plot">
             {{ plot.name }} {{ plot.number }}
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
-              <ion-row>
+              <ion-row class="name">
                 <span *ngIf="plot.person">
                   {{ plot.person.name }}
                 </span>

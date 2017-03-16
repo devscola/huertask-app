@@ -28,7 +28,7 @@ people {
   }
 
   .status {
-    margin-top: .5rem;
+    margin-top: 1rem;
     button, [ion-button]{
       background-color: map-get($colors, light);
       color: map-get($colors, dark);

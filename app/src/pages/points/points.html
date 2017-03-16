@@ -38,10 +38,10 @@
     </ion-card>
   </div>
 
-  <div *ngIf="tabs[1].active">
+  <div class="donate" *ngIf="tabs[1].active">
     <h3>{{ 'USERPOINTS.TITLE' | translate }}</h3>
 
-    <span [innerHTML]="userpointsLeftMessage() | translate:{count: userpointsLeft, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></span>
+    <p [innerHTML]="userpointsLeftMessage() | translate:{count: userpointsLeft, date: (userpointsRechargeDate | amDateFormat:'dddd D MMMM')}"></p>
 
 
     <ion-label>{{ 'USERPOINTS.FORM.RECEIVER.LABEL' | translate }}</ion-label>
