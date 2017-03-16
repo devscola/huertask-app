@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { PointsHelp } from '../points-help/points-help';
@@ -31,6 +31,7 @@ export class Points {
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
+    public params: NavParams,
     private personService: PersonService,
     public formBuilder: FormBuilder
   ) {
@@ -38,7 +39,7 @@ export class Points {
       points["userpoints"]["qty"] = points["userpoints"]["list"].length;
       points["plotpoints"]["qty"] = this.plotpointsScore(points["plotpoints"]["list"]);
       points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
-      this.userpointsLeft = points["userpoints"]["available"];
+      this.userpointsLeft = points["userpoints"]["available"]
       this.points = points;
     });
     personService.getCommunity().subscribe(community => {
@@ -46,7 +47,11 @@ export class Points {
       this.list = community['joined']
       this.userpointsRechargeDate = community['next_reload']
     })
-    this.form = this.generateForm()
+    this.form = this.generateForm();
+
+    if (this.params.get('tab')){
+      this.selectTab(this.params.get('tab'));
+    }
   }
 
   generateForm(){

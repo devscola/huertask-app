@@ -26,6 +26,7 @@ import { PersonService } from '../providers/person.service';
 export interface PageInterface {
   title: string;
   component: any;
+  tab?: string;
 }
 
 @Component({
@@ -40,6 +41,7 @@ export class MyApp {
     { title: "TASKS.TITLE", component: Tasks },
     { title: "CATEGORIES.FAV.TITLE", component: FavCategories },
     { title: "POINTS.TITLE", component: Points },
+    { title: "POINTS.DONATE", component: Points, tab: "POINTS.DONATE" },
     { title: "PEOPLE.TITLE", component: People },
   ];
 
@@ -116,7 +118,11 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (page.tab){
+      this.nav.setRoot(page.component, {tab: page.tab});
+    }else{
+      this.nav.setRoot(page.component);
+    }
   }
 
   showRadio() {

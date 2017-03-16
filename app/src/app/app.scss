@@ -275,6 +275,7 @@ ion-menu{
     .item-md.item-block .item-inner,
     .list-md > .item-block:first-child,
     .list-md > .item-block:last-child{
+
       border: none;
     }
     .scroll-content{
@@ -301,6 +302,9 @@ ion-menu{
       }
       &.points::before{
         background-image: url('../assets/img/medal.svg');
+      }
+      &.points-donate:before{
+        background-image: url('../assets/img/seed.svg');
       }
       &.people::before{
         background-image: url('../assets/img/people.svg');
