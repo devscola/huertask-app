@@ -216,7 +216,7 @@
     "INVITE" : "Invitar hortelanos",
     "JOIN" : {
       "WELCOME" : "¡Hola {{name}}!",
-      "TITLE" : "Invitaciones recibidas",
+      "TITLE" : "Invitaciones",
       "INVITATIONS" : "Entra y empieza a participar"
     },
     "CHANGE_ALERT" : {
