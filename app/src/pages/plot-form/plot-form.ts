@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Plot } from '../../models/plot';
 import { PersonService } from '../../providers/person.service';
-import { FavCategories } from '../fav-categories/fav-categories';
 import { People } from '../people/people';
 import { InvitationForm } from '../invitation-form/invitation-form';
 

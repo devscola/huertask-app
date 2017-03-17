@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 import { Category } from '../../models/category';
 import { TaskService } from '../../providers/task.service';
-import { FavCategories } from '../fav-categories/fav-categories';
 
 @Component({
   selector: 'category-form',

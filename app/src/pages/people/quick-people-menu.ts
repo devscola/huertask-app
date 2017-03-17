@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
-import { People } from './people'
-
 
 @Component({
   selector: 'quick-people-menu',

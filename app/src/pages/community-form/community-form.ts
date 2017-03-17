@@ -4,7 +4,6 @@ import { TranslateService } from 'ng2-translate';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Community } from '../../models/community';
 import { PersonService } from '../../providers/person.service';
-import { Tasks } from '../tasks/tasks';
 import { PlotForm } from '../plot-form/plot-form';
 import { CommunityModal } from '../community-modal/community-modal';
 import { InvitationForm } from '../invitation-form/invitation-form';

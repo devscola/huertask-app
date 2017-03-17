@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { Tasks } from '../tasks/tasks';
 import { InvitationForm } from '../invitation-form/invitation-form';

@@ -7,17 +7,13 @@ import * as moment from 'moment';
 
 import { LogIn } from '../pages/log-in/log-in';
 import { Tasks } from '../pages/tasks/tasks';
-import { CreateTask } from '../pages/create-task/create-task';
 import { FavCategories } from '../pages/fav-categories/fav-categories';
 import { Register } from '../pages/register/register';
 import { Welcome } from '../pages/welcome/welcome';
 import { Tutorial } from '../pages/tutorial/tutorial';
 import { CommunityForm } from '../pages/community-form/community-form';
-import { CommunityModal } from '../pages/community-modal/community-modal';
-import { InvitationForm } from '../pages/invitation-form/invitation-form';
 import { JoinCommunity } from '../pages/join-community/join-community';
 import { People } from '../pages/people/people';
-import { SimpleInvitationForm } from '../pages/simple-invitation-form/simple-invitation-form';
 import { PointsSettings } from '../pages/points-settings/points-settings';
 import { Points } from '../pages/points/points';
 import { TaskService } from '../providers/task.service';
