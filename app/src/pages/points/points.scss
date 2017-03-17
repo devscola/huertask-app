@@ -3,10 +3,43 @@ page-points {
     margin-top: 20px;
   }
 
+  #total-points{
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    span.number{
+      font-weight: bold;
+    }
+  }
+
   ion-card.card-md, ion-card.card-ios, ion-card.card-wp {
     background-color: white;
     ion-card-header{
+      font-size: 1.8rem;
       border-bottom: 1px solid darken(map-get($colors,light), 20%);
+      &::before{
+        content: "";
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: contain;
+        margin-right: 10px;
+      }
+      .number{
+        font-weight: bold;
+      }
+    }
+    &.taskpoints ion-card-header::before{
+      background-image: url('../assets/img/hoe.svg');
+    }
+    &.plotpoints ion-card-header::before{
+      background-image: url('../assets/img/plot.svg');
+    }
+    &.userpoints ion-card-header::before{
+      background-image: url('../assets/img/seed.svg');
     }
     ion-card-content{
       padding-top: 13px;
@@ -19,6 +52,14 @@ page-points {
 
   ion-input {
     background-color: white;
+  }
+
+  .donate{
+    h3, p, ion-searchbar{
+      margin-bottom: 2.5rem;
+      padding-top: 0px;
+    }
+
   }
 
   .personpoints-left-text{

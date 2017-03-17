@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
 import { PointsHelp } from '../points-help/points-help';
@@ -25,12 +25,13 @@ export class Points {
     {title: "POINTS.DONATE", active: false}
   ]
 
-  plotpointsValues = {1: -2, 2: 0, 3: 2};
+  plotpointsValues = {0: 0, 1: -2, 2: 0, 3: 2};
 
   constructor(
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
+    public params: NavParams,
     private personService: PersonService,
     public formBuilder: FormBuilder
   ) {
@@ -38,7 +39,7 @@ export class Points {
       points["userpoints"]["qty"] = points["userpoints"]["list"].length;
       points["plotpoints"]["qty"] = this.plotpointsScore(points["plotpoints"]["list"]);
       points["taskpoints"]["qty"] = points["taskpoints"]["list"].length;
-      this.userpointsLeft = points["available"]
+      this.userpointsLeft = points["userpoints"]["available"];
       this.points = points;
     });
     personService.getCommunity().subscribe(community => {
@@ -46,7 +47,19 @@ export class Points {
       this.list = community['joined']
       this.userpointsRechargeDate = community['next_reload']
     })
-    this.form = this.generateForm()
+    this.form = this.generateForm();
+
+    if (this.params.get('tab')){
+      this.selectTab(this.params.get('tab'));
+    }
+  }
+
+  totalPoints(){
+    let total = 0;
+    for(let type in this.points){
+      total += this.points[type]['qty'];
+    }
+    return total;
   }
 
   generateForm(){

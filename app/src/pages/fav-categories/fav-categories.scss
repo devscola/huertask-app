@@ -1,22 +1,19 @@
 page-fav-categories {
-  ion-item.category.item-block .item-inner{
-    border-bottom: none;
-    button{
-      min-width: 42px;
-    }
-  }
-/*   .category.item-md.item-block .item-inner,
-  .category.item-ios.item-block .item-inner,
-  .category.item-wp.item-block .item-inner{
-    border-bottom: none;
-  } */
   ion-list{
     overflow-y: hidden;
+    ion-item.item{
+      padding: 1.5rem 0 0 16px;
+      &.category.item-block .item-inner{
+        border-bottom: none;
+        button{
+          min-width: 42px;
+        }
+      }
+    }
   }
   .description{
     display: block;
     overflow: hidden;
-    border-bottom: 1px solid #dedede;
     min-height: 0;
     transition: 0.09s all linear;
     height: auto;

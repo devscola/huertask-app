@@ -79,6 +79,7 @@ log-in, page-register, page-reset-password{
       background-image: none;
     }
     ion-row{
+      background-color: transparent;
       button.button.button-default{
         background-color: map-get($colors, primary);
         box-shadow: none;
@@ -271,11 +272,21 @@ ion-menu{
   }
   ion-content{
     padding-top: 10px;
-    .list-md .item-block .item-inner,
-    .item-md.item-block .item-inner,
-    .list-md > .item-block:first-child,
-    .list-md > .item-block:last-child{
+    ion-list .item-block .item-inner,
+    ion-list > .item-block:first-child,
+    ion-list > .item-block:last-child{
       border: none;
+    }
+
+    ion-list > .item-block.logout{
+      border-top: 1px solid map-get($colors, dark);
+      #adminMenu &{
+        border: none;
+      }
+    }
+
+    ion-list > .item-block.points-settings{
+      border-top: 1px solid map-get($colors, dark);
     }
     .scroll-content{
       padding-top: 10px;
@@ -302,8 +313,14 @@ ion-menu{
       &.points::before{
         background-image: url('../assets/img/medal.svg');
       }
+      &.points-donate:before{
+        background-image: url('../assets/img/seed.svg');
+      }
       &.people::before{
         background-image: url('../assets/img/people.svg');
+      }
+      &.plots::before{
+        background-image: url('../assets/img/plot.svg');
       }
       &.community-join::before{
         background-image: url('../assets/img/message.svg');
@@ -320,7 +337,6 @@ ion-menu{
           content: none;
         }
       }
-
     }
   }
 }

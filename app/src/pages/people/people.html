@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'PEOPLE.TITLE' | translate }}</ion-title>
+    <ion-title>{{ title() | translate }}</ion-title>
     <ion-buttons end>
       <button *ngIf="personService.isAdmin" ion-button (click)="tabs[2].active ? goToAddPlot() : goToInvitePerson()">
         <ion-icon name="add"></ion-icon>
@@ -56,13 +56,13 @@
     <ion-card *ngFor="let plot of filteredList">
       <ion-row>
         <ion-col>
-          <ion-card-header>
+          <ion-card-header class="plot">
             {{ plot.name }} {{ plot.number }}
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
-              <ion-row>
+              <ion-row class="name">
                 <span *ngIf="plot.person">
                   {{ plot.person.name }}
                 </span>
@@ -72,13 +72,13 @@
               </ion-row>
               <ion-row class="status" *ngIf="plot_points_enabled">
                 <button class="bad" [disabled]="1 == plot.status" (click)="setStatus(plot, 1)" ion-button round>
-                  {{ 'PLOT.STATUS.BAD' | translate }}
+                  <span>{{ 'PLOT.STATUS.BAD' | translate }}</span>
                 </button>
                 <button class="regular" [disabled]="2 == plot.status" (click)="setStatus(plot, 2)" ion-button round>
-                  {{ 'PLOT.STATUS.REGULAR' | translate }}
+                  <span>{{ 'PLOT.STATUS.REGULAR' | translate }}</span>
                 </button>
                 <button class="good" [disabled]="3 == plot.status" (click)="setStatus(plot, 3)" ion-button round>
-                  {{ 'PLOT.STATUS.GOOD' | translate }}
+                  <span>{{ 'PLOT.STATUS.GOOD' | translate }}</span>
                 </button>
               </ion-row>
             </ion-grid>

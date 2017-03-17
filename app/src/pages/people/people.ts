@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PersonService } from '../../providers/person.service';
 import { Person } from '../../models/person';
 import { SimpleInvitationForm } from '../simple-invitation-form/simple-invitation-form';
@@ -28,6 +28,7 @@ export class People {
 
   constructor(
     public navCtrl: NavController,
+    public params: NavParams,
     public popoverCtrl: PopoverController,
     public personService: PersonService
   ) {
@@ -38,9 +39,18 @@ export class People {
       this.filteredList = this.list;
       this.plot_points_enabled = community.plot_points_enabled;
     });
+
     personService.getPlots().subscribe(plots => {
       this.plots = plots
     });
+
+    if (this.params.get('tab')){
+      this.selectTab(this.params.get('tab'));
+    }
+  }
+
+  title(){
+    return this.personService.isAdmin ? 'PEOPLE_AND_PLOTS.TITLE' : 'PEOPLE.TITLE'
   }
 
   showTasks(tabTitle){

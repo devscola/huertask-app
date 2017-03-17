@@ -1,6 +1,10 @@
 plot-form{
-  ion-label{
-    color: #999;
+  ion-item.item{
+    margin: 1rem 0;
+    ion-label{
+      color: #999;
+      margin: 13px 8px;
+    }
   }
   .info{
     margin-top: 30px;
