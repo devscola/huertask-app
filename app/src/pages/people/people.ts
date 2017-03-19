@@ -38,15 +38,15 @@ export class People {
       this.list = this.joined;
       this.filteredList = this.list;
       this.plot_points_enabled = community.plot_points_enabled;
+      personService.getPlots().subscribe(plots => {
+        this.plots = plots
+        if (this.params.get('tab')){
+          this.selectTab(this.params.get('tab'));
+        }
+      });
     });
 
-    personService.getPlots().subscribe(plots => {
-      this.plots = plots
-    });
 
-    if (this.params.get('tab')){
-      this.selectTab(this.params.get('tab'));
-    }
   }
 
   title(){
