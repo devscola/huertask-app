@@ -215,7 +215,6 @@ ion-menu{
     height: auto;
   }
 }
-
 .menu-inner{
   .toolbar{
     padding-top: 8px;
@@ -234,6 +233,14 @@ ion-menu{
     .toolbar-title-ios,
     .toolbar-title-wp{
       padding: 15px 12px;
+    }
+    &.toolbar-ios{
+      ion-title.title-ios{
+        padding-left: 10px
+      }
+      &.statusbar-padding{
+        min-height: 100px !important
+      }
     }
     #change-community {
       background-color: transparent;
@@ -297,6 +304,7 @@ ion-menu{
       &::before{
         display: inline-block;
         width: 30px;
+        margin-top: 1.8rem;
         height: 2.5rem;
         padding-right: 8px;
         content: "";
