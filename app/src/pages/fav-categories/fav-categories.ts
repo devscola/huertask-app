@@ -20,10 +20,17 @@ export class FavCategories {
     public taskService: TaskService,
     ) {
     this.person = this.personService.person
+    this.loadCategories()
+  }
 
-    personService.getPerson(this.person['id']).subscribe(person => {
+  ionViewWillEnter() {
+    this.loadCategories()
+  }
+
+  loadCategories(){
+    this.personService.getPerson(this.person['id']).subscribe(person => {
       this.person = person;
-      taskService.getCategories().subscribe(categories => {
+      this.taskService.getCategories().subscribe(categories => {
         let disliked_ids = this.person['dislike_categories'].map(cat => {return cat.id})
         this.categories = categories.map(cat => {
           cat['fav'] = disliked_ids.includes(cat.id) ? false : true;
