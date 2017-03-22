@@ -38,7 +38,7 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>{{person?.name||''}}</ion-title>
-      <ion-item>
+      <ion-item id="change-community-label">
         <button id="change-community" menuClose color="white" icon-right>
           <span (click)="showRadio()">{{activeCommunityName}}</span>
         </button>

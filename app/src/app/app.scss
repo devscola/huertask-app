@@ -228,6 +228,9 @@ ion-menu{
       background-color: inherit;
       padding-left: 8px;
     }
+    .toolbar-title-ios{
+      text-align: left;
+    }
     .toolbar-title,
     .toolbar-title-md,
     .toolbar-title-ios,
@@ -246,10 +249,14 @@ ion-menu{
       background-color: transparent;
       font-size: 1.5rem;
       padding-bottom: 10px;
+      padding-left: 10px;
       &::after{
         font-family: "Ionicons";
         content:"\f280";
       }
+    }
+    #change-community-label > .item-inner > .input-wrapper > .label-ios{
+      margin-top: 0px;
     }
     span.invitations{
       strong{
