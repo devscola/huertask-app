@@ -82,7 +82,7 @@
       </div>
     </ion-grid>
 
-    <div class="info" *ngIf="form.valid" [innerHTML]='plotsMessage() | translate:{first: first_plot(), last: last_plot()}'></div>
+    <div class="info" *ngIf="form.valid && action=='create'" [innerHTML]='plotsMessage() | translate:{first: first_plot(), last: last_plot()}'></div>
   </form>
 </ion-content>
 
