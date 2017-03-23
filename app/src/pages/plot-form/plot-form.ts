@@ -81,13 +81,18 @@ export class PlotForm {
       if(this.action == 'edit'){
         this.personService.editPlot(plot).subscribe( data => {
           this.navCtrl.setRoot(People);
+          this.presentToast('Se ha creado con exito', 'success')
         },
         err => this.presentToast('Ha habido un error', 'danger')
         )
       }else{
         if(plot.quantity != 1){ delete plot.person_id }
         this.personService.createPlot(plot).subscribe( data => {
-          this.presentConfirm()
+          if(this.list.length < 1){
+            this.presentConfirm()
+          }
+          this.navCtrl.setRoot(People, {'tab': 'PLOTS.TITLE'})
+          this.presentToast('Se ha editado con exito', 'success')
         },
         err => this.presentToast('Ha habido un error', 'danger')
         )
