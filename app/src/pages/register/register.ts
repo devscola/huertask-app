@@ -49,8 +49,7 @@ export class Register {
   }
 
   goToTermsAndConditions(){
-    let termsModal = this.modalCtrl.create(TermsAndConditions);
-    termsModal.present();
+    this.navCtrl.push(TermsAndConditions);
   }
 
   goToLogIn(){

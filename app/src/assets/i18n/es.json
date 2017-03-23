@@ -293,6 +293,7 @@
         }
       },
       "TERMS" : {
+        "TITLE" : "Términos y condiciones",
         "LABEL" : "Aceptar términos de uso",
         "ALERT" : {
           "REQUIRED" : "Tienes que leer y aceptar los términos de uso para seguir"

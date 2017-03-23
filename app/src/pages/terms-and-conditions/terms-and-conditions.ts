@@ -15,8 +15,4 @@ export class TermsAndConditions {
 
   constructor(public navCtrl: NavController) {}
 
-  ionViewDidLoad() {
-    console.log('Hello TermsAndConditions Page');
-  }
-
 }
