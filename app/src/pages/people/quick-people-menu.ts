@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
+import { People } from './people'
 
 @Component({
   selector: 'quick-people-menu',
@@ -54,7 +55,9 @@ export class QuickPeopleMenu {
           text: messages['BUTTONS']['DELETE'],
           handler: () => {
             this.deletePerson(person['id']);
-            alert.dismiss();
+            alert.dismiss().then(() => {
+              this.navCtrl.setRoot(People)
+            });
           }
         }
       ]
@@ -94,7 +97,9 @@ export class QuickPeopleMenu {
           text: messages['BUTTONS']['SUBMIT'],
           handler: () => {
             this.toggleAdmin(person['id']);
-            alert.dismiss();
+            alert.dismiss().then(() => {
+              this.navCtrl.setRoot(People)
+            });
           }
         }
       ]
