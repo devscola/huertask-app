@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../providers/person.service';
-import { Tasks } from '../tasks/tasks';
+import { People } from '../people/people';
 import { InvitationForm } from '../invitation-form/invitation-form';
 
 @Component({
@@ -54,7 +54,7 @@ export class SimpleInvitationForm {
     }
     this.personService.invitePeople(invitations).subscribe( data => {
         this.presentToast('Persona invitada', 'success')
-        this.navCtrl.setRoot(Tasks);
+        this.navCtrl.setRoot(People, {'tab': 'PEOPLE.INVITED.TITLE'});
       },
       err => this.presentToast('Ha habido un error', 'danger')
     )
