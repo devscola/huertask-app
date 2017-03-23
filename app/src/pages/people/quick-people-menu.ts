@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, ViewController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 import { PersonService } from '../../providers/person.service';
-import { People } from './people'
 
 @Component({
   selector: 'quick-people-menu',
@@ -22,6 +21,7 @@ export class QuickPeopleMenu {
     public navCtrl: NavController,
     private navParams: NavParams,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private translate: TranslateService,
     public personService: PersonService
   ) {
@@ -56,7 +56,8 @@ export class QuickPeopleMenu {
           handler: () => {
             this.deletePerson(person['id']);
             alert.dismiss().then(() => {
-              this.navCtrl.setRoot(People)
+              this.personService.events.publish("refresh:people")
+              this.presentToast('Persona eliminada', 'success')
             });
           }
         }
@@ -98,7 +99,8 @@ export class QuickPeopleMenu {
           handler: () => {
             this.toggleAdmin(person['id']);
             alert.dismiss().then(() => {
-              this.navCtrl.setRoot(People)
+              this.personService.events.publish("refresh:people")
+              this.presentToast('Estado cambiado', 'success')
             });
           }
         }
@@ -114,5 +116,16 @@ export class QuickPeopleMenu {
 
   close() {
     this.viewCtrl.dismiss();
+  }
+
+  presentToast(message: string, cssClass: string = '') {
+    let toast = this.toastCtrl.create({
+     message: message,
+     duration: 5000,
+     position: 'bottom',
+     cssClass: cssClass
+    });
+
+    toast.present();
   }
 }

@@ -32,21 +32,28 @@ export class People {
     public popoverCtrl: PopoverController,
     public personService: PersonService
   ) {
-    personService.getCommunity().subscribe(community => {
+
+    this.loadData()
+
+    personService.events.subscribe('refresh:people', () => {
+      this.loadData()
+    })
+  }
+
+  loadData(){
+    this.personService.getCommunity().subscribe(community => {
       this.joined = community.joined;
       this.invited = community.invited;
       this.list = this.joined;
       this.filteredList = this.list;
       this.plot_points_enabled = community.plot_points_enabled;
-      personService.getPlots().subscribe(plots => {
+      this.personService.getPlots().subscribe(plots => {
         this.plots = plots
         if (this.params.get('tab')){
           this.selectTab(this.params.get('tab'));
         }
       });
     });
-
-
   }
 
   title(){
