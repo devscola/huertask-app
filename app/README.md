@@ -82,8 +82,8 @@ messageMapping: {[k:string]: string} = {
   "TASK" : {
     "PEOPLE_LEFT" : {
       "MSG" : {
-        "ZERO" : "Completo"
-        "ONE" : "Falta 1 persona"
+        "ZERO" : "Completo",
+        "ONE" : "Falta 1 persona",
         "PLURAL" : "Faltan {{count}} personas"
       }
     }
